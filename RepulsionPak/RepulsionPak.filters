@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\PhysicsPack">
+      <UniqueIdentifier>{fcc89678-5e44-47a4-9e22-e3c16524f053}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\PhysicsPack">
+      <UniqueIdentifier>{60bb06b5-dfd4-44c3-b62a-3d5cf9adcc45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\KD-Tree">
+      <UniqueIdentifier>{54155b48-9985-4369-98e8-dbdee36d2adf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\KD-Tree">
+      <UniqueIdentifier>{00dd5b3b-0f6a-410a-b9a6-9413a04ef231}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Quadtree">
+      <UniqueIdentifier>{b63160c8-80b2-4122-a66d-82465f0655ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Quadtree">
+      <UniqueIdentifier>{22df7052-c86d-4105-989b-f8fdf89253a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\CollissionGrid">
+      <UniqueIdentifier>{76dd0b56-a89d-4daf-b3e3-554a77cd7428}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ALine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="APath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AVector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dirent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageThinning.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PathIO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UtilityFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ARectangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="clipper.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemParams.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClipperWrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenCVWrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MySVGRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ArtData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VFRegion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaScript.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnIdxTriangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CGALTriangulation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SelfIntersectionFixer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CurveRDP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSSSmoothing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CurveFitting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BezierSmoothing.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AQuad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PolyToBezier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CGALOffsetter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CGALBoolean.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CGALIntersector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_glut.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulation.h">
+      <Filter>Header Files\PhysicsPack</Filter>
+    </ClInclude>
+    <ClInclude Include="StuffWorker.h">
+      <Filter>Header Files\PhysicsPack</Filter>
+    </ClInclude>
+    <ClInclude Include="PoissonGenerator.h">
+      <Filter>Header Files\PhysicsPack</Filter>
+    </ClInclude>
+    <ClInclude Include="Kruskal.h">
+      <Filter>Header Files\PhysicsPack</Filter>
+    </ClInclude>
+    <ClInclude Include="AGraph.h">
+      <Filter>Header Files\PhysicsPack</Filter>
+    </ClInclude>
+    <ClInclude Include="AnIndexedLine.h">
+      <Filter>Header Files\PhysicsPack</Filter>
+    </ClInclude>
+    <ClInclude Include="AMass.h">
+      <Filter>Header Files\PhysicsPack</Filter>
+    </ClInclude>
+    <ClInclude Include="AngleConnector.h">
+      <Filter>Header Files\PhysicsPack</Filter>
+    </ClInclude>
+    <ClInclude Include="Display.h">
+      <Filter>Header Files\PhysicsPack</Filter>
+    </ClInclude>
+    <ClInclude Include="PointCloud.h">
+      <Filter>Header Files\KD-Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="Quadtree.h">
+      <Filter>Header Files\Quadtree</Filter>
+    </ClInclude>
+    <ClInclude Include="QTObject.h">
+      <Filter>Header Files\Quadtree</Filter>
+    </ClInclude>
+    <ClInclude Include="AnObject.h">
+      <Filter>Header Files\CollissionGrid</Filter>
+    </ClInclude>
+    <ClInclude Include="ASquare.h">
+      <Filter>Header Files\CollissionGrid</Filter>
+    </ClInclude>
+    <ClInclude Include="CollissionGrid.h">
+      <Filter>Header Files\CollissionGrid</Filter>
+    </ClInclude>
+    <ClInclude Include="ABary.h">
+      <Filter>Header Files\PhysicsPack</Filter>
+    </ClInclude>
+    <ClInclude Include="NANOFLANNWrapper.h">
+      <Filter>Header Files\CollissionGrid</Filter>
+    </ClInclude>
+    <ClInclude Include="ADistanceTransform.h">
+      <Filter>Header Files\PhysicsPack</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidRegistration.h">
+      <Filter>Header Files\PhysicsPack</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorPalette.h">
+      <Filter>Header Files\PhysicsPack</Filter>
+    </ClInclude>
+    <ClInclude Include="CGALTriangulation2.h">
+      <Filter>Header Files\PhysicsPack</Filter>
+    </ClInclude>
+    <ClInclude Include="MyColor.h">
+      <Filter>Header Files\PhysicsPack</Filter>
+    </ClInclude>
+    <ClInclude Include="FastNoise.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PAD.h">
+      <Filter>Header Files\PhysicsPack</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dirent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageThinning.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PathIO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UtilityFunctions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="clipper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemParams.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ClipperWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenCVWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MySVGRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VFRegion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaScript.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CGALTriangulation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SelfIntersectionFixer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CurveRDP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CSSSmoothing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CurveFitting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CGALOffsetter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CGALBoolean.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CGALIntersector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BezierSmoothing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_glut.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StuffWorker.cpp">
+      <Filter>Source Files\PhysicsPack</Filter>
+    </ClCompile>
+    <ClCompile Include="Kruskal.cpp">
+      <Filter>Source Files\PhysicsPack</Filter>
+    </ClCompile>
+    <ClCompile Include="AMass.cpp">
+      <Filter>Source Files\PhysicsPack</Filter>
+    </ClCompile>
+    <ClCompile Include="Display.cpp">
+      <Filter>Source Files\PhysicsPack</Filter>
+    </ClCompile>
+    <ClCompile Include="NANOFLANNWrapper.cpp">
+      <Filter>Source Files\KD-Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="Quadtree.cpp">
+      <Filter>Source Files\Quadtree</Filter>
+    </ClCompile>
+    <ClCompile Include="QTObject.cpp">
+      <Filter>Source Files\Quadtree</Filter>
+    </ClCompile>
+    <ClCompile Include="ADistanceTransform.cpp">
+      <Filter>Source Files\PhysicsPack</Filter>
+    </ClCompile>
+    <ClCompile Include="AGraph.cpp">
+      <Filter>Source Files\PhysicsPack</Filter>
+    </ClCompile>
+    <ClCompile Include="CollissionGrid.cpp">
+      <Filter>Source Files\PhysicsPack</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidRegistration.cpp">
+      <Filter>Source Files\PhysicsPack</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorPalette.cpp">
+      <Filter>Source Files\PhysicsPack</Filter>
+    </ClCompile>
+    <ClCompile Include="CGALTriangulation2.cpp">
+      <Filter>Source Files\PhysicsPack</Filter>
+    </ClCompile>
+    <ClCompile Include="FastNoise.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PAD.cpp">
+      <Filter>Source Files\PhysicsPack</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\params.lua">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,359 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_Debug|Win32">
+      <Configuration>Release_Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_Debug|x64">
+      <Configuration>Release_Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A12CA17F-D17B-44DF-A6BE-24119BCE876C}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>RepulsionPak</RootNamespace>
+    <ProjectName>RepulsionPak</ProjectName>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>RepulsionPak</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>RepulsionPak</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>RepulsionPak</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>RepulsionPak</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>RepulsionPak</TargetName>
+    <OutDir>$(SolutionDir)\Release64\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debug|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>RepulsionPak</TargetName>
+    <OutDir>$(SolutionDir)\Release64\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level1</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\opencv\build\include;..\..\Lua533\Lua533;..\..\CGAL-4.6.3\include;..\..\CGAL-4.6.3\auxiliary\gmp\include;..\..\CGAL-4.6.3\bin\include;..\..\boost_1_59_0;..\..\Eigen_3_2;..\..\imgui_freeglut\include;..\..\imgui_freeglut\imgui</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\azer\workspace\opencv\build\x86\vc12\lib;C:\Users\azer\workspace\Core\lib\win32;C:\Users\azer\workspace\VecFieldDesign\vfd\lib;C:\Users\azer\workspace\DecorativeOrnaments\DecorativeOrnaments\lib\win32;C:\Program Files (x86)\IntelSWTools\compilers_and_libraries_2016\windows\compiler\lib\ia32;C:\Program Files (x86)\IntelSWTools\compilers_and_libraries_2016\windows\mkl\lib\ia32;C:\Program Files (x86)\IntelSWTools\compilers_and_libraries_2016.3.207\windows\tbb\lib\ia32\vc12;C:\Users\azer\workspace\SuperLU_3.1\lib;C:\Users\azer\workspace\Lua533\$(ConfigurationName);C:\Users\azer\workspace\CGAL-4.6.3\bin\lib;C:\Users\azer\workspace\CGAL-4.6.3\auxiliary\gmp\lib;C:\Users\azer\workspace\boost_1_59_0\lib32-msvc-12.0;C:\Users\azer\workspace\imgui_freeglut\lib\win32;C:\Users\azer\workspace\imgui_freeglut\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freeglut.lib;imgui.lib;opencv_core2412d.lib;opencv_highgui2412d.lib;opencv_imgproc2412d.lib;Lua533.lib;libgmp-10.lib;libmpfr-4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level1</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\azer\workspace\opencv\build\include;C:\Users\azer\workspace\VecFieldDesign\vfd\inc;C:\Users\azer\workspace\VecFieldDesign\vfd\src;C:\Users\azer\workspace\Core\inc;C:\Users\azer\workspace\Lua533\Lua533;C:\Users\azer\workspace\CGAL-4.6.3\include;C:\Users\azer\workspace\CGAL-4.6.3\auxiliary\gmp\include;C:\Users\azer\workspace\CGAL-4.6.3\bin\include;C:\Users\azer\workspace\boost_1_59_0;C:\Users\azer\workspace\Eigen_3_2;C:\Users\azer\workspace\imgui_freeglut\include;C:\Users\azer\workspace\imgui_freeglut\imgui</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\azer\workspace\opencv\build\x86\vc12\lib;C:\Users\azer\workspace\VecFieldDesign\vfd\lib;C:\Users\azer\workspace\DecorativeOrnaments\DecorativeOrnaments\lib\win32;C:\Program Files (x86)\IntelSWTools\compilers_and_libraries_2016\windows\compiler\lib\ia32;C:\Program Files (x86)\IntelSWTools\compilers_and_libraries_2016\windows\mkl\lib\ia32;C:\Program Files (x86)\IntelSWTools\compilers_and_libraries_2016.3.207\windows\tbb\lib\ia32\vc12;C:\Users\azer\workspace\SuperLU_3.1\lib;C:\Users\azer\workspace\Lua533\$(ConfigurationName);C:\Users\azer\workspace\CGAL-4.6.3\bin\lib;C:\Users\azer\workspace\CGAL-4.6.3\auxiliary\gmp\lib;C:\Users\azer\workspace\boost_1_59_0\lib32-msvc-12.0;C:\Users\azer\workspace\imgui_freeglut\lib\win32;C:\Users\azer\workspace\imgui_freeglut\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>mkl_intel_c.lib;mkl_intel_thread.lib;mkl_core.lib;libiomp5md.lib;vfd_win32d.lib;freeglut.lib;imgui.lib;superlu_3.1d.lib;opencv_core2412d.lib;opencv_highgui2412d.lib;opencv_imgproc2412d.lib;Lua533.lib;libgmp-10.lib;libmpfr-4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level1</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\opencv\build\include;..\..\Lua533\Lua533;..\..\CGAL-4.6.3\include;..\..\CGAL-4.6.3\auxiliary\gmp\include;..\..\CGAL-4.6.3\bin\include;..\..\boost_1_59_0;..\..\Eigen_3_2;..\..\imgui_freeglut\include;..\..\imgui_freeglut\imgui</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OpenMPSupport>true</OpenMPSupport>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>..\..\opencv\build\x86\vc12\lib;..\..\Lua533\$(ConfigurationName);..\..\CGAL-4.6.3\bin\lib;..\..\CGAL-4.6.3\auxiliary\gmp\lib;..\..\boost_1_59_0\lib32-msvc-12.0;..\..\imgui_freeglut\lib\win32;..\..\imgui_freeglut\Release</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freeglut.lib;imgui.lib;opencv_core2412.lib;opencv_highgui2412.lib;opencv_imgproc2412.lib;libgmp-10.lib;libmpfr-4.lib;Lua533.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level1</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\opencv\build\include;..\..\Lua533\Lua533;..\..\CGAL-4.6.3\include;..\..\CGAL-4.6.3\auxiliary\gmp\include;..\..\CGAL-4.6.3\bin\include;..\..\boost_1_59_0;..\..\Eigen_3_2;..\..\imgui_freeglut\include;..\..\imgui_freeglut\imgui</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>..\..\opencv\build\x86\vc12\lib;..\..\Lua533\$(ConfigurationName);..\..\CGAL-4.6.3\bin\lib;..\..\CGAL-4.6.3\auxiliary\gmp\lib;..\..\boost_1_59_0\lib32-msvc-12.0;..\..\imgui_freeglut\lib\win32;..\..\imgui_freeglut\Release</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freeglut.lib;imgui.lib;opencv_core2412.lib;opencv_highgui2412.lib;opencv_imgproc2412.lib;libgmp-10.lib;libmpfr-4.lib;Lua533.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level1</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\azer\workspace\opencv\build\include;C:\Users\azer\workspace\VecFieldDesign\vfd\inc;C:\Users\azer\workspace\VecFieldDesign\vfd\src;C:\Users\azer\workspace\Core\inc;C:\Users\azer\workspace\Lua533\Lua533;C:\Users\azer\workspace\CGAL-4.6.3\include;C:\Users\azer\workspace\CGAL-4.6.3\auxiliary\gmp\include;C:\Users\azer\workspace\CGAL-4.6.3\bin\include;C:\Users\azer\workspace\boost_1_59_0;C:\Users\azer\workspace\Eigen_3_2;C:\Users\azer\workspace\imgui_freeglut\include;C:\Users\azer\workspace\imgui_freeglut\imgui</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\Users\azer\workspace\opencv\build\x64\vc12\lib;C:\Users\azer\workspace\Lua533\x64\Release;C:\Users\azer\workspace\CGAL-4.6.3-x64\auxiliary\gmp\lib;C:\Users\azer\workspace\boost_1_59_0_x64\lib64-msvc-12.0;C:\Users\azer\workspace\imgui_freeglut\lib\x64;C:\Users\azer\workspace\imgui_freeglut\Release;C:\Users\azer\workspace\Lua533\x64\Release\;C:\Users\azer\workspace\CGAL-4.6.3-x64\bin\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freeglut.lib;imguix64.lib;opencv_core2412.lib;opencv_highgui2412.lib;opencv_imgproc2412.lib;libgmp-10.lib;libmpfr-4.lib;Lua533.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level1</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\azer\workspace\opencv\build\include;C:\Users\azer\workspace\VecFieldDesign\vfd\inc;C:\Users\azer\workspace\VecFieldDesign\vfd\src;C:\Users\azer\workspace\Core\inc;C:\Users\azer\workspace\Lua533\Lua533;C:\Users\azer\workspace\CGAL-4.6.3\include;C:\Users\azer\workspace\CGAL-4.6.3\auxiliary\gmp\include;C:\Users\azer\workspace\CGAL-4.6.3\bin\include;C:\Users\azer\workspace\boost_1_59_0;C:\Users\azer\workspace\Eigen_3_2;C:\Users\azer\workspace\imgui_freeglut\include;C:\Users\azer\workspace\imgui_freeglut\imgui</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\Users\azer\workspace\opencv\build\x64\vc12\lib;C:\Users\azer\workspace\Lua533\x64\Release;C:\Users\azer\workspace\CGAL-4.6.3-x64\auxiliary\gmp\lib;C:\Users\azer\workspace\boost_1_59_0_x64\lib64-msvc-12.0;C:\Users\azer\workspace\imgui_freeglut\lib\x64;C:\Users\azer\workspace\imgui_freeglut\Release;C:\Users\azer\workspace\Lua533\x64\Release\;C:\Users\azer\workspace\CGAL-4.6.3-x64\bin\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freeglut.lib;imguix64.lib;opencv_core2412.lib;opencv_highgui2412.lib;opencv_imgproc2412.lib;libgmp-10.lib;libmpfr-4.lib;Lua533.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ABary.h" />
+    <ClInclude Include="ADistanceTransform.h" />
+    <ClInclude Include="AGraph.h" />
+    <ClInclude Include="ASquare.h" />
+    <ClInclude Include="ALine.h" />
+    <ClInclude Include="AngleConnector.h" />
+    <ClInclude Include="AnIdxTriangle.h" />
+    <ClInclude Include="AnIndexedLine.h" />
+    <ClInclude Include="AnObject.h" />
+    <ClInclude Include="APath.h" />
+    <ClInclude Include="AQuad.h" />
+    <ClInclude Include="ARectangle.h" />
+    <ClInclude Include="BezierSmoothing.h" />
+    <ClInclude Include="CGALBoolean.h" />
+    <ClInclude Include="CGALIntersector.h" />
+    <ClInclude Include="CGALOffsetter.h" />
+    <ClInclude Include="CGALTriangulation.h" />
+    <ClInclude Include="CGALTriangulation2.h" />
+    <ClInclude Include="CollissionGrid.h" />
+    <ClInclude Include="ColorPalette.h" />
+    <ClInclude Include="ContainerWorker.h" />
+    <ClInclude Include="CSSSmoothing.h" />
+    <ClInclude Include="CurveFitting.h" />
+    <ClInclude Include="CurveRDP.h" />
+    <ClInclude Include="Display.h" />
+    <ClInclude Include="FastNoise.h" />
+    <ClInclude Include="imgui_impl_glut.h" />
+    <ClInclude Include="KDTreeVectorOfVectorsAdaptor.h" />
+    <ClInclude Include="Kruskal.h" />
+    <ClInclude Include="LuaScript.h" />
+    <ClInclude Include="AMass.h" />
+    <ClInclude Include="MyColor.h" />
+    <ClInclude Include="NANOFLANNWrapper.h" />
+    <ClInclude Include="PAD.h" />
+    <ClInclude Include="PointCloud.h" />
+    <ClInclude Include="PoissonGenerator.h" />
+    <ClInclude Include="PolyToBezier.h" />
+    <ClInclude Include="QTObject.h" />
+    <ClInclude Include="Quadtree.h" />
+    <ClInclude Include="RigidRegistration.h" />
+    <ClInclude Include="SelfIntersectionFixer.h" />
+    <ClInclude Include="Simulation.h" />
+    <ClInclude Include="StuffWorker.h" />
+    <ClInclude Include="VFRegion.h" />
+    <ClInclude Include="ArtData.h" />
+    <ClInclude Include="AVector.h" />
+    <ClInclude Include="clipper.hpp" />
+    <ClInclude Include="ClipperWrapper.h" />
+    <ClInclude Include="dirent.h" />
+    <ClInclude Include="ImageThinning.h" />
+    <ClInclude Include="MySVGRenderer.h" />
+    <ClInclude Include="OpenCVWrapper.h" />
+    <ClInclude Include="PathIO.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="SystemParams.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="UtilityFunctions.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ADistanceTransform.cpp" />
+    <ClCompile Include="AGraph.cpp" />
+    <ClCompile Include="AMass.cpp" />
+    <ClCompile Include="BezierSmoothing.cpp" />
+    <ClCompile Include="CGALBoolean.cpp" />
+    <ClCompile Include="CGALIntersector.cpp" />
+    <ClCompile Include="CGALOffsetter.cpp" />
+    <ClCompile Include="CGALTriangulation.cpp" />
+    <ClCompile Include="CGALTriangulation2.cpp" />
+    <ClCompile Include="clipper.cpp" />
+    <ClCompile Include="ClipperWrapper.cpp" />
+    <ClCompile Include="CollissionGrid.cpp" />
+    <ClCompile Include="ColorPalette.cpp" />
+    <ClCompile Include="ContainerWorker.cpp" />
+    <ClCompile Include="CSSSmoothing.cpp" />
+    <ClCompile Include="CurveFitting.cpp" />
+    <ClCompile Include="CurveRDP.cpp" />
+    <ClCompile Include="dirent.cpp" />
+    <ClCompile Include="Display.cpp" />
+    <ClCompile Include="FastNoise.cpp" />
+    <ClCompile Include="ImageThinning.cpp" />
+    <ClCompile Include="imgui_impl_glut.cpp" />
+    <ClCompile Include="Kruskal.cpp" />
+    <ClCompile Include="LuaScript.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MySVGRenderer.cpp" />
+    <ClCompile Include="NANOFLANNWrapper.cpp" />
+    <ClCompile Include="OpenCVWrapper.cpp" />
+    <ClCompile Include="PAD.cpp" />
+    <ClCompile Include="PathIO.cpp" />
+    <ClCompile Include="QTObject.cpp" />
+    <ClCompile Include="Quadtree.cpp" />
+    <ClCompile Include="RigidRegistration.cpp" />
+    <ClCompile Include="SelfIntersectionFixer.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="StuffWorker.cpp" />
+    <ClCompile Include="SystemParams.cpp" />
+    <ClCompile Include="UtilityFunctions.cpp" />
+    <ClCompile Include="VFRegion.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\params.lua" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

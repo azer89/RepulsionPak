@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="ADistanceTransform.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="AGraph.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="AMass.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="BezierSmoothing.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="CGALBoolean.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="CGALIntersector.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="CGALOffsetter.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="CGALTriangulation.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="CGALTriangulation2.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="ClipperWrapper.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="CollissionGrid.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorPalette.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="CSSSmoothing.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="CurveFitting.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="CurveRDP.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="Display.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageThinning.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="Kruskal.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="MySVGRenderer.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="NANOFLANNWrapper.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenCVWrapper.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="PAD.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="PathIO.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="QTObject.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="Quadtree.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidRegistration.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="SelfIntersectionFixer.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="StuffWorker.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="UtilityFunctions.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemParams.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="VFRegion.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="clipper.cpp">
+      <Filter>CPP\LIB</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_glut.cpp">
+      <Filter>CPP\LIB</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaScript.cpp">
+      <Filter>CPP\LIB</Filter>
+    </ClCompile>
+    <ClCompile Include="FastNoise.cpp">
+      <Filter>CPP\LIB</Filter>
+    </ClCompile>
+    <ClCompile Include="dirent.cpp">
+      <Filter>CPP\LIB</Filter>
+    </ClCompile>
+    <ClCompile Include="ContainerWorker.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ABary.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="ADistanceTransform.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="AGraph.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="ALine.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="AMass.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="AngleConnector.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="AnIdxTriangle.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="AnIndexedLine.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="AnObject.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="APath.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="AQuad.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="ARectangle.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="ArtData.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="ASquare.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="AVector.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="BezierSmoothing.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="CGALBoolean.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="CGALIntersector.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="CGALOffsetter.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="CGALTriangulation.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="CGALTriangulation2.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="ClipperWrapper.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="CollissionGrid.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="ColorPalette.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="CSSSmoothing.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="CurveFitting.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="CurveRDP.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="Display.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageThinning.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="Kruskal.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaScript.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="MyColor.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="MySVGRenderer.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="NANOFLANNWrapper.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenCVWrapper.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="PAD.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="PathIO.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="PointCloud.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="PoissonGenerator.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="PolyToBezier.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="QTObject.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="Quadtree.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidRegistration.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="SelfIntersectionFixer.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulation.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="StuffWorker.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemParams.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="UtilityFunctions.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="VFRegion.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="clipper.hpp">
+      <Filter>H\LIB</Filter>
+    </ClInclude>
+    <ClInclude Include="dirent.h">
+      <Filter>H\LIB</Filter>
+    </ClInclude>
+    <ClInclude Include="FastNoise.h">
+      <Filter>H\LIB</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_glut.h">
+      <Filter>H\LIB</Filter>
+    </ClInclude>
+    <ClInclude Include="ContainerWorker.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="KDTreeVectorOfVectorsAdaptor.h">
+      <Filter>H</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\params.lua" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="H">
+      <UniqueIdentifier>{eeb03387-96e4-4f9f-9e9f-087755f3dd30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CPP">
+      <UniqueIdentifier>{2fe6ab2a-2624-48a9-84bf-08618218ecd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CPP\LIB">
+      <UniqueIdentifier>{f84967b7-99a5-416e-8999-a3e0008724dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="H\LIB">
+      <UniqueIdentifier>{e4d28892-7b6b-4e56-aa7e-e69e2ba123ad}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

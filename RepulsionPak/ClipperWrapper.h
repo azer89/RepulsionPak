@@ -58,6 +58,7 @@ public:
 								  std::vector<std::vector<AVector>>& outPolys,
 								  std::vector<bool>& orientationFlags);
 	static float CalculateFill(const std::vector<AVector>& container, const std::vector<AGraph>& graphs);
+	static float CalculateFill(const std::vector<AVector>& container, const std::vector<std::vector<AVector >>& graphs);
 
 	// offsetting
 	static std::vector<std::vector<AVector>> OffsettingL(std::vector<AVector> someLine, float offsetVal); 

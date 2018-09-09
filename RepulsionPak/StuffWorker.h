@@ -100,6 +100,8 @@ public:
 	void ComputePerlinMap(int t);
 
 public:
+	float _man_neg_ratio;
+
 	//AVector start_ln;
 	//AVector end_ln;
 	//AVector rand_pt;
@@ -186,6 +188,7 @@ public:
 	std::vector<std::vector<AVector>> _manualSkeletons;
 	std::vector<std::vector<AVector>> _manualContainer;
 	void CreateManualPacking();
+	void AnalyzeManualPacking();
 	
 	// ====================================================
 	CollissionGrid* _sqCGrid;

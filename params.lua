@@ -9,9 +9,9 @@ _save_folder  = "C:\\Users\\azer\\workspace\\Images\\PhysicsPak_Snapshots_0" .. 
 ------ folders ------
 _image_folder         = "C:\\Users\\azer\\workspace\\Images\\";	--- where all the input files are located
 _artName              = "pp_circle"; --- pp_lolwut	--- location of the container
-_manual_art_name      = "man_stripes";	--- manually drawn packing (for evaluation)
-_ornament_dir         = _image_folder .. "opp_b_leaf";		--- regular elements
-_ornament_dir_small_1 = _image_folder .. "opp_b_leaf"; --- filling elements (the elements to fill the remaining empty space after the simulation ends)
+_manual_art_name      = "man_balabolka";	--- manually drawn packing (for evaluation)
+_ornament_dir         = _image_folder .. "opp_b_blue_bunny";		--- regular elements
+_ornament_dir_small_1 = _image_folder .. "opp_b_blue_bunny"; --- filling elements (the elements to fill the remaining empty space after the simulation ends)
 
 ---------------------------------------------------------------------
 --- PAD
@@ -144,7 +144,7 @@ _collission_block_radius = 1;
 --- incremetal step for growing
 _growth_scale_iter     = 0.01;
 --- initial scale after placing the elements inside the target container
-_element_initial_scale = 0.4; 
+_element_initial_scale = 0.04; 
 --- epsilon for halting the growth
 _growth_min_dist       = 1; 
 

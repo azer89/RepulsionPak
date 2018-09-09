@@ -34,6 +34,8 @@ CollissionGrid* StuffWorker::_cGrid = 0;
 // constructor
 StuffWorker::StuffWorker()
 {
+	_man_neg_ratio = -1;
+
 	_numBigOnes = 0;
 	_numReplicatedBigOnes = 0;
 
@@ -85,6 +87,8 @@ StuffWorker::StuffWorker()
 
 	//CreateSquares();     // don't forget to change params.lua
 	//CreateManualPacking(); // don't forget to change params.lua
+	AnalyzeManualPacking();
+
 
 	//MyColor::_black.Print();
 	//MyColor::_white.Print();
@@ -1364,6 +1368,21 @@ void StuffWorker::Operate(float dt)
 		this->_graphs[a].InitVerlet();
 	}
 }*/
+
+void StuffWorker::AnalyzeManualPacking()
+{
+	std::cout << "AnalyzeManualPacking\n";
+
+	PathIO pathIO;
+	VFRegion reg = pathIO.LoadRegions(SystemParams::_image_folder + SystemParams::_manual_art_name + ".path")[0];
+
+	_manualElements = reg.GetFocalBoundaries();
+	_manualContainer = reg.GetBoundaries();
+
+	_man_neg_ratio = ClipperWrapper::CalculateFill(_manualContainer[0], _manualElements);
+
+	std::cout << "_man_neg_ratio = " << _man_neg_ratio << "\n";
+}
 
 /*
 CollissionGrid*                   _manualGrid;

@@ -650,6 +650,54 @@ std::vector<std::vector<AVector>> ClipperWrapper::RoundOffsettingPP(std::vector<
 	return offPolys;
 }
 
+// to do: dublicate code
+float ClipperWrapper::CalculateFill(const std::vector<AVector>& container, const std::vector<std::vector<AVector >>& graphs)
+{
+	float cScaling = 1e10;
+
+	ClipperLib::Path cTargetShape;
+	ClipperLib::Paths cClippingShapes(graphs.size());
+	ClipperLib::PolyTree sol1;
+
+	// the clipped shape
+	for (int a = 0; a < container.size(); a++)
+	{
+		cTargetShape << ClipperLib::IntPoint(container[a].x * cScaling, container[a].y * cScaling);
+	}
+
+
+	// shapes that clip another shape
+	for (int a = 0; a < graphs.size(); a++)
+	{
+		for (int b = 0; b < graphs[a].size(); b++)
+		{
+			cClippingShapes[a] << ClipperLib::IntPoint(graphs[a][b].x * cScaling, graphs[a][b].y * cScaling);
+		}
+	}
+
+	ClipperLib::Clipper myClipper1;
+	myClipper1.AddPath(cTargetShape, ClipperLib::ptClip, true); // the clipped shape
+	myClipper1.AddPaths(cClippingShapes, ClipperLib::ptSubject, true); // shapes that clip another shape
+
+
+	myClipper1.Execute(ClipperLib::ctIntersection, sol1, ClipperLib::pftNonZero, ClipperLib::pftNonZero);
+
+
+	ClipperLib::Paths pSol1;
+	ClipperLib::PolyTreeToPaths(sol1, pSol1);
+
+	float containerArea = ClipperLib::Area(cTargetShape);
+	float elementArea = 0;
+
+
+	for (int a = 0; a < pSol1.size(); a++)
+	{
+		elementArea += ClipperLib::Area(pSol1[a]);
+	}
+
+	return elementArea / containerArea;
+}
+
 float ClipperWrapper::CalculateFill(const std::vector<AVector>& container, const std::vector<AGraph>& graphs)
 {
 	 float cScaling = 1e10;

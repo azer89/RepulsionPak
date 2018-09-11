@@ -78,6 +78,7 @@ public:
 	static float _k_rotate;
 	static float _k_noise;
 	static float _k_neg_space_edge;
+	static float _k_edge_dynamic;
 	static float _k_edge;
 	static float _k_edge_small_factor;
 	//static float _k_edge_more;

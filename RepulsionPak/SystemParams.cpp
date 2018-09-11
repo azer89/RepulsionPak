@@ -275,6 +275,7 @@ float SystemParams::_k_rotate                = 0;
 float SystemParams::_k_noise                 = 0;
 float SystemParams::_k_neg_space_edge        = 0;
 float SystemParams::_k_edge                  = 0;
+float SystemParams::_k_edge_dynamic          = 1;
 float SystemParams::_k_edge_small_factor     = 0;
 float SystemParams::_k_repulsion             = 0;
 float SystemParams::_repulsion_soft_factor   = 0;

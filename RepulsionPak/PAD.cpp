@@ -177,7 +177,7 @@ bool PADCalculator::IsGoodAngle(const PADDescriptor& desc)
 	{
 		if (angleVal < SystemParams::_angle_cap) { return false; }
 
-		std::cout << "angleVal: " << angleVal << "\n";
+		//std::cout << "angleVal: " << angleVal << "\n";
 
 		return true;
 	}

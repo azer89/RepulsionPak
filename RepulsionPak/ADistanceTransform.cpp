@@ -356,9 +356,9 @@ void ADistanceTransform::CalculateSDF(CollissionGrid* cGrid, int numIter, bool s
 		}
 	}
 
-	//std::stringstream ss6;
-	//ss6 << "dist_" << numIter;
-	//DebugDistanceImage(ss6.str());
+	std::stringstream ss6;
+	ss6 << "dist_" << numIter;
+	DebugDistanceImage(ss6.str());
 
 	if (SystemParams::_output_files)
 	{
@@ -621,7 +621,7 @@ void ADistanceTransform::DebugOverlapMask(std::vector<int> overlapMask, CVImg th
 
 void ADistanceTransform::DebugDistanceImage(std::string imageName)
 {
-	double minVal = std::numeric_limits<float>::max();
+	/*double minVal = std::numeric_limits<float>::max();
 	double maxVal = std::numeric_limits<float>::min();
 	for (unsigned a = 0; a < _distArray.size(); a++)
 	{
@@ -632,7 +632,9 @@ void ADistanceTransform::DebugDistanceImage(std::string imageName)
 	//cv::minMaxLoc(distImage, &minVal, &maxVal, 0, 0, cv::Mat());
 
 
-	minVal = abs(minVal); maxVal = abs(maxVal);
+	minVal = abs(minVal); maxVal = abs(maxVal);*/
+	double minVal = 20;
+	double maxVal = 20;
 
 	//std::cout << minVal << " " << maxVal << "\n";
 	//int intMaxVal = maxVal;
@@ -650,10 +652,14 @@ void ADistanceTransform::DebugDistanceImage(std::string imageName)
 			float d = _distArray[i + j * _sz];
 			if (d < 0)
 			{
+				if (d < -20) d = -20;
+
 				drawing.at<cv::Vec3b>(j, i)[0] = 255 - (int)abs(d) * 255 / minVal;
 			}
 			else if (d > 0)
 			{
+				if (d > 20) d = 20;
+
 				drawing.at<cv::Vec3b>(j, i)[2] = 255 - (int)d * 255 / maxVal;
 			}
 			else
@@ -673,7 +679,7 @@ void ADistanceTransform::DebugDistanceImage(std::string imageName)
 
 void  ADistanceTransform::DebugDistanceImage(CVImg thinningImage, std::string imageName)
 {
-	double minVal = std::numeric_limits<float>::max(); 
+	/*double minVal = std::numeric_limits<float>::max(); 
 	double maxVal = std::numeric_limits<float>::min();
 	for (unsigned a = 0; a < _distArray.size(); a++)
 	{
@@ -684,7 +690,9 @@ void  ADistanceTransform::DebugDistanceImage(CVImg thinningImage, std::string im
 	//cv::minMaxLoc(distImage, &minVal, &maxVal, 0, 0, cv::Mat());
 	
 	
-	minVal = abs(minVal); maxVal = abs(maxVal);
+	minVal = abs(minVal); maxVal = abs(maxVal);*/
+	double minVal = 20;
+	double maxVal = 20;
 
 	//std::cout << minVal << " " << maxVal << "\n";
 	//int intMaxVal = maxVal;
@@ -709,10 +717,14 @@ void  ADistanceTransform::DebugDistanceImage(CVImg thinningImage, std::string im
 			float d = _distArray[i + j * _sz];
 			if (d < 0)
 			{
+				if (d < -20) d = -20;
+
 				drawing.at<cv::Vec3b>(j, i)[1] = 255 - (int)abs(d) * 255 / minVal;
 			}
 			else if (d > 0)
 			{
+				if (d > 20) d = 20;
+
 				drawing.at<cv::Vec3b>(j, i)[2] = 255 - (int)d * 255 / maxVal;
 			}
 			else

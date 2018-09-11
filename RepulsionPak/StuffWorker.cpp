@@ -34,7 +34,7 @@ CollissionGrid* StuffWorker::_cGrid = 0;
 // constructor
 StuffWorker::StuffWorker()
 {
-	_man_neg_ratio = -1;
+	_man_neg_ratio = -1.0;
 
 	_numBigOnes = 0;
 	_numReplicatedBigOnes = 0;
@@ -73,7 +73,7 @@ StuffWorker::StuffWorker()
 	//_peakPos = AVector();
 	//_maxDist = 0;
 
-	_fill_ratio = 0;
+	_fill_ratio = -5.0;
 	_fill_rms = 0;
 	//_maxDist = 0;
 	//_peak_rms = 0;	
@@ -1171,8 +1171,18 @@ void StuffWorker::CalculateThings(float dt)
 		_hasShrinkingInitiated = true;
 	}*/
 
-	for (unsigned int a = startIter; a < _graphs.size(); a++)
-		{ _graphs[a].Grow(SystemParams::_growth_scale_iter, _graphs, dt); }
+	if(_fill_ratio < _man_neg_ratio)
+	{
+		for (unsigned int a = startIter; a < _graphs.size(); a++)
+			{ _graphs[a].Grow(SystemParams::_growth_scale_iter, _graphs, dt); }
+	}
+	else
+	{
+		for (unsigned int a = startIter; a < _graphs.size(); a++)
+		{
+			_graphs[a]._isGrowing = false;
+		}
+	}
 
 	_numGrowingElement = 0;
 	for (unsigned int a = startIter; a < _graphs.size(); a++)
@@ -1381,6 +1391,7 @@ void StuffWorker::AnalyzeManualPacking()
 
 	_man_neg_ratio = ClipperWrapper::CalculateFill(_manualContainer[0], _manualElements);
 
+	std::cout << "_manualElements = " << _manualElements.size() << "\n";
 	std::cout << "_man_neg_ratio = " << _man_neg_ratio << "\n";
 }
 
@@ -1405,7 +1416,7 @@ void StuffWorker::CreateManualPacking()
 
 	// prepare things
 	std::vector<std::vector<AVector>> focals;
-	ADistanceTransform* mDistTransform = new ADistanceTransform(_manualContainer, _containerWorker->_holes, focals, 8.0);
+	ADistanceTransform* mDistTransform = new ADistanceTransform(_manualContainer, _containerWorker->_holes, focals, 2.0);
 	for (int a = 0; a < _manualElements.size(); a++)
 	{
 		mDistTransform->AddGraph(_manualElements[a]);

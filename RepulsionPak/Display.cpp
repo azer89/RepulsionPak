@@ -196,6 +196,7 @@ void Display::CalculateSDF(float time_delta)
 
 void Display::CalculateFillRMS(float time_delta)
 {
+	
 	_rms_time_counter += time_delta;
 
 	if (_rms_time_counter > SystemParams::_rms_capture_time)
@@ -260,10 +261,24 @@ void Display::Draw()
 		CalculateFillRMS(time_delta);
 		//CalculateSDF(time_delta);
 
+		if (_sWorker._fill_ratio < _sWorker._man_neg_ratio * 0.75)
+		{
+			SystemParams::_k_edge_dynamic = 2.0f;
+		}
+		else if (_sWorker._fill_ratio > _sWorker._man_neg_ratio * 0.9)
+		{
+			SystemParams::_k_edge_dynamic = 0.5f;
+		}
+		else
+		{
+			SystemParams::_k_edge_dynamic = 1.0f;
+		}
+
 		// ---------- STOP ----------
-		if (_rms_int_counter   > SystemParams::_rms_window &&    // bigger than window
-			_sWorker._fill_rms < SystemParams::_rms_threshold && // fill ratio does not improve
-			_sWorker._numGrowingElement == 0)                    // no element is growing
+		//if (_rms_int_counter   > SystemParams::_rms_window &&    // bigger than window
+		//	_sWorker._fill_rms < SystemParams::_rms_threshold && // fill ratio does not improve
+		//	_sWorker._numGrowingElement == 0)                    // no element is growing
+		if(_sWorker._fill_ratio >= _sWorker._man_neg_ratio * 1.005)
 		{			
 			SystemParams::_simulate_1 = false; // flags
 			SystemParams::_simulate_2 = false; // flags			
@@ -423,7 +438,7 @@ void Display::Draw()
 	else { ImGui::Text("FPS : -"); }
 	ImGui::Text(("Runtime: " + std::to_string((int)(_simulation_time / 1000.0f)) + " s").c_str());
 	//ImGui::Text(("Max distance: " + std::to_string(_sWorker._maxDist)).c_str());
-	ImGui::Text(("Fill ratio: "   + std::to_string(_sWorker._fill_ratio * 100.0f)).c_str());
+	ImGui::Text(("Fill ratio: "   + std::to_string(_sWorker._fill_ratio)).c_str());
 	//ImGui::Text(("Max dist RMS: " + std::to_string(_sWorker._peak_rms)).c_str());
 	ImGui::Text(("Fill RMS: "     + std::to_string(_sWorker._fill_rms)).c_str());
 	//ImGui::Text(("Max d: " + std::to_string(_sWorker._aDTransform->_maxDist)).c_str());

@@ -15,7 +15,7 @@ public:
 		               const std::vector<std::vector<AVector>>& containers,
 					   const std::vector<std::vector<AVector>>& holes,
 					   const std::vector<std::vector<AVector>>& focals,
-					   float scale = 0.5);//B
+					   float scale = 2.0);//B
 	//ADistanceTransform(//const std::vector<std::vector<AVector>> graphs,
 	//	               const std::vector<std::vector<AVector>>& containers,
 	//				   const std::vector<std::vector<AVector>>& focals,

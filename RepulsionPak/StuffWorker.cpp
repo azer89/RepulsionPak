@@ -1173,6 +1173,17 @@ void StuffWorker::CalculateThings(float dt)
 
 	// calculate scale iter here !!!
 	float scale_iter = SystemParams::_growth_scale_iter;
+	float fill_diff = _fill_ratio - _man_neg_ratio;
+
+	if (fill_diff > 0 && fill_diff < SystemParams::_growth_threshold_a) // over
+	{
+		scale_iter = -SystemParams::_growth_scale_iter_2;
+	}
+	else if (fill_diff < 0 && fill_diff > -SystemParams::_growth_threshold_a) // under
+	{
+		scale_iter = SystemParams::_growth_scale_iter_2;
+	}
+	
 
 	if(_fill_ratio < _man_neg_ratio)
 	{

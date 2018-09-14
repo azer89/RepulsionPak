@@ -278,7 +278,7 @@ void Display::Draw()
 		//if (_rms_int_counter   > SystemParams::_rms_window &&    // bigger than window
 		//	_sWorker._fill_rms < SystemParams::_rms_threshold && // fill ratio does not improve
 		//	_sWorker._numGrowingElement == 0)                    // no element is growing
-		if(_sWorker._fill_ratio >= _sWorker._man_neg_ratio * 1.005)
+		if(std::abs(_sWorker._fill_ratio - _sWorker._man_neg_ratio) < SystemParams::_growth_threshold_b)
 		{			
 			SystemParams::_simulate_1 = false; // flags
 			SystemParams::_simulate_2 = false; // flags			

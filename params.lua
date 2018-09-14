@@ -148,6 +148,10 @@ _element_initial_scale = 0.08;
 --- epsilon for halting the growth
 _growth_min_dist       = 1; 
 
+_growth_threshold_a = 0.05;
+_growth_threshold_b = 0.01;
+_growth_scale_iter_2 = 0.0005;
+
 --- initial placement
 --- how far away from the boundary so that the protusion cannot be too far
 _random_point_boundary_buffer = 300.0; 

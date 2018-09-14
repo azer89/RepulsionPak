@@ -108,6 +108,9 @@ void SystemParams::LoadParameters()
 
 	SystemParams::_growth_scale_iter = script.get<float>("_growth_scale_iter");	
 	SystemParams::_growth_min_dist       = script.get<float>("_growth_min_dist");
+	SystemParams::_growth_threshold_a = script.get<float>("_growth_threshold_a");
+	SystemParams::_growth_threshold_b = script.get<float>("_growth_threshold_b");
+	SystemParams::_growth_scale_iter_2 = script.get<float>("_growth_scale_iter_2");
 	
 	SystemParams::_num_element_pos       = script.get<int>("_num_element_pos");
 	SystemParams::_element_initial_scale = script.get<float>("_element_initial_scale");
@@ -290,6 +293,10 @@ int   SystemParams::_collission_block_radius = 0;
 float SystemParams::_velocity_cap            = 0;
 
 //float SystemParams::_fill_ratio = 0.0f;
+float SystemParams::_growth_threshold_a = 0;
+float SystemParams::_growth_threshold_b = 0;
+float SystemParams::_growth_scale_iter_2 = 0;
+
 float SystemParams::_growth_min_dist              = 0.0f;
 float SystemParams::_max_growth                   = 0.0f;
 float SystemParams::_max_growth_small             = 0.0f;

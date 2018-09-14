@@ -101,6 +101,10 @@ public:
 	static float _velocity_cap;
 
 	//static float _fill_ratio;
+	static float _growth_threshold_a;
+	static float _growth_threshold_b;
+	static float _growth_scale_iter_2;
+
 	static float _growth_min_dist;
 	static float _max_growth;
 	static float _max_growth_small;

@@ -1171,10 +1171,13 @@ void StuffWorker::CalculateThings(float dt)
 		_hasShrinkingInitiated = true;
 	}*/
 
+	// calculate scale iter here !!!
+	float scale_iter = SystemParams::_growth_scale_iter;
+
 	if(_fill_ratio < _man_neg_ratio)
 	{
 		for (unsigned int a = startIter; a < _graphs.size(); a++)
-			{ _graphs[a].Grow(SystemParams::_growth_scale_iter, _graphs, dt); }
+			{ _graphs[a].Grow(scale_iter, _graphs, dt); }
 	}
 	else
 	{

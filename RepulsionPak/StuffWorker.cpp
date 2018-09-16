@@ -325,7 +325,7 @@ void StuffWorker::SkinAndTriangulateOrnaments()
 
 		oriGraph.RemoveShortNegSpaceEdges();
 
-		std::cout << "oriGraph._negSpaceEdges " << oriGraph._negSpaceEdges.size() << "\n";
+		//std::cout << "oriGraph._negSpaceEdges " << oriGraph._negSpaceEdges.size() << "\n";
 
 		// ---------- arts ----------
 		oriGraph._uniArt = unionBoundary;
@@ -451,7 +451,7 @@ void StuffWorker::ProcessOrnaments()
 	{
 		AGraph g2 = _oriGraphs[a];
 		g2.Scale(SystemParams::_element_initial_scale / g2._scale);
-		std::cout << "save ori graph\n";
+		//std::cout << "save ori graph\n";
 		_rr->SaveOriGraph(g2, a); // rr is rigid registration
 	}
 
@@ -1175,7 +1175,7 @@ void StuffWorker::CalculateThings(float dt)
 	float scale_iter = SystemParams::_growth_scale_iter;
 	float fill_diff = _fill_ratio - _man_neg_ratio;
 
-	if (fill_diff > 0 && fill_diff < SystemParams::_growth_threshold_a) // over
+	if (fill_diff > 0) // over
 	{
 		scale_iter = -SystemParams::_growth_scale_iter_2;
 	}

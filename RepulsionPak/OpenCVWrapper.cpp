@@ -950,7 +950,7 @@ void OpenCVWrapper::Triangulate(std::vector<AnIdxTriangle>& myTriangles,
 	knn->SetPointData(randomPoints);
 	knn->CreatePointKDTree();
 
-	std::cout << "img_length: " << img_length << "\n";
+	//std::cout << "img_length: " << img_length << "\n";
 
 	cv::Rect rect(0, 0, img_length, img_length);
 	cv::Subdiv2D subdiv(rect);

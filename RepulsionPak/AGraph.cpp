@@ -278,7 +278,7 @@ void AGraph::ComputeBarycentric()
 		}
 		if (triIdx == -1)
 		{
-			std::cout << "uniArt error !!!\n";
+			std::cout << "uniArt err! ";
 
 			triIdx = -1;
 			float dist = 100000000;
@@ -428,7 +428,7 @@ void AGraph::CalculatePAD()
 	}*/
 
 
-	std::cout << "PAD element\n";
+	//std::cout << "PAD element\n";
 }
 
 void AGraph::SetMatchedPoint(AVector e_pt, AVector c_pt)

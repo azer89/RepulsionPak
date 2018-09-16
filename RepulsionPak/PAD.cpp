@@ -46,8 +46,8 @@ void PADCalculator::ComputePAD(std::vector<AVector> aShape, std::vector<bool> rd
 	this->_aShape = aShape;
 
 	// clockwise or counter clockwise
-	if (UtilityFunctions::IsClockwise(_aShape)) { std::cout << "clockwise !!!\n"; }
-	else { std::cout << "---------- counter-clockwise !!! ----------\n"; }
+	//if (UtilityFunctions::IsClockwise(_aShape)) { std::cout << "clockwise !!!\n"; }
+	//else { std::cout << "---------- counter-clockwise !!! ----------\n"; }
 
 	int sampled_sz = aShape.size();
 

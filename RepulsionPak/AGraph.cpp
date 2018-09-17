@@ -1290,16 +1290,8 @@ bool AGraph::CanGrow()
 //}
 
 void AGraph::Grow(float growth_scale_iter, std::vector<AGraph>& allGraphs, float dt)
-{
-	//_currentArea = GetArea();
-	//if (_currentArea > (_oriArea * SystemParams::_max_growth))
-	//{
-	//	_isGrowing = false; return;
-	//}
-
-
-	//for (unsigned int a = 0; a < _massList.size() && _isGrowing; a++)
-	for (unsigned int a = 0; a < _skinPointNum && _isGrowing; a++)
+{ 
+	/*for (unsigned int a = 0; a < _skinPointNum && _isGrowing; a++)
 	{
 		if (_massList[a]._closestPoints.size() > 0)
 		{
@@ -1311,32 +1303,13 @@ void AGraph::Grow(float growth_scale_iter, std::vector<AGraph>& allGraphs, float
 				break;
 			}
 		}
-	}
-
-	
-
-	/*float closestFactor = SystemParams::_bin_square_size * SystemParams::_collission_block_radius;
-	for (unsigned int a = 0; a < _boundaryPointNum && _isGrowing; a++)
-	{
-		if (_massList[a]._closestPoints.size() > 0)
-		{
-			if (_massList[a]._isInside) { continue; }
-			if (_massList[a]._closestDist < closestFactor) { closestFactor = _massList[a]._closestDist; }
-		}
-	}*/
-	//float closestFactor = 1.0f;
-	//if (closestFactor > 0 && closestFactor < 1.0f) { closestFactor = 1.0f; }
+	} */
 
 	if (!_bigOne)
 	{
 		growth_scale_iter *= 2;
 	}
-
-	// shrinking and growing
-	//if (_transition_time > 0.001)
-	//{
-	//	_transition_time_counter += dt;
-	//}
+	 
 
 	if (!_isGrowing/* && _shrinking_state > 0*/)  { return; }
 

@@ -143,9 +143,16 @@ void ContainerWorker::LoadContainer(CollissionGrid* cGrid)
 
 	if (SystemParams::_num_element_pos_limit < _randomPositions.size())
 	{
-		std::mt19937 g(SystemParams::_seed);
-		std::shuffle(_randomPositions.begin(), _randomPositions.end(), g);
-		_randomPositions = std::vector<AVector>(_randomPositions.begin(), _randomPositions.begin() + SystemParams::_num_element_pos_limit);
+		while (_randomPositions.size() != SystemParams::_num_element_pos_limit)
+		{
+			std::mt19937 g(SystemParams::_seed);
+			std::shuffle(_randomPositions.begin(), _randomPositions.end(), g);
+			_randomPositions.erase(_randomPositions.begin());
+		}
+
+		//std::mt19937 g(SystemParams::_seed);
+		//std::shuffle(_randomPositions.begin(), _randomPositions.end(), g);
+		//_randomPositions = std::vector<AVector>(_randomPositions.begin(), _randomPositions.begin() + SystemParams::_num_element_pos_limit);
 	}
 
 	cGrid->AnalyzeContainer(_container_boundaries, _holes, _offsetFocalBoundaries);

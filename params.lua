@@ -74,7 +74,7 @@ _should_rotate = false;
 --- _mouse_offset_y = 10;
 
 --- random seed
-_seed = 5239; --- negative means random
+_seed = -1; --- negative means random
 
 --- initial placement
 --- density of random points inside the container 
@@ -100,9 +100,9 @@ _dt = 0.1;   --- do not set this higher than 0.1
 
 --- Force parameters
 _k_neg_space_edge      = 10;	--- edge force for springs
-_k_edge                = 20;	--- edge force for filling elements
+_k_edge                = 30;	--- edge force for filling elements
 _k_edge_small_factor   = 12;
-_k_repulsion           = 60;	--- repulsion force
+_k_repulsion           = 50;	--- repulsion force
 _repulsion_soft_factor = 1.0;	--- soft factor for repulsion force
 _k_overlap             = 10;	--- overlap force
 _k_boundary            = 20;	--- boundary force
@@ -127,14 +127,14 @@ _focal_offset = 2;
 _skin_offset                = 3.0;  
 --- density of random points inside the skin
 --- if the density is higher, you get more triangles
-_sampling_num               = 5000;
+_sampling_num               = 8000;
 --- uniform sampling on the skin
 _boundary_sampling_factor   = 1.5;  -- [Do not edit]
 ---_should_recalculate_element = true;
 
 --- Grid for collision detection
 --- size of a cell
-_bin_square_size         = 100.0;
+_bin_square_size         = 70.0;
 --- cell gap for detection, 
 --- 1 means considering all cells that are 1 block away from the query (3x3)
 --- 2 means considering all cells that are 2 block away from the query (5x5)
@@ -144,13 +144,13 @@ _collission_block_radius = 1;
 --- incremetal step for growing
 _growth_scale_iter     = 0.01;
 --- initial scale after placing the elements inside the target container
-_element_initial_scale = 0.08; 
+_element_initial_scale = 0.15; 
 --- epsilon for halting the growth
-_growth_min_dist       = 1; 
+_growth_min_dist       = 0.001; 
 
 _growth_threshold_a = 0.05;
-_growth_threshold_b = 0.005;
-_growth_scale_iter_2 = 0.00005;
+_growth_threshold_b = 0.001;
+_growth_scale_iter_2 = 0.00003;
 
 --- initial placement
 --- how far away from the boundary so that the protusion cannot be too far

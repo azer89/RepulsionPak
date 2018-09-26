@@ -460,11 +460,19 @@ void StuffWorker::ProcessOrnaments()
 	
 	// disable shape matching
 	std::vector<AGraph> matchGraphs;
+	std::vector<bool>   oriGraphFlags;
+
+
+	for (unsigned int a = 0; a < _oriGraphs.size(); a++)
+	{
+		oriGraphFlags.push_back(false);
+	}
 
 	// shape matching
 	if(SystemParams::_do_shape_matching)
 	{
-		matchGraphs = _containerWorker->PlacementWithMatching3(_oriGraphs);	
+		//matchGraphs = _containerWorker->PlacementWithMatching3(_oriGraphs);	
+		_containerWorker->PlacementWithMatching3(_oriGraphs, matchGraphs, oriGraphFlags);
 		_graphs.insert(_graphs.end(), matchGraphs.begin(), matchGraphs.end());	
 	}
 	int match_sz = matchGraphs.size();
@@ -477,6 +485,9 @@ void StuffWorker::ProcessOrnaments()
 	for (unsigned int a = 0; a < _containerWorker->_randomPositions.size(); a++)
 	{
 		int idx = a % _oriGraphs.size();
+
+		if (oriGraphFlags[idx]) { continue; }
+
 		AGraph g = ProcessAnOrnament(_oriGraphs[idx],
 			                         _containerWorker->_randomPositions[a],
 			                         SystemParams::_element_initial_scale,
@@ -1185,18 +1196,18 @@ void StuffWorker::CalculateThings(float dt)
 	}
 	
 
-	if(_fill_ratio < _man_neg_ratio)
-	{
+	//if(_fill_ratio < _man_neg_ratio)
+	//{
 		for (unsigned int a = startIter; a < _graphs.size(); a++)
 			{ _graphs[a].Grow(scale_iter, _graphs, dt); }
-	}
-	else
+	//}
+	/*else
 	{
 		for (unsigned int a = startIter; a < _graphs.size(); a++)
 		{
 			_graphs[a]._isGrowing = false;
 		}
-	}
+	}*/
 
 	_numGrowingElement = 0;
 	for (unsigned int a = startIter; a < _graphs.size(); a++)

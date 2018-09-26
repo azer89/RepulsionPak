@@ -60,6 +60,8 @@ public:
 	static float CalculateFill(const std::vector<AVector>& container, const std::vector<AGraph>& graphs);
 	static float CalculateFill(const std::vector<AVector>& container, const std::vector<std::vector<AVector >>& graphs);
 
+	static void CalculateSCP(const std::vector<AVector>& container, const std::vector<AGraph>& graphs);
+
 	// offsetting
 	static std::vector<std::vector<AVector>> OffsettingL(std::vector<AVector> someLine, float offsetVal); 
 

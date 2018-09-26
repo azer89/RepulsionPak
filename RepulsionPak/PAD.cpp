@@ -172,6 +172,7 @@ bool PADCalculator::IsGoodAngle(const PADDescriptor& desc)
 	AVector vec2 = (_aShape[nextIdx] - _aShape[curIdx]).Norm();
 
 	//return true;
+	//float angleVal = std::abs (UtilityFunctions::Angle2D(vec1.x, vec1.y, vec2.x, vec2.y) );
 	float angleVal = UtilityFunctions::Angle2D(vec1.x, vec1.y, vec2.x, vec2.y);
 	if (angleVal >= 0)
 	{

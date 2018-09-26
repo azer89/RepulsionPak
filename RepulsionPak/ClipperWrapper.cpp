@@ -698,6 +698,43 @@ float ClipperWrapper::CalculateFill(const std::vector<AVector>& container, const
 	return elementArea / containerArea;
 }
 
+void ClipperWrapper::CalculateSCP(const std::vector<AVector>& container, const std::vector<AGraph>& graphs)
+{
+	float cScaling = 1e10;
+
+	ClipperLib::Path cTargetShape;
+	ClipperLib::Paths cClippingShapes(graphs.size());
+	ClipperLib::PolyTree sol1;
+
+	// the clipped shape
+	for (int a = 0; a < container.size(); a++)
+	{
+		cTargetShape << ClipperLib::IntPoint(container[a].x * cScaling, container[a].y * cScaling);
+	}
+
+
+	// shapes that clip another shape
+	for (int a = 0; a < graphs.size(); a++)
+	{
+		for (int b = 0; b < graphs[a]._uniArt.size(); b++)
+		{
+			cClippingShapes[a] << ClipperLib::IntPoint(graphs[a]._uniArt[b].x * cScaling, graphs[a]._uniArt[b].y * cScaling);
+		}
+	}
+
+	ClipperLib::Clipper myClipper1;
+	myClipper1.AddPath(cTargetShape, ClipperLib::ptClip, true); // the clipped shape
+	myClipper1.AddPaths(cClippingShapes, ClipperLib::ptSubject, true); // shapes that clip another shape
+
+
+	myClipper1.Execute(ClipperLib::ctIntersection, sol1, ClipperLib::pftNonZero, ClipperLib::pftNonZero);
+
+
+	// this is the negative space
+	ClipperLib::Paths pSol1;
+	ClipperLib::PolyTreeToPaths(sol1, pSol1);
+}
+
 float ClipperWrapper::CalculateFill(const std::vector<AVector>& container, const std::vector<AGraph>& graphs)
 {
 	 float cScaling = 1e10;

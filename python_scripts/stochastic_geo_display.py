@@ -5,7 +5,12 @@ import pandas as pd
 
 import useful_things as ut
 
-r_vals = np.arange(1, 31, 0.2);
+r_vals = np.arange(0.2, 21, 0.2);
+
+# cuz area fraction
+r_vals = np.insert(r_vals, 0, 0)
+#r_vals.insert(0, 0);
+
 
 """
 fig1 = plt.figure(1);
@@ -37,11 +42,23 @@ plt.clf();
 ax = plt.gca();
 
 
-plt.plot(r_vals, np.asarray(scf_vals_balabolka_09), 'g', linewidth=1.0);
-#plt.plot(r_vals, np.asarray(scf_vals_balabolka_man), 'r', linewidth=1.0);
-#plt.plot(r_vals, np.asarray(scf_vals_pad_10), 'g', linewidth=1.0);
+#plt.plot(r_vals, np.asarray(scf_vals_balabolka_man8x), 'r', linewidth=1.0);
+
+#plt.plot(r_vals, np.asarray(scf_vals_balabolka_01), 'g', linewidth=1.0);
+plt.plot(r_vals, np.asarray(scf_vals_balabolka_01), '#2FADF4', linewidth=1);
+plt.plot(r_vals, np.asarray(scf_vals_balabolka_02), '#56D65F', linewidth=1);
+plt.plot(r_vals, np.asarray(scf_vals_balabolka_03), '#6755D8', linewidth=1);
+plt.plot(r_vals, np.asarray(scf_vals_balabolka_04), '#FF6700', linewidth=1);
+plt.plot(r_vals, np.asarray(scf_vals_balabolka_05), '#178C86', linewidth=1);
+#plt.plot(r_vals, np.asarray(scf_vals_balabolka_06), 'g', linewidth=0.5);
+#plt.plot(r_vals, np.asarray(scf_vals_balabolka_07), 'g', linewidth=0.5);
+#plt.plot(r_vals, np.asarray(scf_vals_balabolka_08), 'g', linewidth=0.5);
+#plt.plot(r_vals, np.asarray(scf_vals_balabolka_09), 'g', linewidth=0.5);
+#plt.plot(r_vals, np.asarray(scf_vals_balabolka_10), 'g', linewidth=0.5);
+#plt.plot(r_vals, np.asarray(scf_vals_balabolka_11), 'g', linewidth=0.5);
 #scf_vals_pad_11
 #plt.plot(r_vals, np.asarray(scf_vals_pad_11), 'b', linewidth=1.0);
+plt.plot(r_vals, np.asarray(scf_vals_balabolka_man2x), '#ED2B2B', linewidth=1);
 
 
 '''

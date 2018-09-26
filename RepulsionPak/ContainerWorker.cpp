@@ -141,7 +141,7 @@ void ContainerWorker::LoadContainer(CollissionGrid* cGrid)
 			{ _randomPositions.push_back(pt); }
 	}
 
-	if (SystemParams::_num_element_pos_limit < _randomPositions.size())
+	/*if (SystemParams::_num_element_pos_limit < _randomPositions.size())
 	{
 		while (_randomPositions.size() != SystemParams::_num_element_pos_limit)
 		{
@@ -149,11 +149,7 @@ void ContainerWorker::LoadContainer(CollissionGrid* cGrid)
 			std::shuffle(_randomPositions.begin(), _randomPositions.end(), g);
 			_randomPositions.erase(_randomPositions.begin());
 		}
-
-		//std::mt19937 g(SystemParams::_seed);
-		//std::shuffle(_randomPositions.begin(), _randomPositions.end(), g);
-		//_randomPositions = std::vector<AVector>(_randomPositions.begin(), _randomPositions.begin() + SystemParams::_num_element_pos_limit);
-	}
+	}*/
 
 	cGrid->AnalyzeContainer(_container_boundaries, _holes, _offsetFocalBoundaries);
 }
@@ -173,9 +169,10 @@ bool ContainerWorker::IsGraphInside(const AGraph& g)
 	return true;
 }
 
-std::vector<AGraph> ContainerWorker::PlacementWithMatching3(std::vector<AGraph>& oriGraphs)
+void ContainerWorker::PlacementWithMatching3(std::vector<AGraph>& oriGraphs, std::vector<AGraph>& matchedGraphs, std::vector<bool>& oriGraphsFlags)
 {
-	std::vector<AGraph> matchedGraphs;
+	//std::vector<AGraph> matchedGraphs;
+	
 
 	// KNN
 	PrepareKNN(oriGraphs);
@@ -289,6 +286,8 @@ std::vector<AGraph> ContainerWorker::PlacementWithMatching3(std::vector<AGraph>&
 		yay_g._bigOne = true;
 		yay_g._padCalc._matchedIdx = best_c_idx;
 
+		oriGraphsFlags[best_b_idx] = true;
+
 		matchedGraphs.push_back(yay_g);
 
 		//std::vector<AVector> resampleArt;
@@ -314,7 +313,18 @@ std::vector<AGraph> ContainerWorker::PlacementWithMatching3(std::vector<AGraph>&
 		}
 	}
 
-	return matchedGraphs;
+	int num_pos_limit = SystemParams::_num_element_pos_limit;
+	if (num_pos_limit < _randomPositions.size())
+	{
+		while (_randomPositions.size() != num_pos_limit)
+		{
+			std::mt19937 g(SystemParams::_seed);
+			std::shuffle(_randomPositions.begin(), _randomPositions.end(), g);
+			_randomPositions.erase(_randomPositions.begin());
+		}
+	}
+
+	//return matchedGraphs;
 }
 
 

@@ -19,7 +19,7 @@ _pad_level = 5;
 _pad_delta = 0.2;
 ---------------------------------------------------------------------
 
-_do_shape_matching = false;
+_do_shape_matching = true;
 
 -- 0.349066 is 20 deg
 
@@ -85,7 +85,7 @@ _num_element_pos       = 700;
 _num_element_pos_limit = 81;
 
 --- Time step for numerical integration (euler method)
-_dt = 0.1;   --- do not set this higher than 0.1
+_dt = 0.05;   --- do not set this higher than 0.1
 
 --- random animation
 ---_shrink_fill_ratio = 1.65;
@@ -100,11 +100,11 @@ _dt = 0.1;   --- do not set this higher than 0.1
 
 --- Force parameters
 _k_neg_space_edge      = 10;	--- edge force for springs
-_k_edge                = 30;	--- edge force for filling elements
+_k_edge                = 15;	--- edge force for filling elements
 _k_edge_small_factor   = 12;
-_k_repulsion           = 50;	--- repulsion force
+_k_repulsion           = 60;	--- repulsion force
 _repulsion_soft_factor = 1.0;	--- soft factor for repulsion force
-_k_overlap             = 10;	--- overlap force
+_k_overlap             = 5;	--- overlap force
 _k_boundary            = 20;	--- boundary force
 _k_noise               = 0;
 _k_rotate              = 0;		--- 1
@@ -142,15 +142,15 @@ _collission_block_radius = 1;
 
 --- for growing
 --- incremetal step for growing
-_growth_scale_iter     = 0.01;
+_growth_scale_iter     = 0.005;
 --- initial scale after placing the elements inside the target container
-_element_initial_scale = 0.15; 
+_element_initial_scale = 0.20; 
 --- epsilon for halting the growth
 _growth_min_dist       = 0.001; 
 
-_growth_threshold_a = 0.05;
-_growth_threshold_b = 0.001;
-_growth_scale_iter_2 = 0.00003;
+_growth_threshold_a = 0.02;
+_growth_threshold_b = 0.00001;
+_growth_scale_iter_2 = 0.0003;
 
 --- initial placement
 --- how far away from the boundary so that the protusion cannot be too far

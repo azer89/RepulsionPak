@@ -36,7 +36,7 @@ public:
 
 	std::vector<AGraph> PlacementWithMatching(std::vector<AGraph>& oriGraphs);
 	std::vector<AGraph> PlacementWithMatching2(std::vector<AGraph>& oriGraphs);
-	std::vector<AGraph> PlacementWithMatching3(std::vector<AGraph>& oriGraphs);
+	void PlacementWithMatching3(std::vector<AGraph>& oriGraphs, std::vector<AGraph>& matchedGraphs, std::vector<bool>& oriGraphsFlags);
 	
 	void DrawDebug(const std::vector<AVector>& uniArt, 
 					const std::vector<AVector>& l_poly,

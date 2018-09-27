@@ -1889,10 +1889,10 @@ void AGraph::SolveForTriangleSprings()
 		k_edge *= SystemParams::_k_edge_small_factor;
 	}
 
-	if (this->_isRigid)
-	{
-		k_edge = 1000;
-	}
+	//if (this->_isRigid)
+	//{
+	//	k_edge = 1000;
+	//}
 
 	AVector pt0;
 	AVector pt1;

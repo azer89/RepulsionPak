@@ -8,9 +8,9 @@ _save_folder  = "C:\\Users\\azer\\workspace\\Images\\PhysicsPak_Snapshots_0" .. 
 
 ------ folders ------
 _image_folder         = "C:\\Users\\azer\\workspace\\Images\\";	--- where all the input files are located
-_artName              = "pp_balabolka"; --- pp_lolwut	--- location of the container
-_manual_art_name      = "man_balabolka";	--- manually drawn packing (for evaluation)
-_ornament_dir         = _image_folder .. "opp_b_balabolka";		--- regular elements
+_artName              = "pp_rectangle"; --- pp_lolwut	--- location of the container
+_manual_art_name      = "man_pad";	--- manually drawn packing (for evaluation)
+_ornament_dir         = _image_folder .. "opp_b_pad_2";		--- regular elements
 _ornament_dir_small_1 = _image_folder .. "opp_s_balabolka"; --- filling elements (the elements to fill the remaining empty space after the simulation ends)
 
 ---------------------------------------------------------------------
@@ -27,9 +27,9 @@ _angle_cap          = 0.3;
 _alpha_outside      = 1;  -- for score function (protusion)
 _beta_inside        = 0.001;
 _score_resample_num = 1000; -- for score function (instead of grid-based)
-_num_nn             = 10; -- number of nearest neighbors in the search space
+_num_nn             = 30; -- number of nearest neighbors in the search space
 
-_gaussian_smoothing    = 1;    -- size of kernel
+_gaussian_smoothing    =1;    -- size of kernel
 _gaussian_smoothing_element    = 1;
 
 _resample_gap_float = 1.0;
@@ -82,7 +82,7 @@ _seed = -1; --- negative means random
 --- larger the number, more elements you get,
 --- but the simulation time gets slower
 _num_element_pos       = 700;
-_num_element_pos_limit = 81;
+_num_element_pos_limit = 51;
 
 --- Time step for numerical integration (euler method)
 _dt = 0.05;   --- do not set this higher than 0.1
@@ -100,7 +100,7 @@ _dt = 0.05;   --- do not set this higher than 0.1
 
 --- Force parameters
 _k_neg_space_edge      = 10;	--- edge force for springs
-_k_edge                = 15;	--- edge force for filling elements
+_k_edge                = 10;	--- edge force for filling elements
 _k_edge_small_factor   = 12;
 _k_repulsion           = 60;	--- repulsion force
 _repulsion_soft_factor = 1.0;	--- soft factor for repulsion force
@@ -124,10 +124,10 @@ _focal_offset = 2;
 
 --- for preprocessing
 --- skin width
-_skin_offset                = 3.0;  
+_skin_offset                = 2.0;  
 --- density of random points inside the skin
 --- if the density is higher, you get more triangles
-_sampling_num               = 8000;
+_sampling_num               = 10000;
 --- uniform sampling on the skin
 _boundary_sampling_factor   = 1.5;  -- [Do not edit]
 ---_should_recalculate_element = true;

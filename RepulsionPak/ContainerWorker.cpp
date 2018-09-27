@@ -217,6 +217,9 @@ void ContainerWorker::PlacementWithMatching3(std::vector<AGraph>& oriGraphs, std
 			int idx1 = indices[ii].first;
 			int idx2 = indices[ii].second;
 
+			// non-repeating
+			if (oriGraphsFlags[idx1]) continue;
+
 			AGraph candidate_g = oriGraphs[idx1];
 			candidate_g.CalculatePADBary();
 

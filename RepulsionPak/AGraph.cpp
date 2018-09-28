@@ -958,18 +958,18 @@ void AGraph::Draw()
 		glEnd();
 
 		// UNIART!!!!
-		/*glColor3f(1, 0, 0);
+		glColor3f(1, 0, 0);
 		glLineWidth(0.5f);
 		glBegin(GL_LINES);
 
-		for (unsigned int a = 0; a < _smooth_skin.size(); a++)
+		for (unsigned int a = 0; a < _uniArt.size(); a++)
 		{
-		int c = a + 1;
-		if (c >= _smooth_skin.size()) { c = 0; }
-		glVertex2f(_smooth_skin[a].x, _smooth_skin[a].y);
-		glVertex2f(_smooth_skin[c].x, _smooth_skin[c].y);
+			int c = a + 1;
+			if (c >= _uniArt.size()) { c = 0; }
+			glVertex2f(_uniArt[a].x, _uniArt[a].y);
+			glVertex2f(_uniArt[c].x, _uniArt[c].y);
 		}
-		glEnd();*/
+		glEnd();
 
 		
 

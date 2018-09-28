@@ -100,7 +100,7 @@ _dt = 0.05;   --- do not set this higher than 0.1
 
 --- Force parameters
 _k_neg_space_edge      = 10;	--- edge force for springs
-_k_edge                = 10;	--- edge force for filling elements
+_k_edge                = 15;	--- edge force for filling elements
 _k_edge_small_factor   = 12;
 _k_repulsion           = 60;	--- repulsion force
 _repulsion_soft_factor = 1.0;	--- soft factor for repulsion force
@@ -175,7 +175,7 @@ _downscaleFactor = 1.0 / _upscaleFactor;
 --- it creates an SVG file every 1 second
 _svg_snapshot_capture_time = 10000000;  
 
-_png_snapshot_capture_time = 10000;  --- PNG capture time (in milisecond)
+_png_snapshot_capture_time = 50000;  --- PNG capture time (in milisecond)
 _sdf_capture_time          = 1000000000;  --- SDF (Signed distance function) capture time (in milisecond)
 
 --- RMS (Root of mean square) capture time

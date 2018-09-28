@@ -267,7 +267,8 @@ void StuffWorker::SkinAndTriangulateOrnaments()
 		oriGraph._oriSkiOffset = skinOffset;
 		myOffsetBoundary = ClipperWrapper::RoundOffsettingPP(arts, skinOffset)[0];
 		//unionBoundary = ClipperWrapper::RoundOffsettingPP(arts, 1)[0]; // hack
-		unionBoundary = ClipperWrapper::RoundOffsettingPP(arts, 0)[0]; // hack
+		//unionBoundary = ClipperWrapper::RoundOffsettingPP(arts, 0)[0]; // hack
+		unionBoundary = ClipperWrapper::RoundOffsettingP(myOffsetBoundary, -skinOffset)[0]; // hack
 		ARectangle bb    = UtilityFunctions::GetBoundingBox(myOffsetBoundary);
 		img_length = bb.witdh;
 		if (bb.height > bb.witdh) { img_length = bb.height; }

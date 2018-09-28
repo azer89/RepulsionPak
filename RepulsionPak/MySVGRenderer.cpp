@@ -63,6 +63,11 @@ void MySVGRenderer::SaveElementsAndSkins(std::string filename,
 
 	for (unsigned int a = 0; a < graphs.size(); a++)
 	{
+		graphs[a].RecalculateArts();
+	}
+
+	for (unsigned int a = 0; a < graphs.size(); a++)
+	{
 		// elements
 		std::vector<std::vector<AVector>> arts = graphs[a]._arts;
 		//for (int b = 0; b < arts.size(); b++)
@@ -178,18 +183,23 @@ void MySVGRenderer::SaveElementsAndSkins(std::string filename,
 	
 
 	// clipper
-	/*std::vector<std::vector<AVector>> skins;
+	std::vector<std::vector<AVector>> skins;
 	for (unsigned int a = 0; a < graphs.size(); a++)
 	{
-		skins.push_back(graphs[a]._uniArt );
-	}*/
+		//graphs[a].RecalculateArts();
+		for (unsigned int b = 0; b < graphs[a]._arts.size(); b++)
+		{
+			skins.push_back(graphs[a]._arts[b]);
+		}
+		
+	}
 
-	/*std::vector<std::vector<AVector>> intersectPolys;
+	std::vector<std::vector<AVector>> intersectPolys;
 	std::vector<bool> orientationFlags;
 	ClipperWrapper::ClippingContainer(boundaries[0], skins, intersectPolys, orientationFlags);
-	*/
+	
 	// containers	
-	/*for (unsigned int i = 0; i < intersectPolys.size(); i++) //B
+	for (unsigned int i = 0; i < intersectPolys.size(); i++) //B
 	{
 		svg::Polygon elem(svg::Fill(svg::Color::Transparent), svg::Stroke(0.5f, svg::Color(255, 100, 100)));
 
@@ -203,7 +213,7 @@ void MySVGRenderer::SaveElementsAndSkins(std::string filename,
 			elem << svg::Point(pt.x, pt.y);
 		}
 		doc2 << elem;
-	}*/
+	}
 
 	// SAVE
 	doc2.save();

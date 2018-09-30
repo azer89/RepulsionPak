@@ -37,7 +37,8 @@ public:
 	void CalculateFill(CollissionGrid* cGrid, float& fill_ratio, int numIter, bool saveImage = false);
 
 	// uhhhh...
-	void CalculateSDF(CollissionGrid* cGrid, int numIter, bool saveImage = false);
+	void CalculateSDF1(CollissionGrid* cGrid, int numIter, bool saveImage = false); // for manual packing
+	void CalculateSDF2(const std::vector<AGraph>& graphs, CollissionGrid* cGrid, int numIter, bool saveImage = false); // for graphs (_arts)
 	
 
 	void CalculatePeaks();

@@ -739,8 +739,15 @@ float ClipperWrapper::CalculateFill(const std::vector<AVector>& container, const
 {
 	 float cScaling = 1e10;
 
+	 // calculate how many arts
+	 int numArt = 0;
+	 for (int a = 0; a < graphs.size(); a++)
+	 {
+		 numArt += graphs[a]._arts.size();
+	 }
+
 	 ClipperLib::Path cTargetShape;
-	 ClipperLib::Paths cClippingShapes(graphs.size());
+	 ClipperLib::Paths cClippingShapes(numArt);
 	 ClipperLib::PolyTree sol1;
 
 	 // the clipped shape
@@ -749,10 +756,20 @@ float ClipperWrapper::CalculateFill(const std::vector<AVector>& container, const
 
 
 	// shapes that clip another shape
+	int artIter = 0;
 	for (int a = 0; a < graphs.size(); a++)
 	{
-		for (int b = 0; b < graphs[a]._uniArt.size(); b++)
-		{ cClippingShapes[a] << ClipperLib::IntPoint(graphs[a]._uniArt[b].x * cScaling, graphs[a]._uniArt[b].y * cScaling); }
+		//for (int b = 0; b < graphs[a]._uniArt.size(); b++)
+		//{ cClippingShapes[a] << ClipperLib::IntPoint(graphs[a]._uniArt[b].x * cScaling, graphs[a]._uniArt[b].y * cScaling); }
+
+		for (int b = 0; b < graphs[a]._arts.size(); b++)
+		{
+			for (int c = 0; c < graphs[a]._arts[b].size(); c++)
+			{
+				cClippingShapes[artIter] << ClipperLib::IntPoint(graphs[a]._arts[b][c].x * cScaling, graphs[a]._arts[b][c].y * cScaling);
+			}
+			artIter++;
+		}
 	}
 
 	ClipperLib::Clipper myClipper1;

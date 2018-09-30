@@ -535,6 +535,9 @@ void Display::DeleteFiles()
 	ss << "del /Q " << SystemParams::_save_folder << "DEFORMED_ELEMENTS\\*.*";
 	std::system(ss.str().c_str()); }
 	{ std::stringstream ss;
+	ss << "del /Q " << SystemParams::_save_folder << "DEBUG\\*.*";
+	std::system(ss.str().c_str()); }
+	{ std::stringstream ss;
 	ss << "del " << SystemParams::_save_folder << "data.csv";
 	std::system(ss.str().c_str()); }
 	{ std::stringstream ss;
@@ -548,6 +551,9 @@ void Display::DeleteFiles()
 	std::system(ss.str().c_str()); }
 	{ std::stringstream ss;
 	ss << "del " << SystemParams::_save_folder << "info_main_2.txt";
+	std::system(ss.str().c_str()); }
+	{ std::stringstream ss;
+	ss << "del " << SystemParams::_save_folder << "params.lua";
 	std::system(ss.str().c_str()); }
 }
 

@@ -136,7 +136,13 @@ public:
 	
 	AGraph();
 
-	float DistanceToBoundary(AVector pt);
+	float DistanceToBoundary(AVector pt) ;
+
+	// need to call RecalculateArts
+	bool InsideArts(AVector pt) const;
+
+	// need to call RecalculateArts
+	float DistToArts(AVector pt) const;
 
 	void CalculateCentroid();
 

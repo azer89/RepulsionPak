@@ -1082,7 +1082,7 @@ void StuffWorker::CalculateSDF(int numIter, bool saveImage)
 	// ---------- move points in collission grid ----------
 	_cGrid->MovePoints();
 	std::cout << "begin to calculate SDF\n";
-	_aDTransform->CalculateSDF(_cGrid, numIter, saveImage);
+	_aDTransform->CalculateSDF2(_graphs, _cGrid, numIter, saveImage);
 	
 }
 
@@ -1463,7 +1463,7 @@ void StuffWorker::CreateManualPacking()
 	float m_fill_ratio = 0;
 	mDistTransform->_manualSkeletons = _manualSkeletons;
 	mDistTransform->CalculateFill(_manualGrid, m_fill_ratio, 0, true);
-	mDistTransform->CalculateSDF(_manualGrid, 0, true);
+	mDistTransform->CalculateSDF1(_manualGrid, 0, true);
 
 	delete mDistTransform;
 }

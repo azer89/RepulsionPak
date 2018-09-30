@@ -253,6 +253,7 @@ void ADistanceTransform::CalculateFill(CollissionGrid* cGrid,
 									   int numIter, 
 									   bool saveImage)
 {
+	std::cout << "don't use CalculateFill\n";
 	CVImg fillImg;
 	fillImg._img = _fill_img_template._img.clone(); // need to be cloned
 	for (unsigned int a = 0; a < _graphBoundaries.size(); a++)
@@ -278,9 +279,105 @@ void ADistanceTransform::CalculateFill(CollissionGrid* cGrid,
 
 }
 
+void ADistanceTransform::CalculateSDF2(const std::vector<AGraph>& graphs, CollissionGrid* cGrid, int numIter, bool saveImage)
+{
+	int szsz = _sz * _sz;
+	cGrid->PrecomputeGraphIndices();
+
+	for (unsigned int xIter = 0; xIter < _sz; xIter++)
+	{
+		for (unsigned int yIter = 0; yIter < _sz; yIter++)
+		{
+			float xActual = ((float)xIter) / _scale;
+			float yActual = ((float)yIter) / _scale;
+
+			int idxxxx = xIter + yIter * _sz;
+
+			float containerDistVal = _containerDistArray[idxxxx];
+
+			std::vector<int> graphIndices;
+			cGrid->GetGraphIndices1B(xActual, yActual, graphIndices);
+
+			// if no closest graph and outside
+			if (graphIndices.size() == 0 && containerDistVal < 0)
+			{ continue; } // (Overlap Mask) outside container
+
+			float minDist = containerDistVal;
+			bool isInside = false;
+			for (unsigned int a = 0; a < graphIndices.size(); a++)
+			{
+				int gIdx = graphIndices[a];
+				if (gIdx >= _graphBoundaries.size()) { continue; } // exclude filling elements
+				
+				//float d = -cv::pointPolygonTest(_graphBoundaries[gIdx], cv::Point2f(xActual, yActual), true);
+				float d = graphs[gIdx].DistToArts(AVector(xActual, yActual));
+				if (graphs[gIdx].InsideArts(AVector(xActual, yActual))) { d = -d; }
+				
+				if (d <= 0) // inside
+				{
+					minDist = 0; // SDF
+					isInside = true;
+				}
+
+				if (d < minDist) // outside
+				{
+					minDist = d;
+				} // SDF
+
+				if (isInside) { break; } // no point to continue
+			}
+			
+			if (!isInside && containerDistVal < 0)
+			{
+				//overlapMask[xIter + yIter * _sz] = -1;  // (Overlap Mask) outside element outside container
+				minDist = 0; // (SDF)
+			}
+
+
+			// no closest element AND inside container
+			else if (graphIndices.size() == 0 && containerDistVal > 0)
+				//{ minDist = 0; }
+			{
+				minDist = containerDistVal;
+			}
+			else if (graphIndices.size() == 0 && containerDistVal < 0) // ?? BUG ???
+			{
+				minDist = -1;
+			}
+
+			_distArray[idxxxx] = minDist;
+		}
+	}
+
+	std::stringstream ss6;
+	ss6 << "dist_" << numIter;
+	DebugDistanceImage(ss6.str());
+
+	if (SystemParams::_output_files)
+	{
+		PathIO pathIO;
+		pathIO.SaveSDF2CSV(_distArray, SystemParams::_save_folder + "dist_all.csv");
+		pathIO.SaveSDF2CSV(_containerDistArray, SystemParams::_save_folder + "dist_mask.csv");
+	}
+
+
+
+	// create new elements !!!!
+	CalculatePeaks();
+
+	// ---------- global max distance _maxDist ----------
+	_maxDist = std::numeric_limits<float>::min();
+	for (unsigned int a = 0; a < _distArray.size(); a++)
+	{
+		if (_maxDist < _distArray[a]) { _maxDist = _distArray[a]; }
+	}
+
+
+}
+
 // use this
 // 
-void ADistanceTransform::CalculateSDF(CollissionGrid* cGrid, int numIter, bool saveImage)
+void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool saveImage)
 {
 	int szsz = _sz * _sz;
 	//std::vector<int> overlapMask(szsz);

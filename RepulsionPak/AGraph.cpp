@@ -1511,6 +1511,19 @@ void AGraph::RecalculateEdgeLengths()
 	// boundary edges needs no update
 }
 
+// need to call RecalculateArts
+bool AGraph::InsideArts(AVector pt) const
+{
+	// true if inside
+	return UtilityFunctions::InsidePolygons(_arts, pt.x, pt.y);
+}
+
+// need to call RecalculateArts
+float AGraph::DistToArts(AVector pt) const
+{
+	return UtilityFunctions::DistanceToClosedCurves(_arts, pt);
+}
+
 void AGraph::RecalculateArts()
 {
 	AnIdxTriangle tri(0, 0, 0);

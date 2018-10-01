@@ -311,7 +311,7 @@ void ADistanceTransform::CalculateSDF2(const std::vector<AGraph>& graphs, Collis
 				
 				//float d = -cv::pointPolygonTest(_graphBoundaries[gIdx], cv::Point2f(xActual, yActual), true);
 				float d = graphs[gIdx].DistToArts(AVector(xActual, yActual));
-				if (graphs[gIdx].InsideArts(AVector(xActual, yActual))) { d = -d; }
+				if (graphs[gIdx].InsideArts(AVector(xActual, yActual))) /*{ d = -d; }*/ { d = -1; }
 				
 				if (d <= 0) // inside
 				{
@@ -604,10 +604,10 @@ CVImg ADistanceTransform::VoronoiSkeleton(CollissionGrid* cGrid, int numIter)
 	
 	std::stringstream ss1;
 	ss1 << "voronoi_skeleton_" << numIter;
-	thinningImage.SaveImage(SystemParams::_save_folder + "SDF\\" + ss1.str() + ".png");
+	thinningImage.SaveImage( SystemParams::_save_folder + "SDF\\" + ss1.str() + ".png" );
 	std::stringstream ss2;
 	ss2 << "voronoi_color" << numIter;
-	voronoiImage.SaveImage(SystemParams::_save_folder + "SDF\\" + ss2.str() + ".png");
+	voronoiImage.SaveImage( SystemParams::_save_folder + "SDF\\" + ss2.str() + ".png" );
 
 	//CVImg thinningImg;
 	return thinningImage;
@@ -654,8 +654,8 @@ CVImg ADistanceTransform::SkeletonDistance(std::vector<int> overlapMask, std::st
 	// THINNING
 	///////////
 	CVImg thinningImage = emptyImage.ThinningFromGrayscale();
-	thinningImage.SaveImage(SystemParams::_save_folder + "SDF\\" + imageName + ".png");
-	emptyImage.SaveImage(SystemParams::_save_folder + "SDF\\" + imageName + "_mask.png");
+	thinningImage.SaveImage( SystemParams::_save_folder + "SDF\\" + imageName + ".png" );
+	emptyImage.SaveImage( SystemParams::_save_folder + "SDF\\" + imageName + "_mask.png" );
 	return thinningImage;
 }
 
@@ -713,7 +713,7 @@ void ADistanceTransform::DebugOverlapMask(std::vector<int> overlapMask, CVImg th
 		}
 	}
 
-	cv::imwrite(SystemParams::_save_folder + "SDF\\" + imageName + ".png", drawing);
+	cv::imwrite( SystemParams::_save_folder + "SDF\\" + imageName + ".png" , drawing);
 }
 
 void ADistanceTransform::DebugDistanceImage(std::string imageName)
@@ -770,7 +770,7 @@ void ADistanceTransform::DebugDistanceImage(std::string imageName)
 
 	// debug
 	//std::cout << "debug\n";
-	cv::imwrite(SystemParams::_save_folder + "SDF\\" + imageName + ".png", drawing);
+	cv::imwrite( SystemParams::_save_folder + "SDF\\" + imageName + ".png" , drawing);
 }
 
 
@@ -849,7 +849,7 @@ void  ADistanceTransform::DebugDistanceImage(CVImg thinningImage, std::string im
 
 	// debug
 	//std::cout << "debug\n";
-	cv::imwrite(SystemParams::_save_folder  + "SDF\\" + imageName + ".png", drawing);
+	cv::imwrite( SystemParams::_save_folder  + "SDF\\" + imageName + ".png", drawing);
 }
 
 /*cv::Mat ADistanceTransform::CalculateDistanceTransform(const std::vector<AVector> boundary, cv::Mat& dImage)

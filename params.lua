@@ -3,11 +3,11 @@
 --- Title of the window
 _window_title = "1" 
 --- A directory where we have to save output files
-_save_folder  = "C:\\Users\\azer\\OneDrive - University of Waterloo\\Images\\PhysicsPak_Snapshots_0" .. _window_title .. "\\"
+_save_folder  = "C:\\Users\\azer\\OneDrive\\Images\\PhysicsPak_Snapshots_0" .. _window_title .. "\\"
 
 
 ------ folders ------
-_image_folder         = "C:\\Users\\azer\\OneDrive - University of Waterloo\\Images\\";	--- where all the input files are located
+_image_folder         = "C:\\Users\\azer\\OneDrive\\Images\\";	--- where all the input files are located
 _artName              = "pp_rectangle"; --- pp_lolwut	--- location of the container
 _manual_art_name      = "man_pad";	--- manually drawn packing (for evaluation)
 _ornament_dir         = _image_folder .. "opp_b_pad_2";		--- regular elements

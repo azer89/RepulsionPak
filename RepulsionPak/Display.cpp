@@ -491,6 +491,7 @@ void Display::Draw()
 	{ 
 		_sWorker.SaveGraphs(); 
 		_sWorker.SaveSVG(_svg_int_counter++);
+		_sWorker.CalculateSDF(_sdf_int_counter++, true);
 	}
 	if (ImGui::Button("Reload parameters")) { SystemParams::LoadParameters();  }
 
@@ -542,6 +543,9 @@ void Display::DeleteFiles()
 	std::system(ss.str().c_str()); }
 	{ std::stringstream ss;
 	ss << "del " << SystemParams::_save_folder << "dist.csv";
+	std::system(ss.str().c_str()); }
+	{ std::stringstream ss;
+	ss << "del " << SystemParams::_save_folder << "dist_mask.csv";
 	std::system(ss.str().c_str()); }
 	{ std::stringstream ss;
 	ss << "del " << SystemParams::_save_folder << "dist_all.csv";

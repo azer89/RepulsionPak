@@ -4,11 +4,12 @@ import matplotlib.pylab as plt
 import pandas as pd
 
 import sys
+import statistics as stat
 
 import useful_things as ut
 
 case_name = "pad";
-num_names = ["01"];
+num_names = ["01", "man2x"];
 #num_names = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10"];
 #num_names = ["a", "b", "c", "d", "e"];
 
@@ -33,13 +34,17 @@ for num_name in num_names:
     #########################
     # calculate statistics
     #########################
-    '''
+    
     a_list = [];
     for x_iter in range(0, img_sz_int):
         for y_iter in range(0, img_sz_int):
-            if mask_vals[x_iter + y_iter * img_sz_int] > 0:
+            if sdf_vals[x_iter + y_iter * img_sz_int] > 0:
                 a_list.append(sdf_vals[x_iter + y_iter * img_sz_int]);
-    '''
+    
+    print "min = ", min(a_list);
+    print "max = ", max(a_list);
+    print "mean = ", stat.mean(a_list);
+    print "median = ", stat.median(a_list);
     
     #########################
     # calculate area_fraction
@@ -82,3 +87,5 @@ for num_name in num_names:
         scf = num_contact / num_sample;
         str_vals = "scf_vals_" + case_name + "_" + num_name + ".append(scf)";
         exec(str_vals);
+    
+    print "";

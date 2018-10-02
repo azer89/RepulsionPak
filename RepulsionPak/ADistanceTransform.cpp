@@ -311,6 +311,8 @@ void ADistanceTransform::CalculateSDF2(const std::vector<AGraph>& graphs, Collis
 				
 				//float d = -cv::pointPolygonTest(_graphBoundaries[gIdx], cv::Point2f(xActual, yActual), true);
 				float d = graphs[gIdx].DistToArts(AVector(xActual, yActual));
+
+				// // hack
 				if (graphs[gIdx].InsideArts(AVector(xActual, yActual))) /*{ d = -d; }*/ { d = -1; }
 				
 				if (d <= 0) // inside
@@ -415,6 +417,10 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 				int gIdx = graphIndices[a];
 				if (gIdx >= _graphBoundaries.size()) { continue; } // exclude filling elements
 				float d = -cv::pointPolygonTest(_graphBoundaries[gIdx], cv::Point2f(xActual, yActual), true);
+
+				// hack
+				if (d < 0) { d = -1; }
+
 				if (d <= 0) // inside
 				{
 					minDist = 0; // SDF

@@ -86,7 +86,7 @@ StuffWorker::StuffWorker()
 	//OpenCVWrapper _cvWrapper;
 
 	//CreateSquares();     // don't forget to change params.lua
-	//CreateManualPacking(); // don't forget to change params.lua
+	CreateManualPacking(); // don't forget to change params.lua
 	AnalyzeManualPacking();
 
 

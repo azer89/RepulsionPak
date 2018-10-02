@@ -9,7 +9,7 @@ import statistics as stat
 import useful_things as ut
 
 case_name = "pad";
-num_names = ["01", "man2x"];
+num_names = ["man2"];
 #num_names = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10"];
 #num_names = ["a", "b", "c", "d", "e"];
 

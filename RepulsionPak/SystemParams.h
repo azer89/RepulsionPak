@@ -145,6 +145,7 @@ public:
 	static bool _show_elements;
 	static bool _show_bending_springs;
 	static bool _show_shape_matching;
+	static bool _show_uni_art;
 
 	// debug
 	//static float _maxForce;

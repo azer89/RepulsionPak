@@ -481,6 +481,8 @@ void Display::Draw()
 	ImGui::Checkbox("Show triangles", &SystemParams::_show_triangles);
 	ImGui::Checkbox("Show bending edges", &SystemParams::_show_bending_springs);
 	ImGui::Checkbox("Show shape matching", &SystemParams::_show_shape_matching);
+	// SystemParams::_show_uni_art
+	ImGui::Checkbox("Show uni art", &SystemParams::_show_uni_art);
 
 	//ImGui::Checkbox("Show collission grid", &SystemParams::_show_collission_grid);
 

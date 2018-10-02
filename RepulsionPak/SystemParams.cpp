@@ -331,6 +331,7 @@ bool SystemParams::_show_bending_springs  = false;
 bool SystemParams::_show_collission_grid  = false;
 bool SystemParams::_show_closest_pairs    = false;
 bool SystemParams::_show_shape_matching   = false;
+bool SystemParams::_show_uni_art = false;
 
 bool SystemParams::_simulate_1 = false;
 bool SystemParams::_simulate_2 = false;

@@ -937,6 +937,23 @@ void AGraph::Draw()
 		glEnd();
 	}
 	
+	if (SystemParams::_show_uni_art)
+	{
+		// UNIART!!!!
+		glColor3f(1, 0, 0);
+		glLineWidth(0.5f);
+		glBegin(GL_LINES);
+
+		for (unsigned int a = 0; a < _uniArt.size(); a++)
+		{
+			int c = a + 1;
+			if (c >= _uniArt.size()) { c = 0; }
+			glVertex2f(_uniArt[a].x, _uniArt[a].y);
+			glVertex2f(_uniArt[c].x, _uniArt[c].y);
+		}
+		glEnd();
+	}
+
 	if (SystemParams::_show_element_boundary)
 	{
 		// draw boundary
@@ -957,19 +974,7 @@ void AGraph::Draw()
 		glVertex2f(_skin[0].x, _skin[0].y);
 		glEnd();
 
-		// UNIART!!!!
-		glColor3f(1, 0, 0);
-		glLineWidth(0.5f);
-		glBegin(GL_LINES);
-
-		for (unsigned int a = 0; a < _uniArt.size(); a++)
-		{
-			int c = a + 1;
-			if (c >= _uniArt.size()) { c = 0; }
-			glVertex2f(_uniArt[a].x, _uniArt[a].y);
-			glVertex2f(_uniArt[c].x, _uniArt[c].y);
-		}
-		glEnd();
+		
 
 		
 

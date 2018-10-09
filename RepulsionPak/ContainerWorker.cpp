@@ -141,7 +141,7 @@ void ContainerWorker::LoadContainer(CollissionGrid* cGrid)
 			{ _randomPositions.push_back(pt); }
 	}
 
-	/*if (SystemParams::_num_element_pos_limit < _randomPositions.size())
+	if (!SystemParams::_do_shape_matching && SystemParams::_num_element_pos_limit < _randomPositions.size())
 	{
 		while (_randomPositions.size() != SystemParams::_num_element_pos_limit)
 		{
@@ -149,7 +149,7 @@ void ContainerWorker::LoadContainer(CollissionGrid* cGrid)
 			std::shuffle(_randomPositions.begin(), _randomPositions.end(), g);
 			_randomPositions.erase(_randomPositions.begin());
 		}
-	}*/
+	}
 
 	cGrid->AnalyzeContainer(_container_boundaries, _holes, _offsetFocalBoundaries);
 }

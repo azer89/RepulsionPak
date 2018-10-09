@@ -86,7 +86,7 @@ StuffWorker::StuffWorker()
 	//OpenCVWrapper _cvWrapper;
 
 	//CreateSquares();     // don't forget to change params.lua
-	CreateManualPacking(); // don't forget to change params.lua
+	//CreateManualPacking(); // don't forget to change params.lua
 	AnalyzeManualPacking();
 
 
@@ -246,6 +246,14 @@ void StuffWorker::SkinAndTriangulateOrnaments()
 		int a = iter % _ornamentRegions.size(); // index
 		VFRegion anOrnament = _ornamentRegions[a]; ////// _ornamentRegions		
 		std::vector<std::vector<AVector>> arts = anOrnament.GetBoundaries(); // the actual art
+
+		std::vector<std::vector<AVector>> arts_for_offset = arts;
+		std::vector<std::vector<AVector>> focals = anOrnament.GetFocalBoundaries();
+		if (focals.size() > 0)
+		{
+			std::cout << "has braces\n";
+			arts_for_offset.insert(arts_for_offset.end(), focals.begin(), focals.end());
+		}
 				
 		AGraph oriGraph; // yohooo	
 
@@ -265,7 +273,7 @@ void StuffWorker::SkinAndTriangulateOrnaments()
 		std::vector<AVector> unionBoundary;
 		float img_length = 0;
 		oriGraph._oriSkiOffset = skinOffset;
-		myOffsetBoundary = ClipperWrapper::RoundOffsettingPP(arts, skinOffset)[0];
+		myOffsetBoundary = ClipperWrapper::RoundOffsettingPP(arts_for_offset, skinOffset)[0];
 		//unionBoundary = ClipperWrapper::RoundOffsettingPP(arts, 1)[0]; // hack
 		//unionBoundary = ClipperWrapper::RoundOffsettingPP(arts, 0)[0]; // hack
 		unionBoundary = ClipperWrapper::RoundOffsettingP(myOffsetBoundary, -skinOffset)[0]; // hack

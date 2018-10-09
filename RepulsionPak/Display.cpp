@@ -407,7 +407,7 @@ void Display::Draw()
 	ImGui::SetNextWindowPos(ImVec2(5, 15), ImGuiSetCond_FirstUseEver);  // set position
 
 	bool show_another_window = false;	
-	ImGui::Begin("PhysicsPak", &show_another_window, ImVec2(240, 500));
+	ImGui::Begin("PhysicsPak", &show_another_window, ImVec2(240, 520));
 
 	if (_rms_time_counter > 0)
 	{

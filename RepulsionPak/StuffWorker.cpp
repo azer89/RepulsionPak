@@ -1073,6 +1073,12 @@ void StuffWorker::RecreateDistanceTransform(float scale)
 
 void StuffWorker::CalculateSDF(int numIter, bool saveImage)
 {	
+	for (int a = 0; a < _graphs.size(); a++)
+	{
+		//_graphs[a].RecalculateArts();
+		//_graphs[a]._uniuniArts = ClipperWrapper::GetUniPolys(_graphs[a]._arts);
+	}
+
 	_aDTransform->UpdateBoundaries(_graphs);
 
 	// ---------- collission grid ----------
@@ -1091,7 +1097,6 @@ void StuffWorker::CalculateSDF(int numIter, bool saveImage)
 	_cGrid->MovePoints();
 	std::cout << "begin to calculate SDF\n";
 	_aDTransform->CalculateSDF2(_graphs, _cGrid, numIter, saveImage);
-	
 }
 
 void StuffWorker::CalculateFillAndRMS(int numIter, bool saveImage)

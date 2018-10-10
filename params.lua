@@ -180,6 +180,6 @@ _sdf_capture_time          = 1000000000;  --- SDF (Signed distance function) cap
 
 --- RMS (Root of mean square) capture time
  
-_rms_capture_time = 500;  --- it is set to 1 second
+_rms_capture_time = 1000;  --- it is set to 1 second
 _rms_window       = 50;    --- Window length is 50
 _rms_threshold    = 0.02;  --- RMS stopping criteria

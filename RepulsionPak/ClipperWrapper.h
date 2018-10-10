@@ -57,6 +57,9 @@ public:
 		                          const std::vector<std::vector<AVector >>& skins,
 								  std::vector<std::vector<AVector>>& outPolys,
 								  std::vector<bool>& orientationFlags);
+
+	static std::vector<std::vector<AVector>> GetUniPolys(std::vector<std::vector<AVector >> polygons);  // closed poly	
+
 	static float CalculateFill(const std::vector<AVector>& container, const std::vector<AGraph>& graphs);
 	static float CalculateFill(const std::vector<AVector>& container, const std::vector<std::vector<AVector >>& graphs);
 

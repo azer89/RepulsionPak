@@ -106,6 +106,7 @@ public:
 
 
 	// embed vector graphics
+	std::vector<std::vector<AVector>> _uniuniArts;
 	std::vector<AVector>              _uniArt;
 	std::vector<int>                  _uniArt2Triangles;
 	std::vector<ABary>                _uniBaryCoords;

@@ -107,6 +107,9 @@ public:
 
 	// embed vector graphics
 	std::vector<std::vector<AVector>> _uniuniArts;
+	std::vector<std::vector<int>>     _uniuniArts2Triangles;
+	std::vector<std::vector<ABary>>   _uniuniBaryCoords;  
+
 	std::vector<AVector>              _uniArt;
 	std::vector<int>                  _uniArt2Triangles;
 	std::vector<ABary>                _uniBaryCoords;
@@ -240,6 +243,9 @@ public:
 
 	// NN EDGES
 	void RecalculateEdgeLengths();
+
+	//
+	void RecalculateUniUniArts();
 
 	//
 	void RecalculateArts();

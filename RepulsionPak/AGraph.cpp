@@ -303,6 +303,59 @@ void AGraph::ComputeBarycentric()
 		_uniBaryCoords.push_back(bary);
 		_uniArt2Triangles.push_back(triIdx);
 	}
+
+
+	//  ================================================  
+	// uni uni arts
+	_uniuniArts2Triangles.clear();
+	_uniuniBaryCoords.clear();
+	for (unsigned int a = 0; a < _uniuniArts.size(); a++)
+	{
+		std::vector<int> a2t;
+		std::vector<ABary> bCoords;
+		for (unsigned int b = 0; b < _uniuniArts[a].size(); b++)
+		{
+			int triIdx = -1;
+			ABary bary;
+			for (unsigned int c = 0; c < _triangles.size(); c++)
+			{
+				if (UtilityFunctions::InsidePolygon(actualTriangles[c], _uniuniArts[a][b].x, _uniuniArts[a][b].y))
+				{
+					triIdx = c;
+					break;
+				}
+			}
+
+			if (triIdx == -1)
+			{
+				std::cout << "art error !!!\n";
+
+				triIdx = -1;
+				float dist = 100000000;
+				for (unsigned int c = 0; c < _triangles.size(); c++)
+				{
+					float d = UtilityFunctions::DistanceToClosedCurve(actualTriangles[c], _uniuniArts[a][b]);
+					if (d < dist)
+					{
+						dist = d;
+						triIdx = c;
+					}
+				}
+			}
+
+			//else
+			{
+				bary = UtilityFunctions::Barycentric(_uniuniArts[a][b],
+					actualTriangles[triIdx][0],
+					actualTriangles[triIdx][1],
+					actualTriangles[triIdx][2]);
+			}
+			bCoords.push_back(bary);
+			a2t.push_back(triIdx);
+		}
+		_uniuniBaryCoords.push_back(bCoords);
+		_uniuniArts2Triangles.push_back(a2t);
+	}
 }
 
 void AGraph::CalculateOriAvgEdgeLength()
@@ -940,7 +993,7 @@ void AGraph::Draw()
 	if (SystemParams::_show_uni_art)
 	{
 		// UNIART!!!!
-		glColor3f(1, 0, 0);
+		/*glColor3f(1, 0, 0);
 		glLineWidth(0.5f);
 		glBegin(GL_LINES);
 
@@ -950,6 +1003,29 @@ void AGraph::Draw()
 			if (c >= _uniArt.size()) { c = 0; }
 			glVertex2f(_uniArt[a].x, _uniArt[a].y);
 			glVertex2f(_uniArt[c].x, _uniArt[c].y);
+		}
+		glEnd();*/
+
+		glLineWidth(1.0f);
+		glColor3f(255, 0, 0);
+		glBegin(GL_LINES);
+		for (unsigned int a = 0; a < _uniuniArts.size(); a++)
+		{
+			//MyColor fCol = _fColors[a];
+			//if (fCol.IsValid())
+			{
+				//float r = fCol._r; float g = fCol._g; float b = fCol._b;
+				//r /= 255.0;	g /= 255.0;	b /= 255.0;
+				//glColor3f(r, g, b);
+
+				for (unsigned int b = 0; b < _uniuniArts[a].size(); b++)
+				{
+					int c = b + 1;
+					if (c >= _uniuniArts[a].size()) { c = 0; }
+					glVertex2f(_uniuniArts[a][b].x, _uniuniArts[a][b].y);
+					glVertex2f(_uniuniArts[a][c].x, _uniuniArts[a][c].y);
+				}
+			}
 		}
 		glEnd();
 	}
@@ -1520,13 +1596,37 @@ void AGraph::RecalculateEdgeLengths()
 bool AGraph::InsideArts(AVector pt) const
 {
 	// true if inside
-	return UtilityFunctions::InsidePolygons(_arts, pt.x, pt.y);
+	return UtilityFunctions::InsidePolygons(_uniuniArts, pt.x, pt.y);
 }
 
 // need to call RecalculateArts
 float AGraph::DistToArts(AVector pt) const
 {
-	return UtilityFunctions::DistanceToClosedCurves(_arts, pt);
+	return UtilityFunctions::DistanceToClosedCurves(_uniuniArts, pt);
+}
+
+void AGraph::RecalculateUniUniArts()
+{
+	AnIdxTriangle tri(0, 0, 0);
+	ABary bary(0, 0, 0);
+
+	int uniuni_art_sz = _uniuniArts.size();
+	for (unsigned int a = 0; a < uniuni_art_sz; a++)
+	{
+		int art_sz_2 = _uniuniArts[a].size();
+		for (unsigned int b = 0; b < art_sz_2; b++)
+		{
+			//int idx = _arts2Triangles[a][b];
+			tri = _triangles[_uniuniArts2Triangles[a][b]];
+			//AVector pt1 = _massList[tri.idx0]._pos;
+			//AVector pt2 = _massList[tri.idx1]._pos;
+			//AVector pt3 = _massList[tri.idx2]._pos;
+			bary = _uniuniBaryCoords[a][b];
+			_uniuniArts[a][b] = _massList[tri.idx0]._pos * bary._u +
+				_massList[tri.idx1]._pos * bary._v +
+				_massList[tri.idx2]._pos * bary._w;
+		}
+	}
 }
 
 void AGraph::RecalculateArts()
@@ -1556,6 +1656,24 @@ void AGraph::RecalculateArts()
 			_arts[a][b] = _massList[tri.idx0]._pos * bary._u + 
 				          _massList[tri.idx1]._pos * bary._v + 
 						  _massList[tri.idx2]._pos * bary._w;
+		}
+	}
+
+	int uniuni_art_sz = _uniuniArts.size();
+	for (unsigned int a = 0; a < uniuni_art_sz; a++)
+	{
+		int art_sz_2 = _uniuniArts[a].size();
+		for (unsigned int b = 0; b < art_sz_2; b++)
+		{
+			//int idx = _arts2Triangles[a][b];
+			tri = _triangles[_uniuniArts2Triangles[a][b]];
+			//AVector pt1 = _massList[tri.idx0]._pos;
+			//AVector pt2 = _massList[tri.idx1]._pos;
+			//AVector pt3 = _massList[tri.idx2]._pos;
+			bary = _uniuniBaryCoords[a][b];
+			_uniuniArts[a][b] = _massList[tri.idx0]._pos * bary._u +
+				_massList[tri.idx1]._pos * bary._v +
+				_massList[tri.idx2]._pos * bary._w;
 		}
 	}
 

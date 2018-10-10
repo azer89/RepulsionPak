@@ -339,6 +339,7 @@ void StuffWorker::SkinAndTriangulateOrnaments()
 		// ---------- arts ----------
 		oriGraph._uniArt = unionBoundary;
 		oriGraph._arts = arts;
+		oriGraph._uniuniArts = ClipperWrapper::GetUniPolys(arts);
 		oriGraph.TesselateArts();
 		oriGraph.CalculateCentroid();
 		oriGraph.CalculateVecToCentroidArray();
@@ -1101,7 +1102,12 @@ void StuffWorker::CalculateSDF(int numIter, bool saveImage)
 
 void StuffWorker::CalculateFillAndRMS(int numIter, bool saveImage)
 {
-	_aDTransform->UpdateBoundaries(_graphs);
+	for (int a = 0; a < _graphs.size(); a++)
+	{
+		_graphs[a].RecalculateUniUniArts();
+	}
+
+	//_aDTransform->UpdateBoundaries(_graphs);
 	//_aDTransform->CalculateFill(_cGrid, _fill_ratio, numIter, saveImage);
 	_fill_ratio = ClipperWrapper::CalculateFill(_containerWorker->_container_boundaries[0], _graphs);
 

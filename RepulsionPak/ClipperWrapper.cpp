@@ -785,7 +785,7 @@ float ClipperWrapper::CalculateFill(const std::vector<AVector>& container, const
 	 int numArt = 0;
 	 for (int a = 0; a < graphs.size(); a++)
 	 {
-		 numArt += graphs[a]._arts.size();
+		 numArt += graphs[a]._uniuniArts.size();
 	 }
 
 	 ClipperLib::Path cTargetShape;
@@ -804,11 +804,11 @@ float ClipperWrapper::CalculateFill(const std::vector<AVector>& container, const
 		//for (int b = 0; b < graphs[a]._uniArt.size(); b++)
 		//{ cClippingShapes[a] << ClipperLib::IntPoint(graphs[a]._uniArt[b].x * cScaling, graphs[a]._uniArt[b].y * cScaling); }
 
-		for (int b = 0; b < graphs[a]._arts.size(); b++)
+		for (int b = 0; b < graphs[a]._uniuniArts.size(); b++)
 		{
-			for (int c = 0; c < graphs[a]._arts[b].size(); c++)
+			for (int c = 0; c < graphs[a]._uniuniArts[b].size(); c++)
 			{
-				cClippingShapes[artIter] << ClipperLib::IntPoint(graphs[a]._arts[b][c].x * cScaling, graphs[a]._arts[b][c].y * cScaling);
+				cClippingShapes[artIter] << ClipperLib::IntPoint(graphs[a]._uniuniArts[b][c].x * cScaling, graphs[a]._uniuniArts[b][c].y * cScaling);
 			}
 			artIter++;
 		}

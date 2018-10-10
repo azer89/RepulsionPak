@@ -48,11 +48,11 @@ ax = plt.gca();
 #plt.plot(r_vals, np.asarray(scf_vals_balabolka_man8x), 'r', linewidth=1.0);
 
 #plt.plot(r_vals, np.asarray(scf_vals_pad_03), 'g', linewidth=1.0);
-plt.plot(r_vals, np.asarray(scf_vals_pad_02), '#2FADF4', linewidth=1);
-plt.plot(r_vals, np.asarray(scf_vals_pad_01), '#56D65F', linewidth=1);         
+plt.plot(r_vals, np.asarray(scf_vals_balabolka_01), '#2FADF4', linewidth=1);
+#plt.plot(r_vals, np.asarray(scf_vals_pad_01), '#56D65F', linewidth=1);         
 #plt.plot(r_vals, np.asarray(scf_vals_pad_07_7), '#6755D8', linewidth=1);
-plt.plot(r_vals, np.asarray(scf_vals_pad_03), '#6755D8', linewidth=1);
-plt.plot(r_vals, np.asarray(scf_vals_pad_04), '#FF6700', linewidth=1);
+#plt.plot(r_vals, np.asarray(scf_vals_pad_03), '#6755D8', linewidth=1);
+#plt.plot(r_vals, np.asarray(scf_vals_pad_04), '#FF6700', linewidth=1);
 #plt.plot(r_vals, np.asarray(scf_vals_pad_05), '#178C86', linewidth=1);
 #plt.plot(r_vals, np.asarray(scf_vals_balabolka_06), 'g', linewidth=0.5);
 #plt.plot(r_vals, np.asarray(scf_vals_balabolka_07), 'g', linewidth=0.5);
@@ -62,7 +62,7 @@ plt.plot(r_vals, np.asarray(scf_vals_pad_04), '#FF6700', linewidth=1);
 #plt.plot(r_vals, np.asarray(scf_vals_balabolka_11), 'g', linewidth=0.5);
 #scf_vals_pad_11
 #plt.plot(r_vals, np.asarray(scf_vals_pad_11), 'b', linewidth=1.0);
-plt.plot(r_vals, np.asarray(scf_vals_pad_man2x), '#ED2B2B', linewidth=1);
+plt.plot(r_vals, np.asarray(scf_vals_balabolka_man2x), '#ED2B2B', linewidth=1);
 
 
 '''

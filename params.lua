@@ -99,13 +99,13 @@ _dt = 0.05;   --- do not set this higher than 0.1
 --- _noise_map_update_time = 10000000; --- in ms (disabled)
 
 --- Force parameters
-_k_neg_space_edge      = 7;	--- edge force for springs
-_k_edge                = 7;	--- edge force for filling elements
+_k_neg_space_edge      = 20;	--- edge force for springs
+_k_edge                = 20;	--- edge force for filling elements
 _k_edge_small_factor   = 12;
 _k_repulsion           = 100;	--- repulsion force
 _repulsion_soft_factor = 1.0;	--- soft factor for repulsion force
 _k_overlap             = 0.1;	--- overlap force
-_k_boundary            = 5;	--- boundary force
+_k_boundary            = 10;	--- boundary force
 _k_noise               = 0;
 _k_rotate              = 0;		--- 1
 _k_dock                = 100;
@@ -134,7 +134,7 @@ _boundary_sampling_factor   = 1.5;  -- [Do not edit]
 
 --- Grid for collision detection
 --- size of a cell
-_bin_square_size         = 50.0;
+_bin_square_size         = 70.0;
 --- cell gap for detection, 
 --- 1 means considering all cells that are 1 block away from the query (3x3)
 --- 2 means considering all cells that are 2 block away from the query (5x5)
@@ -144,7 +144,7 @@ _collission_block_radius = 1;
 --- incremetal step for growing
 _growth_scale_iter     = 0.00812;
 --- initial scale after placing the elements inside the target container
-_element_initial_scale = 0.50; 
+_element_initial_scale = 0.30; 
 --- epsilon for halting the growth
 _growth_min_dist       = 0.001; 
 

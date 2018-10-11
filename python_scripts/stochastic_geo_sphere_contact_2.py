@@ -38,8 +38,12 @@ for num_name in num_names:
     a_list = [];
     for x_iter in range(0, img_sz_int):
         for y_iter in range(0, img_sz_int):
-            if sdf_vals[x_iter + y_iter * img_sz_int] > 0:
+            if sdf_vals[x_iter + y_iter * img_sz_int] >= 0:
                 a_list.append(sdf_vals[x_iter + y_iter * img_sz_int]);
+    
+    # store non zero non negative sdf values
+    str_vals_ggg = "non_neg_vals_" + case_name + "_" + num_name + " = a_list";
+    exec(str_vals_ggg);
     
     print "min = ", min(a_list);
     print "max = ", max(a_list);

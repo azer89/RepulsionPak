@@ -5,12 +5,14 @@ import pandas as pd
 
 import useful_things as ut
 
-r_vals = np.arange(0.2, 21, 0.2);
+r_vals = np.arange(0.2, 21, 0.1);
 
 # cuz area fraction
-r_vals = np.insert(r_vals, 0, 0)
+#r_vals = np.insert(r_vals, 0, 0)
 #r_vals.insert(0, 0);
 
+
+what is d_gap
 
 """
 fig1 = plt.figure(1);
@@ -50,7 +52,8 @@ ax = plt.gca();
 #plt.plot(np.asarray(scf_vals_balabolka_man2x),  '#ED2B2B', linewidth=1);
 
 #plt.hist(np.asarray(scf_vals_balabolka_01), 10, normed=True);
-plt.hist(np.asarray(a_list), 1000, normed=True);
+plt.hist(np.asarray(non_neg_vals_balabolka_01), bins = r_vals, color='g', alpha = 0.5, normed=True);
+plt.hist(np.asarray(non_neg_vals_balabolka_man2x), bins = r_vals, color='r', alpha = 0.5, normed=True);
 
 plt.title(r"Compare");
 plt.show();

@@ -49,8 +49,8 @@ ax = plt.gca();
 #plt.plot(np.asarray(scf_vals_balabolka_01), '#2FADF4', linewidth=1);
 #plt.plot(np.asarray(scf_vals_balabolka_man2x),  '#ED2B2B', linewidth=1);
 
-plt.hist(np.asarray(scf_vals_balabolka_01), 10, normed=True);
-plt.hist(np.asarray(scf_vals_balabolka_man2x), 10, normed=True);
+#plt.hist(np.asarray(scf_vals_balabolka_01), 10, normed=True);
+plt.hist(np.asarray(a_list), 1000, normed=True);
 
 plt.title(r"Compare");
 plt.show();

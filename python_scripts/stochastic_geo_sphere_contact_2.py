@@ -8,7 +8,7 @@ import statistics as stat
 
 import useful_things as ut
 
-case_name = "balabolka";
+case_name = "pad";
 num_names = ["01", "man2x"];
 #num_names = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10"];
 #num_names = ["a", "b", "c", "d", "e"];
@@ -16,13 +16,13 @@ num_names = ["01", "man2x"];
 for num_name in num_names:
 
     # MASK
-    filename1 = 'C://Users//azer//OneDrive - University of Waterloo//__new_results__//09_' + case_name + '_' + num_name +'//dist_mask.csv';
+    filename1 = 'C://Users//azer//OneDrive - University of Waterloo//__new_results__//08_' + case_name + '_' + num_name +'//dist_mask.csv';
     csv_data1 = pd.read_csv(filename1, sep=',',header=None);
     #print filename1;
     mask_vals = csv_data1.values[:,0];
     
     # SDF
-    filename2 = 'C://Users//azer//OneDrive - University of Waterloo//__new_results__//09_' + case_name + '_' + num_name +'//dist_all.csv';
+    filename2 = 'C://Users//azer//OneDrive - University of Waterloo//__new_results__//08_' + case_name + '_' + num_name +'//dist_all.csv';
     csv_data2 = pd.read_csv(filename2, sep=',',header=None);
     #print filename2;
     sdf_vals = csv_data2.values[:,0];

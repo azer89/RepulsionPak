@@ -49,6 +49,8 @@ ax = plt.gca();
 
 #plt.plot(r_vals, np.asarray(scf_vals_pad_03), 'g', linewidth=1.0);
 plt.plot(r_vals, np.asarray(scf_vals_balabolka_01), '#2FADF4', linewidth=1);
+
+         
 #plt.plot(r_vals, np.asarray(scf_vals_pad_01), '#56D65F', linewidth=1);         
 #plt.plot(r_vals, np.asarray(scf_vals_pad_07_7), '#6755D8', linewidth=1);
 #plt.plot(r_vals, np.asarray(scf_vals_pad_03), '#6755D8', linewidth=1);

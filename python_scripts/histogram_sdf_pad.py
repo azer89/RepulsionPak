@@ -5,7 +5,7 @@ import pandas as pd
 
 import useful_things as ut
 
-r_vals = np.arange(0.2, 21, 0.1);
+r_vals = np.arange(0.2, 21, 0.2);
 
 # cuz area fraction
 #r_vals = np.insert(r_vals, 0, 0)
@@ -54,19 +54,14 @@ ax = plt.gca();
 #plt.plot(np.asarray(scf_vals_balabolka_01), '#2FADF4', linewidth=1);
 #plt.plot(np.asarray(scf_vals_balabolka_man2x),  '#ED2B2B', linewidth=1);
 
-
-#line_up, = plt.plot([1,2,3], label='Line 2')
-#line_down, = plt.plot([3,2,1], label='Line 1')
-#plt.legend(handles=[line_up, line_down])
-
-plt.hist(np.asarray(non_neg_vals_balabolka_man2x), bins = r_vals, color='r', alpha = 0.4, histtype='step');
-
 #plt.hist(np.asarray(scf_vals_balabolka_01), 10, normed=True);
-plt.hist(np.asarray(non_neg_vals_balabolka_01), bins = r_vals, color='g', alpha = 0.5, histtype='step');
 
-plt.plot([2.5865, 2.5865], [0, 0.33], 'k-')
+plt.hist(np.asarray(non_neg_vals_pad_man2x), bins = r_vals, color='r', alpha = 0.5, histtype='step');
+
+plt.hist(np.asarray(non_neg_vals_pad_01), bins = r_vals, color='g', alpha = 0.5, histtype='step');
+
+plt.plot([5.75, 5.75], [0, 0.2], 'k-')
 
 
-
-plt.title(r"red is artist, green is RepulsionPak");
+plt.title(r"Compare PAD");
 plt.show();

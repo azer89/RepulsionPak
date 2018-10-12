@@ -56,7 +56,7 @@ ax = plt.gca();
 
 #plt.hist(np.asarray(scf_vals_balabolka_01), 10, normed=True);
 
-plt.hist(np.asarray(non_neg_vals_pad_man2x), bins = r_vals, color='r', alpha = 0.5, histtype='step');
+plt.hist(np.asarray(non_neg_vals_pad_01_jitter), bins = r_vals, color='r', alpha = 0.5, histtype='step');
 
 plt.hist(np.asarray(non_neg_vals_pad_01), bins = r_vals, color='g', alpha = 0.5, histtype='step');
 

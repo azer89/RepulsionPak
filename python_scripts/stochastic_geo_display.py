@@ -5,7 +5,7 @@ import pandas as pd
 
 import useful_things as ut
 
-r_vals = np.arange(0.2, 21, 0.2);
+r_vals = np.arange(0.2, 21, 0.5);
 
 # cuz area fraction
 r_vals = np.insert(r_vals, 0, 0)
@@ -45,10 +45,14 @@ ax = plt.gca();
 #ax.set_yscale('log')
 
 
+plt.plot(r_vals, np.asarray(scf_vals_boxes_a), 'r', linewidth=1);
+plt.plot(r_vals, np.asarray(scf_vals_boxes_c), 'g', linewidth=1);
+plt.plot(r_vals, np.asarray(scf_vals_boxes_e), 'b', linewidth=1);
+
 #plt.plot(r_vals, np.asarray(scf_vals_balabolka_man8x), 'r', linewidth=1.0);
 
 #plt.plot(r_vals, np.asarray(scf_vals_pad_03), 'g', linewidth=1.0);
-plt.plot(r_vals, np.asarray(scf_vals_balabolka_01), '#2FADF4', linewidth=1);
+#plt.plot(r_vals, np.asarray(scf_vals_balabolka_01), '#2FADF4', linewidth=1);
 
          
 #plt.plot(r_vals, np.asarray(scf_vals_pad_01), '#56D65F', linewidth=1);         
@@ -64,7 +68,7 @@ plt.plot(r_vals, np.asarray(scf_vals_balabolka_01), '#2FADF4', linewidth=1);
 #plt.plot(r_vals, np.asarray(scf_vals_balabolka_11), 'g', linewidth=0.5);
 #scf_vals_pad_11
 #plt.plot(r_vals, np.asarray(scf_vals_pad_11), 'b', linewidth=1.0);
-plt.plot(r_vals, np.asarray(scf_vals_balabolka_man2x), '#ED2B2B', linewidth=1);
+#plt.plot(r_vals, np.asarray(scf_vals_balabolka_man2x), '#ED2B2B', linewidth=1);
 
 
 '''
@@ -249,5 +253,5 @@ plt.plot(r_vals, np.asarray(scf_vals_dump_1000_09), 'r', linewidth=1.0);
 plt.plot(r_vals, np.asarray(scf_vals_dump_1000_10), 'r', linewidth=1.0);
 '''
 
-plt.title(r"Compare");
+plt.title(r"Compare ace rgb");
 plt.show();

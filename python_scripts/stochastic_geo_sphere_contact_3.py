@@ -9,6 +9,22 @@ import statistics as stat
 import useful_things as ut
 
 
+case_name = "boxes";
+num_names = ["a", "c", "e"];
+
+
+
+import numpy as np
+import matplotlib.pylab as plt
+#import scipy.stats as stats
+import pandas as pd
+
+import sys
+import statistics as stat
+
+import useful_things as ut
+
+
 case_name = "boxes";  # case
 num_names = ["a", "c", "e"]; # names
 
@@ -66,7 +82,8 @@ for num_name in num_names:
     #######
     # stuff
     #######
-    r_vals = np.arange(0.2, 20 + 1, 0.1);
+    r_gap = 0.1;
+    r_vals = np.arange(0.2, 20 + 1, r_gap);
     
     ###################################
     # calculate sphere contact function
@@ -74,18 +91,32 @@ for num_name in num_names:
     str_vals = "scf_vals_" + case_name + "_" + num_name + " = []";
     exec(str_vals);
     
+    
     # add area fraction
     str_vals_0 = "scf_vals_" + case_name + "_" + num_name + ".append(area_fraction)";
     exec(str_vals_0);
-    for r_iter in r_vals:
-        sys.stdout.write('.');
-        num_contact = 0;
-        for x_iter in range(0, img_sz_int):
-            for y_iter in range(0, img_sz_int):
-                if sdf_vals[x_iter + y_iter * img_sz_int] >= r_iter:
-                    num_contact += 1.0;
-        scf = num_contact / num_sample;
-        str_vals = "scf_vals_" + case_name + "_" + num_name + ".append(scf)";
-        exec(str_vals);
+    #for r_iter in r_vals:
+    #sys.stdout.write('.');
     
-    print "";
+    scf_array = np.zeros(len(r_vals));
+    #num_contact = 0;
+    for x_iter in range(0, img_sz_int):
+        for y_iter in range(0, img_sz_int):
+            a_val = sdf_vals[x_iter + y_iter * img_sz_int];            
+            idx = int(a_val / r_gap) + 1; # minus ???
+            if idx <= 0 :
+                continue;
+            for z_iter in range(0, idx): #idx = idx - 1;
+                scf_array[z_iter] = scf_array[z_iter] + 1;
+            #if sdf_vals[x_iter + y_iter * img_sz_int] >= r_iter:
+                #num_contact += 1.0;
+    #scf = num_contact / num_sample;
+    for i in range(0, len(scf_array)):
+         scf = scf_array[i] / num_sample;
+         str_vals = "scf_vals_" + case_name + "_" + num_name + ".append(scf)";
+         exec(str_vals);
+         
+    #str_vals = "scf_vals_" + case_name + "_" + num_name + ".append(scf)";
+    #exec(str_vals);
+    
+    print "done bro\n";

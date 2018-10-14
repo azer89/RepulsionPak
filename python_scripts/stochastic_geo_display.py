@@ -5,7 +5,7 @@ import pandas as pd
 
 import useful_things as ut
 
-r_vals = np.arange(0.2, 21, 0.5);
+r_vals = np.arange(0.2, 21, 0.1);
 
 # cuz area fraction
 r_vals = np.insert(r_vals, 0, 0)

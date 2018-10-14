@@ -102,7 +102,9 @@ for num_name in num_names:
     #num_contact = 0;
     for x_iter in range(0, img_sz_int):
         for y_iter in range(0, img_sz_int):
-            a_val = sdf_vals[x_iter + y_iter * img_sz_int];            
+            a_val = sdf_vals[x_iter + y_iter * img_sz_int];  
+            
+            # this has numerical problem, unfortunately
             idx = int(a_val / r_gap) + 1; # minus ???
             if idx <= 0 :
                 continue;

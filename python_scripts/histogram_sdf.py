@@ -5,7 +5,7 @@ import pandas as pd
 
 import useful_things as ut
 
-r_vals = np.arange(0.2, 21, 0.1);
+r_vals = np.arange(0.2, 21, 0.2);
 
 # cuz area fraction
 #r_vals = np.insert(r_vals, 0, 0)
@@ -59,12 +59,12 @@ ax = plt.gca();
 #line_down, = plt.plot([3,2,1], label='Line 1')
 #plt.legend(handles=[line_up, line_down])
 
-plt.hist(np.asarray(non_neg_vals_balabolka_man2x), bins = r_vals, color='r', alpha = 0.4, histtype='step');
+plt.hist(np.asarray(non_neg_vals_pad_01_jitter), bins = r_vals, color='r', alpha = 0.4, histtype='step', normed=True);
 
 #plt.hist(np.asarray(scf_vals_balabolka_01), 10, normed=True);
-plt.hist(np.asarray(non_neg_vals_balabolka_01), bins = r_vals, color='g', alpha = 0.5, histtype='step');
+plt.hist(np.asarray(non_neg_vals_pad_01), bins = r_vals, color='g', alpha = 0.5, histtype='step', normed=True);
 
-plt.plot([2.5865, 2.5865], [0, 0.33], 'k-')
+plt.plot([5.746, 5.746], [0, 0.13], 'k-')
 
 
 

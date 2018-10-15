@@ -45,9 +45,11 @@ ax = plt.gca();
 #ax.set_yscale('log')
 
 
-plt.plot(r_vals, np.asarray(scf_vals_boxes_a), 'r', linewidth=1);
-plt.plot(r_vals, np.asarray(scf_vals_boxes_c), 'g', linewidth=1);
-plt.plot(r_vals, np.asarray(scf_vals_boxes_e), 'b', linewidth=1);
+plt.plot(r_vals, np.asarray(scf_vals_pad_01_jitter), 'r', linewidth=1);
+plt.plot(r_vals, np.asarray(scf_vals_pad_01), 'g', linewidth=1);
+plt.plot([5.746, 5.746], [0, 0.33], 'k-')
+
+#plt.plot(r_vals, np.asarray(scf_vals_boxes_e), 'b', linewidth=1);
 
 #plt.plot(r_vals, np.asarray(scf_vals_balabolka_man8x), 'r', linewidth=1.0);
 
@@ -255,5 +257,5 @@ plt.plot(r_vals, np.asarray(scf_vals_dump_1000_09), 'r', linewidth=1.0);
 plt.plot(r_vals, np.asarray(scf_vals_dump_1000_10), 'r', linewidth=1.0);
 '''
 
-plt.title(r"Compare ace rgb");
+plt.title(r"Compare circles");
 plt.show();

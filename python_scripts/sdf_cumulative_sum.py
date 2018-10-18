@@ -21,19 +21,21 @@ ax = plt.gca();
 #ax.set_yscale('log');
 
 #sort
-non_neg_vals_pad_01 = np.sort(non_neg_vals_balabolka_01);
-non_neg_vals_pad_01_rigid = np.sort(non_neg_vals_balabolka_man2x);
+green_array = np.sort(non_neg_vals_pad_01);
+red_array = np.sort(non_neg_vals_pad_01_rigid);
 
-non_neg_vals_pad_01 = [x for x in non_neg_vals_pad_01 if x != 0]
-non_neg_vals_pad_01_rigid = [x for x in non_neg_vals_pad_01_rigid if x != 0]
+green_array = [x for x in green_array if x != 0]
+red_array = [x for x in red_array if x != 0]
 
 #cumulative sub
-pad_01_cumsum = np.cumsum(non_neg_vals_pad_01, dtype=float);
-pad_01_rigid_cumsum = np.cumsum(non_neg_vals_pad_01_rigid, dtype=float);
+green_cumsum = np.cumsum(green_array, dtype=float);
+red_cumsum = np.cumsum(red_array, dtype=float);
 
+# tyler
 N = len(non_neg_vals_pad_01)
 cumdensity = [(x + 1) / N for x in range(N)]
 
+# tyler
 N2 = len(non_neg_vals_pad_01_rigid)
 cumdensity2 = [(x + 1) / N2 for x in range(N2)]
 
@@ -52,10 +54,10 @@ pad_01_cumsum = pad_01_cumsum / norm1;
 pad_01_rigid_cumsum = pad_01_rigid_cumsum/ norm2;
 '''
 
-plt.plot(non_neg_vals_pad_01, pad_01_cumsum, 'g');
-plt.plot(non_neg_vals_pad_01_rigid, pad_01_rigid_cumsum, 'r');
+plt.plot(green_array, green_cumsum, 'g');
+plt.plot(red_array, red_cumsum, 'r');
 
 #plt.plot([2.5865, 2.5865], [0, 400000], 'k-')
 
-plt.title(r"Compare ");
+plt.title(r"Cumulative sum ");
 plt.show();

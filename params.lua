@@ -9,7 +9,7 @@ _save_folder  = "C:\\Users\\azer\\OneDrive\\Images\\PhysicsPak_Snapshots_0" .. _
 ------ folders ------
 _image_folder         = "C:\\Users\\azer\\OneDrive\\Images\\";	--- where all the input files are located
 _artName              = "pp_balabolka"; --- pp_lolwut	--- location of the container
-_manual_art_name      = "circle_02";	--- manually drawn packing (for evaluation)
+_manual_art_name      = "man_balabolka";	--- manually drawn packing (for evaluation)
 _ornament_dir         = _image_folder .. "opp_b_balabolka_2";		--- regular elements
 _ornament_dir_small_1 = _image_folder .. "opp_s_balabolka"; --- filling elements (the elements to fill the remaining empty space after the simulation ends)
 
@@ -82,7 +82,7 @@ _seed = -1; --- negative means random
 --- larger the number, more elements you get,
 --- but the simulation time gets slower
 _num_element_pos       = 700;
-_num_element_pos_limit = 77;
+_num_element_pos_limit = 78;
 
 --- Time step for numerical integration (euler method)
 _dt = 0.05;   --- do not set this higher than 0.1
@@ -105,7 +105,7 @@ _k_edge_small_factor   = 12;
 _k_repulsion           = 100;	--- repulsion force
 _repulsion_soft_factor = 1.0;	--- soft factor for repulsion force
 _k_overlap             = 0.1;	--- overlap force
-_k_boundary            = 10;	--- boundary force
+_k_boundary            = 5;	--- boundary force
 _k_noise               = 0;
 _k_rotate              = 0;		--- 1
 _k_dock                = 100;
@@ -134,7 +134,7 @@ _boundary_sampling_factor   = 1.5;  -- [Do not edit]
 
 --- Grid for collision detection
 --- size of a cell
-_bin_square_size         = 70.0;
+_bin_square_size         = 50.0;
 --- cell gap for detection, 
 --- 1 means considering all cells that are 1 block away from the query (3x3)
 --- 2 means considering all cells that are 2 block away from the query (5x5)
@@ -144,7 +144,7 @@ _collission_block_radius = 1;
 --- incremetal step for growing
 _growth_scale_iter     = 0.00812;
 --- initial scale after placing the elements inside the target container
-_element_initial_scale = 0.30; 
+_element_initial_scale = 0.50; 
 --- epsilon for halting the growth
 _growth_min_dist       = 0.001; 
 

@@ -45,7 +45,7 @@ ax = plt.gca();
 #ax.set_yscale('log')
 
 
-plt.plot(r_vals, np.asarray(scf_vals_pad_01_jitter), 'r', linewidth=1);
+plt.plot(r_vals, np.asarray(scf_vals_pad_01_rigid), 'r', linewidth=1);
 plt.plot(r_vals, np.asarray(scf_vals_pad_01), 'g', linewidth=1);
 plt.plot([5.746, 5.746], [0, 0.33], 'k-')
 

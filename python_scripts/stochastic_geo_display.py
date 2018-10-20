@@ -45,9 +45,19 @@ ax = plt.gca();
 #ax.set_yscale('log')
 
 
-plt.plot(r_vals, np.asarray(scf_vals_pad_01_rigid), 'r', linewidth=1);
-plt.plot(r_vals, np.asarray(scf_vals_pad_01), 'g', linewidth=1);
-plt.plot([5.746, 5.746], [0, 0.33], 'k-')
+green_array = scf_vals_pad_01;
+red_array = scf_vals_pad_man2x;
+
+#blue_array = [x for x in blue_array if x != 0]
+green_array = [x for x in green_array if x != 0];
+red_array = [x for x in red_array if x != 0];
+
+green_idx = r_vals[:len(green_array)];
+red_idx = r_vals[:len(red_array)];
+
+plt.plot(green_idx, np.asarray(green_array), 'g', linewidth=1);
+plt.plot(red_idx, np.asarray(red_array), 'r', linewidth=1);
+#plt.plot([5.746, 5.746], [0, 0.33], 'k-')
 
 #plt.plot(r_vals, np.asarray(scf_vals_boxes_e), 'b', linewidth=1);
 

@@ -6,44 +6,13 @@ import pandas as pd
 import useful_things as ut
 
 r_vals = np.arange(0.2, 21, 0.1);
+r_vals = np.insert(r_vals, 0, 0);
 
-# cuz area fraction
-r_vals = np.insert(r_vals, 0, 0)
-#r_vals.insert(0, 0);
-
-
-"""
-fig1 = plt.figure(1);
-fig1.patch.set_facecolor('white')
-plt.clf();
-ax = plt.gca();
-
-plt.plot(r_vals, np.asarray(c_vals_cf_bad), 'r');
-#plt.plot(r_vals, np.asarray(c_vals_1), 'b');
-
-plt.title(r"Cov Bad");
-plt.show();
-
-fig2 = plt.figure(2);
-fig2.patch.set_facecolor('white')
-plt.clf();
-ax = plt.gca();
-
-plt.plot(r_vals, np.asarray(c_vals_cf_good), 'b');
-#plt.plot(r_vals, np.asarray(c_vals_1), 'b');
-
-plt.title(r"Cov Good");
-plt.show();
-"""
 
 fig3 = plt.figure(3);
-fig3.patch.set_facecolor('white')
+fig3.patch.set_facecolor('white');
 plt.clf();
 ax = plt.gca();
-
-# logarithmic y-axis
-#ax.set_yscale('log')
-
 
 green_array = scf_vals_pad_01;
 red_array = scf_vals_pad_man2x;
@@ -55,19 +24,23 @@ red_array = [x for x in red_array if x != 0];
 green_idx = r_vals[:len(green_array)];
 red_idx = r_vals[:len(red_array)];
 
-plt.plot(green_idx, np.asarray(green_array), 'g', linewidth=1);
-plt.plot(red_idx, np.asarray(red_array), 'r', linewidth=1);
+plt.plot(red_idx, np.asarray(red_array), 'r', linewidth=2);
+plt.plot(green_idx, np.asarray(green_array), 'g', linewidth=2);
+
 #plt.plot([5.746, 5.746], [0, 0.33], 'k-')
 
 #plt.plot(r_vals, np.asarray(scf_vals_boxes_e), 'b', linewidth=1);
-
 #plt.plot(r_vals, np.asarray(scf_vals_balabolka_man8x), 'r', linewidth=1.0);
-
 #plt.plot(r_vals, np.asarray(scf_vals_pad_03), 'g', linewidth=1.0);
 
-
-
+# logarithmic y-axis
+plt.yscale('log');
+plt.gca().invert_yaxis();
+plt.gca().minorticks_off();
          
+
+plt.title(r"PAD (red) vs RepulsionPak (green). Log scale");
+plt.show();
 #plt.plot(r_vals, np.asarray(scf_vals_pad_01), '#56D65F', linewidth=1);         
 #plt.plot(r_vals, np.asarray(scf_vals_pad_07_7), '#6755D8', linewidth=1);
 #plt.plot(r_vals, np.asarray(scf_vals_pad_03), '#6755D8', linewidth=1);
@@ -266,6 +239,3 @@ plt.plot(r_vals, np.asarray(scf_vals_dump_1000_08), 'r', linewidth=1.0);
 plt.plot(r_vals, np.asarray(scf_vals_dump_1000_09), 'r', linewidth=1.0);
 plt.plot(r_vals, np.asarray(scf_vals_dump_1000_10), 'r', linewidth=1.0);
 '''
-
-plt.title(r"Compare circles");
-plt.show();

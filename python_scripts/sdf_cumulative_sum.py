@@ -22,8 +22,8 @@ ax = plt.gca();
 
 #sort
 #blue_array = np.sort(non_neg_vals_boxes_e);
-green_array = np.sort(non_neg_vals_circle_01);
-red_array = np.sort(non_neg_vals_circle_02);
+green_array = np.sort(non_neg_vals_boxes_a);
+red_array = np.sort(non_neg_vals_boxes_c);
 
 #blue_array = [x for x in blue_array if x != 0]
 green_array = [x for x in green_array if x != 0]
@@ -35,20 +35,24 @@ green_cumsum = np.cumsum(green_array);
 red_cumsum = np.cumsum(red_array);
 
 # tyler
-N = len(green_array)
-cumdensity = [(x + 1) / N for x in range(N)]
+#N = len(green_array)
+#cusum_green = [(x + 1) / N for x in range(N)]
 
 # tyler
-N2 = len(red_array)
-cumdensity2 = [(x + 1) / N2 for x in range(N2)]
+#N2 = len(red_array)
+#cusum_red = [(x + 1) / N2 for x in range(N2)]
 
 #print(N)
 #print(len(cumdensity))
 #print(len(non_neg_vals_pad_01))
 
 # plot
-plt.plot(green_array, cumdensity, 'g', linewidth=1);
-plt.plot(red_array, cumdensity2, 'r', linewidth=1);
+plt.plot(red_array, red_cumsum, 'r', linewidth=2);
+plt.plot(green_array, green_cumsum, 'g', linewidth=2);
+
+plt.title(r"Cumulative sum ");
+plt.show();
+
 
 '''
 norm1 = np.linalg.norm(pad_01_cumsum);
@@ -63,5 +67,3 @@ pad_01_rigid_cumsum = pad_01_rigid_cumsum/ norm2;
 
 #plt.plot([2.5865, 2.5865], [0, 400000], 'k-')
 
-plt.title(r"Cumulative sum ");
-plt.show();

@@ -13,7 +13,10 @@ import pandas as pd
 
 import useful_things as ut
 
-plt.clf;
+fig3 = plt.figure(1);
+fig3.patch.set_facecolor('white');
+plt.clf();
+ax = plt.gca();
 
 ax = plt.gca();
 
@@ -22,8 +25,8 @@ ax = plt.gca();
 
 #sort
 #blue_array = np.sort(non_neg_vals_boxes_e);
-green_array = np.sort(non_neg_vals_boxes_a);
-red_array = np.sort(non_neg_vals_boxes_c);
+green_array = np.sort(non_neg_vals_balabolka_01);
+red_array = np.sort(non_neg_vals_balabolka_man2x);
 
 #blue_array = [x for x in blue_array if x != 0]
 green_array = [x for x in green_array if x != 0]

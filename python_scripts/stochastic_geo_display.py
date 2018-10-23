@@ -9,13 +9,13 @@ r_vals = np.arange(0.2, 21, 0.1);
 r_vals = np.insert(r_vals, 0, 0);
 
 
-fig3 = plt.figure(3);
+fig3 = plt.figure(1);
 fig3.patch.set_facecolor('white');
 plt.clf();
 ax = plt.gca();
 
-green_array = scf_vals_pad_01;
-red_array = scf_vals_pad_man2x;
+green_array = scf_vals_balabolka_01;
+red_array = scf_vals_balabolka_man2x;
 
 #blue_array = [x for x in blue_array if x != 0]
 green_array = [x for x in green_array if x != 0];
@@ -35,11 +35,10 @@ plt.plot(green_idx, np.asarray(green_array), 'g', linewidth=2);
 
 # logarithmic y-axis
 plt.yscale('log');
-plt.gca().invert_yaxis();
 plt.gca().minorticks_off();
          
 
-plt.title(r"PAD (red) vs RepulsionPak (green). Log scale");
+plt.title(r"Artist (red) vs RepulsionPak (green)");
 plt.show();
 #plt.plot(r_vals, np.asarray(scf_vals_pad_01), '#56D65F', linewidth=1);         
 #plt.plot(r_vals, np.asarray(scf_vals_pad_07_7), '#6755D8', linewidth=1);

@@ -9,64 +9,22 @@ r_vals = np.arange(0.2, 21, 0.2);
 
 # cuz area fraction
 #r_vals = np.insert(r_vals, 0, 0)
-#r_vals.insert(0, 0);
-
-
-#what is d_gap
-# 2.5865
-
-
-
-"""
-fig1 = plt.figure(1);
-fig1.patch.set_facecolor('white')
-plt.clf();
-ax = plt.gca();
-
-plt.plot(r_vals, np.asarray(c_vals_cf_bad), 'r');
-#plt.plot(r_vals, np.asarray(c_vals_1), 'b');
-
-plt.title(r"Cov Bad");
-plt.show();
-
-fig2 = plt.figure(2);
-fig2.patch.set_facecolor('white')
-plt.clf();
-ax = plt.gca();
-
-plt.plot(r_vals, np.asarray(c_vals_cf_good), 'b');
-#plt.plot(r_vals, np.asarray(c_vals_1), 'b');
-
-plt.title(r"Cov Good");
-plt.show();
-"""
 
 fig3 = plt.figure(3);
 fig3.patch.set_facecolor('white')
 plt.clf();
 ax = plt.gca();
 
+green_array = non_neg_vals_pad_01;
+red_array =   non_neg_vals_pad_man2x;
+
+
+plt.hist(red_array, bins = r_vals, color='r', histtype='step', normed=True);
+plt.hist(green_array, bins = r_vals, color='g', histtype='step', normed=True);
+
 # logarithmic y-axis
-#ax.set_yscale('log')
+#plt.yscale('log');
+#plt.gca().minorticks_off();
 
-#plt.plot(r_vals, np.asarray(scf_vals_balabolka_01), '#2FADF4', linewidth=1);
-#plt.plot(r_vals, np.asarray(scf_vals_balabolka_man2x), '#ED2B2B', linewidth=1);
-#plt.plot(np.asarray(scf_vals_balabolka_01), '#2FADF4', linewidth=1);
-#plt.plot(np.asarray(scf_vals_balabolka_man2x),  '#ED2B2B', linewidth=1);
-
-
-#line_up, = plt.plot([1,2,3], label='Line 2')
-#line_down, = plt.plot([3,2,1], label='Line 1')
-#plt.legend(handles=[line_up, line_down])
-
-plt.hist(np.asarray(non_neg_vals_pad_01_rigid), bins = r_vals, color='r', alpha = 0.4, histtype='step', normed=True);
-
-#plt.hist(np.asarray(scf_vals_balabolka_01), 10, normed=True);
-plt.hist(np.asarray(non_neg_vals_pad_01), bins = r_vals, color='g', alpha = 0.5, histtype='step', normed=True);
-
-plt.plot([5.746, 5.746], [0, 0.13], 'k-')
-
-
-
-plt.title(r"red is artist, green is RepulsionPak");
+plt.title(r"Artist (red) vs RepulsionPak (green)");
 plt.show();

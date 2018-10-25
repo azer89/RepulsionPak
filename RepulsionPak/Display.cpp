@@ -407,7 +407,7 @@ void Display::Draw()
 	ImGui::SetNextWindowPos(ImVec2(5, 15), ImGuiSetCond_FirstUseEver);  // set position
 
 	bool show_another_window = false;	
-	ImGui::Begin("PhysicsPak", &show_another_window, ImVec2(240, 520));
+	ImGui::Begin("PhysicsPak", &show_another_window, ImVec2(240, 540));
 
 	if (_rms_time_counter > 0)
 	{
@@ -495,8 +495,15 @@ void Display::Draw()
 		_sWorker.SaveSVG(_svg_int_counter++);
 		_sWorker.CalculateSDF(_sdf_int_counter++, true);
 	}
+
+	if (ImGui::Button("Compute skeleton"))
+	{
+		_sWorker.CalculateSkeleton();
+	}
+
 	if (ImGui::Button("Reload parameters")) { SystemParams::LoadParameters();  }
 
+	
 	
 	//if (!shouldSimulate)
 	//{

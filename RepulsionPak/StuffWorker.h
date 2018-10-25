@@ -183,11 +183,16 @@ public:
 
 public:
 	// ====================================================
+	void CalculateSkeleton();
+	int _skeletonIter;
+
+	// ====================================================
 	CollissionGrid* _manualGrid;
 	std::vector<std::vector<AVector>> _manualElements;
 	std::vector<std::vector<AVector>> _manualSkeletons;
 	std::vector<std::vector<AVector>> _manualContainer;
 	void CreateManualPacking();
+	void CreateManualPacking2();
 	void AnalyzeManualPacking();
 	
 	// ====================================================

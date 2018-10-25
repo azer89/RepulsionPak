@@ -611,6 +611,7 @@ CVImg ADistanceTransform::VoronoiSkeleton(CollissionGrid* cGrid, int numIter)
 	std::stringstream ss1;
 	ss1 << "voronoi_skeleton_" << numIter;
 	thinningImage.SaveImage( SystemParams::_save_folder + "SDF\\" + ss1.str() + ".png" );
+
 	std::stringstream ss2;
 	ss2 << "voronoi_color" << numIter;
 	voronoiImage.SaveImage( SystemParams::_save_folder + "SDF\\" + ss2.str() + ".png" );

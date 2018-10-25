@@ -34,6 +34,8 @@ CollissionGrid* StuffWorker::_cGrid = 0;
 // constructor
 StuffWorker::StuffWorker()
 {
+	_skeletonIter = 0;
+
 	_man_neg_ratio = -1.0;
 
 	_numBigOnes = 0;
@@ -1438,6 +1440,38 @@ void StuffWorker::AnalyzeManualPacking()
 
 	std::cout << "_manualElements = " << _manualElements.size() << "\n";
 	std::cout << "_man_neg_ratio = " << _man_neg_ratio << "\n";
+}
+
+void StuffWorker::CreateManualPacking2()
+{
+	// ---------- load regions ----------
+	PathIO pathIO;
+	VFRegion reg = pathIO.LoadRegions(SystemParams::_image_folder + SystemParams::_manual_art_name + ".path")[0];
+
+	// assignments
+	_manualElements = reg.GetFocalBoundaries();
+	_manualSkeletons = reg.GetFields();
+	_manualContainer = reg.GetBoundaries();
+
+	std::cout << "_manualSkeletons.size() " << _manualSkeletons.size() << "\n";
+
+	// prepare things
+	std::vector<std::vector<AVector>> focals;
+	ADistanceTransform* mDistTransform = new ADistanceTransform(_manualContainer, _containerWorker->_holes, focals, 2.0);
+	for (int a = 0; a < _manualElements.size(); a++)
+	{
+		mDistTransform->AddGraph(_manualElements[a]);
+	}
+
+	_manualGrid = new CollissionGrid();
+	std::vector<std::vector<AVector>> offsetFocalBoundaries;
+	_manualGrid->AnalyzeContainer(_manualContainer, _containerWorker->_holes, offsetFocalBoundaries);
+}
+
+
+void StuffWorker::CalculateSkeleton()
+{
+	_aDTransform->VoronoiSkeleton(_cGrid, _skeletonIter++);
 }
 
 /*

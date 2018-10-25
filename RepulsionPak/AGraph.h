@@ -175,6 +175,8 @@ public:
 	// should be called after UpdateBoundaryAndAvgEdgeLength	
 	void CalculatePAD();
 
+	void CalculateSmoothSkin();
+
 	void CalculatePADBary();
 
 	//

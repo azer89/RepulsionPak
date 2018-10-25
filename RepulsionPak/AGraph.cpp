@@ -394,6 +394,18 @@ void AGraph::RemoveShortNegSpaceEdges()
 	}
 }
 
+void AGraph::CalculateSmoothSkin()
+{
+	// ----------  ----------
+	UtilityFunctions::UniformResampleClosed(_uniArt, _resampled_skin, SystemParams::_resample_gap_float);
+
+	// ---------- gaussian smoothing ----------
+	CSSSmoothing css;
+	css.Init1(SystemParams::_gaussian_smoothing_element);
+	_smooth_skin = _resampled_skin;
+	css.SmoothCurve1(_smooth_skin);
+}
+
 void AGraph::CalculatePAD()
 {
 	// PAD and friends

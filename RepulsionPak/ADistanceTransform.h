@@ -50,7 +50,7 @@ public:
 									 std::vector<AVector>& peaks,
 									 int numIter);*/
 
-private:
+public :
 	void DebugOverlapMask(std::vector<int> overlapMask, CVImg thinningImage, std::string imageName);
 
 	CVImg VoronoiSkeleton(CollissionGrid* cGrid, int numIter);

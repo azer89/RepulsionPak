@@ -496,10 +496,10 @@ void Display::Draw()
 		_sWorker.CalculateSDF(_sdf_int_counter++, true);
 	}
 
-	if (ImGui::Button("Compute skeleton"))
-	{
-		_sWorker.CalculateSkeleton();
-	}
+	//if (ImGui::Button("Compute skeleton"))
+	//{
+	//	_sWorker.CalculateSkeleton();
+	//}
 
 	if (ImGui::Button("Reload parameters")) { SystemParams::LoadParameters();  }
 

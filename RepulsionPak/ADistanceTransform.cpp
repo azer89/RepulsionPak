@@ -282,6 +282,8 @@ void ADistanceTransform::CalculateFill(CollissionGrid* cGrid,
 void ADistanceTransform::CalculateSDF2(const std::vector<AGraph>& graphs, CollissionGrid* cGrid, int numIter, bool saveImage)
 {
 	int szsz = _sz * _sz;
+	std::vector<int> overlapMask(szsz); // (Overlap Mask) initialization
+
 	cGrid->PrecomputeGraphIndices();
 
 	for (unsigned int xIter = 0; xIter < _sz; xIter++)
@@ -300,7 +302,12 @@ void ADistanceTransform::CalculateSDF2(const std::vector<AGraph>& graphs, Collis
 
 			// if no closest graph and outside
 			if (graphIndices.size() == 0 && containerDistVal < 0)
-			{ continue; } // (Overlap Mask) outside container
+			{ 
+				overlapMask[xIter + yIter * _sz] = -1; // (Overlap Mask) outside container
+				continue; 
+			}
+
+			overlapMask[xIter + yIter * _sz] = 0; // (Overlap Mask) empty space
 
 			float minDist = containerDistVal;
 			bool isInside = false;
@@ -317,6 +324,7 @@ void ADistanceTransform::CalculateSDF2(const std::vector<AGraph>& graphs, Collis
 				
 				if (d <= 0) // inside
 				{
+					overlapMask[xIter + yIter * _sz]++; // (Overlap Mask)
 					minDist = 0; // SDF
 					isInside = true;
 				}
@@ -328,10 +336,15 @@ void ADistanceTransform::CalculateSDF2(const std::vector<AGraph>& graphs, Collis
 
 				if (isInside) { break; } // no point to continue
 			}
+
+			if (isInside && containerDistVal < 0)
+			{
+				overlapMask[xIter + yIter * _sz] = 2; // (Overlap Mask) inside an element and outside container
+			} 
 			
 			if (!isInside && containerDistVal < 0)
 			{
-				//overlapMask[xIter + yIter * _sz] = -1;  // (Overlap Mask) outside element outside container
+				overlapMask[xIter + yIter * _sz] = -1;  // (Overlap Mask) outside element outside container
 				minDist = 0; // (SDF)
 			}
 
@@ -350,6 +363,12 @@ void ADistanceTransform::CalculateSDF2(const std::vector<AGraph>& graphs, Collis
 			_distArray[idxxxx] = minDist;
 		}
 	}
+
+	// THINNING
+	CVImg thinningImage;
+	std::stringstream ss3;
+	ss3 << "thin_" << numIter;
+	thinningImage = SkeletonDistance(overlapMask, ss3.str());
 
 	std::stringstream ss6;
 	ss6 << "dist_" << numIter;
@@ -639,7 +658,7 @@ CVImg ADistanceTransform::SkeletonDistance(std::vector<int> overlapMask, std::st
 	///////////
 	// BLURRING
 	///////////
-	if (SystemParams::_skin_thickness > 0)
+	/*if (SystemParams::_skin_thickness > 0)
 	{
 		int blurSize = SystemParams::_skin_thickness * _scale;
 		if (blurSize < 3) { blurSize = 3; }
@@ -656,7 +675,7 @@ CVImg ADistanceTransform::SkeletonDistance(std::vector<int> overlapMask, std::st
 			}
 		}
 		std::cout << "blur";
-	}
+	}*/
 	///////////
 	// THINNING
 	///////////

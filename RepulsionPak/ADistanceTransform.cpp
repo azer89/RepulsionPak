@@ -4,6 +4,11 @@
 #include "PathIO.h"
 #include "CollissionGrid.h"
 
+//CmCurveEx
+#include "CmCurveEx.h"
+
+
+
 ADistanceTransform::ADistanceTransform(//const std::vector<AGraph>& graphs, 
 	                                   const std::vector<std::vector<AVector>>& containers,
 									   const std::vector<std::vector<AVector>>& holes,
@@ -642,13 +647,17 @@ CVImg ADistanceTransform::VoronoiSkeleton(CollissionGrid* cGrid, int numIter)
 CVImg ADistanceTransform::SkeletonDistance(std::vector<int> overlapMask, std::string imageName)
 {
 	CVImg emptyImage;
-	emptyImage.CreateGrayscaleImage(_sz, _sz);
-	for (int x = 0; x < _sz; x++)
+
+	int scale_factor = 1;
+	int thin_sz = _sz * scale_factor;
+
+	emptyImage.CreateGrayscaleImage(thin_sz, thin_sz);
+	for (int x = 0; x < thin_sz; x++)
 	{
-		for (int y = 0; y < _sz; y++)
+		for (int y = 0; y < thin_sz; y++)
 		{
 			emptyImage.SetGrayValue(x, y, 0);
-			int val = overlapMask[x + y * _sz];
+			int val = overlapMask[(x / scale_factor) + (y / scale_factor) * _sz];
 			if (val == 0) // empty space
 			{
 				emptyImage.SetGrayValue(x, y, 255);
@@ -682,6 +691,14 @@ CVImg ADistanceTransform::SkeletonDistance(std::vector<int> overlapMask, std::st
 	CVImg thinningImage = emptyImage.ThinningFromGrayscale();
 	thinningImage.SaveImage( SystemParams::_save_folder + "SDF\\" + imageName + ".png" );
 	emptyImage.SaveImage( SystemParams::_save_folder + "SDF\\" + imageName + "_mask.png" );
+
+
+	cv::Mat cloneImg = thinningImage._img.clone();
+	cloneImg.convertTo(cloneImg, CV_32FC1);
+	cv:imwrite(SystemParams::_save_folder + "SDF\\" + "CV_32FC1.png", cloneImg);
+	CmCurveEx cm(cloneImg);
+	cm.Demo(cloneImg, true);
+
 	return thinningImage;
 }
 

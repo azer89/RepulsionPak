@@ -269,6 +269,7 @@
     <ClInclude Include="CGALOffsetter.h" />
     <ClInclude Include="CGALTriangulation.h" />
     <ClInclude Include="CGALTriangulation2.h" />
+    <ClInclude Include="CmCurveEx.h" />
     <ClInclude Include="CollissionGrid.h" />
     <ClInclude Include="ColorPalette.h" />
     <ClInclude Include="ContainerWorker.h" />
@@ -321,6 +322,7 @@
     <ClCompile Include="CGALTriangulation2.cpp" />
     <ClCompile Include="clipper.cpp" />
     <ClCompile Include="ClipperWrapper.cpp" />
+    <ClCompile Include="CmCurveEx.cpp" />
     <ClCompile Include="CollissionGrid.cpp" />
     <ClCompile Include="ColorPalette.cpp" />
     <ClCompile Include="ContainerWorker.cpp" />

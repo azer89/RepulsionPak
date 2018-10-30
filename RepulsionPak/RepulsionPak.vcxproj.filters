@@ -118,6 +118,9 @@
     <ClCompile Include="ContainerWorker.cpp">
       <Filter>CPP</Filter>
     </ClCompile>
+    <ClCompile Include="CmCurveEx.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ABary.h">
@@ -289,6 +292,9 @@
       <Filter>H</Filter>
     </ClInclude>
     <ClInclude Include="KDTreeVectorOfVectorsAdaptor.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="CmCurveEx.h">
       <Filter>H</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,7 +5,7 @@
 #include "CollissionGrid.h"
 
 //CmCurveEx
-#include "CmCurveEx.h"
+//#include "CmCurveEx.h"
 
 
 
@@ -406,7 +406,7 @@ void ADistanceTransform::CalculateSDF2(const std::vector<AGraph>& graphs, Collis
 void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool saveImage)
 {
 	int szsz = _sz * _sz;
-	//std::vector<int> overlapMask(szsz);
+	std::vector<int> overlapMask(szsz);
 
 	cGrid->PrecomputeGraphIndices();
 
@@ -427,9 +427,9 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 
 			// if no closest graph and outside
 			if (graphIndices.size() == 0 && containerDistVal < 0)
-				{ /*overlapMask[xIter + yIter * _sz] = -1;*/  continue;} // (Overlap Mask) outside container
+				{ overlapMask[xIter + yIter * _sz] = -1;  continue;} // (Overlap Mask) outside container
 
-			//overlapMask[xIter + yIter * _sz] = 0; // (Overlap Mask) 
+			overlapMask[xIter + yIter * _sz] = 0; // (Overlap Mask) 
 
 			////// exclude container
 			//float minDist = std::numeric_limits<float>::max(); 
@@ -448,7 +448,7 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 				if (d <= 0) // inside
 				{
 					minDist = 0; // SDF
-					//overlapMask[xIter + yIter * _sz]++; // (Overlap Mask) 
+					overlapMask[xIter + yIter * _sz]++; // (Overlap Mask) 
 					isInside = true;					
 				}
 
@@ -459,12 +459,12 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 			}
 
 			
-			//if (isInside && containerDistVal < 0)
-			//	{ /*overlapMask[xIter + yIter * _sz] = 2;*/  } // (Overlap Mask) inside an element and outside container
+			if (isInside && containerDistVal < 0)
+				{ overlapMask[xIter + yIter * _sz] = 2;  } // (Overlap Mask) inside an element and outside container
 			
 			/*else*/ if (!isInside && containerDistVal < 0)
 			{ 
-				//overlapMask[xIter + yIter * _sz] = -1;  // (Overlap Mask) outside element outside container
+				overlapMask[xIter + yIter * _sz] = -1;  // (Overlap Mask) outside element outside container
 				minDist = 0; // (SDF)
 			}
 			//else if (!isInside && containerDistVal > 0)
@@ -494,7 +494,11 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 		pathIO.SaveSDF2CSV(_containerDistArray, SystemParams::_save_folder + "dist_mask.csv");
 	}
 
-
+	// THINNING
+	CVImg thinningImage;
+	std::stringstream ss3;
+	ss3 << "thin_" << numIter;
+	thinningImage = SkeletonDistance(overlapMask, ss3.str());
 
 	// create new elements !!!!
 	CalculatePeaks();
@@ -648,7 +652,7 @@ CVImg ADistanceTransform::SkeletonDistance(std::vector<int> overlapMask, std::st
 {
 	CVImg emptyImage;
 
-	int scale_factor = 1;
+	int scale_factor = 2;
 	int thin_sz = _sz * scale_factor;
 
 	emptyImage.CreateGrayscaleImage(thin_sz, thin_sz);
@@ -691,13 +695,12 @@ CVImg ADistanceTransform::SkeletonDistance(std::vector<int> overlapMask, std::st
 	CVImg thinningImage = emptyImage.ThinningFromGrayscale();
 	thinningImage.SaveImage( SystemParams::_save_folder + "SDF\\" + imageName + ".png" );
 	emptyImage.SaveImage( SystemParams::_save_folder + "SDF\\" + imageName + "_mask.png" );
-
-
-	cv::Mat cloneImg = thinningImage._img.clone();
+	
+	/*cv::Mat cloneImg = thinningImage._img.clone();
 	cloneImg.convertTo(cloneImg, CV_32FC1);
 	cv:imwrite(SystemParams::_save_folder + "SDF\\" + "CV_32FC1.png", cloneImg);
 	CmCurveEx cm(cloneImg);
-	cm.Demo(cloneImg, true);
+	cm.Demo(cloneImg, true);*/
 
 	return thinningImage;
 }

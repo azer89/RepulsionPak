@@ -88,7 +88,7 @@ StuffWorker::StuffWorker()
 	//OpenCVWrapper _cvWrapper;
 
 	//CreateSquares();     // don't forget to change params.lua
-	//CreateManualPacking(); // don't forget to change params.lua
+	CreateManualPacking(); // don't forget to change params.lua
 	AnalyzeManualPacking();
 
 
@@ -1442,7 +1442,7 @@ void StuffWorker::AnalyzeManualPacking()
 	std::cout << "_man_neg_ratio = " << _man_neg_ratio << "\n";
 }
 
-void StuffWorker::CreateManualPacking2()
+/*void StuffWorker::CreateManualPacking2()
 {
 	// ---------- load regions ----------
 	PathIO pathIO;
@@ -1466,7 +1466,7 @@ void StuffWorker::CreateManualPacking2()
 	_manualGrid = new CollissionGrid();
 	std::vector<std::vector<AVector>> offsetFocalBoundaries;
 	_manualGrid->AnalyzeContainer(_manualContainer, _containerWorker->_holes, offsetFocalBoundaries);
-}
+}*/
 
 
 void StuffWorker::CalculateSkeleton()

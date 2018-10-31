@@ -286,6 +286,7 @@
     <ClInclude Include="MyColor.h" />
     <ClInclude Include="NANOFLANNWrapper.h" />
     <ClInclude Include="PAD.h" />
+    <ClInclude Include="PixelTracer.h" />
     <ClInclude Include="PointCloud.h" />
     <ClInclude Include="PoissonGenerator.h" />
     <ClInclude Include="PolyToBezier.h" />
@@ -342,6 +343,7 @@
     <ClCompile Include="OpenCVWrapper.cpp" />
     <ClCompile Include="PAD.cpp" />
     <ClCompile Include="PathIO.cpp" />
+    <ClCompile Include="PixelTracer.cpp" />
     <ClCompile Include="QTObject.cpp" />
     <ClCompile Include="Quadtree.cpp" />
     <ClCompile Include="RigidRegistration.cpp" />

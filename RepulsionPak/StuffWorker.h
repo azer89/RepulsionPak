@@ -192,7 +192,7 @@ public:
 	std::vector<std::vector<AVector>> _manualSkeletons;
 	std::vector<std::vector<AVector>> _manualContainer;
 	void CreateManualPacking();
-	void CreateManualPacking2();
+	//void CreateManualPacking2();
 	void AnalyzeManualPacking();
 	
 	// ====================================================

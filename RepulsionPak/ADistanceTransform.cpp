@@ -4,6 +4,8 @@
 #include "PathIO.h"
 #include "CollissionGrid.h"
 
+#include "PixelTracer.h"
+
 //CmCurveEx
 //#include "CmCurveEx.h"
 
@@ -693,7 +695,7 @@ CVImg ADistanceTransform::SkeletonDistance(std::vector<int> overlapMask, std::st
 	// THINNING
 	///////////
 	CVImg thinningImage = emptyImage.ThinningFromGrayscale();
-	thinningImage.SaveImage( SystemParams::_save_folder + "SDF\\" + imageName + ".png" );
+	//thinningImage.SaveImage( SystemParams::_save_folder + "SDF\\" + imageName + ".png" );
 	emptyImage.SaveImage( SystemParams::_save_folder + "SDF\\" + imageName + "_mask.png" );
 	
 	/*cv::Mat cloneImg = thinningImage._img.clone();
@@ -701,6 +703,29 @@ CVImg ADistanceTransform::SkeletonDistance(std::vector<int> overlapMask, std::st
 	cv:imwrite(SystemParams::_save_folder + "SDF\\" + "CV_32FC1.png", cloneImg);
 	CmCurveEx cm(cloneImg);
 	cm.Demo(cloneImg, true);*/
+
+	//PixelTracer pT;
+	//pT.InitImage(thinningImage);
+
+	CVImg testImage;
+	testImage.CreateGrayscaleImage(thin_sz, thin_sz);
+	for (int y = 0; y < thin_sz; y++)
+	{
+		for (int x = 0; x < thin_sz; x++)
+		{
+			int val = thinningImage.GetGrayValue(x, y);
+			if (val == 0)
+			{				
+				testImage.SetGrayValue(x, y, 255); // CellType::NO_GO
+			}
+			else
+			{				
+				testImage.SetGrayValue(x, y, 0); // CellType::UNVISITED
+			}
+		}
+	}
+
+	cv:imwrite(SystemParams::_save_folder + "SDF\\" + imageName + ".png", testImage._img);
 
 	return thinningImage;
 }

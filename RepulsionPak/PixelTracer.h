@@ -42,9 +42,13 @@ public:
 	void InitImage(CVImg input_img);
 
 public:
+	std::vector<std::pair<int, int>> _dirs;
+
 	int _sz; // size of square
 
 	std::vector<CellType> _cell_flags;
+
+	int NumNeighbors(int x, int y);
 
 	//std::vector<std::vector<AVector>> _image; // thinning image
 };

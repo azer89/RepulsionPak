@@ -1487,16 +1487,25 @@ void StuffWorker::CreateManualPacking()
 	VFRegion reg = pathIO.LoadRegions(SystemParams::_image_folder + SystemParams::_manual_art_name + ".path")[0];
 
 	// assignments
-	_manualElements = reg.GetFocalBoundaries();
+	_manualElements = reg.GetFocalBoundaries(); // the actual elements
 	_manualSkeletons = reg.GetFields();
 
 	_manualContainer =  reg.GetBoundaries();
+	
+	
+	// use this for skeletons
+	//float offVal = 5.0f;
+	//std::vector<std::vector<AVector>> temp1 = ClipperWrapper::RoundOffsettingPP(reg.GetBoundaries(), offVal);
+	//_manualContainer = ClipperWrapper::RoundOffsettingPP(temp1, -offVal);
+	//_manualContainer = temp1;
+	// -------------------
+
 
 	std::cout << "_manualSkeletons.size() " << _manualSkeletons.size() << "\n";
 
 	// prepare things
 	std::vector<std::vector<AVector>> focals;
-	ADistanceTransform* mDistTransform = new ADistanceTransform(_manualContainer, _containerWorker->_holes, focals, 4.0);
+	ADistanceTransform* mDistTransform = new ADistanceTransform(_manualContainer, _containerWorker->_holes, focals, 2.0);
 	for (int a = 0; a < _manualElements.size(); a++)
 	{
 		mDistTransform->AddGraph(_manualElements[a]);

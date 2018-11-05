@@ -626,8 +626,8 @@ std::vector<std::vector<AVector>> ClipperWrapper::GetUniPolys(std::vector<std::v
 
 	std::vector<std::vector<AVector>>  offPolys;
 
-	std::vector<AVector> largestPoly;
-	float largestArea = -1000;
+	//std::vector<AVector> largestPoly;
+	//float largestArea = -1000;
 	for (int a = 0; a < pSol.size(); a++)
 	{
 		std::vector<AVector> offPoly;

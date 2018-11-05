@@ -1489,13 +1489,14 @@ void StuffWorker::CreateManualPacking()
 	// assignments
 	_manualElements = reg.GetFocalBoundaries();
 	_manualSkeletons = reg.GetFields();
-	_manualContainer = reg.GetBoundaries();
+
+	_manualContainer =  reg.GetBoundaries();
 
 	std::cout << "_manualSkeletons.size() " << _manualSkeletons.size() << "\n";
 
 	// prepare things
 	std::vector<std::vector<AVector>> focals;
-	ADistanceTransform* mDistTransform = new ADistanceTransform(_manualContainer, _containerWorker->_holes, focals, 2.0);
+	ADistanceTransform* mDistTransform = new ADistanceTransform(_manualContainer, _containerWorker->_holes, focals, 4.0);
 	for (int a = 0; a < _manualElements.size(); a++)
 	{
 		mDistTransform->AddGraph(_manualElements[a]);

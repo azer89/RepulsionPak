@@ -9,8 +9,8 @@ import statistics as stat
 import useful_things as ut
 
 
-num_folder = "09";
-case_name = "balabolka";  # case
+num_folder = "08";
+case_name = "pad";  # case
 num_names = ["01", "man2x"]; # names
 
 for num_name in num_names:
@@ -56,6 +56,9 @@ for num_name in num_names:
     area_counter = 0;
     num_sample = 0;
     
+    # mask val
+    # <= 0 inside an element
+    # > 0 negative space
     for x_iter in range(0, img_sz_int):
         for y_iter in range(0, img_sz_int):
             if mask_vals[x_iter + y_iter * img_sz_int] > 0:
@@ -69,7 +72,8 @@ for num_name in num_names:
     #######
     # stuff
     #######
-    r_vals = np.arange(0.2, 20 + 1, 0.1);
+    h_gap = 0.1;
+    r_vals = np.arange(h_gap, 20, h_gap);
     
     ###################################
     # calculate sphere contact function

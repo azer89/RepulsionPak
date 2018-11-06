@@ -46,6 +46,10 @@ public:
 	static std::vector<std::vector<AVector>> MakeClockwise(std::vector<std::vector<AVector>> shapes);
 	static std::vector<AVector> MakeClockwise(std::vector<AVector> shape);
 
+	// element offsetting for calculating skeleton
+	test
+	static std::vector<std::vector<AVector>> OffsetForSkeletonization(std::vector<std::vector<AVector >> polygons, float offsetVal); 
+
 	// offsetting 
 	static std::vector<std::vector<AVector>> RoundOffsettingP(  std::vector<AVector> polygon,                float offsetVal);  // closed poly	
 	static std::vector<std::vector<AVector>> RoundOffsettingPP( std::vector<std::vector<AVector >> polygons, float offsetVal);  // closed polys

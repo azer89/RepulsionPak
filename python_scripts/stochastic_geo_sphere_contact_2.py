@@ -9,9 +9,9 @@ import statistics as stat
 import useful_things as ut
 
 
-num_folder = "08";
-case_name = "pad";  # case
-num_names = ["01", "man2x"]; # names
+num_folder = "10";
+case_name = "boxes";  # case
+num_names = ["a", "c"]; # names
 
 for num_name in num_names:
 

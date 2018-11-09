@@ -191,6 +191,8 @@ public:
 	std::vector<std::vector<AVector>> _manualElements;
 	std::vector<std::vector<AVector>> _manualSkeletons;
 	std::vector<std::vector<AVector>> _manualContainer;
+
+	void CalculateMetrics();
 	void CreateManualPacking();
 	//void CreateManualPacking2();
 	void AnalyzeManualPacking();

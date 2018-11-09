@@ -1474,6 +1474,44 @@ void StuffWorker::CalculateSkeleton()
 	_aDTransform->VoronoiSkeleton(_cGrid, _skeletonIter++);
 }
 
+void StuffWorker::CalculateMetrics()
+{
+	// parameter
+	float preOffset = 1.0f;
+	float offVal2 = 3.0f;
+
+	// func-ception...
+	std::vector< std::vector<AVector>> offsetElements1 = ClipperWrapper::OffsetAll(ClipperWrapper::OffsetAll(_manualElements, preOffset), -preOffset);
+
+	// debug (comment me)
+	std::stringstream ss1;
+	ss1 << SystemParams::_save_folder << "SVG\\" << "debug1.svg";
+	MySVGRenderer::SaveShapesToSVG(ss1.str(), offsetElements1);
+	
+	// Generate offset elements one by one
+	std::vector< std::vector<AVector>> offsetElements2;
+	for (unsigned int a = 0; a < offsetElements1.size(); a++)
+	{
+		// clockwise = element
+		// counterclockwise = hole
+		float offVal = offVal2;
+		if (!UtilityFunctions::IsClockwise(offsetElements1[a])) { offVal = -offVal2; }
+
+		std::vector<std::vector<AVector>> outputPolys = ClipperWrapper::RoundOffsettingP(offsetElements1[a], offVal);
+		offsetElements2.insert(offsetElements2.end(), outputPolys.begin(), outputPolys.end());
+	}
+	std::stringstream ss2;
+	ss2 << SystemParams::_save_folder << "SVG\\" << "debug2.svg";
+	MySVGRenderer::SaveShapesToSVG(ss2.str(), offsetElements2);
+
+	// Generate offset of union of elements
+	std::vector< std::vector<AVector>> offsetElements3 = ClipperWrapper::OffsetAll(offsetElements1, offVal2);
+	std::stringstream ss3;
+	ss3 << SystemParams::_save_folder << "SVG\\" << "debug3.svg";
+	MySVGRenderer::SaveShapesToSVG(ss3.str(), offsetElements3);
+
+}
+
 /*
 CollissionGrid*                   _manualGrid;
 std::vector<std::vector<AVector>> _manualElements;
@@ -1486,10 +1524,19 @@ void StuffWorker::CreateManualPacking()
 	PathIO pathIO;
 	VFRegion reg = pathIO.LoadRegions(SystemParams::_image_folder + SystemParams::_manual_art_name + ".path")[0];
 
+
+	
+
 	// assignments
-	_manualElements = reg.GetFocalBoundaries(); // the actual elements
+	_manualElements = reg.GetFocalBoundaries();
+	//_manualElements = ClipperWrapper::OffsetAll( ClipperWrapper::OffsetAll( reg.GetFocalBoundaries(), preOffset), -preOffset); // the actual elements	
 	_manualSkeletons = reg.GetFields();
 	_manualContainer =  reg.GetBoundaries(); // target container
+
+	// ----
+	// HERE
+	// ----
+	CalculateMetrics();
 
 	/*
 	std::stringstream ss5;
@@ -1500,10 +1547,10 @@ void StuffWorker::CreateManualPacking()
 		                                _containerWorker->_offsetFocalBoundaries, 
 		                                _containerWorker->_container_boundaries); //B
 	*/
-	std::vector<std::vector<AVector>> offsetShapes = ClipperWrapper::OffsetAll(_manualElements, 5.746f);
+	/*std::vector<std::vector<AVector>> offsetShapes = ClipperWrapper::OffsetAll(_manualElements, 5.746f);
 	std::stringstream ss5;
 	ss5 << SystemParams::_save_folder << "SVG\\" << "offset.svg";
-	MySVGRenderer::SaveShapesToSVG(ss5.str(), offsetShapes);
+	MySVGRenderer::SaveShapesToSVG(ss5.str(), offsetShapes);*/
 		
 	// use this for skeletons
 	//float offVal = 5.0f;

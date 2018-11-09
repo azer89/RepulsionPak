@@ -646,6 +646,61 @@ std::vector<std::vector<AVector>> ClipperWrapper::GetUniPolys(std::vector<std::v
 	return offPolys;
 }
 
+std::vector<std::vector<AVector>> ClipperWrapper::UnionAll(std::vector<std::vector<AVector>> polys)
+{
+	if (polys.size() == 1) { return polys; }
+
+	float cScaling = 1e10;
+
+	ClipperLib::Path cTargetShape;
+	ClipperLib::Paths cClippingShapes(polys.size() - 1);
+	ClipperLib::PolyTree sol1;
+
+	// the clipped shape
+	/*for (int a = 0; a < polys[0].size(); a++)
+	{
+		cTargetShape << ClipperLib::IntPoint(polys[0][a].x * cScaling,
+			polys[0][a].y * cScaling);
+	}*/
+
+	// shapes that clip another shape
+	for (int a = 0; a < polys.size(); a++)
+	{
+		for (int b = 0; b < polys[a].size(); b++)
+		{
+			int x = polys[a][b].x * cScaling;
+			int y = polys[a][b].y * cScaling;
+			int idx = a - 1; // because total shape minus one
+			cClippingShapes[idx] << ClipperLib::IntPoint(x, y);
+		}
+	}
+
+	ClipperLib::Clipper myClipper1;
+	//myClipper1.AddPath(cTargetShape, ClipperLib::ptClip, true); // the clipped shape
+	myClipper1.AddPaths(cClippingShapes, ClipperLib::ptSubject, true); // shapes that clip another shape
+
+	// Union 
+	myClipper1.Execute(ClipperLib::ctUnion, sol1, ClipperLib::pftNonZero, ClipperLib::pftNonZero);
+
+	ClipperLib::Paths pSol1;
+	ClipperLib::PolyTreeToPaths(sol1, pSol1);
+
+	std::vector<std::vector<AVector>> outPolys; // return list	
+
+	for (int a = 0; a < pSol1.size(); a++)
+	{
+		std::vector<AVector> poly;
+		for (int b = 0; b < pSol1[a].size(); b++)
+		{
+			AVector iPt(pSol1[a][b].X / cScaling, pSol1[a][b].Y / cScaling); // scaling down
+			poly.push_back(iPt);
+		}
+		outPolys.push_back(poly);
+	}
+
+	return outPolys;
+}
+
 std::vector<std::vector<AVector>> ClipperWrapper::OffsetAll(std::vector<std::vector<AVector >> polygons, float offsetVal)
 {
 	float cScaling = 1e10;
@@ -667,7 +722,7 @@ std::vector<std::vector<AVector>> ClipperWrapper::OffsetAll(std::vector<std::vec
 
 	std::vector<std::vector<AVector>>  offPolys;
 
-	std::vector<AVector> largestPoly;
+	//std::vector<AVector> largestPoly;
 	//float largestArea = -1000;
 	for (int a = 0; a < pSol.size(); a++)
 	{

@@ -48,7 +48,8 @@ public:
 
 	// element offsetting without deleting smaller polygons
 	static std::vector<std::vector<AVector>> OffsetAll(std::vector<std::vector<AVector >> polygons, float offsetVal); 
-	static std::vector<std::vector<AVector>> UnionAll(std::vector<std::vector<AVector>> polys);
+	static std::vector<std::vector<AVector>> ClipElementsWithCOntainer(std::vector<std::vector<AVector >> elements, std::vector<AVector > container);
+	//static std::vector<std::vector<AVector>> UnionAll(std::vector<std::vector<AVector>> polys);
 
 	// offsetting 
 	static std::vector<std::vector<AVector>> RoundOffsettingP(  std::vector<AVector> polygon,                float offsetVal);  // closed poly	

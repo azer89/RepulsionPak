@@ -646,7 +646,7 @@ std::vector<std::vector<AVector>> ClipperWrapper::GetUniPolys(std::vector<std::v
 	return offPolys;
 }
 
-std::vector<std::vector<AVector>> ClipperWrapper::UnionAll(std::vector<std::vector<AVector>> polys)
+/*std::vector<std::vector<AVector>> ClipperWrapper::UnionAll(std::vector<std::vector<AVector>> polys)
 {
 	if (polys.size() == 1) { return polys; }
 
@@ -656,12 +656,6 @@ std::vector<std::vector<AVector>> ClipperWrapper::UnionAll(std::vector<std::vect
 	ClipperLib::Paths cClippingShapes(polys.size() - 1);
 	ClipperLib::PolyTree sol1;
 
-	// the clipped shape
-	/*for (int a = 0; a < polys[0].size(); a++)
-	{
-		cTargetShape << ClipperLib::IntPoint(polys[0][a].x * cScaling,
-			polys[0][a].y * cScaling);
-	}*/
 
 	// shapes that clip another shape
 	for (int a = 0; a < polys.size(); a++)
@@ -699,6 +693,11 @@ std::vector<std::vector<AVector>> ClipperWrapper::UnionAll(std::vector<std::vect
 	}
 
 	return outPolys;
+}*/
+
+std::vector<std::vector<AVector>> ClipperWrapper::ClipElementsWithCOntainer(std::vector<std::vector<AVector >> elements, std::vector<AVector > container)
+{
+
 }
 
 std::vector<std::vector<AVector>> ClipperWrapper::OffsetAll(std::vector<std::vector<AVector >> polygons, float offsetVal)

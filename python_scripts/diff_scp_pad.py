@@ -56,8 +56,8 @@ ax = plt.gca();
 plt.plot(green_idx, green_array_dif, 'g', linewidth=2);
 plt.plot(red_idx, red_array_dif, 'r', linewidth=2);
 
-plt.plot([d_gap, d_gap], [0, 0.1], 'k-')
+plt.plot([d_gap, d_gap], [0, 0.1], 'k--')
 
-plt.title(r"Test");
+plt.title(r"PAD (red) vs RepulsionPak (green)");
 plt.show();
 

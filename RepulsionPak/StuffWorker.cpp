@@ -1489,10 +1489,22 @@ void StuffWorker::CreateManualPacking()
 	// assignments
 	_manualElements = reg.GetFocalBoundaries(); // the actual elements
 	_manualSkeletons = reg.GetFields();
+	_manualContainer =  reg.GetBoundaries(); // target container
 
-	_manualContainer =  reg.GetBoundaries();
-	
-	
+	/*
+	std::stringstream ss5;
+	ss5 << SystemParams::_save_folder << "SVG\\" << "result_" << frameCounter << ".svg";
+	MySVGRenderer::SaveElementsAndSkins(ss5.str(), 
+		                                _graphs, 
+		                                _containerWorker->_focals, 
+		                                _containerWorker->_offsetFocalBoundaries, 
+		                                _containerWorker->_container_boundaries); //B
+	*/
+	std::vector<std::vector<AVector>> offsetShapes = ClipperWrapper::OffsetAll(_manualElements, 5.746f);
+	std::stringstream ss5;
+	ss5 << SystemParams::_save_folder << "SVG\\" << "offset.svg";
+	MySVGRenderer::SaveShapesToSVG(ss5.str(), offsetShapes);
+		
 	// use this for skeletons
 	//float offVal = 5.0f;
 	//std::vector<std::vector<AVector>> temp1 = ClipperWrapper::RoundOffsettingPP(reg.GetBoundaries(), offVal);

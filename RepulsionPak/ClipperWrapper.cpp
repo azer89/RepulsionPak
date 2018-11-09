@@ -646,6 +646,53 @@ std::vector<std::vector<AVector>> ClipperWrapper::GetUniPolys(std::vector<std::v
 	return offPolys;
 }
 
+std::vector<std::vector<AVector>> ClipperWrapper::OffsetAll(std::vector<std::vector<AVector >> polygons, float offsetVal)
+{
+	float cScaling = 1e10;
+	ClipperLib::ClipperOffset cOffset;
+	cOffset.ArcTolerance = 0.25 * cScaling;
+
+	ClipperLib::Paths subjs(polygons.size());
+	ClipperLib::Paths pSol;
+	for (int i = 0; i < polygons.size(); i++)
+	{
+		for (int a = 0; a < polygons[i].size(); a++)
+		{
+			subjs[i] << ClipperLib::IntPoint(polygons[i][a].x * cScaling, polygons[i][a].y * cScaling);
+		}
+	}
+
+	cOffset.AddPaths(subjs, ClipperLib::jtRound, ClipperLib::etClosedPolygon);
+	cOffset.Execute(pSol, offsetVal * cScaling);
+
+	std::vector<std::vector<AVector>>  offPolys;
+
+	std::vector<AVector> largestPoly;
+	//float largestArea = -1000;
+	for (int a = 0; a < pSol.size(); a++)
+	{
+		std::vector<AVector> offPoly;
+		for (int b = 0; b < pSol[a].size(); b++)
+		{
+			AVector iPt(pSol[a][b].X, pSol[a][b].Y);
+			iPt /= cScaling;
+			offPoly.push_back(iPt);
+		}
+
+		offPolys.push_back(offPoly);
+		//OpenCVWrapper cvWrapper;
+		//float pArea = cvWrapper.GetArea(offPoly); // check area size
+		/*if (pArea > largestArea)
+		{
+			largestPoly = offPoly;
+			largestArea = pArea;
+		}*/
+	}
+	
+
+	return offPolys;
+}
+
 // ROUND
 std::vector<std::vector<AVector>> ClipperWrapper::RoundOffsettingPP(std::vector<std::vector<AVector >> polygons, 
 	                                                                float offsetVal)

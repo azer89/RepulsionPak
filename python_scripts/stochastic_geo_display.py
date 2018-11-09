@@ -14,8 +14,8 @@ fig3.patch.set_facecolor('white');
 plt.clf();
 ax = plt.gca();
 
-green_array = scf_vals_balabolka_01;
-red_array = scf_vals_balabolka_man2x;
+green_array = scf_vals_pad_01;
+red_array   = scf_vals_pad_man2x;
 
 #blue_array = [x for x in blue_array if x != 0]
 green_array = [x for x in green_array if x != 0];
@@ -24,21 +24,21 @@ red_array = [x for x in red_array if x != 0];
 green_idx = r_vals[:len(green_array)];
 red_idx = r_vals[:len(red_array)];
 
-plt.plot(red_idx, np.asarray(red_array), 'r', linewidth=2);
+#plt.plot(red_idx, np.asarray(red_array), 'r', linewidth=2);
 plt.plot(green_idx, np.asarray(green_array), 'g', linewidth=2);
 
-#plt.plot([5.746, 5.746], [0, 0.33], 'k-')
+plt.plot([5.746, 5.746], [0, 0.5], 'k--')
 
 #plt.plot(r_vals, np.asarray(scf_vals_boxes_e), 'b', linewidth=1);
 #plt.plot(r_vals, np.asarray(scf_vals_balabolka_man8x), 'r', linewidth=1.0);
 #plt.plot(r_vals, np.asarray(scf_vals_pad_03), 'g', linewidth=1.0);
 
 # logarithmic y-axis
-plt.yscale('log');
-plt.gca().minorticks_off();
+#plt.yscale('log');
+#plt.gca().minorticks_off();
          
 
-plt.title(r"Artist (red) vs RepulsionPak (green)");
+plt.title(r"Our result SCP");
 plt.show();
 #plt.plot(r_vals, np.asarray(scf_vals_pad_01), '#56D65F', linewidth=1);         
 #plt.plot(r_vals, np.asarray(scf_vals_pad_07_7), '#6755D8', linewidth=1);

@@ -1478,7 +1478,7 @@ void StuffWorker::CalculateMetrics()
 {
 	// parameter
 	float preOffset = 1.0f;
-	float offVal2 = 3.0f;
+	float offVal2 = 10.0f;
 
 	// func-ception...
 	std::vector< std::vector<AVector>> offsetElements1 = ClipperWrapper::OffsetAll(ClipperWrapper::OffsetAll(_manualElements, preOffset), -preOffset);
@@ -1497,15 +1497,20 @@ void StuffWorker::CalculateMetrics()
 		float offVal = offVal2;
 		if (!UtilityFunctions::IsClockwise(offsetElements1[a])) { offVal = -offVal2; }
 
-		std::vector<std::vector<AVector>> outputPolys = ClipperWrapper::RoundOffsettingP(offsetElements1[a], offVal);
-		offsetElements2.insert(offsetElements2.end(), outputPolys.begin(), outputPolys.end());
+		std::vector<std::vector<AVector>> outputPolys1 = ClipperWrapper::RoundOffsettingP(offsetElements1[a], offVal);
+		
+		std::vector<std::vector<AVector>> outputPolys2 = ClipperWrapper::ClipElementsWithContainer(outputPolys1, _manualContainer[0]);
+
+		offsetElements2.insert(offsetElements2.end(), outputPolys2.begin(), outputPolys2.end());
 	}
 	std::stringstream ss2;
 	ss2 << SystemParams::_save_folder << "SVG\\" << "debug2.svg";
 	MySVGRenderer::SaveShapesToSVG(ss2.str(), offsetElements2);
 
 	// Generate offset of union of elements
-	std::vector< std::vector<AVector>> offsetElements3 = ClipperWrapper::OffsetAll(offsetElements1, offVal2);
+	std::vector< std::vector<AVector>> offsetElements3_temp = ClipperWrapper::OffsetAll(offsetElements1, offVal2);
+	std::vector<std::vector<AVector>> offsetElements3 = ClipperWrapper::ClipElementsWithContainer(offsetElements3_temp, _manualContainer[0]);
+
 	std::stringstream ss3;
 	ss3 << SystemParams::_save_folder << "SVG\\" << "debug3.svg";
 	MySVGRenderer::SaveShapesToSVG(ss3.str(), offsetElements3);

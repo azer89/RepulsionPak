@@ -722,6 +722,26 @@ std::vector<std::vector<AVector>> ClipperWrapper::ClipElementsWithContainer(std:
 	ClipperLib::Clipper myClipper1;
 	myClipper1.AddPaths(cTargetShapes, ClipperLib::ptClip, true); // the clipped shape
 	myClipper1.AddPath(cClippingShape, ClipperLib::ptSubject, true); // shapes that clip another shape
+
+	// Intersection
+	myClipper1.Execute(ClipperLib::ctIntersection, sol1, ClipperLib::pftNonZero, ClipperLib::pftNonZero);
+
+	ClipperLib::Paths pSol1;
+	ClipperLib::PolyTreeToPaths(sol1, pSol1);
+
+	std::vector<std::vector<AVector>> outPolys; // return list
+	for (int a = 0; a < pSol1.size(); a++)
+	{
+		std::vector<AVector> poly;
+		for (int b = 0; b < pSol1[a].size(); b++)
+		{
+			AVector iPt(pSol1[a][b].X / cScaling, pSol1[a][b].Y / cScaling); // scaling down
+			poly.push_back(iPt);
+		}
+		outPolys.push_back(poly);
+	}
+	std::cout << "polys.size " << outPolys.size() << "\n";
+	return outPolys;
 }
 
 std::vector<std::vector<AVector>> ClipperWrapper::OffsetAll(std::vector<std::vector<AVector >> polygons, float offsetVal)

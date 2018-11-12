@@ -370,6 +370,13 @@ public:
 		return cv::contourArea(cvPoly);
 
 	}
+
+	float GetAreaOriented(const std::vector<AVector>& polygon)
+	{
+		std::vector<cv::Point2f> cvPoly = ConvertList<AVector, cv::Point2f>(polygon);
+		return cv::contourArea(cvPoly, true);
+
+	}
 	
 	// ---------- get longest contour ----------
 	template <typename T>

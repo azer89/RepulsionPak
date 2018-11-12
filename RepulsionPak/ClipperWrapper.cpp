@@ -696,7 +696,8 @@ std::vector<std::vector<AVector>> ClipperWrapper::GetUniPolys(std::vector<std::v
 }*/
 
 std::vector<std::vector<AVector>> ClipperWrapper::ClipElementsWithContainer(std::vector<std::vector<AVector >> elements, 
-	                                                                        std::vector<AVector > container)
+	                                                                        std::vector<AVector > container, 
+																			float& area)
 {
 	float cScaling = 1e10;
 
@@ -729,9 +730,11 @@ std::vector<std::vector<AVector>> ClipperWrapper::ClipElementsWithContainer(std:
 	ClipperLib::Paths pSol1;
 	ClipperLib::PolyTreeToPaths(sol1, pSol1);
 
+	area = 0;
 	std::vector<std::vector<AVector>> outPolys; // return list
 	for (int a = 0; a < pSol1.size(); a++)
 	{
+		area += ClipperLib::Area(pSol1[a]);
 		std::vector<AVector> poly;
 		for (int b = 0; b < pSol1[a].size(); b++)
 		{
@@ -740,7 +743,10 @@ std::vector<std::vector<AVector>> ClipperWrapper::ClipElementsWithContainer(std:
 		}
 		outPolys.push_back(poly);
 	}
-	std::cout << "polys.size " << outPolys.size() << "\n";
+	//std::cout << "polys.size " << outPolys.size() << "\n";
+	area /= cScaling;
+	area /= cScaling;
+
 	return outPolys;
 }
 
@@ -1045,6 +1051,7 @@ void ClipperWrapper::ClippingContainer(const std::vector<AVector>& container,
 
 // ROUND
 std::vector<std::vector<AVector>>  ClipperWrapper::RoundOffsettingP(std::vector<AVector> polygon, 
+															
 	                                                                float offsetVal)
 {
 	float cScaling = 1e10;

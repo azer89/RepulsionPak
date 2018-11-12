@@ -1477,43 +1477,81 @@ void StuffWorker::CalculateSkeleton()
 void StuffWorker::CalculateMetrics()
 {
 	// parameter
-	float preOffset = 1.0f;
-	float offVal2 = 10.0f;
+	float preOffset = 1.0f; // a bit hack !!!
+	//float offVal2 = 10.0f;
+	float maxOffVal = 12;
+	float offValIter = 0.1f;
 
-	// func-ception...
+	// 1 - func-ception
 	std::vector< std::vector<AVector>> offsetElements1 = ClipperWrapper::OffsetAll(ClipperWrapper::OffsetAll(_manualElements, preOffset), -preOffset);
-
 	// debug (comment me)
 	std::stringstream ss1;
-	ss1 << SystemParams::_save_folder << "SVG\\" << "debug1.svg";
+	ss1 << SystemParams::_save_folder << "SVG\\" << "debugA.svg";
 	MySVGRenderer::SaveShapesToSVG(ss1.str(), offsetElements1);
-	
-	// Generate offset elements one by one
-	std::vector< std::vector<AVector>> offsetElements2;
-	for (unsigned int a = 0; a < offsetElements1.size(); a++)
-	{
-		// clockwise = element
-		// counterclockwise = hole
-		float offVal = offVal2;
-		if (!UtilityFunctions::IsClockwise(offsetElements1[a])) { offVal = -offVal2; }
 
-		std::vector<std::vector<AVector>> outputPolys1 = ClipperWrapper::RoundOffsettingP(offsetElements1[a], offVal);
-		
-		std::vector<std::vector<AVector>> outputPolys2 = ClipperWrapper::ClipElementsWithContainer(outputPolys1, _manualContainer[0]);
+	//OpenCVWrapper cvWRap;
+	std::vector<float> _offsetVals2;
+	std::vector<float> _offsetVals3;
 
-		offsetElements2.insert(offsetElements2.end(), outputPolys2.begin(), outputPolys2.end());
-	}
-	std::stringstream ss2;
-	ss2 << SystemParams::_save_folder << "SVG\\" << "debug2.svg";
-	MySVGRenderer::SaveShapesToSVG(ss2.str(), offsetElements2);
+	for (float offVal2 = 1.0f; offVal2 < maxOffVal; offVal2 += offValIter)
+	{ // begin for
+		std::cout << offVal2 << "\n";
+		// 2 - Generate offset elements one by one
+		float area2 = 0;
+		//float area2b = 0;
+		std::vector< std::vector<AVector>> offsetElements2;
+		for (unsigned int a = 0; a < offsetElements1.size(); a++)
+		{
+			// clockwise = element
+			// counterclockwise = hole
+			float offVal = offVal2;
+			if (!UtilityFunctions::IsClockwise(offsetElements1[a])) { offVal = -offVal2; }
 
-	// Generate offset of union of elements
-	std::vector< std::vector<AVector>> offsetElements3_temp = ClipperWrapper::OffsetAll(offsetElements1, offVal2);
-	std::vector<std::vector<AVector>> offsetElements3 = ClipperWrapper::ClipElementsWithContainer(offsetElements3_temp, _manualContainer[0]);
+			std::vector<std::vector<AVector>> outputPolys1 = ClipperWrapper::RoundOffsettingP(offsetElements1[a], offVal);
+			float tempArea;
+			std::vector<std::vector<AVector>> outputPolys2 = ClipperWrapper::ClipElementsWithContainer(outputPolys1, _manualContainer[0], tempArea);
+			area2 += tempArea;
+			offsetElements2.insert(offsetElements2.end(), outputPolys2.begin(), outputPolys2.end());
 
-	std::stringstream ss3;
-	ss3 << SystemParams::_save_folder << "SVG\\" << "debug3.svg";
-	MySVGRenderer::SaveShapesToSVG(ss3.str(), offsetElements3);
+			// AREA2B
+			//for (unsigned int b = 0; b < outputPolys2.size(); b++)
+			//{
+			//	area2b += cvWRap.GetAreaOriented(outputPolys2[b]);
+			//}
+		}
+		//std::cout << "area2 = " << area2 << ", area2b=" << area2b << ", ";
+		//std::cout << "b " << std::abs(area2 - area2b) << ", ";
+		/*std::stringstream ss2;
+		ss2 << SystemParams::_save_folder << "SVG\\" << "debugB_" << offVal2 << ".svg";
+		MySVGRenderer::SaveShapesToSVG(ss2.str(), offsetElements2);*/
+		_offsetVals2.push_back(area2);
+
+		// 3 - Generate offset of union of elements
+		std::vector< std::vector<AVector>> offsetElements3_temp = ClipperWrapper::OffsetAll(offsetElements1, offVal2);
+		float area3 = 0;
+		std::vector<std::vector<AVector>> offsetElements3 = ClipperWrapper::ClipElementsWithContainer(offsetElements3_temp, _manualContainer[0], area3);
+
+		//float area3b = 0;
+		//for (unsigned int b = 0; b < offsetElements3.size(); b++)
+		//{
+		//	area3b += cvWRap.GetAreaOriented(offsetElements3[b]);
+		//}
+
+		//std::cout << "area3 = " << area3 << ", area3b = " << area3b << "\n\n";
+		//std::cout << "c " << std::abs(area3 - area3b) << "\n\n";
+		/*std::stringstream ss3;
+		ss3 << SystemParams::_save_folder << "SVG\\" << "debugC_" << offVal2 << ".svg";
+		MySVGRenderer::SaveShapesToSVG(ss3.str(), offsetElements3);*/
+		_offsetVals3.push_back(area3);
+
+
+
+	} // end for
+
+	//pathIO.SaveSDF2CSV(_distArray, SystemParams::_save_folder + "dist_all.csv");
+	PathIO pIO;
+	pIO.SaveSDF2CSV(_offsetVals2, SystemParams::_save_folder + "dist_2.csv");
+	pIO.SaveSDF2CSV(_offsetVals2, SystemParams::_save_folder + "dist_3.csv");
 
 }
 

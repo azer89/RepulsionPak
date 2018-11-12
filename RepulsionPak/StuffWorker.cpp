@@ -1551,7 +1551,7 @@ void StuffWorker::CalculateMetrics()
 	//pathIO.SaveSDF2CSV(_distArray, SystemParams::_save_folder + "dist_all.csv");
 	PathIO pIO;
 	pIO.SaveSDF2CSV(_offsetVals2, SystemParams::_save_folder + "dist_2.csv");
-	pIO.SaveSDF2CSV(_offsetVals2, SystemParams::_save_folder + "dist_3.csv");
+	pIO.SaveSDF2CSV(_offsetVals3, SystemParams::_save_folder + "dist_3.csv");
 
 }
 

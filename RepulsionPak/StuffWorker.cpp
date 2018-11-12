@@ -1479,8 +1479,11 @@ void StuffWorker::CalculateMetrics()
 	// parameter
 	float preOffset = 1.0f; // a bit hack !!!
 	//float offVal2 = 10.0f;
-	float maxOffVal = 12;
+	float maxOffVal = 20;
 	float offValIter = 0.1f;
+
+	OpenCVWrapper cvWRap;
+	float containerArea = cvWRap.GetAreaOriented(_manualContainer[0]);
 
 	// 1 - func-ception
 	std::vector< std::vector<AVector>> offsetElements1 = ClipperWrapper::OffsetAll(ClipperWrapper::OffsetAll(_manualElements, preOffset), -preOffset);
@@ -1493,7 +1496,7 @@ void StuffWorker::CalculateMetrics()
 	std::vector<float> _offsetVals2;
 	std::vector<float> _offsetVals3;
 
-	for (float offVal2 = 1.0f; offVal2 < maxOffVal; offVal2 += offValIter)
+	for (float offVal2 = 0.0f; offVal2 < maxOffVal; offVal2 += offValIter)
 	{ // begin for
 		std::cout << offVal2 << "\n";
 		// 2 - Generate offset elements one by one

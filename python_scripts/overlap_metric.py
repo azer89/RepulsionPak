@@ -8,9 +8,10 @@ import statistics as stat
 
 import useful_things as ut
 
+d_gap = 5.75;
 num_folder = "13";
 case_name = "pad";  # case
-num_names = ["man2x"]; # names
+num_names = ["man2x", "01"]; # names
 
 for num_name in num_names:
 
@@ -29,3 +30,46 @@ for num_name in num_names:
     overlap_list = [];
     for i in range(0, len(area_vals_2)):
         overlap_list.append(area_vals_2[i] - area_vals_3[i]);
+        
+    str_vals2 = "area_vals_" + case_name + "_" + num_name + " = area_vals_3";
+    exec(str_vals2);
+    
+    str_vals = "overlap_vals_" + case_name + "_" + num_name + " = overlap_list";
+    exec(str_vals);
+    
+fig3 = plt.figure(1);
+fig3.patch.set_facecolor('white')
+plt.clf();
+ax = plt.gca();
+
+plt.ylabel("overlap area");
+plt.xlabel("polygon offset");
+
+r_vals = np.arange(1.0, 12, 0.1);
+
+plt.plot(r_vals, np.asarray(overlap_vals_pad_man2x), 'r', linewidth=1);
+plt.plot(r_vals, np.asarray(overlap_vals_pad_01), 'g', linewidth=1);
+
+plt.plot([d_gap, d_gap], [0, 40000], 'k--')
+
+plt.title(r"Overlap. PAD (red) vs RepulsionPak (green)");
+plt.show();
+
+fig2 = plt.figure(2);
+fig2.patch.set_facecolor('white')
+plt.clf();
+ax = plt.gca();
+
+plt.ylabel("Offset area of positive space");
+plt.xlabel("polygon offset");
+
+r_vals = np.arange(1.0, 12, 0.1);
+
+plt.plot(r_vals, np.asarray(area_vals_pad_man2x), 'r', linewidth=1);
+plt.plot(r_vals, np.asarray(area_vals_pad_01), 'g', linewidth=1);
+
+plt.plot([d_gap, d_gap], [80000, 140000], 'k--')
+
+plt.title(r"Offset area of positive space. PAD (red) vs RepulsionPak (green)");
+plt.show();
+

@@ -1484,6 +1484,7 @@ void StuffWorker::CalculateMetrics()
 
 	OpenCVWrapper cvWRap;
 	float containerArea = cvWRap.GetAreaOriented(_manualContainer[0]);
+	std::cout << "containerArea = " << containerArea << "\n";
 
 	// 1 - func-ception
 	std::vector< std::vector<AVector>> offsetElements1 = ClipperWrapper::OffsetAll(ClipperWrapper::OffsetAll(_manualElements, preOffset), -preOffset);

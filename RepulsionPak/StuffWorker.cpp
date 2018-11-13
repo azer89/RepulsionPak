@@ -1514,6 +1514,7 @@ void StuffWorker::CalculateMetrics()
 			std::vector<std::vector<AVector>> outputPolys1 = ClipperWrapper::RoundOffsettingP(offsetElements1[a], offVal);
 			float tempArea;
 			std::vector<std::vector<AVector>> outputPolys2 = ClipperWrapper::ClipElementsWithContainer(outputPolys1, _manualContainer[0], tempArea);
+			if (!UtilityFunctions::IsClockwise(offsetElements1[a])) { tempArea = -tempArea; }
 			area2 += tempArea;
 			offsetElements2.insert(offsetElements2.end(), outputPolys2.begin(), outputPolys2.end());
 

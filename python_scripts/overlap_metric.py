@@ -47,6 +47,7 @@ for num_name in num_names:
     str_vals = "overlap_vals_" + case_name + "_" + num_name + " = overlap_list";
     exec(str_vals);
     
+###########################################################################
 fig3 = plt.figure(1);
 fig3.patch.set_facecolor('white')
 plt.clf();
@@ -55,16 +56,34 @@ ax = plt.gca();
 plt.ylabel("overlap area");
 plt.xlabel("polygon offset");
 
+#green_array_val1 = [x for x in np.asarray(overlap_vals_pad_man2x) if x != 0];
+#red_array_val1 = [x for x in np.asarray(overlap_vals_pad_01) if x != 0];
+#green_idx1 = r_vals[:len(green_array_dif)];
+#red_idx1 = r_vals[:len(red_array_dif)];
+green_array_temp = np.asarray(overlap_vals_pad_01);
+red_array_temp = np.asarray(overlap_vals_pad_man2x);
 
+green_array_val1 = [];
+red_array_val1   = [];
+green_idx1       = [];
+red_idx1         = [];
+for i in range(0, len(green_array_temp)):
+    if(green_array_temp[i] > 0):
+        green_array_val1.append(green_array_temp[i]);
+        green_idx1.append(r_vals[i])
+    
 
-plt.plot(r_vals, np.asarray(overlap_vals_pad_man2x), 'r', linewidth=1);
-plt.plot(r_vals, np.asarray(overlap_vals_pad_01), 'g', linewidth=1);
+#plt.plot(r_vals, np.asarray(green_array_temp), 'g', linewidth=1);
+plt.plot(green_idx1, np.asarray(green_array_val1), 'g', linewidth=1);
+plt.plot(r_vals, np.asarray(red_array_temp), 'r', linewidth=1);
 
 plt.plot([d_gap, d_gap], [0, 140000], 'k--')
 
 plt.title(r"Overlap. PAD (red) vs RepulsionPak (green)");
 plt.show();
 
+"""
+###########################################################################
 fig2 = plt.figure(2);
 fig2.patch.set_facecolor('white')
 plt.clf();
@@ -82,6 +101,7 @@ plt.plot([d_gap, d_gap], [70000, 140000], 'k--')
 plt.title(r"Offset area of positive space. PAD (red) vs RepulsionPak (green)");
 plt.show();
 
+###########################################################################
 fig3 = plt.figure(3);
 fig3.patch.set_facecolor('white')
 plt.clf();
@@ -100,4 +120,5 @@ plt.plot([d_gap, d_gap], [0, 0.5], 'k--')
 
 plt.title(r"SCP");
 plt.show();
+"""
 

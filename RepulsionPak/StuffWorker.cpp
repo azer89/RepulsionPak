@@ -1488,7 +1488,8 @@ void StuffWorker::CalculateMetrics()
 	std::cout << "containerArea = " << containerArea << "\n";
 
 	// 1 - func-ception
-	std::vector< std::vector<AVector>> offsetElements1 = ClipperWrapper::OffsetAll(ClipperWrapper::OffsetAll(_manualElements, preOffset), -preOffset);
+	//std::vector< std::vector<AVector>> offsetElements1 = ClipperWrapper::OffsetAll(ClipperWrapper::OffsetAll(_manualElements, preOffset), -preOffset);
+	std::vector< std::vector<AVector>> offsetElements1 = _manualElements;
 	// debug (comment me)
 	std::stringstream ss1;
 	ss1 << SystemParams::_save_folder << "SVG\\" << "debugA.svg";
@@ -1500,22 +1501,26 @@ void StuffWorker::CalculateMetrics()
 
 	for (float offVal2 = 0.0f; offVal2 < maxOffVal; offVal2 += offValIter)
 	{ // begin for
-		std::cout << offVal2 << "\n";
+		//std::cout << offVal2 << "\n";
 		// 2 - Generate offset elements one by one
 		float area2 = 0;
 		//float area2b = 0;
 		std::vector< std::vector<AVector>> offsetElements2;
-		for (unsigned int a = 0; a < offsetElements1.size(); a++)
+		for (unsigned int a = 0; a < _manualElementsss.size(); a++)
 		{
+			//for (unsigned int b = 0; b < _manualElementsss[a].size(); b++)
+			//{
 			// clockwise = element
 			// counterclockwise = hole
-			float offVal = offVal2;
-			if (!UtilityFunctions::IsClockwise(offsetElements1[a])) { offVal = -offVal2; }
 
-			std::vector<std::vector<AVector>> outputPolys1 = ClipperWrapper::RoundOffsettingP(offsetElements1[a], offVal);
+			float offVal = offVal2;
+			//if (!UtilityFunctions::IsClockwise(_manualElementsss[a][b])) { offVal = -offVal2; }
+
+			std::vector<std::vector<AVector>> outputPolys1 = ClipperWrapper::OffsetAll(_manualElementsss[a], offVal);
+			
 			float tempArea;
 			std::vector<std::vector<AVector>> outputPolys2 = ClipperWrapper::ClipElementsWithContainer(outputPolys1, _manualContainer[0], tempArea);
-			if (!UtilityFunctions::IsClockwise(offsetElements1[a])) { tempArea = -tempArea; }
+			//if (!UtilityFunctions::IsClockwise(_manualElementsss[a][b])) { tempArea = -tempArea; }
 			area2 += tempArea;
 			offsetElements2.insert(offsetElements2.end(), outputPolys2.begin(), outputPolys2.end());
 
@@ -1524,12 +1529,15 @@ void StuffWorker::CalculateMetrics()
 			//{
 			//	area2b += cvWRap.GetAreaOriented(outputPolys2[b]);
 			//}
+			//}
 		}
 		//std::cout << "area2 = " << area2 << ", area2b=" << area2b << ", ";
 		//std::cout << "b " << std::abs(area2 - area2b) << ", ";
-		/*std::stringstream ss2;
+		std::stringstream ss2;
 		ss2 << SystemParams::_save_folder << "SVG\\" << "debugB_" << offVal2 << ".svg";
-		MySVGRenderer::SaveShapesToSVG(ss2.str(), offsetElements2);*/
+		MySVGRenderer::SaveShapesToSVG(ss2.str(), offsetElements2);
+
+		// area
 		_offsetVals2.push_back(area2);
 
 		// 3 - Generate offset of union of elements
@@ -1545,12 +1553,14 @@ void StuffWorker::CalculateMetrics()
 
 		//std::cout << "area3 = " << area3 << ", area3b = " << area3b << "\n\n";
 		//std::cout << "c " << std::abs(area3 - area3b) << "\n\n";
-		/*std::stringstream ss3;
+		std::stringstream ss3;
 		ss3 << SystemParams::_save_folder << "SVG\\" << "debugC_" << offVal2 << ".svg";
-		MySVGRenderer::SaveShapesToSVG(ss3.str(), offsetElements3);*/
+		MySVGRenderer::SaveShapesToSVG(ss3.str(), offsetElements3);
+
+		// area
 		_offsetVals3.push_back(area3);
 
-
+		std::cout << offVal2 << " --> " << area2 - area3 << "\n";
 
 	} // end for
 

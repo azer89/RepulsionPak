@@ -750,7 +750,8 @@ std::vector<std::vector<AVector>> ClipperWrapper::ClipElementsWithContainer(std:
 	return outPolys;
 }
 
-std::vector<std::vector<AVector>> ClipperWrapper::OffsetAll(std::vector<std::vector<AVector >> polygons, float offsetVal)
+std::vector<std::vector<AVector>> ClipperWrapper::OffsetAll(std::vector<std::vector<AVector >> polygons, 
+	                                                        float offsetVal)
 {
 	float cScaling = 1e10;
 	ClipperLib::ClipperOffset cOffset;

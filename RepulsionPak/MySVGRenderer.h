@@ -23,7 +23,7 @@ radhitya@uwaterloo.ca
 
 #include <vector>
 
-typedef std::vector<std::vector<AVector>> GraphArt;
+
 typedef std::vector<MyColor> ArtColors;
 
 

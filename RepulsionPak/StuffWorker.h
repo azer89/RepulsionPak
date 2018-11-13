@@ -188,13 +188,14 @@ public:
 
 	// ====================================================
 	CollissionGrid* _manualGrid;
-	std::vector<std::vector<AVector>> _manualElements;
+	std::vector<std::vector<AVector>> _manualElements;   // CreateManualPacking();
+	std::vector<GraphArt>			  _manualElementsss; // CreateManualPacking2();
 	std::vector<std::vector<AVector>> _manualSkeletons;
 	std::vector<std::vector<AVector>> _manualContainer;
 
 	void CalculateMetrics();
 	void CreateManualPacking();
-	//void CreateManualPacking2();
+	void CreateManualPacking2();
 	void AnalyzeManualPacking();
 	
 	// ====================================================

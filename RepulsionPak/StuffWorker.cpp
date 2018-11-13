@@ -87,9 +87,10 @@ StuffWorker::StuffWorker()
 	_pngImg.SetColorImageToWhite();
 	//OpenCVWrapper _cvWrapper;
 
-	//CreateSquares();     // don't forget to change params.lua
-	CreateManualPacking(); // don't forget to change params.lua
-	AnalyzeManualPacking();
+	//CreateSquares();       // don't forget to change params.lua
+	CreateManualPacking2();  // overlap metrics
+	//CreateManualPacking(); // SDF and stuff
+	//AnalyzeManualPacking();
 
 
 	//MyColor::_black.Print();
@@ -1560,6 +1561,32 @@ void StuffWorker::CalculateMetrics()
 
 }
 
+void StuffWorker::CreateManualPacking2()
+{
+	PathIO pathIO;
+	std::vector<VFRegion> regs = pathIO.LoadRegions(SystemParams::_image_folder + SystemParams::_manual_art_name + ".path");
+	
+	// _manualElementsss && _manualElements
+	for (unsigned int a = 0; a < regs.size(); a++)
+	{ 
+		_manualElementsss.push_back(regs[a].GetFocalBoundaries()); 
+		_manualElements.insert(_manualElements.end(), _manualElementsss[a].begin(), _manualElementsss[a].end());
+	}
+
+	// find container
+	for (unsigned int a = 0; a < regs.size(); a++)
+	{
+		std::vector<std::vector<AVector>> temp = regs[a].GetBoundaries();
+		if (temp.size() > 0)
+			{ _manualContainer = temp; }
+	}
+
+	// ----
+	// HERE
+	// ----
+	CalculateMetrics();
+}
+
 /*
 CollissionGrid*                   _manualGrid;
 std::vector<std::vector<AVector>> _manualElements;
@@ -1571,10 +1598,7 @@ void StuffWorker::CreateManualPacking()
 	// ---------- load regions ----------
 	PathIO pathIO;
 	VFRegion reg = pathIO.LoadRegions(SystemParams::_image_folder + SystemParams::_manual_art_name + ".path")[0];
-
-
-	
-
+	   
 	// assignments
 	_manualElements = reg.GetFocalBoundaries();
 	//_manualElements = ClipperWrapper::OffsetAll( ClipperWrapper::OffsetAll( reg.GetFocalBoundaries(), preOffset), -preOffset); // the actual elements	
@@ -1584,7 +1608,7 @@ void StuffWorker::CreateManualPacking()
 	// ----
 	// HERE
 	// ----
-	CalculateMetrics();
+	//CalculateMetrics();
 
 	/*
 	std::stringstream ss5;

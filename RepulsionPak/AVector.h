@@ -15,6 +15,8 @@ radhitya@uwaterloo.ca
 #include <cmath>
 #include <iostream> // for abs (?)
 
+#include <vector>
+
 #include "SystemParams.h"
 
 /**
@@ -22,6 +24,8 @@ radhitya@uwaterloo.ca
 * radhitya@uwaterloo.ca
 * February 2016
 */
+
+
 
 /**
 * A struct to represent:
@@ -229,6 +233,6 @@ public:
 	}
 };
 
-
+typedef std::vector<std::vector<AVector>> GraphArt;
 
 #endif // AVECTOR_H

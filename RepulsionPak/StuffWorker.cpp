@@ -1498,6 +1498,7 @@ void StuffWorker::CalculateMetrics()
 	//OpenCVWrapper cvWRap;
 	std::vector<float> _offsetVals2;
 	std::vector<float> _offsetVals3;
+	std::vector<float> _negVals;
 
 	for (float offVal2 = 0.0f; offVal2 < maxOffVal; offVal2 += offValIter)
 	{ // begin for
@@ -1533,9 +1534,11 @@ void StuffWorker::CalculateMetrics()
 		}
 		//std::cout << "area2 = " << area2 << ", area2b=" << area2b << ", ";
 		//std::cout << "b " << std::abs(area2 - area2b) << ", ";
-		std::stringstream ss2;
+
+		// draw
+		/*std::stringstream ss2;
 		ss2 << SystemParams::_save_folder << "SVG\\" << "debugB_" << offVal2 << ".svg";
-		MySVGRenderer::SaveShapesToSVG(ss2.str(), offsetElements2);
+		MySVGRenderer::SaveShapesToSVG(ss2.str(), offsetElements2);*/
 
 		// area
 		_offsetVals2.push_back(area2);
@@ -1553,12 +1556,26 @@ void StuffWorker::CalculateMetrics()
 
 		//std::cout << "area3 = " << area3 << ", area3b = " << area3b << "\n\n";
 		//std::cout << "c " << std::abs(area3 - area3b) << "\n\n";
-		std::stringstream ss3;
+		
+		// draw
+		/*std::stringstream ss3;
 		ss3 << SystemParams::_save_folder << "SVG\\" << "debugC_" << offVal2 << ".svg";
-		MySVGRenderer::SaveShapesToSVG(ss3.str(), offsetElements3);
+		MySVGRenderer::SaveShapesToSVG(ss3.str(), offsetElements3);*/
 
 		// area
 		_offsetVals3.push_back(area3);
+
+		// 4 - offset of union of elements minus offset of container
+		std::vector<AVector> offset_container = ClipperWrapper::RoundOffsettingP(_manualContainer[0], -offVal2)[0];
+		float offContainerArea = cvWRap.GetAreaOriented(offset_container);
+		float area4 = 0;
+		std::vector<std::vector<AVector>> offsetElements4 = ClipperWrapper::ClipElementsWithContainer(offsetElements3_temp, offset_container, area4);
+		_negVals.push_back(offContainerArea - area4);
+
+		// draw
+		std::stringstream ss4;
+		ss4 << SystemParams::_save_folder << "SVG\\" << "debugD_" << offVal2 << ".svg";
+		MySVGRenderer::SaveShapesToSVG(ss4.str(), offsetElements4);
 
 		std::cout << offVal2 << " --> " << area2 - area3 << "\n";
 
@@ -1568,6 +1585,7 @@ void StuffWorker::CalculateMetrics()
 	PathIO pIO;
 	pIO.SaveSDF2CSV(_offsetVals2, SystemParams::_save_folder + "dist_2.csv");
 	pIO.SaveSDF2CSV(_offsetVals3, SystemParams::_save_folder + "dist_3.csv");
+	pIO.SaveSDF2CSV(_negVals, SystemParams::_save_folder + "dist_4.csv");
 
 }
 

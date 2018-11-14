@@ -18,17 +18,20 @@ r_vals = np.arange(0.0, 20, 0.1);
 
 for num_name in num_names:
 
-    # MASK
+    # 2
     filename2 = 'C://Users//azer//OneDrive - University of Waterloo//__new_results__//' + num_folder + "_" + case_name + '_' + num_name +'//dist_2.csv';
     csv_data2 = pd.read_csv(filename2, sep=',',header=None);
-    #print filename1;
     area_vals_2 = csv_data2.values[:,0];
     
-    # SDF
+    # 3
     filename3 = 'C://Users//azer//OneDrive - University of Waterloo//__new_results__//' + num_folder + "_" + case_name + '_' + num_name +'//dist_3.csv';
     csv_data3 = pd.read_csv(filename3, sep=',',header=None);
-    #print filename2;
     area_vals_3 = csv_data3.values[:,0];
+    
+    # 4
+    filename4 = 'C://Users//azer//OneDrive - University of Waterloo//__new_results__//' + num_folder + "_" + case_name + '_' + num_name +'//dist_4.csv';
+    csv_data4 = pd.read_csv(filename4, sep=',',header=None);
+    area_vals_4 = csv_data4.values[:,0];
     
     overlap_list = [];
     for i in range(0, len(area_vals_2)):
@@ -36,7 +39,8 @@ for num_name in num_names:
         
     negative_list = [];
     for i in range(0, len(area_vals_2)):
-        negative_list.append((container_area - area_vals_3[i]) / container_area );
+        #negative_list.append((container_area - area_vals_3[i]) / container_area );
+        negative_list.append(area_vals_4[i] / container_area);
         
     str_vals3 = "negative_vals_" + case_name + "_" + num_name + " = negative_list";
     exec(str_vals3);

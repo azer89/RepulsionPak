@@ -38,10 +38,14 @@ for num_name in num_names:
         overlap_list.append(area_vals_2[i] - area_vals_3[i]);
         
     negative_list = [];
+    negative_list_wrong = [];
     for i in range(0, len(area_vals_2)):
-        #negative_list.append((container_area - area_vals_3[i]) / container_area );
+        negative_list_wrong.append((container_area - area_vals_3[i]) / container_area );
         negative_list.append(area_vals_4[i] / container_area);
-        
+    
+    str_vals4 = "negative_wrong_vals_" + case_name + "_" + num_name + " = negative_list_wrong";
+    exec(str_vals4);
+    
     str_vals3 = "negative_vals_" + case_name + "_" + num_name + " = negative_list";
     exec(str_vals3);
         
@@ -130,5 +134,35 @@ plt.plot([d_gap, d_gap], [0, 0.5], 'k--')
 
 plt.title(r"SCP");
 plt.show();
+
+###########################################################################
+fig3 = plt.figure(4);
+fig3.patch.set_facecolor('white')
+plt.clf();
+ax = plt.gca();
+
+plt.ylabel("Q_s(r)");
+plt.xlabel("radius");
+
+green_array = np.asarray(negative_wrong_vals_pad_01);
+red_array = np.asarray(negative_wrong_vals_pad_man2x); 
+
+green_array = [x for x in green_array if x > 1e-6];
+red_array = [x for x in red_array if x > 1e-6];
+
+green_idx = r_vals[:len(green_array)];
+red_idx = r_vals[:len(red_array)]; 
+
+
+plt.plot(red_idx, red_array, 'r', linewidth=1);
+plt.plot(green_idx, green_array, 'g', linewidth=1);
+
+plt.plot([d_gap, d_gap], [0, 0.5], 'k--')
+
+#plt.plot([d_gap, d_gap], [70000, 140000], 'k--')
+
+plt.title(r"SCP without offsetting the container");
+plt.show();
+
 
 

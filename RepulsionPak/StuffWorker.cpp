@@ -1481,7 +1481,7 @@ void StuffWorker::CalculateMetrics()
 	float preOffset = 1.0f; // a bit hack !!!
 	float maxOffVal = 20;
 	float offValIter = 0.1f;
-	float d_gap = 5.7463655;
+	float d_gap = -10;
 
 	OpenCVWrapper cvWRap;
 	float containerArea = cvWRap.GetAreaOriented(_manualContainer[0]);

@@ -8,7 +8,7 @@ import statistics as stat
 
 import useful_things as ut
 
-d_gap = 5.7463655;
+d_gap = 5.75;
 num_folder = "13";
 case_name = "pad";  # case
 num_names = ["man2x", "01"]; # names
@@ -33,6 +33,11 @@ for num_name in num_names:
     csv_data4 = pd.read_csv(filename4, sep=',',header=None);
     area_vals_4 = csv_data4.values[:,0];
     
+     # 5
+    filename5 = 'C://Users//azer//OneDrive - University of Waterloo//__new_results__//' + num_folder + "_" + case_name + '_' + num_name +'//dist_5_offset_container_d_gap.csv';
+    csv_data5 = pd.read_csv(filename5, sep=',',header=None);
+    neg_area_vals_5 = csv_data5.values[:,0];
+    
     overlap_list = [];
     for i in range(0, len(area_vals_2)):
         overlap_list.append(area_vals_2[i] - area_vals_3[i]);
@@ -40,8 +45,11 @@ for num_name in num_names:
     negative_list = [];
     negative_list_wrong = [];
     for i in range(0, len(area_vals_2)):
-        negative_list_wrong.append((container_area - area_vals_3[i]) / container_area );
+        #negative_list_wrong.append((container_area - area_vals_3[i]) / container_area );
+        negative_list_wrong.append(neg_area_vals_5[i]);
         negative_list.append(area_vals_4[i] / container_area);
+        
+    
     
     str_vals4 = "negative_wrong_vals_" + case_name + "_" + num_name + " = negative_list_wrong";
     exec(str_vals4);
@@ -115,8 +123,10 @@ ax = plt.gca();
 plt.ylabel("Q_s(r)");
 plt.xlabel("radius");
 
-green_array = np.asarray(negative_vals_pad_01);
-red_array = np.asarray(negative_vals_pad_man2x); 
+################
+
+green_array = np.asarray(negative_wrong_vals_pad_01);
+red_array = np.asarray(negative_wrong_vals_pad_man2x); 
 
 green_array = [x for x in green_array if x > 1e-6];
 red_array = [x for x in red_array if x > 1e-6];
@@ -125,15 +135,34 @@ green_idx = r_vals[:len(green_array)];
 red_idx = r_vals[:len(red_array)]; 
 
 
-plt.plot(red_idx, red_array, 'r', linewidth=1);
-plt.plot(green_idx, green_array, 'g', linewidth=1);
+plt.plot(red_idx, red_array, '#FFAAAA', linewidth=2);
+plt.plot(green_idx, green_array, '#AAFFAA', linewidth=2);
+
+################
+
+green_array2 = np.asarray(negative_vals_pad_01);
+red_array2 = np.asarray(negative_vals_pad_man2x); 
+
+green_array2 = [x for x in green_array2 if x > 1e-6];
+red_array2   = [x for x in red_array2 if x > 1e-6];
+
+green_idx2 = r_vals[:len(green_array2)];
+red_idx2   = r_vals[:len(red_array2)]; 
+
+
+plt.plot(red_idx2, red_array2, 'r', linewidth=1);
+plt.plot(green_idx2, green_array2, 'g', linewidth=1);
 
 plt.plot([d_gap, d_gap], [0, 0.5], 'k--')
+
+
+
 
 #plt.plot([d_gap, d_gap], [70000, 140000], 'k--')
 
 plt.title(r"SCP");
 plt.show();
+
 
 ###########################################################################
 fig3 = plt.figure(4);

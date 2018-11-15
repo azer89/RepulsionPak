@@ -8,7 +8,7 @@ import statistics as stat
 
 import useful_things as ut
 
-d_gap = 5.75;
+d_gap = 5.7463655;
 num_folder = "13";
 case_name = "pad";  # case
 num_names = ["man2x", "01"]; # names

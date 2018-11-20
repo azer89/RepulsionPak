@@ -8,16 +8,15 @@ import statistics as stat
 
 import useful_things as ut
 
-d_gap = 5.75;
+d_gap      = 5.75;
 num_folder = "13";
-case_name = "pad";  # case
-num_names = ["man2x", "01"]; # names
-container_area = 146721;
+case_name  = "pad";  # case
+num_names  = ["man2x", "01"]; # names
 
 r_vals = np.arange(0.0, 20, 0.1);
 
 for num_name in num_names:
-     # 5
+    ### 5
     filename5 = 'C://Users//azer//OneDrive - University of Waterloo//__new_results__//' + num_folder + "_" + case_name + '_' + num_name +'//dist_5_offset_container_d_gap.csv';
     print filename5;
     csv_data5 = pd.read_csv(filename5, sep=',',header=None);
@@ -25,7 +24,6 @@ for num_name in num_names:
     
     negative_list_wrong = [];
     for i in range(0, len(neg_area_vals_5)):
-        #negative_list_wrong.append((container_area - area_vals_3[i]) / container_area );
         negative_list_wrong.append(neg_area_vals_5[i]);
         
     str_vals4 = "negative_wrong_vals_" + case_name + "_" + num_name + " = negative_list_wrong";

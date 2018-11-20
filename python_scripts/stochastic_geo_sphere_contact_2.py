@@ -9,9 +9,9 @@ import statistics as stat
 import useful_things as ut
 
 
-num_folder = "10";
-case_name = "boxes";  # case
-num_names = ["a", "c"]; # names
+num_folder = "13";
+case_name = "pad";  # case
+num_names = ["04"]; # names
 
 for num_name in num_names:
 
@@ -72,7 +72,7 @@ for num_name in num_names:
     #######
     # stuff
     #######
-    h_gap = 0.1;
+    h_gap = 0.2;
     r_vals = np.arange(h_gap, 20, h_gap);
     
     ###################################

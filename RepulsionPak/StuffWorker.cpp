@@ -1478,31 +1478,34 @@ void StuffWorker::CalculateSkeleton()
 void StuffWorker::CalculateMetrics()
 {
 	// parameter
-	float preOffset = 1.0f; // a bit hack !!!
 	float maxOffVal = 20;
 	float offValIter = 0.1f;
-	//float d_gap = 10;
 
 	OpenCVWrapper cvWRap;
 	float containerArea = cvWRap.GetAreaOriented(_manualContainer[0]);
 	std::cout << "containerArea = " << containerArea << "\n";
 
-	// 1 - func-ception
-	//std::vector< std::vector<AVector>> offsetElements1 = ClipperWrapper::OffsetAll(ClipperWrapper::OffsetAll(_manualElements, preOffset), -preOffset);
+	///// (1) - func-ception
+	/*std::vector< std::vector<AVector>> offsetElements1 = 
+		ClipperWrapper::OffsetAll(ClipperWrapper::OffsetAll(_manualElements, preOffset), -preOffset); */
 	std::vector< std::vector<AVector>> offsetElements1 = _manualElements;
 	// debug (comment me)
-	std::stringstream ss1;
+	/*std::stringstream ss1;
 	ss1 << SystemParams::_save_folder << "SVG\\" << "debugA.svg";
-	MySVGRenderer::SaveShapesToSVG(ss1.str(), offsetElements1);
+	MySVGRenderer::SaveShapesToSVG(ss1.str(), offsetElements1);*/
+
+	// ----- initial offset container to avoid values near the boundary -----
+	std::vector<AVector> offset_container_ori =
+		ClipperWrapper::RoundOffsettingP(_manualContainer[0], SystemParams::_container_offset)[0];
+	float offCArea_ori = cvWRap.GetAreaOriented(offset_container_ori);
 
 	std::vector<float> _offsetVals2;
 	std::vector<float> _offsetVals3;
 	std::vector<float> _negVals;
 
 	for (float offVal = 0.0f; offVal < maxOffVal; offVal += offValIter)
-	{ // begin for
-		//std::cout << offVal2 << "\n";
-		// 2 - Generate offset elements one by one
+	{
+		///// (2) - Generate offset elements one by one
 		float area2 = 0;
 		//float area2b = 0;
 		std::vector< std::vector<AVector>> offsetElements2;
@@ -1514,10 +1517,12 @@ void StuffWorker::CalculateMetrics()
 			// float offVal = offVal2;
 			//if (!UtilityFunctions::IsClockwise(_manualElementsss[a][b])) { offVal = -offVal2; }
 
-			std::vector<std::vector<AVector>> outputPolys1 = ClipperWrapper::OffsetAll(_manualElementsss[a], offVal);
+			std::vector<std::vector<AVector>> outputPolys1 = 
+				ClipperWrapper::OffsetAll(_manualElementsss[a], offVal);
 			
 			float tempArea;
-			std::vector<std::vector<AVector>> outputPolys2 = ClipperWrapper::ClipElementsWithContainer(outputPolys1, _manualContainer[0], tempArea);
+			std::vector<std::vector<AVector>> outputPolys2 = 
+				ClipperWrapper::ClipElementsWithContainer(outputPolys1, _manualContainer[0], tempArea);
 			//if (!UtilityFunctions::IsClockwise(_manualElementsss[a][b])) { tempArea = -tempArea; }
 			area2 += tempArea;
 			offsetElements2.insert(offsetElements2.end(), outputPolys2.begin(), outputPolys2.end());
@@ -1530,17 +1535,19 @@ void StuffWorker::CalculateMetrics()
 		//std::cout << "b " << std::abs(area2 - area2b) << ", ";
 
 		// draw
-		std::stringstream ss2;
+		/*std::stringstream ss2;
 		ss2 << SystemParams::_save_folder << "SVG\\" << "debugB_" << offVal << ".svg";
-		MySVGRenderer::SaveShapesToSVG(ss2.str(), offsetElements2);
+		MySVGRenderer::SaveShapesToSVG(ss2.str(), offsetElements2);*/
 
 		// area
 		_offsetVals2.push_back(area2);
 
-		// 3 - Generate offset of union of elements
-		std::vector< std::vector<AVector>> offsetElements3_temp = ClipperWrapper::OffsetAll(offsetElements1, offVal);
+		///// (3) - Generate offset of union of elements
+		std::vector< std::vector<AVector>> offsetElements3_temp = 
+			ClipperWrapper::OffsetAll(offsetElements1, offVal);
 		float area3 = 0;
-		std::vector<std::vector<AVector>> offsetElements3 = ClipperWrapper::ClipElementsWithContainer(offsetElements3_temp, _manualContainer[0], area3);
+		std::vector<std::vector<AVector>> offsetElements3 = 
+			ClipperWrapper::ClipElementsWithContainer(offsetElements3_temp, _manualContainer[0], area3);
 
 		//float area3b = 0;
 		//for (unsigned int b = 0; b < offsetElements3.size(); b++)
@@ -1550,27 +1557,35 @@ void StuffWorker::CalculateMetrics()
 		//std::cout << "c " << std::abs(area3 - area3b) << "\n\n";
 		
 		// draw
-		std::stringstream ss3;
+		/*std::stringstream ss3;
 		ss3 << SystemParams::_save_folder << "SVG\\" << "debugC_" << offVal << ".svg";
-		MySVGRenderer::SaveShapesToSVG(ss3.str(), offsetElements3);
+		MySVGRenderer::SaveShapesToSVG(ss3.str(), offsetElements3);*/
 
 		// area
 		_offsetVals3.push_back(area3);
 
-		// 4 - offset of union of elements minus offset of container
-		//std::vector<AVector> offset_container = ClipperWrapper::RoundOffsettingP(_manualContainer[0], -offVal)[0];
-		std::vector<AVector> offset_container = ClipperWrapper::RoundOffsettingP(_manualContainer[0], SystemParams::_container_offset)[0];
-		float offContainerArea = cvWRap.GetAreaOriented(offset_container);
+		///// (4) - offset of union of elements minus offset of container
+		// ----- original -----
+		//std::vector<AVector> offset_container = 
+		//    ClipperWrapper::RoundOffsettingP(_manualContainer[0], -offVal)[0];
+		// ----- offset container to avoid values near the boundary -----
+		std::vector<AVector> offset_container = 
+			ClipperWrapper::RoundOffsettingP(offset_container_ori, -offVal)[0];
+		// ----- the wrong one -----
+		//std::vector<AVector> offset_container = 
+		//    ClipperWrapper::RoundOffsettingP(_manualContainer[0], SystemParams::_container_offset- offVal)[0];
+		float offCArea = cvWRap.GetAreaOriented(offset_container);
 		float area4 = 0;
-		std::vector<std::vector<AVector>> offsetElements4 = ClipperWrapper::ClipElementsWithContainer(offsetElements3_temp, offset_container, area4);
-		_negVals.push_back( (offContainerArea - area4) / offContainerArea);
+		std::vector<std::vector<AVector>> offsetElements4 = 
+			ClipperWrapper::ClipElementsWithContainer(offsetElements3_temp, offset_container, area4);
+		_negVals.push_back( (offCArea - area4) / offCArea_ori);
 
 		// draw
 		std::stringstream ss4;
 		ss4 << SystemParams::_save_folder << "SVG\\" << "debugD_" << offVal << ".svg";
 		MySVGRenderer::SaveShapesToSVG(ss4.str(), offsetElements4);
 
-		std::cout << offVal << " --> " << area2 - area3 << "\n";
+		std::cout << "Offset = " << offVal << ". Area diff = " << area2 - area3 << "\n";
 
 	} // end for (float offVal = 0.0f; offVal < maxOffVal; offVal += offValIter)
 

@@ -15,7 +15,7 @@ _ornament_dir_small_1 = _image_folder .. "opp_s_balabolka"; --- filling elements
 
 ---------------------------------------------------------------------
 --- metric
-_container_offset = 10; -- for SCP
+_container_offset = -5.75; -- for SCP
 
 ---------------------------------------------------------------------
 --- PAD

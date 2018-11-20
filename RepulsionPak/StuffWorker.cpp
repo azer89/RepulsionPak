@@ -1481,7 +1481,6 @@ void StuffWorker::CalculateMetrics()
 	//float preOffset  = 1.0f; // a bit hack !!!
 	float maxOffVal  = 20;
 	float offValIter = 0.1f;
-	
 
 	OpenCVWrapper cvWRap;
 	float containerArea = cvWRap.GetAreaOriented(_manualContainer[0]);
@@ -1491,9 +1490,9 @@ void StuffWorker::CalculateMetrics()
 	//std::vector< std::vector<AVector>> offsetElements1 = ClipperWrapper::OffsetAll(ClipperWrapper::OffsetAll(_manualElements, preOffset), -preOffset);
 	std::vector< std::vector<AVector>> offsetElements1 = _manualElements;
 	// debug (comment me)
-	std::stringstream ss1;
+	/* std::stringstream ss1;
 	ss1 << SystemParams::_save_folder << "SVG\\" << "debugA.svg";
-	MySVGRenderer::SaveShapesToSVG(ss1.str(), offsetElements1);
+	MySVGRenderer::SaveShapesToSVG(ss1.str(), offsetElements1); */
 
 	std::vector<float> _offsetVals2;
 	std::vector<float> _offsetVals3;
@@ -1501,7 +1500,7 @@ void StuffWorker::CalculateMetrics()
 
 	for (float offVal = 0.0f; offVal < maxOffVal; offVal += offValIter)
 	{ // begin for
-		//std::cout << offVal2 << "\n";
+
 		// 2 - Generate offset elements one by one
 		float area2 = 0;
 		//float area2b = 0;
@@ -1539,15 +1538,12 @@ void StuffWorker::CalculateMetrics()
 
 		// 3 - Generate offset of union of elements
 		std::vector< std::vector<AVector>> offsetElements3_temp = ClipperWrapper::OffsetAll(offsetElements1, offVal);
-		float area3 = 0;
+		float area3 = 0; // area of the entire elements
 		std::vector<std::vector<AVector>> offsetElements3 = ClipperWrapper::ClipElementsWithContainer(offsetElements3_temp, _manualContainer[0], area3);
 
 		//float area3b = 0;
 		//for (unsigned int b = 0; b < offsetElements3.size(); b++)
 		//{ area3b += cvWRap.GetAreaOriented(offsetElements3[b]); }
-
-		//std::cout << "area3 = " << area3 << ", area3b = " << area3b << "\n\n";
-		//std::cout << "c " << std::abs(area3 - area3b) << "\n\n";
 		
 		// draw
 		std::stringstream ss3;
@@ -1560,10 +1556,10 @@ void StuffWorker::CalculateMetrics()
 		// 4 - offset of union of elements minus offset of container
 		//std::vector<AVector> offset_container = ClipperWrapper::RoundOffsettingP(_manualContainer[0], -offVal)[0];
 		std::vector<AVector> offset_container = ClipperWrapper::RoundOffsettingP(_manualContainer[0], SystemParams::_container_offset)[0];
-		float offContainerArea = cvWRap.GetAreaOriented(offset_container);
-		float area4 = 0;
+		float offContainerArea = cvWRap.GetAreaOriented(offset_container); // area of the offset container
+		float area4 = 0; // area of the entire elements
 		std::vector<std::vector<AVector>> offsetElements4 = ClipperWrapper::ClipElementsWithContainer(offsetElements3_temp, offset_container, area4);
-		_negVals.push_back( (offContainerArea - area4) / offContainerArea);
+		_negVals.push_back( (offContainerArea - area4) / offContainerArea); // ratio of neg space using offset container
 
 		// draw
 		std::stringstream ss4;

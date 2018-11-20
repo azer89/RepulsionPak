@@ -35,6 +35,7 @@ for num_name in num_names:
     
      # 5
     filename5 = 'C://Users//azer//OneDrive - University of Waterloo//__new_results__//' + num_folder + "_" + case_name + '_' + num_name +'//dist_5_offset_container_d_gap.csv';
+    print filename5;
     csv_data5 = pd.read_csv(filename5, sep=',',header=None);
     neg_area_vals_5 = csv_data5.values[:,0];
     
@@ -115,6 +116,7 @@ plt.show();
 
 
 ###########################################################################
+"""
 fig3 = plt.figure(3);
 fig3.patch.set_facecolor('white')
 plt.clf();
@@ -163,7 +165,7 @@ plt.plot([d_gap, d_gap], [0, 0.5], 'k--')
 plt.title(r"SCP");
 plt.show();
 
-
+"""
 ###########################################################################
 fig3 = plt.figure(4);
 fig3.patch.set_facecolor('white')
@@ -183,14 +185,14 @@ green_idx = r_vals[:len(green_array)];
 red_idx = r_vals[:len(red_array)]; 
 
 
-plt.plot(red_idx, red_array, 'r', linewidth=1);
+plt.plot(red_idx, red_array, 'r', linewidth=2);
 plt.plot(green_idx, green_array, 'g', linewidth=1);
 
 plt.plot([d_gap, d_gap], [0, 0.5], 'k--')
 
 #plt.plot([d_gap, d_gap], [70000, 140000], 'k--')
 
-plt.title(r"SCP without offsetting the container");
+plt.title(r"SCP experiment");
 plt.show();
 
 

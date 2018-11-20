@@ -201,6 +201,8 @@ public:
 	static float _angle_cap;
 	static float _resample_gap_float;
 
+	// for SCP
+	static float _container_offset;
 	//static float _desc_max_length_ratio;
 };
 

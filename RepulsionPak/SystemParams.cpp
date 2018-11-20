@@ -202,6 +202,8 @@ void SystemParams::LoadParameters()
 	SystemParams::_num_nn              = script.get<int>("_num_nn");
 	SystemParams::_angle_cap           = script.get<float>("_angle_cap");
 
+	SystemParams::_container_offset   = script.get<float>("_container_offset");
+
 	// save
 	//std::stringstream ss;
 	//ss << "copy " << lua_file << " " << SystemParams::_save_folder << "params.lua";
@@ -392,3 +394,5 @@ float SystemParams::_random_point_gap    = 0.0f;
 int   SystemParams::_gaussian_smoothing  = 0;
 int   SystemParams::_gaussian_smoothing_element = 0;
 int   SystemParams::_num_nn = 0;
+
+float SystemParams::_container_offset;

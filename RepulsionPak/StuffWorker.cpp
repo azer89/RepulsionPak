@@ -1481,7 +1481,7 @@ void StuffWorker::CalculateMetrics()
 	//float preOffset  = 1.0f; // a bit hack !!!
 	float maxOffVal  = 20;
 	float offValIter = 0.1f;
-	float d_gap      = -10;
+	
 
 	OpenCVWrapper cvWRap;
 	float containerArea = cvWRap.GetAreaOriented(_manualContainer[0]);
@@ -1559,7 +1559,7 @@ void StuffWorker::CalculateMetrics()
 
 		// 4 - offset of union of elements minus offset of container
 		//std::vector<AVector> offset_container = ClipperWrapper::RoundOffsettingP(_manualContainer[0], -offVal)[0];
-		std::vector<AVector> offset_container = ClipperWrapper::RoundOffsettingP(_manualContainer[0], -d_gap)[0];
+		std::vector<AVector> offset_container = ClipperWrapper::RoundOffsettingP(_manualContainer[0], SystemParams::_container_offset)[0];
 		float offContainerArea = cvWRap.GetAreaOriented(offset_container);
 		float area4 = 0;
 		std::vector<std::vector<AVector>> offsetElements4 = ClipperWrapper::ClipElementsWithContainer(offsetElements3_temp, offset_container, area4);

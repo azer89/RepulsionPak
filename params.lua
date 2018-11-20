@@ -129,7 +129,7 @@ _focal_offset = 2;
 
 --- for preprocessing
 --- skin width
-_skin_offset                = 5.5;  
+_skin_offset                = 5.56;  
 --- density of random points inside the skin
 --- if the density is higher, you get more triangles
 _sampling_num               = 15000;

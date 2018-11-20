@@ -11,7 +11,7 @@ import useful_things as ut
 
 num_folder = "13";
 case_name = "pad";  # case
-num_names = ["02", "man2x"]; # names
+num_names = ["04"]; # names
 
 for num_name in num_names:
 

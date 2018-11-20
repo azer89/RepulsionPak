@@ -88,9 +88,9 @@ StuffWorker::StuffWorker()
 	//OpenCVWrapper _cvWrapper;
 
 	//CreateSquares();       // don't forget to change params.lua
-	CreateManualPacking2();  // overlap metrics
+	//CreateManualPacking2();  // overlap metrics
 	//CreateManualPacking(); // SDF and stuff
-	//AnalyzeManualPacking();
+	AnalyzeManualPacking();
 
 
 	//MyColor::_black.Print();

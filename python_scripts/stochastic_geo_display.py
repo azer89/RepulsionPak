@@ -5,7 +5,8 @@ import pandas as pd
 
 import useful_things as ut
 
-r_vals = np.arange(0.2, 21, 0.1);
+h_gap = 0.2;
+r_vals = np.arange(h_gap, 20, h_gap);
 r_vals = np.insert(r_vals, 0, 0);
 
 
@@ -14,7 +15,7 @@ fig3.patch.set_facecolor('white');
 plt.clf();
 ax = plt.gca();
 
-green_array = scf_vals_pad_01;
+green_array = scf_vals_pad_02;
 red_array   = scf_vals_pad_man2x;
 
 #blue_array = [x for x in blue_array if x != 0]
@@ -24,8 +25,8 @@ red_array = [x for x in red_array if x != 0];
 green_idx = r_vals[:len(green_array)];
 red_idx = r_vals[:len(red_array)];
 
-#plt.plot(red_idx, np.asarray(red_array), 'r', linewidth=2);
-plt.plot(green_idx, np.asarray(green_array), 'g', linewidth=2);
+plt.plot(red_idx, np.asarray(red_array), 'r', linewidth=1);
+plt.plot(green_idx, np.asarray(green_array), 'g', linewidth=1);
 
 plt.plot([5.746, 5.746], [0, 0.5], 'k--')
 

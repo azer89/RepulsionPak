@@ -1529,9 +1529,9 @@ void StuffWorker::CalculateMetrics()
 		//std::cout << "b " << std::abs(area2 - area2b) << ", ";
 
 		// draw
-		std::stringstream ss2;
+		/*std::stringstream ss2;
 		ss2 << SystemParams::_save_folder << "SVG\\" << "debugB_" << offVal << ".svg";
-		MySVGRenderer::SaveShapesToSVG(ss2.str(), offsetElements2);
+		MySVGRenderer::SaveShapesToSVG(ss2.str(), offsetElements2);*/
 
 		// area
 		_offsetVals2.push_back(area2);
@@ -1546,9 +1546,9 @@ void StuffWorker::CalculateMetrics()
 		//{ area3b += cvWRap.GetAreaOriented(offsetElements3[b]); }
 		
 		// draw
-		std::stringstream ss3;
+		/*std::stringstream ss3;
 		ss3 << SystemParams::_save_folder << "SVG\\" << "debugC_" << offVal << ".svg";
-		MySVGRenderer::SaveShapesToSVG(ss3.str(), offsetElements3);
+		MySVGRenderer::SaveShapesToSVG(ss3.str(), offsetElements3);*/
 
 		// area
 		_offsetVals3.push_back(area3);

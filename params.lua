@@ -15,9 +15,7 @@ _ornament_dir_small_1 = _image_folder .. "opp_s_balabolka"; --- filling elements
 
 ---------------------------------------------------------------------
 --- metric
-
-_container_offset = -5.75; -- for SCP
-
+_container_offset = -20; -- for SCP
 
 ---------------------------------------------------------------------
 --- PAD
@@ -110,8 +108,8 @@ _k_edge                = 7;	--- edge force for filling elements
 _k_edge_small_factor   = 12;
 _k_repulsion           = 100;	--- repulsion force
 _repulsion_soft_factor = 1.0;	--- soft factor for repulsion force
-_k_overlap             = 0.1;	--- overlap force
-_k_boundary            = 100;	--- boundary force
+_k_overlap             = 0.0;	--- overlap force
+_k_boundary            = 50;	--- boundary force
 _k_noise               = 0;
 _k_rotate              = 0;		--- 1
 _k_dock                = 100;
@@ -131,7 +129,7 @@ _focal_offset = 2;
 
 --- for preprocessing
 --- skin width
-_skin_offset                = 5.56;  
+_skin_offset                = 5.7;  
 --- density of random points inside the skin
 --- if the density is higher, you get more triangles
 _sampling_num               = 15000;

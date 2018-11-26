@@ -88,7 +88,7 @@ StuffWorker::StuffWorker()
 	//OpenCVWrapper _cvWrapper;
 
 	//CreateSquares();       // don't forget to change params.lua
-	//CreateManualPacking2();  // overlap metrics
+	CreateManualPacking2();  // overlap metrics
 	//CreateManualPacking(); // SDF and stuff
 	AnalyzeManualPacking();
 
@@ -1546,9 +1546,9 @@ void StuffWorker::CalculateMetrics()
 		//{ area3b += cvWRap.GetAreaOriented(offsetElements3[b]); }
 		
 		// draw
-		/*std::stringstream ss3;
+		std::stringstream ss3;
 		ss3 << SystemParams::_save_folder << "SVG\\" << "debugC_" << offVal << ".svg";
-		MySVGRenderer::SaveShapesToSVG(ss3.str(), offsetElements3);*/
+		MySVGRenderer::SaveShapesToSVG(ss3.str(), offsetElements3);
 
 		// area
 		_offsetVals3.push_back(area3);
@@ -1562,9 +1562,9 @@ void StuffWorker::CalculateMetrics()
 		_negVals.push_back( (offContainerArea - area4) / offContainerArea); // ratio of neg space using offset container
 
 		// draw
-		std::stringstream ss4;
+		/*std::stringstream ss4;
 		ss4 << SystemParams::_save_folder << "SVG\\" << "debugD_" << offVal << ".svg";
-		MySVGRenderer::SaveShapesToSVG(ss4.str(), offsetElements4);
+		MySVGRenderer::SaveShapesToSVG(ss4.str(), offsetElements4);*/
 
 		std::cout << offVal << " --> " << area2 - area3 << "\n";
 

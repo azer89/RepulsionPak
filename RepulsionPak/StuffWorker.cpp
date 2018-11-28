@@ -1475,10 +1475,45 @@ void StuffWorker::CalculateSkeleton()
 	_aDTransform->VoronoiSkeleton(_cGrid, _skeletonIter++);
 }
 
+void StuffWorker::DrawAccumulationBuffer(CVImg accumulationBuffer, float startColor)
+{
+	int img_sz = accumulationBuffer.GetRows();
+	for (unsigned int x = 0; x < img_sz; x++)
+	{
+		for (unsigned int y = 0; y < img_sz; y++)
+		{
+			int val = accumulationBuffer.GetGrayValue(x, y);
+			ggg
+			//if (val > startColor)
+			//{
+			//}
+		}
+	}
+}
+
+void StuffWorker::AddToAccumulationBuffer(std::vector<std::vector<AVector>> elem, CVImg& accumulationBuffer)
+{
+	int img_sz = accumulationBuffer.GetRows();
+	float scale = img_sz / SystemParams::_upscaleFactor;
+	CVImg elementImg;
+	elementImg.CreateGrayscaleImage(img_sz);
+	elementImg.SetGrayscaleImageToBlack();
+
+	for (unsigned int a = 0; a < elem.size(); a++)
+	{
+		_cvWrapper.DrawFilledPolyInt(elementImg, elem, 1, scale);
+
+		// hole
+		accumulationBuffer._img -= elementImg._img;
+
+		// not hole
+		accumulationBuffer._img += elementImg._img;
+	}
+}
+
 void StuffWorker::CalculateMetrics()
 {
 	// parameter
-	//float preOffset  = 1.0f; // a bit hack !!!
 	float maxOffVal  = 20;
 	float offValIter = 1;
 
@@ -1486,6 +1521,14 @@ void StuffWorker::CalculateMetrics()
 	bool saveSVGB = true;
 	bool saveSVGC = true;
 	bool saveSVGD = false;
+
+	// displaying overlap
+	float startColor = 100;
+	int img_sz = SystemParams::_upscaleFactor * 2.0f;
+	CVImg accumulationBuffer;
+	accumulationBuffer.CreateGrayscaleImage(img_sz);
+	accumulationBuffer.SetGrayscaleImageToSomething(startColor);
+	//accumulationBuffer.SetGrayscaleImageToBlack();
 
 	OpenCVWrapper cvWRap;
 	float containerArea = cvWRap.GetAreaOriented(_manualContainer[0]);
@@ -1527,6 +1570,9 @@ void StuffWorker::CalculateMetrics()
 			//if (!UtilityFunctions::IsClockwise(_manualElementsss[a][b])) { tempArea = -tempArea; }
 			area2 += tempArea;
 			offsetElements2.insert(offsetElements2.end(), outputPolys2.begin(), outputPolys2.end());
+
+			// accumulation buffer
+			AddToAccumulationBuffer(outputPolys2, accumulationBuffer);
 
 			// AREA2B
 			//for (unsigned int b = 0; b < outputPolys2.size(); b++)

@@ -143,6 +143,17 @@ public:
 		_img.setTo(cv::Scalar(255, 255, 255));
 	}
 
+	void SetGrayscaleImageToSomething(int val)
+	{
+		for (unsigned int x = 0; x < _img.cols; x++)
+		{
+			for (unsigned int y = 0; y < _img.rows; y++)
+			{
+				SetGrayValue(x, y, val);
+			}
+		}
+	}
+
 	void SetGrayscaleImageToBlack()
 	{
 		for (unsigned int x = 0; x < _img.cols; x++)

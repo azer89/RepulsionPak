@@ -9,13 +9,13 @@ _save_folder  = "C:\\Users\\azer\\OneDrive\\Images\\PhysicsPak_Snapshots_0" .. _
 ------ folders ------
 _image_folder         = "C:\\Users\\azer\\OneDrive\\Images\\";	--- where all the input files are located
 _artName              = "pp_rectangle"; --- pp_lolwut	--- location of the container
-_manual_art_name      = "man_pad1";	--- manually drawn packing (for evaluation)
+_manual_art_name      = "boxes_a_layered";	--- manually drawn packing (for evaluation)
 _ornament_dir         = _image_folder .. "opp_b_pad_3";		--- regular elements
 _ornament_dir_small_1 = _image_folder .. "opp_s_balabolka"; --- filling elements (the elements to fill the remaining empty space after the simulation ends)
 
 ---------------------------------------------------------------------
 --- metric
-_container_offset = -20; -- for SCP
+_container_offset = 0; -- for SCP
 
 ---------------------------------------------------------------------
 --- PAD

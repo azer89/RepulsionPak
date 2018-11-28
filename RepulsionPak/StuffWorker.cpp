@@ -88,9 +88,9 @@ StuffWorker::StuffWorker()
 	//OpenCVWrapper _cvWrapper;
 
 	//CreateSquares();       // don't forget to change params.lua
-	//CreateManualPacking2();  // overlap metrics
-	CreateManualPacking(); // SDF and stuff
-	AnalyzeManualPacking();
+	CreateManualPacking2();  // overlap metrics
+	//CreateManualPacking(); // SDF and stuff
+	//AnalyzeManualPacking();
 
 
 	//MyColor::_black.Print();
@@ -1480,7 +1480,12 @@ void StuffWorker::CalculateMetrics()
 	// parameter
 	//float preOffset  = 1.0f; // a bit hack !!!
 	float maxOffVal  = 20;
-	float offValIter = 0.1f;
+	float offValIter = 1;
+
+	bool saveSVGA = false;
+	bool saveSVGB = true;
+	bool saveSVGC = true;
+	bool saveSVGD = false;
 
 	OpenCVWrapper cvWRap;
 	float containerArea = cvWRap.GetAreaOriented(_manualContainer[0]);
@@ -1490,10 +1495,12 @@ void StuffWorker::CalculateMetrics()
 	//std::vector< std::vector<AVector>> offsetElements1 = ClipperWrapper::OffsetAll(ClipperWrapper::OffsetAll(_manualElements, preOffset), -preOffset);
 	std::vector< std::vector<AVector>> offsetElements1 = _manualElements;
 	// debug (comment me)
-	/* std::stringstream ss1;
-	ss1 << SystemParams::_save_folder << "SVG\\" << "debugA.svg";
-	MySVGRenderer::SaveShapesToSVG(ss1.str(), offsetElements1); */
-
+	if(saveSVGA)
+	{
+		std::stringstream ss1;
+		ss1 << SystemParams::_save_folder << "SVG\\" << "debugA.svg";
+		MySVGRenderer::SaveShapesToSVG(ss1.str(), offsetElements1);
+	}
 	std::vector<float> _offsetVals2;
 	std::vector<float> _offsetVals3;
 	std::vector<float> _negVals;
@@ -1529,10 +1536,12 @@ void StuffWorker::CalculateMetrics()
 		//std::cout << "b " << std::abs(area2 - area2b) << ", ";
 
 		// draw
-		/*std::stringstream ss2;
-		ss2 << SystemParams::_save_folder << "SVG\\" << "debugB_" << offVal << ".svg";
-		MySVGRenderer::SaveShapesToSVG(ss2.str(), offsetElements2);*/
-
+		if (saveSVGB)
+		{
+			std::stringstream ss2;
+			ss2 << SystemParams::_save_folder << "SVG\\" << "debugB_" << offVal << ".svg";
+			MySVGRenderer::SaveShapesToSVG(ss2.str(), offsetElements2);
+		}
 		// area
 		_offsetVals2.push_back(area2);
 
@@ -1546,25 +1555,31 @@ void StuffWorker::CalculateMetrics()
 		//{ area3b += cvWRap.GetAreaOriented(offsetElements3[b]); }
 		
 		// draw
-		std::stringstream ss3;
-		ss3 << SystemParams::_save_folder << "SVG\\" << "debugC_" << offVal << ".svg";
-		MySVGRenderer::SaveShapesToSVG(ss3.str(), offsetElements3);
-
+		if (saveSVGC)
+		{
+			std::stringstream ss3;
+			ss3 << SystemParams::_save_folder << "SVG\\" << "debugC_" << offVal << ".svg";
+			MySVGRenderer::SaveShapesToSVG(ss3.str(), offsetElements3);
+		}
 		// area
 		_offsetVals3.push_back(area3);
 
 		// 4 - offset of union of elements minus offset of container
-		//std::vector<AVector> offset_container = ClipperWrapper::RoundOffsettingP(_manualContainer[0], -offVal)[0];
-		std::vector<AVector> offset_container = ClipperWrapper::RoundOffsettingP(_manualContainer[0], SystemParams::_container_offset)[0];
+		// this for SCP
+		std::vector<AVector> offset_container = ClipperWrapper::RoundOffsettingP(_manualContainer[0], -offVal)[0];
+		//std::vector<AVector> offset_container = ClipperWrapper::RoundOffsettingP(_manualContainer[0], SystemParams::_container_offset)[0];
 		float offContainerArea = cvWRap.GetAreaOriented(offset_container); // area of the offset container
 		float area4 = 0; // area of the entire elements
 		std::vector<std::vector<AVector>> offsetElements4 = ClipperWrapper::ClipElementsWithContainer(offsetElements3_temp, offset_container, area4);
 		_negVals.push_back( (offContainerArea - area4) / offContainerArea); // ratio of neg space using offset container
 
 		// draw
-		/*std::stringstream ss4;
-		ss4 << SystemParams::_save_folder << "SVG\\" << "debugD_" << offVal << ".svg";
-		MySVGRenderer::SaveShapesToSVG(ss4.str(), offsetElements4);*/
+		if (saveSVGD)
+		{
+			std::stringstream ss4;
+			ss4 << SystemParams::_save_folder << "SVG\\" << "debugD_" << offVal << ".svg";
+			MySVGRenderer::SaveShapesToSVG(ss4.str(), offsetElements4);
+		}
 
 		std::cout << offVal << " --> " << area2 - area3 << "\n";
 

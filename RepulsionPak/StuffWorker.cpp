@@ -1487,7 +1487,7 @@ void StuffWorker::DrawAccumulationBuffer(CVImg accumulationBuffer, float startCo
 		{
 			int val = accumulationBuffer.GetGrayValue(x, y);
 
-			if (val > startColor)
+			if (val > startColor + 1)
 			{
 				//std::cout << val << "\n";
 				accumulationBuffer.SetGrayValue(x, y, 255);
@@ -1523,19 +1523,40 @@ void StuffWorker::AddToAccumulationBuffer(std::vector<std::vector<AVector>> elem
 	float scale = img_sz / SystemParams::_upscaleFactor;
 	CVImg elementImg;
 	elementImg.CreateGrayscaleImage(img_sz);
-	elementImg.SetGrayscaleImageToSomething(0);
+	//elementImg.SetGrayscaleImageToSomething(0);
 
 	for (unsigned int a = 0; a < elem.size(); a++)
 	{		
-		//elementImg.SetGrayscaleImageToBlack();
+		elementImg.SetGrayscaleImageToBlack();
 
-		_cvWrapper.DrawFilledPolyInt(elementImg, elem[a], 100, scale);
+		_cvWrapper.DrawFilledPolyInt(elementImg, elem[a], 1, scale);
 
-		// hole
-		accumulationBuffer._img -= elementImg._img;
-
+		// hole (counter clockwise)
+		if (!UtilityFunctions::IsClockwise(elem[a]))
+		{
+			//accumulationBuffer._img -= elementImg._img;
+			for (unsigned int x = 0; x < img_sz; x++)
+			{
+				for (unsigned int y = 0; y < img_sz; y++)
+				{
+					int val = accumulationBuffer.GetGrayValue(x, y) - elementImg.GetGrayValue(x, y) ;
+					accumulationBuffer.SetGrayValue(x, y, val);
+				}
+			}
+		}
+		else
+		{
 		// not hole
-		accumulationBuffer._img += elementImg._img;
+			//accumulationBuffer._img += elementImg._img;
+			for (unsigned int x = 0; x < img_sz; x++)
+			{
+				for (unsigned int y = 0; y < img_sz; y++)
+				{
+					int val = accumulationBuffer.GetGrayValue(x, y) + elementImg.GetGrayValue(x, y);
+					accumulationBuffer.SetGrayValue(x, y, val);
+				}
+			}
+		}
 	}
 
 	//std::stringstream ss;
@@ -1561,7 +1582,7 @@ void StuffWorker::CalculateMetrics()
 	int img_sz = SystemParams::_upscaleFactor * 2.0f;
 	CVImg accumulationBuffer;
 	accumulationBuffer.CreateGrayscaleImage(img_sz);
-	accumulationBuffer.SetGrayscaleImageToSomething(startColor);
+	
 	//accumulationBuffer.SetGrayscaleImageToBlack();
 
 	OpenCVWrapper cvWRap;
@@ -1584,6 +1605,9 @@ void StuffWorker::CalculateMetrics()
 
 	for (float offVal = 0.0f; offVal < maxOffVal; offVal += offValIter)
 	{ // begin for
+
+		// accumulation
+		accumulationBuffer.SetGrayscaleImageToSomething(startColor);
 
 		// 2 - Generate offset elements one by one
 		float area2 = 0;

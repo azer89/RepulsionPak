@@ -1475,20 +1475,46 @@ void StuffWorker::CalculateSkeleton()
 	_aDTransform->VoronoiSkeleton(_cGrid, _skeletonIter++);
 }
 
-void StuffWorker::DrawAccumulationBuffer(CVImg accumulationBuffer, float startColor)
+void StuffWorker::DrawAccumulationBuffer(CVImg accumulationBuffer, float startColor, int numIter)
 {
 	int img_sz = accumulationBuffer.GetRows();
+	//CVImg substractImg;
+	//substractImg.CreateGrayscaleImage(img_sz);
+	//substractImg.SetGrayscaleImageToSomething(startColor);
 	for (unsigned int x = 0; x < img_sz; x++)
 	{
 		for (unsigned int y = 0; y < img_sz; y++)
 		{
 			int val = accumulationBuffer.GetGrayValue(x, y);
-			ggg
-			//if (val > startColor)
-			//{
-			//}
+
+			if (val > startColor)
+			{
+				//std::cout << val << "\n";
+				accumulationBuffer.SetGrayValue(x, y, 255);
+			}
+			else
+			{
+				//std::cout << val << "\n";
+				accumulationBuffer.SetGrayValue(x, y, 0);
+			}
 		}
 	}
+
+	std::stringstream ss;
+	ss << SystemParams::_save_folder << "FILL\\" << "fill_" << numIter << ".png";
+	accumulationBuffer.SaveImage(ss.str());
+	/*accumulationBuffer._img -= startColor;
+	for (unsigned int x = 0; x < img_sz; x++)
+	{
+		for (unsigned int y = 0; y < img_sz; y++)
+		{
+			int val = accumulationBuffer.GetGrayValue(x, y);
+
+			if (val > startColor)
+			{
+			}
+		}
+	}*/
 }
 
 void StuffWorker::AddToAccumulationBuffer(std::vector<std::vector<AVector>> elem, CVImg& accumulationBuffer)
@@ -1497,11 +1523,12 @@ void StuffWorker::AddToAccumulationBuffer(std::vector<std::vector<AVector>> elem
 	float scale = img_sz / SystemParams::_upscaleFactor;
 	CVImg elementImg;
 	elementImg.CreateGrayscaleImage(img_sz);
-	elementImg.SetGrayscaleImageToBlack();
 
 	for (unsigned int a = 0; a < elem.size(); a++)
-	{
-		_cvWrapper.DrawFilledPolyInt(elementImg, elem, 1, scale);
+	{		
+		elementImg.SetGrayscaleImageToBlack();
+
+		_cvWrapper.DrawFilledPolyInt(elementImg, elem[a], 1, scale);
 
 		// hole
 		accumulationBuffer._img -= elementImg._img;
@@ -1514,7 +1541,7 @@ void StuffWorker::AddToAccumulationBuffer(std::vector<std::vector<AVector>> elem
 void StuffWorker::CalculateMetrics()
 {
 	// parameter
-	float maxOffVal  = 20;
+	float maxOffVal  = 10;
 	float offValIter = 1;
 
 	bool saveSVGA = false;
@@ -1523,6 +1550,7 @@ void StuffWorker::CalculateMetrics()
 	bool saveSVGD = false;
 
 	// displaying overlap
+	int saveIter = 0;
 	float startColor = 100;
 	int img_sz = SystemParams::_upscaleFactor * 2.0f;
 	CVImg accumulationBuffer;
@@ -1577,6 +1605,7 @@ void StuffWorker::CalculateMetrics()
 			// AREA2B
 			//for (unsigned int b = 0; b < outputPolys2.size(); b++)
 			//{ area2b += cvWRap.GetAreaOriented(outputPolys2[b]); }
+			
 		}
 		//std::cout << "area2 = " << area2 << ", area2b=" << area2b << ", ";
 		//std::cout << "b " << std::abs(area2 - area2b) << ", ";
@@ -1626,6 +1655,9 @@ void StuffWorker::CalculateMetrics()
 			ss4 << SystemParams::_save_folder << "SVG\\" << "debugD_" << offVal << ".svg";
 			MySVGRenderer::SaveShapesToSVG(ss4.str(), offsetElements4);
 		}
+
+		// draw
+		DrawAccumulationBuffer(accumulationBuffer, startColor, saveIter++);
 
 		std::cout << offVal << " --> " << area2 - area3 << "\n";
 

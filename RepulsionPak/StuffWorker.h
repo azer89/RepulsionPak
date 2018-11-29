@@ -196,7 +196,7 @@ public:
 
 	void CalculateMetrics();
 	void AddToAccumulationBuffer(std::vector<std::vector<AVector>> elem, CVImg& accumulationBuffer);
-	void DrawAccumulationBuffer(CVImg accumulationBuffer, float startColor);
+	void DrawAccumulationBuffer(CVImg accumulationBuffer, float startColor, int numIter);
 
 	void CreateManualPacking();
 	void CreateManualPacking2();

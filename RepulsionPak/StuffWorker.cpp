@@ -1501,7 +1501,7 @@ void StuffWorker::DrawAccumulationBuffer(CVImg accumulationBuffer, float startCo
 	}
 
 	std::stringstream ss;
-	ss << SystemParams::_save_folder << "FILL\\" << "fill_" << numIter << ".png";
+	ss << SystemParams::_save_folder << "FILL\\" << "overlap_" << numIter << ".png";
 	accumulationBuffer.SaveImage(ss.str());
 	/*accumulationBuffer._img -= startColor;
 	for (unsigned int x = 0; x < img_sz; x++)
@@ -1517,18 +1517,19 @@ void StuffWorker::DrawAccumulationBuffer(CVImg accumulationBuffer, float startCo
 	}*/
 }
 
-void StuffWorker::AddToAccumulationBuffer(std::vector<std::vector<AVector>> elem, CVImg& accumulationBuffer)
+void StuffWorker::AddToAccumulationBuffer(std::vector<std::vector<AVector>> elem, CVImg& accumulationBuffer, int numIter)
 {
 	int img_sz = accumulationBuffer.GetRows();
 	float scale = img_sz / SystemParams::_upscaleFactor;
 	CVImg elementImg;
 	elementImg.CreateGrayscaleImage(img_sz);
+	elementImg.SetGrayscaleImageToSomething(0);
 
 	for (unsigned int a = 0; a < elem.size(); a++)
 	{		
-		elementImg.SetGrayscaleImageToBlack();
+		//elementImg.SetGrayscaleImageToBlack();
 
-		_cvWrapper.DrawFilledPolyInt(elementImg, elem[a], 1, scale);
+		_cvWrapper.DrawFilledPolyInt(elementImg, elem[a], 100, scale);
 
 		// hole
 		accumulationBuffer._img -= elementImg._img;
@@ -1536,6 +1537,10 @@ void StuffWorker::AddToAccumulationBuffer(std::vector<std::vector<AVector>> elem
 		// not hole
 		accumulationBuffer._img += elementImg._img;
 	}
+
+	//std::stringstream ss;
+	//ss << SystemParams::_save_folder << "FILL\\" << "element_" << numIter << ".png";
+	//accumulationBuffer.SaveImage(ss.str());
 }
 
 void StuffWorker::CalculateMetrics()
@@ -1551,6 +1556,7 @@ void StuffWorker::CalculateMetrics()
 
 	// displaying overlap
 	int saveIter = 0;
+	int saveIter2 = 0; // delete me debug
 	float startColor = 100;
 	int img_sz = SystemParams::_upscaleFactor * 2.0f;
 	CVImg accumulationBuffer;
@@ -1600,7 +1606,7 @@ void StuffWorker::CalculateMetrics()
 			offsetElements2.insert(offsetElements2.end(), outputPolys2.begin(), outputPolys2.end());
 
 			// accumulation buffer
-			AddToAccumulationBuffer(outputPolys2, accumulationBuffer);
+			AddToAccumulationBuffer(outputPolys2, accumulationBuffer, saveIter2++);
 
 			// AREA2B
 			//for (unsigned int b = 0; b < outputPolys2.size(); b++)

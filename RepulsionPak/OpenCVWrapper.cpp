@@ -613,7 +613,7 @@ void OpenCVWrapper::DrawFilledPolyInt(CVImg& img,
 	                                  float yOffset)
 {
 	std::vector<cv::Point> new_contours;
-	for (size_t b = 0; b < shape_contours.size() - 1; b++)
+	for (size_t b = 0; b < shape_contours.size(); b++)
 		{ new_contours.push_back(cv::Point((int)(shape_contours[b].x * scale + xOffset), int(shape_contours[b].y * scale + yOffset))); }
 	std::vector<std::vector<cv::Point>> contours;
 	contours.push_back(new_contours);

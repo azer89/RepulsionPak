@@ -16,16 +16,18 @@ import matplotlib.pylab as plt
 def rgb2gray(rgb):
     return np.dot(rgb[...,:3], [0.299, 0.587, 0.144])    
 
-img_col = matplotlib.image.imread("C://Users//azer//OneDrive//Images//PhysicsPak_Snapshots_01//SDF//dist_repulsionpak.png")
+img_col = matplotlib.image.imread("C://Users//azer//OneDrive//Images//PhysicsPak_Snapshots_01//SDF//dist_0.png")
 img_gray = rgb2gray(img_col)
 
 width, height = np.shape(img_gray)
 
 
 # show the original image
+
 plt.imshow(img_col)
 plt.clf()
-plt.imshow(img_gray, cmap='gray') 
+#plt.imshow(img_gray, cmap='gray')
+plt.imshow(np.log10 (img_gray), cmap='gray'); 
   
 '''
 F = np.fft.fft2(img_gray) 

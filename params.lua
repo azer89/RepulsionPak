@@ -105,8 +105,8 @@ _dt = 0.05;    --- do not set this higher than 0.1
 --- _noise_map_update_time = 10000000; --- in ms (disabled)
 
 --- Force parameters
-_k_neg_space_edge      = 7;	--- edge force for springs
-_k_edge                = 7;	--- edge force for filling elements
+_k_neg_space_edge      = 9;	--- edge force for springs
+_k_edge                = 9;	--- edge force for filling elements
 _k_edge_small_factor   = 12;
 _k_repulsion           = 100;	--- repulsion force
 _repulsion_soft_factor = 1.0;	--- soft factor for repulsion force
@@ -131,7 +131,7 @@ _focal_offset = 2;
 
 --- for preprocessing
 --- skin width
-_skin_offset                = 5.56;  
+_skin_offset                = 5.55;  
 --- density of random points inside the skin
 --- if the density is higher, you get more triangles
 _sampling_num               = 15000;

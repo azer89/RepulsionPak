@@ -11,7 +11,7 @@ import useful_things as ut
 d_gap      = 5.75;
 num_folder = "13";
 case_name  = "pad";  # case
-num_names  = ["man2x", "01"]; # names
+num_names  = ["man2x", "05"]; # names
 
 r_vals = np.arange(0.0, 20, 0.1);
 

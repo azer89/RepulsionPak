@@ -801,8 +801,8 @@ void ADistanceTransform::DebugDistanceImage(std::string imageName)
 
 
 	minVal = abs(minVal); maxVal = abs(maxVal);*/
-	double minVal = 20;
-	double maxVal = 20;
+	double minVal = 15;
+	double maxVal = 15;
 
 	//std::cout << minVal << " " << maxVal << "\n";
 	//int intMaxVal = maxVal;
@@ -818,17 +818,18 @@ void ADistanceTransform::DebugDistanceImage(std::string imageName)
 		for (int i = 0; i < _sz; i++)
 		{
 			float d = _distArray[i + j * _sz];
-			if (d < 0)
+			/*if (d < 0)
 			{
 				if (d < -20) d = -20;
-
 				drawing.at<cv::Vec3b>(j, i)[0] = 255 - (int)abs(d) * 255 / minVal;
 			}
-			else if (d > 0)
+			else */if (d > 0)
 			{
+				// negative space
 				if (d > 20) d = 20;
-
 				drawing.at<cv::Vec3b>(j, i)[2] = 255 - (int)d * 255 / maxVal;
+				drawing.at<cv::Vec3b>(j, i)[1] = 255 - (int)d * 255 / maxVal;
+				drawing.at<cv::Vec3b>(j, i)[0] = 255 - (int)d * 255 / maxVal;
 			}
 			else
 			{

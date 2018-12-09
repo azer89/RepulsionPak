@@ -15,7 +15,9 @@ fig3.patch.set_facecolor('white');
 plt.clf();
 ax = plt.gca();
 
+
 green_array = scf_vals_pad_05;
+
 red_array   = scf_vals_pad_man2x;
 
 #blue_array = [x for x in blue_array if x != 0]

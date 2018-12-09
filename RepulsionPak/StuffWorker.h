@@ -100,6 +100,7 @@ public:
 	void ComputePerlinMap(int t);
 
 public:
+
 	float _man_neg_ratio;
 
 	//AVector start_ln;
@@ -194,6 +195,9 @@ public:
 	std::vector<std::vector<AVector>> _manualContainer;
 
 	void CalculateMetrics();
+	void AddToAccumulationBuffer(std::vector<std::vector<AVector>> elem, CVImg& accumulationBuffer, int startVal, int numIter);
+	void DrawAccumulationBuffer(CVImg accumulationBuffer, float startColor, float offsetVal,float overlapArea, int numIter);
+
 	void CreateManualPacking();
 	void CreateManualPacking2();
 	void AnalyzeManualPacking();

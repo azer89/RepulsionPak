@@ -9,15 +9,13 @@ _save_folder  = "C:\\Users\\azer\\OneDrive\\Images\\PhysicsPak_Snapshots_0" .. _
 ------ folders ------
 _image_folder         = "C:\\Users\\azer\\OneDrive\\Images\\";	--- where all the input files are located
 _artName              = "pp_rectangle"; --- pp_lolwut	--- location of the container
-_manual_art_name      = "man_pad2";	--- manually drawn packing (for evaluation)
+_manual_art_name      = "man_pad";	--- manually drawn packing (for evaluation)
 _ornament_dir         = _image_folder .. "opp_b_pad_3";		--- regular elements
 _ornament_dir_small_1 = _image_folder .. "opp_s_balabolka"; --- filling elements (the elements to fill the remaining empty space after the simulation ends)
 
 ---------------------------------------------------------------------
 --- metric
-
-_container_offset = -5.75; -- for SCP
-
+_container_offset = 0; -- for SCP
 
 ---------------------------------------------------------------------
 --- PAD
@@ -110,8 +108,8 @@ _k_edge                = 9;	--- edge force for filling elements
 _k_edge_small_factor   = 12;
 _k_repulsion           = 100;	--- repulsion force
 _repulsion_soft_factor = 1.0;	--- soft factor for repulsion force
-_k_overlap             = 0.1;	--- overlap force
-_k_boundary            = 100;	--- boundary force
+_k_overlap             = 0.0;	--- overlap force
+_k_boundary            = 50;	--- boundary force
 _k_noise               = 0;
 _k_rotate              = 0;		--- 1
 _k_dock                = 100;
@@ -131,6 +129,7 @@ _focal_offset = 2;
 
 --- for preprocessing
 --- skin width
+
 _skin_offset                = 5.55;  
 --- density of random points inside the skin
 --- if the density is higher, you get more triangles

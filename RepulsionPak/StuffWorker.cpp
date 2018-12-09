@@ -89,8 +89,8 @@ StuffWorker::StuffWorker()
 
 	//CreateSquares();       // don't forget to change params.lua
 	//CreateManualPacking2();  // overlap metrics
-	//CreateManualPacking(); // SDF and stuff
-	AnalyzeManualPacking();
+	CreateManualPacking(); // SDF and stuff
+	//AnalyzeManualPacking();
 
 
 	//MyColor::_black.Print();
@@ -1475,12 +1475,148 @@ void StuffWorker::CalculateSkeleton()
 	_aDTransform->VoronoiSkeleton(_cGrid, _skeletonIter++);
 }
 
+void StuffWorker::DrawAccumulationBuffer(CVImg accumulationBuffer, float startColor, float offsetVal, float overlapArea, int numIter)
+{
+	int img_sz = accumulationBuffer.GetRows();
+	//CVImg substractImg;
+	//substractImg.CreateGrayscaleImage(img_sz);
+	//substractImg.SetGrayscaleImageToSomething(startColor);
+	for (unsigned int x = 0; x < img_sz; x++)
+	{
+		for (unsigned int y = 0; y < img_sz; y++)
+		{
+			int val = accumulationBuffer.GetGrayValue(x, y);
+
+			if (val > startColor + 1)
+			{
+				//std::cout << val << "\n";
+				accumulationBuffer.SetGrayValue(x, y, 255);
+			}
+
+			else if (val > startColor)
+			{
+				//std::cout << val << "\n";
+				accumulationBuffer.SetGrayValue(x, y, 20);
+			}
+			else
+			{
+				//std::cout << val << "\n";
+				accumulationBuffer.SetGrayValue(x, y, 0);
+			}
+		}
+	}
+
+	std::stringstream ss2;
+	ss2 << "offset = " << offsetVal;
+	_cvWrapper.PutText(accumulationBuffer._img, ss2.str(), AVector(10, 40), MyColor(255), 1);
+
+	std::stringstream ss1;
+	ss1 << "overlap area = " << overlapArea;
+	_cvWrapper.PutText(accumulationBuffer._img, ss1.str(), AVector(10, 70), MyColor(255), 1);
+
+	std::stringstream ss;
+	ss << SystemParams::_save_folder << "OVERLAP\\" << "overlap_" << numIter << ".png";
+	accumulationBuffer.SaveImage(ss.str());
+	/*accumulationBuffer._img -= startColor;
+	for (unsigned int x = 0; x < img_sz; x++)
+	{
+		for (unsigned int y = 0; y < img_sz; y++)
+		{
+			int val = accumulationBuffer.GetGrayValue(x, y);
+
+			if (val > startColor)
+			{
+			}
+		}
+	}*/
+}
+
+void StuffWorker::AddToAccumulationBuffer(std::vector<std::vector<AVector>> elem, CVImg& accumulationBuffer, int startColor, int numIter)
+{
+	int img_sz = accumulationBuffer.GetRows();
+	float scale = img_sz / SystemParams::_upscaleFactor;
+	CVImg elementImage;
+	elementImage.CreateGrayscaleImage(img_sz);
+	elementImage.SetGrayscaleImageToSomething(startColor);
+
+	CVImg shapeImage;
+	shapeImage.CreateGrayscaleImage(img_sz);
+
+	for (unsigned int a = 0; a < elem.size(); a++)
+	{		
+		shapeImage.SetGrayscaleImageToBlack();
+
+		_cvWrapper.DrawFilledPolyInt(shapeImage, elem[a], 1, scale);
+
+		// hole (counter clockwise)
+		if (!UtilityFunctions::IsClockwise(elem[a]))
+		{
+			elementImage._img -= shapeImage._img;
+			/*for (unsigned int x = 0; x < img_sz; x++)
+			{
+				for (unsigned int y = 0; y < img_sz; y++)
+				{
+					int val = accumulationBuffer.GetGrayValue(x, y) - elementImg.GetGrayValue(x, y) ;
+					accumulationBuffer.SetGrayValue(x, y, val);
+				}
+			}*/
+		}
+		else
+		{
+			// not hole
+			elementImage._img += shapeImage._img;
+			/*for (unsigned int x = 0; x < img_sz; x++)
+			{
+				for (unsigned int y = 0; y < img_sz; y++)
+				{
+					int val = accumulationBuffer.GetGrayValue(x, y) + elementImg.GetGrayValue(x, y);
+					accumulationBuffer.SetGrayValue(x, y, val);
+				}
+			}*/
+		}
+	}
+
+	for (unsigned int x = 0; x < img_sz; x++)
+	{
+		for (unsigned int y = 0; y < img_sz; y++)
+		{
+			int val = elementImage.GetGrayValue(x, y);
+			if (val < startColor)
+			{
+				accumulationBuffer.SetGrayValue(x, y, accumulationBuffer.GetGrayValue(x, y) - 1);
+			}
+			else if (val > startColor)
+			{
+				accumulationBuffer.SetGrayValue(x, y, accumulationBuffer.GetGrayValue(x, y) + 1);
+			}
+		}
+	}
+
+	//std::stringstream ss;
+	//ss << SystemParams::_save_folder << "FILL\\" << "element_" << numIter << ".png";
+	//accumulationBuffer.SaveImage(ss.str());
+}
+
 void StuffWorker::CalculateMetrics()
 {
 	// parameter
-	//float preOffset  = 1.0f; // a bit hack !!!
 	float maxOffVal  = 20;
-	float offValIter = 0.1f;
+	float offValIter = 0.05;
+
+	bool saveSVGA = false; // elements without offset
+	bool saveSVGB = false;  // overlap
+	bool saveSVGC = false; // positive space only
+	bool saveSVGD = false; // positive space clipped by offset container
+
+	// displaying overlap
+	int saveIter = 0;
+	int saveIter2 = 0; // delete me debug
+	float startColor = 100;
+	int img_sz = SystemParams::_upscaleFactor * 2.0f;
+	CVImg accumulationBuffer;
+	accumulationBuffer.CreateGrayscaleImage(img_sz);
+	
+	//accumulationBuffer.SetGrayscaleImageToBlack();
 
 	OpenCVWrapper cvWRap;
 	float containerArea = cvWRap.GetAreaOriented(_manualContainer[0]);
@@ -1490,16 +1626,21 @@ void StuffWorker::CalculateMetrics()
 	//std::vector< std::vector<AVector>> offsetElements1 = ClipperWrapper::OffsetAll(ClipperWrapper::OffsetAll(_manualElements, preOffset), -preOffset);
 	std::vector< std::vector<AVector>> offsetElements1 = _manualElements;
 	// debug (comment me)
-	/* std::stringstream ss1;
-	ss1 << SystemParams::_save_folder << "SVG\\" << "debugA.svg";
-	MySVGRenderer::SaveShapesToSVG(ss1.str(), offsetElements1); */
-
+	if(saveSVGA)
+	{
+		std::stringstream ss1;
+		ss1 << SystemParams::_save_folder << "SVG\\" << "debugA.svg";
+		MySVGRenderer::SaveShapesToSVG(ss1.str(), offsetElements1);
+	}
 	std::vector<float> _offsetVals2;
 	std::vector<float> _offsetVals3;
 	std::vector<float> _negVals;
 
 	for (float offVal = 0.0f; offVal < maxOffVal; offVal += offValIter)
 	{ // begin for
+
+		// accumulation
+		accumulationBuffer.SetGrayscaleImageToSomething(startColor);
 
 		// 2 - Generate offset elements one by one
 		float area2 = 0;
@@ -1521,18 +1662,24 @@ void StuffWorker::CalculateMetrics()
 			area2 += tempArea;
 			offsetElements2.insert(offsetElements2.end(), outputPolys2.begin(), outputPolys2.end());
 
+			// accumulation buffer
+			AddToAccumulationBuffer(outputPolys2, accumulationBuffer, startColor, saveIter2++);
+
 			// AREA2B
 			//for (unsigned int b = 0; b < outputPolys2.size(); b++)
 			//{ area2b += cvWRap.GetAreaOriented(outputPolys2[b]); }
+			
 		}
 		//std::cout << "area2 = " << area2 << ", area2b=" << area2b << ", ";
 		//std::cout << "b " << std::abs(area2 - area2b) << ", ";
 
 		// draw
-		/*std::stringstream ss2;
-		ss2 << SystemParams::_save_folder << "SVG\\" << "debugB_" << offVal << ".svg";
-		MySVGRenderer::SaveShapesToSVG(ss2.str(), offsetElements2);*/
-
+		if (saveSVGB)
+		{
+			std::stringstream ss2;
+			ss2 << SystemParams::_save_folder << "SVG\\" << "debugB_" << offVal << ".svg";
+			MySVGRenderer::SaveShapesToSVG(ss2.str(), offsetElements2);
+		}
 		// area
 		_offsetVals2.push_back(area2);
 
@@ -1546,25 +1693,34 @@ void StuffWorker::CalculateMetrics()
 		//{ area3b += cvWRap.GetAreaOriented(offsetElements3[b]); }
 		
 		// draw
-		/*std::stringstream ss3;
-		ss3 << SystemParams::_save_folder << "SVG\\" << "debugC_" << offVal << ".svg";
-		MySVGRenderer::SaveShapesToSVG(ss3.str(), offsetElements3);*/
-
+		if (saveSVGC)
+		{
+			std::stringstream ss3;
+			ss3 << SystemParams::_save_folder << "SVG\\" << "debugC_" << offVal << ".svg";
+			MySVGRenderer::SaveShapesToSVG(ss3.str(), offsetElements3);
+		}
 		// area
 		_offsetVals3.push_back(area3);
 
 		// 4 - offset of union of elements minus offset of container
-		//std::vector<AVector> offset_container = ClipperWrapper::RoundOffsettingP(_manualContainer[0], -offVal)[0];
-		std::vector<AVector> offset_container = ClipperWrapper::RoundOffsettingP(_manualContainer[0], SystemParams::_container_offset)[0];
+		// this for SCP
+		std::vector<AVector> offset_container = ClipperWrapper::RoundOffsettingP(_manualContainer[0], -offVal)[0];
+		//std::vector<AVector> offset_container = ClipperWrapper::RoundOffsettingP(_manualContainer[0], SystemParams::_container_offset)[0];
 		float offContainerArea = cvWRap.GetAreaOriented(offset_container); // area of the offset container
 		float area4 = 0; // area of the entire elements
 		std::vector<std::vector<AVector>> offsetElements4 = ClipperWrapper::ClipElementsWithContainer(offsetElements3_temp, offset_container, area4);
 		_negVals.push_back( (offContainerArea - area4) / offContainerArea); // ratio of neg space using offset container
 
 		// draw
-		std::stringstream ss4;
-		ss4 << SystemParams::_save_folder << "SVG\\" << "debugD_" << offVal << ".svg";
-		MySVGRenderer::SaveShapesToSVG(ss4.str(), offsetElements4);
+		if (saveSVGD)
+		{
+			std::stringstream ss4;
+			ss4 << SystemParams::_save_folder << "SVG\\" << "debugD_" << offVal << ".svg";
+			MySVGRenderer::SaveShapesToSVG(ss4.str(), offsetElements4);
+		}
+
+		// draw
+		DrawAccumulationBuffer(accumulationBuffer, startColor, offVal, area2 - area3, saveIter++);
 
 		std::cout << offVal << " --> " << area2 - area3 << "\n";
 

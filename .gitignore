@@ -22,3 +22,5 @@
 *.amplxeproj
 *.vcxproj.user
 .vs/
+Release/RepulsionPak.lib
+Debug/RepulsionPak.lib

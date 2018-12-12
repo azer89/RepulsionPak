@@ -41,7 +41,7 @@ for num_name in num_names:
     a_list = [];
     for x_iter in range(0, img_sz_int, iter_step):
         for y_iter in range(0, img_sz_int, iter_step):
-            if sdf_vals[x_iter + y_iter * img_sz_int] >= 0:
+            if sdf_vals[x_iter + y_iter * img_sz_int] > 0:
                 a_list.append(sdf_vals[x_iter + y_iter * img_sz_int]);
     
     # store non zero non negative sdf values
@@ -52,6 +52,7 @@ for num_name in num_names:
     print "max = ", max(a_list);
     print "mean = ", stat.mean(a_list);
     print "median = ", stat.median(a_list);
+    print "variance = ", stat.variance(a_list);
     
     #########################
     # calculate area_fraction

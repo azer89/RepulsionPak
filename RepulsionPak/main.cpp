@@ -48,9 +48,22 @@ int main(int argc, char **argv)
 	//ColorPalette::LoadPalette();
 
 	Display::GetInstance()->DoStuff();
+
+	// --- parameters ---
+	std::cout << "Have " << argc << " arguments:" << std::endl;
+	for (int i = 0; i < argc; ++i) {
+		std::cout << argv[i] << std::endl;
+	}
+	// --- ---
+
 	Display::ShowGL(argc, argv);
 
-	if (StuffWorker::_cGrid) delete StuffWorker::_cGrid;
+	std::cout << "program done\n";
+
+	if (StuffWorker::_cGrid) 
+	{
+		delete StuffWorker::_cGrid;
+	}
 	
 	return 0;
 }

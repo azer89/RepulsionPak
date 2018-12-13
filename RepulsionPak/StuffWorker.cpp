@@ -1733,6 +1733,32 @@ void StuffWorker::CalculateMetrics()
 
 }
 
+void StuffWorker:: AnalyzeFinishedPacking()
+{
+	// _manualElementsss && _manualElements
+	for (unsigned int a = 0; a < _graphs.size(); a++)
+	{
+		_manualElementsss.push_back(_graphs[a]._arts);
+		_manualElements.insert(_manualElements.end(), _manualElementsss[a].begin(), _manualElementsss[a].end());
+	}
+
+	// find container
+	//for (unsigned int a = 0; a < regs.size(); a++)
+	//{
+	//	std::vector<std::vector<AVector>> temp = regs[a].GetBoundaries();
+	//	if (temp.size() > 0)
+		//{
+			//_manualContainer = temp;
+		//}
+	//}
+	_manualContainer = _containerWorker->_container_boundaries;
+
+	// ----
+	// HERE
+	// ----
+	CalculateMetrics();
+}
+
 void StuffWorker::CreateManualPacking2()
 {
 	PathIO pathIO;

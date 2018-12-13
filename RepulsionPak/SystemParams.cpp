@@ -325,8 +325,9 @@ float SystemParams::_peak_gap      = 0;
 // imgui
 //bool SystemParams::_show_noise = false;
 //bool SystemParams::_show_mst = false;
-bool SystemParams::_show_boundary         = true;
-bool SystemParams::_show_elements         = true;
+// SET THIS IN PARAMS.LUA
+bool SystemParams::_show_boundary         = false;
+bool SystemParams::_show_elements         = false;
 bool SystemParams::_show_element_boundary = false;
 bool SystemParams::_show_triangles        = false;
 bool SystemParams::_show_bending_springs  = false;

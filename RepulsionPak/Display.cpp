@@ -321,18 +321,18 @@ void Display::Draw()
 					if (_sWorker._hasSmallElements) { infoFile = "info_main_2.txt"; }
 					PathIO pIO;
 					pIO.SaveInfo(SystemParams::_save_folder + infoFile,
-					_simulation_time,           // 1
-					_sWorker._fill_ratio,       // 2
-					_sWorker._fill_rms,         // 3
-					_sWorker._deformationValue, // 4
-					_sWorker._avgSkinThickness, // 5
-					_sWorker._graphs.size(),    // 6
-					_frameCounter,              // 7
-					_sWorker._numTriEdges,      // 8
-					_sWorker._numAuxEdges,      // 9
-					_sWorker._numPoints,        // 10
-					_sWorker._numTriangles,    // 11
-					SystemParams::_seed);
+						_simulation_time,           // 1
+						_sWorker._fill_ratio,       // 2
+						_sWorker._fill_rms,         // 3
+						_sWorker._deformationValue, // 4
+						_sWorker._avgSkinThickness, // 5
+						_sWorker._graphs.size(),    // 6
+						_frameCounter,              // 7
+						_sWorker._numTriEdges,      // 8
+						_sWorker._numAuxEdges,      // 9
+						_sWorker._numPoints,        // 10
+						_sWorker._numTriangles,    // 11
+						SystemParams::_seed);
 				}
 				
 				_sWorker._fill_ratio_array.clear(); // clearing the fill record to buy some time
@@ -381,6 +381,8 @@ void Display::Draw()
 
 
 				std::cout << "simulation DONE!!!\n";
+
+				glutLeaveMainLoop();
 			}
 
 		}
@@ -437,58 +439,44 @@ void Display::Draw()
 	if (time_delta > 0) { ImGui::Text(("FPS: " + std::to_string(1000 / time_delta)).c_str()); }
 	else { ImGui::Text("FPS : -"); }
 	ImGui::Text(("Runtime: " + std::to_string((int)(_simulation_time / 1000.0f)) + " s").c_str());
-	//ImGui::Text(("Max distance: " + std::to_string(_sWorker._maxDist)).c_str());
-	ImGui::Text(("Fill ratio: "   + std::to_string(_sWorker._fill_ratio)).c_str());
-	//ImGui::Text(("Max dist RMS: " + std::to_string(_sWorker._peak_rms)).c_str());
-	ImGui::Text(("Fill RMS: "     + std::to_string(_sWorker._fill_rms)).c_str());
-	//ImGui::Text(("Max d: " + std::to_string(_sWorker._aDTransform->_maxDist)).c_str());
-	// _deformationValue
-	ImGui::Text(("Deformation: " + std::to_string(_sWorker._deformationValue)).c_str());
-	//ImGui::Text(("Sum velocity: " + std::to_string(_sWorker._sumVelocity)).c_str());
-	// _avgSkinThickness
-	ImGui::Text(("Average skin offset: " + std::to_string(_sWorker._avgSkinThickness)).c_str());
-	ImGui::Text(("# Growing elements: " + std::to_string(_sWorker._numGrowingElement) + " / " + std::to_string(_sWorker._graphs.size())).c_str());
 
-	//ImGui::Text(("# Frame: " + std::to_string(_frameCounter)).c_str());
-	//ImGui::Text(("# Elements: " + std::to_string(_sWorker._graphs.size())).c_str());
-	//ImGui::Text(("# Triangle edge: " + std::to_string(_sWorker._numTriEdges)).c_str());
-	//ImGui::Text(("# Aux. edge: " + std::to_string(_sWorker._numAuxEdges)).c_str());
+	ImGui::Text(("Target fill ratio: " + std::to_string(_sWorker._man_neg_ratio)).c_str());
+	ImGui::Text(("Fill ratio: "   + std::to_string(_sWorker._fill_ratio)).c_str());
+
+	//ImGui::Text(("Fill RMS: "     + std::to_string(_sWorker._fill_rms)).c_str());
+
+	//ImGui::Text(("Deformation: " + std::to_string(_sWorker._deformationValue)).c_str());
+
+	ImGui::Text(("Average skin offset: " + std::to_string(_sWorker._avgSkinThickness)).c_str());
+	//ImGui::Text(("# Growing elements: " + std::to_string(_sWorker._numGrowingElement) + " / " + std::to_string(_sWorker._graphs.size())).c_str());
 
 	
 		
-	ImGui::Text(("# Points: "    + std::to_string(_sWorker._numPoints)).c_str());
-	ImGui::Text(("# Triangles: " + std::to_string(_sWorker._numTriangles)).c_str());
+	//ImGui::Text(("# Points: "    + std::to_string(_sWorker._numPoints)).c_str());
+	//ImGui::Text(("# Triangles: " + std::to_string(_sWorker._numTriangles)).c_str());
 
 	ImGui::Text(("Seed: " + std::to_string(SystemParams::_seed)).c_str());
 
-	ImGui::Text(("Average scale: " + std::to_string(_sWorker._avgScaleFactor)).c_str());
+	//ImGui::Text(("Average scale: " + std::to_string(_sWorker._avgScaleFactor)).c_str());
 
 	ImGui::Separator();
-	//ImGui::Checkbox("Simulate",             &SystemParams::_simulate_1);
+
 	if (ImGui::Button("Simulate")) { SystemParams::_simulate_1 = true; }
 	ImGui::Separator();
-	ImGui::Checkbox("Show container",       &SystemParams::_show_boundary);
-	
-	ImGui::Checkbox("Show elements", &SystemParams::_show_elements);
+	ImGui::Checkbox("Show container",  &SystemParams::_show_boundary);	
+	ImGui::Checkbox("Render elements",   &SystemParams::_show_elements);
 	ImGui::Checkbox("Show skins", &SystemParams::_show_element_boundary);
 
-	
-	//ImGui::Checkbox("Show closest pairs",   &SystemParams::_show_closest_pairs);
-	
-	
-	// SystemParams::_show_bending_springs
 
 	ImGui::Checkbox("Show triangles", &SystemParams::_show_triangles);
 	ImGui::Checkbox("Show bending edges", &SystemParams::_show_bending_springs);
 	ImGui::Checkbox("Show shape matching", &SystemParams::_show_shape_matching);
-	// SystemParams::_show_uni_art
+
 	ImGui::Checkbox("Show uni art", &SystemParams::_show_uni_art);
 
-	//ImGui::Checkbox("Show collission grid", &SystemParams::_show_collission_grid);
 
 	ImGui::Separator();
-	//if (ImGui::Button("Save to SVG file")) { _sWorker.SaveGraphElements(); }
-	//if (ImGui::Button("Save Data to CSV"))  { _sWorker.SaveDataToCSV(); }
+
 	if (ImGui::Button("Save to SVG"))       
 	{ 
 		_sWorker.SaveGraphs(); 
@@ -496,22 +484,15 @@ void Display::Draw()
 		_sWorker.CalculateSDF(_sdf_int_counter++, true);
 	}
 
-	//if (ImGui::Button("Compute skeleton"))
-	//{
-	//	_sWorker.CalculateSkeleton();
-	//}
 
 	if (ImGui::Button("Reload parameters")) { SystemParams::LoadParameters();  }
 
-	
-	
-	//if (!shouldSimulate)
-	//{
+
 	if (ImGui::Button("Delete files"))
 	{
 		DeleteFiles();
 	}
-	//}
+
 	
 	ImGui::End();
 	ImGui::Render();

@@ -200,6 +200,17 @@ void AGraph::ComputeBarycentric()
 	if (_centroidTriIdx == -1)
 	{
 		std::cout << "centroid bary error!!!\n";
+		_centroidTriIdx = -1;
+		float dist = 100000000;
+		for (unsigned int c = 0; c < _triangles.size(); c++)
+		{
+			float d = UtilityFunctions::DistanceToClosedCurve(actualTriangles[c], AVector(_centroid.x, _centroid.y));
+			if (d < dist)
+			{
+				dist = d;
+				_centroidTriIdx = c;
+			}
+		}
 	}
 
 	_centroidBary = UtilityFunctions::Barycentric(_centroid,

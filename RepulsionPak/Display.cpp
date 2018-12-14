@@ -199,17 +199,24 @@ void Display::CalculateFillRMS(float time_delta)
 	
 	_rms_time_counter += time_delta;
 
+	// time period
 	if (_rms_time_counter > SystemParams::_rms_capture_time)
 	{
 		int time1 = glutGet(GLUT_ELAPSED_TIME);
 
-		_sWorker.CalculateFillAndRMS(_rms_int_counter);
+		_sWorker.CalculateFillAndRMS();
+		//_sWorker.CalculateFillAndRMS(_rms_int_counter);
 		//_sWorker.SaveDataToCSV();
 
 		int time2 = glutGet(GLUT_ELAPSED_TIME);
 		_prev_snapshot_time += (time2 - time1);
 		_rms_time_counter = 0;
 		_rms_int_counter++;
+	}
+	// F it, we need to update as many times as possible
+	else if (std::abs(_sWorker._fill_diff) < SystemParams::_growth_threshold_a)
+	{
+		_sWorker.CalculateFillAndRMS();
 	}
 }
 
@@ -278,7 +285,10 @@ void Display::Draw()
 		//if (_rms_int_counter   > SystemParams::_rms_window &&    // bigger than window
 		//	_sWorker._fill_rms < SystemParams::_rms_threshold && // fill ratio does not improve
 		//	_sWorker._numGrowingElement == 0)                    // no element is growing
-		if(std::abs(_sWorker._fill_ratio - _sWorker._man_neg_ratio) < SystemParams::_growth_threshold_b)
+
+		// _simulation_time
+		float abs_fill = std::abs(_sWorker._fill_ratio - _sWorker._man_neg_ratio);
+		if(abs_fill < SystemParams::_growth_threshold_b || _simulation_time > _sWorker._sim_timeout)
 		{			
 			SystemParams::_simulate_1 = false; // flags
 			SystemParams::_simulate_2 = false; // flags			
@@ -506,7 +516,7 @@ void Display::Draw()
 	if (shouldSimulate) { _frameCounter++; }
 }
 
-void Display::DeleteFiles()
+void Display::DeleteFolders()
 {
 	{ std::stringstream ss;
 	ss << "del /Q " << SystemParams::_save_folder << "FILL\\*.*";
@@ -529,6 +539,18 @@ void Display::DeleteFiles()
 	{ std::stringstream ss;
 	ss << "del /Q " << SystemParams::_save_folder << "DEBUG\\*.*";
 	std::system(ss.str().c_str()); }
+	{ std::stringstream ss;
+	ss << "del /Q " << SystemParams::_save_folder << "OVERLAP\\*.*";
+	std::system(ss.str().c_str()); }
+	{ std::stringstream ss;
+	ss << "del /Q " << SystemParams::_save_folder << "SKELETON\\*.*";
+	std::system(ss.str().c_str()); }
+}
+
+void Display::DeleteFiles()
+{
+	DeleteFolders();
+	
 	{ std::stringstream ss;
 	ss << "del " << SystemParams::_save_folder << "data.csv";
 	std::system(ss.str().c_str()); }

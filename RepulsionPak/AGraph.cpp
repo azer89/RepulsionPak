@@ -1395,7 +1395,7 @@ bool AGraph::CanGrow()
 
 void AGraph::Grow(float growth_scale_iter, std::vector<AGraph>& allGraphs, float dt)
 { 
-	/*for (unsigned int a = 0; a < _skinPointNum && _isGrowing; a++)
+	for (unsigned int a = 0; a < _skinPointNum && _isGrowing; a++)
 	{
 		if (_massList[a]._closestPoints.size() > 0)
 		{
@@ -1407,7 +1407,7 @@ void AGraph::Grow(float growth_scale_iter, std::vector<AGraph>& allGraphs, float
 				break;
 			}
 		}
-	} */
+	} 
 
 	if (!_bigOne)
 	{

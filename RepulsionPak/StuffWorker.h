@@ -91,7 +91,7 @@ public:
 	void SaveSVG(int frameCounter);
 	void SavePNG(int frameCounter);
 	void CalculateSDF(int numIter, bool saveImage = false);
-	void CalculateFillAndRMS(int numIter, bool saveImage = false);
+	void CalculateFillAndRMS();
 	void SaveDataToCSV();
 
 	void RecreateDistanceTransform(float scale);
@@ -169,8 +169,10 @@ public:
 	//float _peak_rms;
 	
 	std::vector<float> _fill_ratio_array;
+	float _fill_diff;
 	float _fill_ratio;
 	float _fill_rms;
+	float _sim_timeout;
 
 	//std::vector<AVector> _peaks;
 	//std::vector<AVector> _debugPoints;

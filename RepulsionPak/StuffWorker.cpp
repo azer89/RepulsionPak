@@ -75,8 +75,11 @@ StuffWorker::StuffWorker()
 	//_peakPos = AVector();
 	//_maxDist = 0;
 
+	_fill_diff = -1000;
 	_fill_ratio = -5.0;
 	_fill_rms = 0;
+	_sim_timeout = 100000000;
+
 	//_maxDist = 0;
 	//_peak_rms = 0;	
 	//_allStopGrow = true;
@@ -1103,7 +1106,7 @@ void StuffWorker::CalculateSDF(int numIter, bool saveImage)
 	_aDTransform->CalculateSDF2(_graphs, _cGrid, numIter, saveImage);
 }
 
-void StuffWorker::CalculateFillAndRMS(int numIter, bool saveImage)
+void StuffWorker::CalculateFillAndRMS()
 {
 	for (int a = 0; a < _graphs.size(); a++)
 	{
@@ -1207,13 +1210,14 @@ void StuffWorker::CalculateThings(float dt)
 
 	// calculate scale iter here !!!
 	float scale_iter = SystemParams::_growth_scale_iter;
-	float fill_diff = _fill_ratio - _man_neg_ratio;
+	_fill_diff = _fill_ratio - _man_neg_ratio;
 
-	if (fill_diff > 0) // over
+	if (_fill_diff > 0) // over
 	{
 		scale_iter = -SystemParams::_growth_scale_iter_2;
+		std::cout << "over\n";
 	}
-	else if (fill_diff < 0 && fill_diff > -SystemParams::_growth_threshold_a) // under
+	else if (_fill_diff < 0 && _fill_diff > -SystemParams::_growth_threshold_a) // under
 	{
 		scale_iter = SystemParams::_growth_scale_iter_2;
 	}
@@ -1609,10 +1613,10 @@ void StuffWorker::CalculateMetrics()
 	bool saveSVGD = false; // positive space clipped by offset container
 
 	// displaying overlap
-	int saveIter = 0;
-	int saveIter2 = 0; // delete me debug
+	int saveIter     = 0;
+	int saveIter2    = 0; // delete me debug
 	float startColor = 100;
-	int img_sz = SystemParams::_upscaleFactor * 2.0f;
+	int img_sz       = SystemParams::_upscaleFactor * 2.0f;
 	CVImg accumulationBuffer;
 	accumulationBuffer.CreateGrayscaleImage(img_sz);
 	
@@ -1738,7 +1742,7 @@ void StuffWorker:: AnalyzeFinishedPacking()
 	// _manualElementsss && _manualElements
 	for (unsigned int a = 0; a < _graphs.size(); a++)
 	{
-		_manualElementsss.push_back(_graphs[a]._arts);
+		_manualElementsss.push_back(_graphs[a]._uniuniArts);
 		_manualElements.insert(_manualElements.end(), _manualElementsss[a].begin(), _manualElementsss[a].end());
 	}
 

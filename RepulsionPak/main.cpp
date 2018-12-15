@@ -23,6 +23,8 @@ int main(int argc, char **argv)
 {
 	// only for maing the packing bad
 	// call this once
+
+	//Display::GetInstance()->DeleteFiles();
 	
 	SystemParams::LoadParameters();
 	
@@ -59,6 +61,13 @@ int main(int argc, char **argv)
 
 		Display::GetInstance()->_sWorker._man_neg_ratio = param1;
 		SystemParams::_k_edge = param2;
+		Display::GetInstance()->_sWorker._sim_timeout = param3;
+
+		Display::GetInstance()->DeleteFolders();
+	}
+	else
+	{
+		Display::GetInstance()->_sWorker._man_neg_ratio = 0.4;
 	}
 	
 	// ------

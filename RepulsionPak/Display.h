@@ -67,6 +67,7 @@ public:
 	void CalculateSDF(float time_delta);
 	void CalculateFillRMS(float time_delta);
 
+	void DeleteFolders();
 	void DeleteFiles();
 
 public:

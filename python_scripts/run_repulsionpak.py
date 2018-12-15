@@ -39,7 +39,14 @@ def copytree(src, dst, symlinks = False, ignore = None):
 
 # MAIN function
 if __name__ == "__main__":
-    # 1st parameter is target 0.47
-    # 2nd parameter is k_edge
-    os.system("C://Users//azer//workspace//RepulsionPak_SCP//Release//RepulsionPak.exe 4.75 1000 3 4 5 6 7 8 9 10");
-    #copytree("C://Users//azer//OneDrive//Images//PhysicsPak_Snapshots_01", "C://Users//azer//OneDrive - University of Waterloo//__new_results__//_LOL");
+
+    for i_iter in range(0, 50):
+        #print i_iter;
+        # 1st parameter is target 0.47
+        # 2nd parameter is k_edge
+        # 3rd param is timeout (miliseconds)
+        os.system("C://Users//azer//workspace//RepulsionPak_SCP//Release//RepulsionPak.exe 4.35 1000 1000000 4 5 6 7 8 9 10");
+        ret_dir = "C://Users//azer//OneDrive - University of Waterloo//__new_results__//15_dump_" + str(i_iter);
+        print ret_dir;
+        copytree("C://Users//azer//OneDrive//Images//PhysicsPak_Snapshots_01", ret_dir);
+        

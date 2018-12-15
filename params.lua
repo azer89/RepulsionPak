@@ -60,7 +60,7 @@ _colors = "190,221,244#" .. --- light blue
 _back_color = "255,255,255"
 
 _show_container      = false;
-_show_elements       = true;
+_show_elements       = false;
 _show_skins          = true;
 _show_triangles      = false;
 _show_bending_edges  = false;
@@ -86,7 +86,7 @@ _seed = -1; --- negative means random
 --- larger the number, more elements you get,
 --- but the simulation time gets slower
 _num_element_pos       = 700;
-_num_element_pos_limit = 25;
+_num_element_pos_limit = 27;
 
 --- Time step for numerical integration (euler method)
 _dt = 0.05;    --- do not set this higher than 0.1
@@ -154,9 +154,9 @@ _element_initial_scale = 0.03;
 --- epsilon for halting the growth
 _growth_min_dist       = 0.0001; 
 
-_growth_threshold_a = 0.02;
-_growth_threshold_b = 0.0001;
-_growth_scale_iter_2 = 0.0003;
+_growth_threshold_a  = 0.02;   --- threshold to be careful
+_growth_threshold_b  = 0.0001; --- threshold to stop the simulation
+_growth_scale_iter_2 = 0.003;
 
 --- initial placement
 --- how far away from the boundary so that the protusion cannot be too far

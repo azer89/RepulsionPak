@@ -180,7 +180,6 @@ _downscaleFactor = 1.0 / _upscaleFactor;
 --- for example, if you set it to 1000, 
 --- it creates an SVG file every 1 second
 _svg_snapshot_capture_time = 10000000;  
-
 _png_snapshot_capture_time = 1000000000;  --- PNG capture time (in milisecond)
 _sdf_capture_time          = 1000000000;  --- SDF (Signed distance function) capture time (in milisecond)
 

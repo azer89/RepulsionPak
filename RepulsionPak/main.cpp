@@ -67,7 +67,7 @@ int main(int argc, char **argv)
 	}
 	else
 	{
-		Display::GetInstance()->_sWorker._man_neg_ratio = 0.4;
+		Display::GetInstance()->_sWorker._man_neg_ratio = 0.435;
 	}
 	
 	// ------

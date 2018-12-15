@@ -1212,14 +1212,15 @@ void StuffWorker::CalculateThings(float dt)
 	float scale_iter = SystemParams::_growth_scale_iter;
 	_fill_diff = _fill_ratio - _man_neg_ratio;
 
-	if (_fill_diff > 0) // over
+	if (_fill_diff > 0.0f) // over
 	{
 		scale_iter = -SystemParams::_growth_scale_iter_2;
-		std::cout << "over\n";
+		//std::cout << "over\n";
 	}
 	else if (_fill_diff < 0 && _fill_diff > -SystemParams::_growth_threshold_a) // under
 	{
 		scale_iter = SystemParams::_growth_scale_iter_2;
+		//std::cout << "careful\n";
 	}
 	
 

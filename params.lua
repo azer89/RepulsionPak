@@ -154,7 +154,7 @@ _element_initial_scale = 0.03;
 --- epsilon for halting the growth
 _growth_min_dist       = 0.0001; 
 
-_growth_threshold_a  = 0.02;   --- threshold to be careful
+_growth_threshold_a  = 0.05;   --- threshold to be careful
 _growth_threshold_b  = 0.0001; --- threshold to stop the simulation
 _growth_scale_iter_2 = 0.003;
 

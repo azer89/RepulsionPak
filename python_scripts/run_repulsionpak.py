@@ -39,6 +39,7 @@ def copytree(src, dst, symlinks = False, ignore = None):
 
 # MAIN function
 if __name__ == "__main__":
+
     for i_iter in range(0, 50):
         #print i_iter;
         # 1st parameter is target 0.47
@@ -68,3 +69,4 @@ if __name__ == "__main__":
         ret_dir = "C://Users//azer//OneDrive - University of Waterloo//__new_results__//15_dump_10_" + str(i_iter);
         print ret_dir;
         copytree("C://Users//azer//OneDrive//Images//PhysicsPak_Snapshots_01", ret_dir);
+        

@@ -41,5 +41,5 @@ def copytree(src, dst, symlinks = False, ignore = None):
 if __name__ == "__main__":
     # 1st parameter is target 0.47
     # 2nd parameter is k_edge
-    os.system("C://Users//azer//workspace//RepulsionPak_SCP//Release//RepulsionPak.exe 0.05 1000 3 4 5 6 7 8 9 10");
+    os.system("C://Users//azer//workspace//RepulsionPak_SCP//Release//RepulsionPak.exe 4.75 1000 3 4 5 6 7 8 9 10");
     #copytree("C://Users//azer//OneDrive//Images//PhysicsPak_Snapshots_01", "C://Users//azer//OneDrive - University of Waterloo//__new_results__//_LOL");

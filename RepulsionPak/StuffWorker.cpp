@@ -1212,6 +1212,8 @@ void StuffWorker::CalculateThings(float dt)
 	float scale_iter = SystemParams::_growth_scale_iter;
 	_fill_diff = _fill_ratio - _man_neg_ratio;
 
+	//std::cout << "_fill_diff = " << _fill_diff << "  _fill_ratio = " << _fill_ratio << "  _man_neg_ratio = " << _man_neg_ratio << "\n";
+
 	if (_fill_diff > 0.0f) // over
 	{
 		scale_iter = -SystemParams::_growth_scale_iter_2;
@@ -1222,6 +1224,11 @@ void StuffWorker::CalculateThings(float dt)
 		scale_iter = SystemParams::_growth_scale_iter_2;
 		//std::cout << "careful\n";
 	}
+
+	//if (scale_iter < 0)
+	//{
+	//	std::cout << "scale iter neg\n";
+	//}
 	
 
 	//if(_fill_ratio < _man_neg_ratio)

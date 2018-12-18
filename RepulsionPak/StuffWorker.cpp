@@ -502,7 +502,8 @@ void StuffWorker::ProcessOrnaments()
 	{
 		int idx = a % _oriGraphs.size();
 
-		if (oriGraphFlags[idx]) { continue; }
+		// uncomment this if you want repetition
+		//if (oriGraphFlags[idx]) { continue; }
 
 		AGraph g = ProcessAnOrnament(_oriGraphs[idx],
 			                         _containerWorker->_randomPositions[a],
@@ -1748,7 +1749,7 @@ void StuffWorker::CalculateMetrics()
 void StuffWorker:: AnalyzeFinishedPacking()
 {
 	// _manualElementsss && _manualElements
-	for (unsigned int a = 0; a < _graphs.size(); a++)
+	for (unsigned int a = 0; a < _numBigOnes; a++)
 	{
 		_manualElementsss.push_back(_graphs[a]._uniuniArts);
 		_manualElements.insert(_manualElements.end(), _manualElementsss[a].begin(), _manualElementsss[a].end());

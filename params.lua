@@ -8,10 +8,10 @@ _save_folder  = "C:\\Users\\azer\\OneDrive\\Images\\PhysicsPak_Snapshots_0" .. _
 
 ------ folders ------
 _image_folder         = "C:\\Users\\azer\\OneDrive\\Images\\";	--- where all the input files are located
-_artName              = "pp_circle"; --- pp_lolwut	--- location of the container
+_artName              = "pp_tie"; --- pp_lolwut	--- location of the container
 _manual_art_name      = "boxes_c_layered";	--- manually drawn packing (for evaluation)
-_ornament_dir         = _image_folder .. "opp_b_dump";		--- regular elements
-_ornament_dir_small_1 = _image_folder .. "opp_s_balabolka"; --- filling elements (the elements to fill the remaining empty space after the simulation ends)
+_ornament_dir         = _image_folder .. "opp_b_flamingo";		--- regular elements
+_ornament_dir_small_1 = _image_folder .. "opp_s_flamingo"; --- filling elements (the elements to fill the remaining empty space after the simulation ends)
 
 ---------------------------------------------------------------------
 --- metric
@@ -23,7 +23,7 @@ _pad_level = 5;
 _pad_delta = 0.2;
 ---------------------------------------------------------------------
 
-_do_shape_matching = false;
+_do_shape_matching = true;
 
 -- 0.349066 is 20 deg
 
@@ -85,8 +85,8 @@ _seed = -1; --- negative means random
 --- (not the actual number)
 --- larger the number, more elements you get,
 --- but the simulation time gets slower
-_num_element_pos       = 700;
-_num_element_pos_limit = 27;
+_num_element_pos       = 950;
+_num_element_pos_limit = 10000;
 
 --- Time step for numerical integration (euler method)
 _dt = 0.05;    --- do not set this higher than 0.1
@@ -103,7 +103,7 @@ _dt = 0.05;    --- do not set this higher than 0.1
 --- _noise_map_update_time = 10000000; --- in ms (disabled)
 
 --- Force parameters
-_k_neg_space_edge      = 1000;	--- edge force for springs
+_k_neg_space_edge      = 60;	--- edge force for springs
 _k_edge                = 10;	--- edge force for filling elements
 _k_edge_small_factor   = 24;
 _k_repulsion           = 40;	--- repulsion force
@@ -112,13 +112,13 @@ _k_overlap             = 40;	--- overlap force
 _k_boundary            = 40;	--- boundary force
 _k_noise               = 0;
 _k_rotate              = 0;		--- 1
-_k_dock                = 100;
+_k_dock                = 1;
 
 
 --- to find peaks where the filling elements should be placed
 --- minimum height of the peak to be considered
-_peak_dist_stop = 70000.0; --- set this really high to disable filling elements
-_peak_gap       = 17.0;	--- any pair of peaks should be separated by this distance
+_peak_dist_stop = 5.5; --- set this really high to disable filling elements
+_peak_gap       = 15.0;	--- any pair of peaks should be separated by this distance
 
 --- capping the velocity
 _velocity_cap   = 5; -- [Do not edit]
@@ -130,7 +130,7 @@ _focal_offset = 2;
 --- for preprocessing
 --- skin width
 
-_skin_offset                = 20;  
+_skin_offset                = 15;  
 --- density of random points inside the skin
 --- if the density is higher, you get more triangles
 _sampling_num               = 500;
@@ -150,7 +150,7 @@ _collission_block_radius = 1;
 --- incremetal step for growing
 _growth_scale_iter     = 0.005;
 --- initial scale after placing the elements inside the target container
-_element_initial_scale = 0.03; 
+_element_initial_scale = 0.02; 
 --- epsilon for halting the growth
 _growth_min_dist       = 0.0001; 
 
@@ -180,11 +180,11 @@ _downscaleFactor = 1.0 / _upscaleFactor;
 --- for example, if you set it to 1000, 
 --- it creates an SVG file every 1 second
 _svg_snapshot_capture_time = 10000000;  
-_png_snapshot_capture_time = 1000000000;  --- PNG capture time (in milisecond)
+_png_snapshot_capture_time = 1000;  --- PNG capture time (in milisecond)
 _sdf_capture_time          = 1000000000;  --- SDF (Signed distance function) capture time (in milisecond)
 
 --- RMS (Root of mean square) capture time
  
 _rms_capture_time = 1000;  --- it is set to 1 second
-_rms_window       = 50;    --- Window length is 50
-_rms_threshold    = 0.01;  --- RMS stopping criteria
+_rms_window       = 100;    --- Window length is 50
+_rms_threshold    = 0.1;  --- RMS stopping criteria

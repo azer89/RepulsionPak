@@ -11,9 +11,9 @@ import useful_things as ut
 
 
 
-num_folder = "09";
-case_name = "balabolka";  # case
-num_names = ["01", "man2x"]; # names
+num_folder = "16";
+case_name = "dump_10";  # case
+num_names = ["1", "2","3","4","5","6","7","8","9","10"]; # names
 
 
 for num_name in num_names:

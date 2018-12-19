@@ -9,12 +9,12 @@ import statistics as stat
 import useful_things as ut
 
 d_gap = 5.75;
-num_folder = "13";
-case_name = "pad";  # case
-num_names = ["man2x", "01"]; # names
+num_folder = "16";
+case_name = "dump_10";  # case
+num_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 container_area = 146721;
 
-r_vals = np.arange(0.0, 20, 0.1);
+r_vals = np.arange(0.0, 40, 0.1);
 
 for num_name in num_names:
 
@@ -29,42 +29,43 @@ for num_name in num_names:
     area_vals_3 = csv_data3.values[:,0];
     
     # 4
-    filename4 = 'C://Users//azer//OneDrive - University of Waterloo//__new_results__//' + num_folder + "_" + case_name + '_' + num_name +'//dist_4.csv';
-    csv_data4 = pd.read_csv(filename4, sep=',',header=None);
-    area_vals_4 = csv_data4.values[:,0];
+    #filename4 = 'C://Users//azer//OneDrive - University of Waterloo//__new_results__//' + num_folder + "_" + case_name + '_' + num_name +'//dist_4.csv';
+    #csv_data4 = pd.read_csv(filename4, sep=',',header=None);
+    #area_vals_4 = csv_data4.values[:,0];
     
      # 5
-    filename5 = 'C://Users//azer//OneDrive - University of Waterloo//__new_results__//' + num_folder + "_" + case_name + '_' + num_name +'//dist_5_offset_container_d_gap.csv';
-    print filename5;
-    csv_data5 = pd.read_csv(filename5, sep=',',header=None);
-    neg_area_vals_5 = csv_data5.values[:,0];
+    #filename5 = 'C://Users//azer//OneDrive - University of Waterloo//__new_results__//' + num_folder + "_" + case_name + '_' + num_name +'//dist_5_offset_container_d_gap.csv';
+    #print filename5;
+    #csv_data5 = pd.read_csv(filename5, sep=',',header=None);
+    #neg_area_vals_5 = csv_data5.values[:,0];
     
     overlap_list = [];
     for i in range(0, len(area_vals_2)):
         overlap_list.append(area_vals_2[i] - area_vals_3[i]);
         
-    negative_list = [];
-    negative_list_wrong = [];
-    for i in range(0, len(area_vals_2)):
+    #negative_list = [];
+    #negative_list_wrong = [];
+    #for i in range(0, len(area_vals_2)):
         #negative_list_wrong.append((container_area - area_vals_3[i]) / container_area );
-        negative_list_wrong.append(neg_area_vals_5[i]);
-        negative_list.append(area_vals_4[i] / container_area);
+    #    negative_list_wrong.append(neg_area_vals_5[i]);
+    #    negative_list.append(area_vals_4[i] / container_area);
         
     
     
-    str_vals4 = "negative_wrong_vals_" + case_name + "_" + num_name + " = negative_list_wrong";
-    exec(str_vals4);
+    #str_vals4 = "negative_wrong_vals_" + case_name + "_" + num_name + " = negative_list_wrong";
+    #exec(str_vals4);
     
-    str_vals3 = "negative_vals_" + case_name + "_" + num_name + " = negative_list";
-    exec(str_vals3);
+    #str_vals3 = "negative_vals_" + case_name + "_" + num_name + " = negative_list";
+    #exec(str_vals3);
         
-    str_vals2 = "area_vals_" + case_name + "_" + num_name + " = area_vals_3";
-    exec(str_vals2);
+    #str_vals2 = "area_vals_" + case_name + "_" + num_name + " = area_vals_3";
+    #exec(str_vals2);
     
     str_vals = "overlap_vals_" + case_name + "_" + num_name + " = overlap_list";
     exec(str_vals);
-    
+
 ###########################################################################
+"""
 fig3 = plt.figure(1);
 fig3.patch.set_facecolor('white')
 plt.clf();
@@ -84,7 +85,7 @@ plt.plot([d_gap, d_gap], [0, 140000], 'k--')
 
 plt.title(r"Overlap. PAD (red) vs RepulsionPak (green)");
 plt.show();
-
+"""
 
 '''
 ###########################################################################
@@ -167,6 +168,7 @@ plt.show();
 
 """
 ###########################################################################
+"""
 fig3 = plt.figure(4);
 fig3.patch.set_facecolor('white')
 plt.clf();
@@ -194,6 +196,6 @@ plt.plot([d_gap, d_gap], [0, 0.5], 'k--')
 
 plt.title(r"SCP experiment");
 plt.show();
-
+"""
 
 

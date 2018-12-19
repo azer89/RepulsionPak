@@ -454,7 +454,7 @@ void Display::Draw()
 	ImGui::Text(("Target fill ratio: " + std::to_string(_sWorker._man_neg_ratio)).c_str());
 	ImGui::Text(("Fill ratio: "   + std::to_string(_sWorker._fill_ratio)).c_str());
 
-	//ImGui::Text(("Fill RMS: "     + std::to_string(_sWorker._fill_rms)).c_str());
+	ImGui::Text(("Edge param: "     + std::to_string(SystemParams::_k_edge)).c_str());
 
 	//ImGui::Text(("Deformation: " + std::to_string(_sWorker._deformationValue)).c_str());
 

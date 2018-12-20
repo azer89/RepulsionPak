@@ -23,7 +23,7 @@ _pad_level = 5;
 _pad_delta = 0.2;
 ---------------------------------------------------------------------
 
-_do_shape_matching = true;
+_do_shape_matching = false;
 
 -- 0.349066 is 20 deg
 
@@ -40,7 +40,7 @@ _resample_gap_float = 1.0;
 _resample_num       = 5000; --- curve resampling (how many points)
 
 _container_salient_gap = 100;
-_random_point_gap      = 5;   --- gap of random initial placement
+_random_point_gap      = 1;   --- gap of random initial placement
 
 ---------------------------------------------------------------------
 --- WARNING, should be no whitespace before/after commas
@@ -103,8 +103,8 @@ _dt = 0.05;    --- do not set this higher than 0.1
 --- _noise_map_update_time = 10000000; --- in ms (disabled)
 
 --- Force parameters
-_k_edge                = 10;	--- edge force for filling elements
-_k_neg_space_edge      = 60;	--- edge force for springs
+_k_edge                = 60;	--- edge force for filling elements
+_k_neg_space_edge      = 10;	--- edge force for springs
 _k_edge_small_factor   = 24;
 _k_repulsion           = 40;	--- repulsion force
 _repulsion_soft_factor = 1.0;	--- soft factor for repulsion force
@@ -130,7 +130,7 @@ _focal_offset = 2;
 --- for preprocessing
 --- skin width
 
-_skin_offset                = 15;  
+_skin_offset                = 12;  
 --- density of random points inside the skin
 --- if the density is higher, you get more triangles
 _sampling_num               = 500;

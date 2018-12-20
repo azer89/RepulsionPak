@@ -45,28 +45,7 @@ if __name__ == "__main__":
         # 1st parameter is target 0.47
         # 2nd parameter is k_edge
         # 3rd param is timeout (miliseconds)
-        os.system("C://Users//azer//workspace//RepulsionPak_SCP//Release//RepulsionPak.exe 1.0 155 1000000 4 5 6 7 8 9 10");
-        ret_dir = "C://Users//azer//OneDrive - University of Waterloo//__new_results__//19_cat_a_" + str(i_iter);
+        os.system("C://Users//azer//workspace//RepulsionPak_SCP//Release//RepulsionPak.exe 1.0 1.0 1000000 4 5 6 7 8 9 10");
+        ret_dir = "C://Users//azer//OneDrive - University of Waterloo//__new_results__//19_flamingo_" + str(i_iter);
         print ret_dir;
         copytree("C://Users//azer//OneDrive//Images//PhysicsPak_Snapshots_01", ret_dir);
-    
-    for i_iter in range(0, 20):
-        #print i_iter;
-        # 1st parameter is target 0.47
-        # 2nd parameter is k_edge
-        # 3rd param is timeout (miliseconds)
-        os.system("C://Users//azer//workspace//RepulsionPak_SCP//Release//RepulsionPak.exe 1.0 150 1000000 4 5 6 7 8 9 10");
-        ret_dir = "C://Users//azer//OneDrive - University of Waterloo//__new_results__//19_cat_b_" + str(i_iter);
-        print ret_dir;
-        copytree("C://Users//azer//OneDrive//Images//PhysicsPak_Snapshots_01", ret_dir);
-        
-    for i_iter in range(0, 20):
-        #print i_iter;
-        # 1st parameter is target 0.47
-        # 2nd parameter is k_edge
-        # 3rd param is timeout (miliseconds)
-        os.system("C://Users//azer//workspace//RepulsionPak_SCP//Release//RepulsionPak.exe 1.0 145 1000000 4 5 6 7 8 9 10");
-        ret_dir = "C://Users//azer//OneDrive - University of Waterloo//__new_results__//19_cat_c_" + str(i_iter);
-        print ret_dir;
-        copytree("C://Users//azer//OneDrive//Images//PhysicsPak_Snapshots_01", ret_dir);
-        

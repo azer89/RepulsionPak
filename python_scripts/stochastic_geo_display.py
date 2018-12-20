@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pylab as plt
 #import scipy.stats as stats
-import pandas as pd
+#import pandas as pd
 
 import useful_things as ut
 

@@ -282,13 +282,13 @@ void Display::Draw()
 		}
 
 		// ---------- STOP ----------
-		if (_rms_int_counter   > SystemParams::_rms_window &&    // bigger than window
-			_sWorker._fill_rms < SystemParams::_rms_threshold && // fill ratio does not improve
-			_sWorker._numGrowingElement == 0)                    // no element is growing
+		//if (_rms_int_counter   > SystemParams::_rms_window &&    // bigger than window
+		//	_sWorker._fill_rms < SystemParams::_rms_threshold && // fill ratio does not improve
+		//	_sWorker._numGrowingElement == 0)                    // no element is growing
 
 		// _simulation_time
-		//float abs_fill = std::abs(_sWorker._fill_ratio - _sWorker._man_neg_ratio);
-		//if(abs_fill < SystemParams::_growth_threshold_b || _simulation_time > _sWorker._sim_timeout)
+		float abs_fill = std::abs(_sWorker._fill_ratio - _sWorker._man_neg_ratio);
+		if(abs_fill < SystemParams::_growth_threshold_b || _simulation_time > _sWorker._sim_timeout)
 		{			
 			SystemParams::_simulate_1 = false; // flags
 			SystemParams::_simulate_2 = false; // flags			
@@ -454,7 +454,7 @@ void Display::Draw()
 	ImGui::Text(("Target fill ratio: " + std::to_string(_sWorker._man_neg_ratio)).c_str());
 	ImGui::Text(("Fill ratio: "   + std::to_string(_sWorker._fill_ratio)).c_str());
 
-	//ImGui::Text(("Fill RMS: "     + std::to_string(_sWorker._fill_rms)).c_str());
+	ImGui::Text(("Edge param: "     + std::to_string(SystemParams::_k_edge)).c_str());
 
 	//ImGui::Text(("Deformation: " + std::to_string(_sWorker._deformationValue)).c_str());
 

@@ -13,7 +13,8 @@ import useful_things as ut
 
 num_folder = "16";
 case_name = "dump_10";  # case
-num_names = ["1", "2","3","4","5","6","7","8","9","10"]; # names
+
+num_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]; # names
 
 
 for num_name in num_names:
@@ -77,7 +78,7 @@ for num_name in num_names:
     # stuff
     #######
     h_gap = 0.25;
-    r_vals = np.arange(h_gap, 20, h_gap);
+    r_vals = np.arange(h_gap, 40, h_gap);
     
     ###################################
     # calculate sphere contact function
@@ -102,3 +103,9 @@ for num_name in num_names:
         exec(str_vals);
     
     print "";
+    
+    ##########
+    # cutting
+    ##########
+    
+    

@@ -11,22 +11,22 @@ import useful_things as ut
 
 
 
-num_folder = "16";
-case_name = "dump_10";  # case
+num_folder = "";
+case_name = "1000";  # case
 
-num_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]; # names
+num_names = ["0", "1", "2", "3", "4"]; # names
 
 
 for num_name in num_names:
 
     # MASK
-    filename1 = 'C://Users//azer//OneDrive - University of Waterloo//__new_results__//' + num_folder + "_" + case_name + '_' + num_name +'//dist_mask.csv';
+    filename1 = 'C://Users//azer//OneDrive - University of Waterloo//dump_results_02//' + num_folder + "" + case_name + '_' + num_name +'//dist_mask.csv';
     csv_data1 = pd.read_csv(filename1, sep=',',header=None);
     #print filename1;
     mask_vals = csv_data1.values[:,0];
     
     # SDF
-    filename2 = 'C://Users//azer//OneDrive - University of Waterloo//__new_results__//' + num_folder + "_" + case_name + '_' + num_name +'//dist_all.csv';
+    filename2 = 'C://Users//azer//OneDrive - University of Waterloo//dump_results_02//' + num_folder + "" + case_name + '_' + num_name +'//dist_all.csv';
     csv_data2 = pd.read_csv(filename2, sep=',',header=None);
     #print filename2;
     sdf_vals = csv_data2.values[:,0];

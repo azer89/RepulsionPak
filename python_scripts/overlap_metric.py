@@ -10,9 +10,9 @@ import useful_things as ut
 
 d_gap = 5.75;
 num_folder = "";
-case_name = "5";  # case
+case_name = "1000";  # case
 num_names = ["0", "1", "2", "3", "4"];
-container_area = 146721;
+container_area = 135700.0;
 
 r_vals = np.arange(0.0, 40, 0.1);
 
@@ -27,6 +27,12 @@ for num_name in num_names:
     filename3 = 'C://Users//azer//OneDrive - University of Waterloo//dump_results_02//' + num_folder + "" + case_name + '_' + num_name +'//dist_3.csv';
     csv_data3 = pd.read_csv(filename3, sep=',',header=None);
     area_vals_3 = csv_data3.values[:,0];
+    scp_vals = [];
+    for i in range(0, len(area_vals_3)):
+        scp_vals.append(1.0 - (area_vals_3[i] / container_area) );
+        
+    str_vals = "scf_vals_" + case_name + "_" + num_name + " = scp_vals";
+    exec(str_vals);
     
     # 4
     #filename4 = 'C://Users//azer//OneDrive - University of Waterloo//__new_results__//' + num_folder + "_" + case_name + '_' + num_name +'//dist_4.csv';

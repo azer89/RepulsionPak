@@ -60,6 +60,10 @@ void ContainerWorker::LoadContainer(CollissionGrid* cGrid)
 
 	_container_length = UtilityFunctions::CurveLengthClosed(_container_boundaries[0]); // 1
 	std::cout << "_container_length=" << _container_length << "\n";
+
+	OpenCVWrapper cvWRap;
+	std::cout << "container area = " << cvWRap.GetAreaOriented(_container_boundaries[0]) << "\n";
+	
 	
 	// ---------- resampled ----------
 	//SystemParams::_resample_gap_float = _container_length / (float)SystemParams::_resample_num;

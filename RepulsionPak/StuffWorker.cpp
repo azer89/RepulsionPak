@@ -1742,7 +1742,7 @@ void StuffWorker::CalculateMetrics()
 	PathIO pIO;
 	pIO.SaveSDF2CSV(_offsetVals2, SystemParams::_save_folder + "dist_2.csv");
 	pIO.SaveSDF2CSV(_offsetVals3, SystemParams::_save_folder + "dist_3.csv");
-	pIO.SaveSDF2CSV(_negVals,     SystemParams::_save_folder + "dist_5_offset_container_d_gap.csv");
+	pIO.SaveSDF2CSV(_negVals,     SystemParams::_save_folder + "dist_4.csv");
 
 }
 

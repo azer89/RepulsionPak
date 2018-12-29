@@ -59,9 +59,9 @@ int main(int argc, char **argv)
 		std::cout << "param9: "  << param9  << std::endl;
 		std::cout << "param10: " << param10 << std::endl;
 
-		Display::GetInstance()->_sWorker._man_neg_ratio = param1;
-		SystemParams::_k_edge = param2;
-		SystemParams::_k_neg_space_edge = param2; // WHAAAAAT
+		//Display::GetInstance()->_sWorker._man_neg_ratio = param1;
+		//SystemParams::_k_edge = param2;
+		//SystemParams::_k_neg_space_edge = param2; // WHAAAAAT
 		Display::GetInstance()->_sWorker._sim_timeout = param3;
 
 		Display::GetInstance()->DeleteFolders();

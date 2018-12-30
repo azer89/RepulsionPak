@@ -459,7 +459,7 @@ void Display::Draw()
 	//ImGui::Text(("Deformation: " + std::to_string(_sWorker._deformationValue)).c_str());
 
 	ImGui::Text(("Average skin offset: " + std::to_string(_sWorker._avgSkinThickness)).c_str());
-	//ImGui::Text(("# Growing elements: " + std::to_string(_sWorker._numGrowingElement) + " / " + std::to_string(_sWorker._graphs.size())).c_str());
+	ImGui::Text(("# Growing elements: " + std::to_string(_sWorker._numGrowingElement) + " / " + std::to_string(_sWorker._graphs.size())).c_str());
 
 	
 		

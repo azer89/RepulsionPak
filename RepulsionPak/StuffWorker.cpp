@@ -503,7 +503,7 @@ void StuffWorker::ProcessOrnaments()
 		int idx = a % _oriGraphs.size();
 
 		// uncomment this if you want repetition
-		//if (oriGraphFlags[idx]) { continue; }
+		if (oriGraphFlags[idx]) { continue; }
 
 		AGraph g = ProcessAnOrnament(_oriGraphs[idx],
 			                         _containerWorker->_randomPositions[a],

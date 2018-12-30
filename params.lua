@@ -1,16 +1,16 @@
 
 ---------- Physics-Pak ----------
 --- Title of the window
-_window_title = "1" 
+_window_title = "3" 
 --- A directory where we have to save output files
 _save_folder  = "C:\\Users\\azer\\OneDrive\\Images\\PhysicsPak_Snapshots_0" .. _window_title .. "\\"
 
 
 ------ folders ------
 _image_folder         = "C:\\Users\\azer\\OneDrive\\Images\\";	--- where all the input files are located
-_artName              = "pp_circle"; --- pp_lolwut	--- location of the container
-_manual_art_name      = "boxes_c_layered";	--- manually drawn packing (for evaluation)
-_ornament_dir         = _image_folder .. "opp_b_dump";		--- regular elements
+_artName              = "pp_balabolka"; --- pp_lolwut	--- location of the container
+_manual_art_name      = "man_balabolka_new";	--- manually drawn packing (for evaluation)
+_ornament_dir         = _image_folder .. "opp_b_balabolka_2";		--- regular elements
 _ornament_dir_small_1 = _image_folder .. "opp_s_balabolka"; --- filling elements (the elements to fill the remaining empty space after the simulation ends)
 
 ---------------------------------------------------------------------
@@ -23,7 +23,7 @@ _pad_level = 5;
 _pad_delta = 0.2;
 ---------------------------------------------------------------------
 
-_do_shape_matching = false;
+_do_shape_matching = true;
 
 -- 0.349066 is 20 deg
 
@@ -40,7 +40,7 @@ _resample_gap_float = 1.0;
 _resample_num       = 5000; --- curve resampling (how many points)
 
 _container_salient_gap = 100;
-_random_point_gap      = 1;   --- gap of random initial placement
+_random_point_gap      = 5;   --- gap of random initial placement
 
 ---------------------------------------------------------------------
 --- WARNING, should be no whitespace before/after commas
@@ -86,7 +86,7 @@ _seed = -1; --- negative means random
 --- larger the number, more elements you get,
 --- but the simulation time gets slower
 _num_element_pos       = 700;
-_num_element_pos_limit = 27;
+_num_element_pos_limit = 77;
 
 --- Time step for numerical integration (euler method)
 _dt = 0.05;    --- do not set this higher than 0.1
@@ -103,13 +103,13 @@ _dt = 0.05;    --- do not set this higher than 0.1
 --- _noise_map_update_time = 10000000; --- in ms (disabled)
 
 --- Force parameters
-_k_edge                = 10;	--- edge force for filling elements
-_k_neg_space_edge      = 10;	--- edge force for springs
-_k_edge_small_factor   = 24;
-_k_repulsion           = 40;	--- repulsion force
+_k_neg_space_edge      = 7;	--- edge force for springs
+_k_edge                = 7;	--- edge force for filling elements
+_k_edge_small_factor   = 12;
+_k_repulsion           = 100;	--- repulsion force
 _repulsion_soft_factor = 1.0;	--- soft factor for repulsion force
-_k_overlap             = 40;	--- overlap force
-_k_boundary            = 40;	--- boundary force
+_k_overlap             = 0.1;	--- overlap force
+_k_boundary            = 50;	--- boundary force
 _k_noise               = 0;
 _k_rotate              = 0;		--- 1
 _k_dock                = 100;
@@ -129,18 +129,18 @@ _focal_offset = 2;
 
 --- for preprocessing
 --- skin width
-
-_skin_offset                = 12;  
+_skin_offset                = 5.5;  
 --- density of random points inside the skin
 --- if the density is higher, you get more triangles
-_sampling_num               = 500;
+_sampling_num               = 18000;
 --- uniform sampling on the skin
 _boundary_sampling_factor   = 1.5;  -- [Do not edit]
 ---_should_recalculate_element = true;
 
+
 --- Grid for collision detection
 --- size of a cell
-_bin_square_size         = 50.0;
+_bin_square_size         = 100.0;
 --- cell gap for detection, 
 --- 1 means considering all cells that are 1 block away from the query (3x3)
 --- 2 means considering all cells that are 2 block away from the query (5x5)
@@ -148,15 +148,15 @@ _collission_block_radius = 1;
 
 --- for growing
 --- incremetal step for growing
-_growth_scale_iter     = 0.005;
+_growth_scale_iter     = 0.00412;
 --- initial scale after placing the elements inside the target container
-_element_initial_scale = 0.03; 
+_element_initial_scale = 0.20; 
 --- epsilon for halting the growth
-_growth_min_dist       = 0.0001; 
+_growth_min_dist       = 0.001; 
 
-_growth_threshold_a  = 0.05;   --- threshold to be careful
-_growth_threshold_b  = 0.0001; --- threshold to stop the simulation
-_growth_scale_iter_2 = 0.003;
+_growth_threshold_a = 0.02;
+_growth_threshold_b = 0.0001;
+_growth_scale_iter_2 = 0.0003;
 
 --- initial placement
 --- how far away from the boundary so that the protusion cannot be too far
@@ -180,11 +180,11 @@ _downscaleFactor = 1.0 / _upscaleFactor;
 --- for example, if you set it to 1000, 
 --- it creates an SVG file every 1 second
 _svg_snapshot_capture_time = 1000000000;  
-_png_snapshot_capture_time = 1000000000;  --- PNG capture time (in milisecond)
+_png_snapshot_capture_time = 50000;  --- PNG capture time (in milisecond)
 _sdf_capture_time          = 1000000000;  --- SDF (Signed distance function) capture time (in milisecond)
 
 --- RMS (Root of mean square) capture time
  
 _rms_capture_time = 1000;  --- it is set to 1 second
 _rms_window       = 50;    --- Window length is 50
-_rms_threshold    = 0.01;  --- RMS stopping criteria
+_rms_threshold    = 0.02;  --- RMS stopping criteria

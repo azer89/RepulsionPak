@@ -22,17 +22,17 @@ ax = plt.gca();
 ax.set_xlim(0, 24);
 
 # 1000
-num_folder = "16";
+num_folder = "20";
 case_name = "dump_1000";  # case
-num_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-
+num_names = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+"""
 for num_name in num_names:
     str_cmd = "data_array = " "scf_vals_" + case_name + "_" + num_name;
     print str_cmd;
     exec(str_cmd);
     
     data_array = [x for x in data_array if x != 0];
-    gradiet_array = np.gradient(data_array);
+    gradiet_array = np.abs( np.gradient(data_array) );
     idx_array = r_vals[:len(gradiet_array)];
     
     plt.plot(idx_array, np.asarray(gradiet_array), 'r', linewidth=1);
@@ -46,23 +46,24 @@ for num_name in num_names:
     exec(str_cmd);
     
     data_array = [x for x in data_array if x != 0];
-    gradiet_array = np.gradient(data_array);
+    gradiet_array = np.abs( np.gradient(data_array) );
     idx_array = r_vals[:len(gradiet_array)];
     
     plt.plot(idx_array, np.asarray(gradiet_array), 'g', linewidth=1);
- 
+ """
     
-case_name = "dump_10";  # case
+case_name = "dump_5";  # case
 for num_name in num_names:
     str_cmd = "data_array = " "scf_vals_" + case_name + "_" + num_name;
     print str_cmd;
     exec(str_cmd);
     
     data_array = [x for x in data_array if x != 0];
-    gradiet_array = np.gradient(data_array);
+    gradiet_array = np.abs( np.gradient(data_array) );
     idx_array = r_vals[:len(gradiet_array)];
     
     plt.plot(idx_array, np.asarray(gradiet_array), 'b', linewidth=1);
 
-plt.title(r"Histogram of distance function");
+
+plt.title(r"Histogram");
 plt.show();

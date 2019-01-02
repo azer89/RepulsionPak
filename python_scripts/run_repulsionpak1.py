@@ -45,8 +45,8 @@ if __name__ == "__main__":
         # 1st parameter is target 0.47
         # 2nd parameter is k_edge
         # 3rd param is timeout (miliseconds)
-        os.system("C://Users//azer//workspace//RepulsionPak_SCP//Release//RepulsionPak.exe 0.44 1000 1000000 4 5 6 7 8 9 10");
-        ret_dir = "C://Users//azer//OneDrive - University of Waterloo//__new_results__//20_dump_1000_" + str(i_iter);
+        os.system("C://Users//azer//workspace//RepulsionPak_SCP//Release//RepulsionPak.exe 0.435 1000 1000000 4 5 6 7 8 9 10");
+        ret_dir = "C://Users//azer//OneDrive - University of Waterloo//dump_results_01//1000_" + str(i_iter);
         print ret_dir;
         copytree("C://Users//azer//OneDrive//Images//PhysicsPak_Snapshots_01", ret_dir);
         

@@ -11,10 +11,10 @@ import useful_things as ut
 
 
 
-num_folder = "16";
-case_name = "dump_10";  # case
+num_folder = "20";
+case_name = "dump_5";  # case
 
-num_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]; # names
+num_names = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]; # names
 
 
 for num_name in num_names:

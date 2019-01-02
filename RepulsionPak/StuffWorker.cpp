@@ -1733,7 +1733,7 @@ void StuffWorker::CalculateMetrics()
 		}
 
 		// draw
-		DrawAccumulationBuffer(accumulationBuffer, startColor, offVal, area2 - area3, saveIter++);
+		//DrawAccumulationBuffer(accumulationBuffer, startColor, offVal, area2 - area3, saveIter++);
 
 		std::cout << offVal << " --> " << area2 - area3 << "\n";
 

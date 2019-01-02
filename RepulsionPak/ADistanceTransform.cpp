@@ -319,9 +319,9 @@ void ADistanceTransform::CalculateSDF2(const std::vector<AGraph>& graphs, Collis
 
 			
 			////// exclude container
-			float minDist = std::numeric_limits<float>::max();
+			//float minDist = std::numeric_limits<float>::max();
 			////// include container
-			//float minDist = containerDistVal; 
+			float minDist = containerDistVal; 
 
 			bool isInside = false;
 			for (unsigned int a = 0; a < graphIndices.size(); a++)
@@ -439,9 +439,9 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 			overlapMask[xIter + yIter * _sz] = 0; // (Overlap Mask) 
 
 			////// exclude container
-			float minDist = std::numeric_limits<float>::max(); 
+			//float minDist = std::numeric_limits<float>::max(); 
 			////// include container
-			//float minDist = containerDistVal; 
+			float minDist = containerDistVal; 
 			
 			
 			bool isInside = false;
@@ -518,6 +518,8 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 	{
 		if (_maxDist < _distArray[a]) { _maxDist = _distArray[a]; }
 	}
+
+	std::cout << "_maxDist = " << _maxDist << "\n";
 
 
 }

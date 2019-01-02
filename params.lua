@@ -1,7 +1,7 @@
 
 ---------- Physics-Pak ----------
 --- Title of the window
-_window_title = "3" 
+_window_title = "1" 
 --- A directory where we have to save output files
 _save_folder  = "C:\\Users\\azer\\OneDrive\\Images\\PhysicsPak_Snapshots_0" .. _window_title .. "\\"
 
@@ -9,7 +9,7 @@ _save_folder  = "C:\\Users\\azer\\OneDrive\\Images\\PhysicsPak_Snapshots_0" .. _
 ------ folders ------
 _image_folder         = "C:\\Users\\azer\\OneDrive\\Images\\";	--- where all the input files are located
 _artName              = "pp_balabolka"; --- pp_lolwut	--- location of the container
-_manual_art_name      = "man_balabolka_tvcg_3";	--- manually drawn packing (for evaluation)
+_manual_art_name      = "man_balabolka";	--- manually drawn packing (for evaluation)
 _ornament_dir         = _image_folder .. "opp_b_balabolka_2";		--- regular elements
 _ornament_dir_small_1 = _image_folder .. "opp_s_balabolka"; --- filling elements (the elements to fill the remaining empty space after the simulation ends)
 
@@ -23,7 +23,7 @@ _pad_level = 5;
 _pad_delta = 0.2;
 ---------------------------------------------------------------------
 
-_do_shape_matching = true;
+_do_shape_matching = false;
 
 -- 0.349066 is 20 deg
 
@@ -103,10 +103,10 @@ _dt = 0.05;    --- do not set this higher than 0.1
 --- _noise_map_update_time = 10000000; --- in ms (disabled)
 
 --- Force parameters
-_k_edge                = 7;	--- edge force for filling elements
-_k_neg_space_edge      = 7;	--- edge force for springs
+_k_edge                = 5;	--- edge force for filling elements
+_k_neg_space_edge      = 5;	--- edge force for springs
 _k_edge_small_factor   = 12;
-_k_repulsion           = 100;	--- repulsion force
+_k_repulsion           = 70;	--- repulsion force
 _repulsion_soft_factor = 1.0;	--- soft factor for repulsion force
 _k_overlap             = 0.1;	--- overlap force
 _k_boundary            = 50;	--- boundary force
@@ -129,10 +129,10 @@ _focal_offset = 2;
 
 --- for preprocessing
 --- skin width
-_skin_offset                = 2.0;  
+_skin_offset                = 1.6;  
 --- density of random points inside the skin
 --- if the density is higher, you get more triangles
-_sampling_num               = 18000;
+_sampling_num               = 20000;
 --- uniform sampling on the skin
 _boundary_sampling_factor   = 1.5;  -- [Do not edit]
 ---_should_recalculate_element = true;
@@ -152,11 +152,11 @@ _growth_scale_iter     = 0.00412;
 --- initial scale after placing the elements inside the target container
 _element_initial_scale = 0.20; 
 --- epsilon for halting the growth
-_growth_min_dist       = 0.001; 
+_growth_min_dist       = 1; 
 
 _growth_threshold_a = 0.02;
 _growth_threshold_b = 0.0001;
-_growth_scale_iter_2 = 0.0003;
+_growth_scale_iter_2 = 0.00333;
 
 --- initial placement
 --- how far away from the boundary so that the protusion cannot be too far

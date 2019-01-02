@@ -93,7 +93,7 @@ StuffWorker::StuffWorker()
 	//CreateSquares();       // don't forget to change params.lua
 	//CreateManualPacking2();  // overlap metrics
 	//CreateManualPacking(); // SDF and stuff
-	//AnalyzeManualPacking();
+	AnalyzeManualPacking();
 
 
 	//MyColor::_black.Print();
@@ -503,7 +503,7 @@ void StuffWorker::ProcessOrnaments()
 		int idx = a % _oriGraphs.size();
 
 		// uncomment this if you want repetition
-		//if (oriGraphFlags[idx]) { continue; }
+		if (oriGraphFlags[idx]) { continue; }
 
 		AGraph g = ProcessAnOrnament(_oriGraphs[idx],
 			                         _containerWorker->_randomPositions[a],
@@ -1742,7 +1742,7 @@ void StuffWorker::CalculateMetrics()
 	PathIO pIO;
 	pIO.SaveSDF2CSV(_offsetVals2, SystemParams::_save_folder + "dist_2.csv");
 	pIO.SaveSDF2CSV(_offsetVals3, SystemParams::_save_folder + "dist_3.csv");
-	pIO.SaveSDF2CSV(_negVals,     SystemParams::_save_folder + "dist_5_offset_container_d_gap.csv");
+	pIO.SaveSDF2CSV(_negVals,     SystemParams::_save_folder + "dist_4.csv");
 
 }
 

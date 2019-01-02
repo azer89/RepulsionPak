@@ -50,5 +50,3 @@ if __name__ == "__main__":
         print ret_dir;
         copytree("C://Users//azer//OneDrive//Images//PhysicsPak_Snapshots_01", ret_dir);
         
-    
-        

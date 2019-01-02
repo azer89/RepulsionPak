@@ -286,6 +286,7 @@ void ADistanceTransform::CalculateFill(CollissionGrid* cGrid,
 
 }
 
+// USE THIS for your simulation
 void ADistanceTransform::CalculateSDF2(const std::vector<AGraph>& graphs, CollissionGrid* cGrid, int numIter, bool saveImage)
 {
 	int szsz = _sz * _sz;
@@ -316,7 +317,12 @@ void ADistanceTransform::CalculateSDF2(const std::vector<AGraph>& graphs, Collis
 
 			overlapMask[xIter + yIter * _sz] = 0; // (Overlap Mask) empty space
 
-			float minDist = containerDistVal;
+			
+			////// exclude container
+			float minDist = std::numeric_limits<float>::max();
+			////// include container
+			//float minDist = containerDistVal; 
+
 			bool isInside = false;
 			for (unsigned int a = 0; a < graphIndices.size(); a++)
 			{
@@ -403,8 +409,7 @@ void ADistanceTransform::CalculateSDF2(const std::vector<AGraph>& graphs, Collis
 
 }
 
-// use this
-// 
+// THIS is called by CreateManualPacking()
 void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool saveImage)
 {
 	int szsz = _sz * _sz;
@@ -434,9 +439,11 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 			overlapMask[xIter + yIter * _sz] = 0; // (Overlap Mask) 
 
 			////// exclude container
-			//float minDist = std::numeric_limits<float>::max(); 
+			float minDist = std::numeric_limits<float>::max(); 
 			////// include container
-			float minDist = containerDistVal; 
+			//float minDist = containerDistVal; 
+			
+			
 			bool isInside = false;
 			for (unsigned int a = 0; a < graphIndices.size(); a++)
 			{

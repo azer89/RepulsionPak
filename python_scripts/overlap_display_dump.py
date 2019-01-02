@@ -23,8 +23,8 @@ ax.set_xlim(0, 24);
 
 # 1000
 num_folder = "16";
-case_name = "dump_1000";  # case
-num_names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+case_name = "1000";  # case
+num_names = ["0", "1", "2", "3", "4"];
 
 for num_name in num_names:
     str_cmd = "data_array = " + "overlap_vals_" + case_name + "_" + num_name;
@@ -35,7 +35,7 @@ for num_name in num_names:
 
 
 # 250
-case_name = "dump_250";  # case
+case_name = "250";  # case
 for num_name in num_names:
     str_cmd = "data_array = " + "overlap_vals_" + case_name + "_" + num_name;
     print str_cmd;
@@ -43,7 +43,7 @@ for num_name in num_names:
     
     plt.plot(r_vals, np.asarray(data_array), 'g', linewidth=1);
     
-case_name = "dump_10";  # case
+case_name = "5";  # case
 for num_name in num_names:
     str_cmd = "data_array = " + "overlap_vals_" + case_name + "_" + num_name;
     print str_cmd;

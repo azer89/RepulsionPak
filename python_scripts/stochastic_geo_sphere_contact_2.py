@@ -12,6 +12,7 @@ import statistics as stat
 
 
 num_folder = "";
+
 case_names = ["balabolka"];  # case
 
 num_names = ["02", "man2x"]; # names

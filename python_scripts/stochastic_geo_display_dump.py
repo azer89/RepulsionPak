@@ -21,7 +21,7 @@ plt.clf();
 ax = plt.gca();
 ax.set_xlim(0, 10);
 
-
+"""
 # 1000
 num_folder = "";
 case_name = "1000";  # case
@@ -50,6 +50,7 @@ for num_name in num_names:
     idx_array = r_vals[:len(data_array)];
     
     plt.plot(idx_array, np.asarray(data_array), 'g', linewidth=1);
+"""
 
 
 """
@@ -65,6 +66,6 @@ for num_name in num_names:
     plt.plot(idx_array, np.asarray(data_array), 'b', linewidth=1);
 
 
-
 plt.title(r"SCPs of all");
+
 plt.show();

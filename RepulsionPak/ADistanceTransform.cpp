@@ -406,6 +406,16 @@ void ADistanceTransform::CalculateSDF2(const std::vector<AGraph>& graphs, Collis
 		if (_maxDist < _distArray[a]) { _maxDist = _distArray[a]; }
 	}
 
+	if (SystemParams::_output_files)
+	{
+		std::vector<float> dummyARray;
+		dummyARray.push_back(0);
+		std::stringstream ss666;
+		ss666 << "dist_max_is_" << _maxDist << ".csv";
+		PathIO pathIO;
+		pathIO.SaveSDF2CSV(dummyARray, SystemParams::_save_folder + ss666.str());
+	}
+
 
 }
 
@@ -503,11 +513,12 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 		pathIO.SaveSDF2CSV(_containerDistArray, SystemParams::_save_folder + "dist_mask.csv");
 	}
 
-	// THINNING
+
 	/*CVImg thinningImage;
 	std::stringstream ss3;
 	ss3 << "thin_" << numIter;
 	thinningImage = SkeletonDistance(overlapMask, ss3.str());*/
+	
 
 	// create new elements !!!!
 	CalculatePeaks();
@@ -518,6 +529,18 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 	{
 		if (_maxDist < _distArray[a]) { _maxDist = _distArray[a]; }
 	}
+
+	if (SystemParams::_output_files)
+	{
+		std::vector<float> dummyARray;
+		dummyARray.push_back(0);
+		std::stringstream ss666;
+		ss666 << "dist_max_is_" << _maxDist << ".csv";
+		PathIO pathIO;
+		pathIO.SaveSDF2CSV(dummyARray, SystemParams::_save_folder + ss666.str());
+	}
+
+	std::cout << "_maxDist = " << _maxDist << "\n";
 
 
 }

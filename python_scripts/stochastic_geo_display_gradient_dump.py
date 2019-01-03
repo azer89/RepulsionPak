@@ -35,7 +35,9 @@ for num_name in num_names:
     exec(str_cmd);
     
     data_array = [x for x in data_array if x != 0];
+
     gradiet_array = np.abs(np.gradient(data_array));
+
     idx_array = r_vals[:len(gradiet_array)];
     
     plt.plot(idx_array, np.asarray(gradiet_array), 'r', linewidth=1);
@@ -49,12 +51,14 @@ for num_name in num_names:
     exec(str_cmd);
     
     data_array = [x for x in data_array if x != 0];
-    gradiet_array = np.abs(np.gradient(data_array));
+
+    gradiet_array = np.abs( np.gradient(data_array) );
     idx_array = r_vals[:len(gradiet_array)];
     
     plt.plot(idx_array, np.asarray(gradiet_array), 'g', linewidth=1);
+ """
+    
 
-"""
 case_name = "5";  # case
 for num_name in num_names:
     str_cmd = "data_array = " "scf_vals_" + case_name + "_" + num_name;
@@ -63,12 +67,10 @@ for num_name in num_names:
     
     data_array = [x for x in data_array if x != 0];
     gradiet_array = np.abs(np.gradient(data_array));
+
     idx_array = r_vals[:len(gradiet_array)];
     
     plt.plot(idx_array, np.asarray(gradiet_array), 'b', linewidth=1);
 
-
-
-
-plt.title(r"Histogram of distance function");
+plt.title(r"Histogram");
 plt.show();

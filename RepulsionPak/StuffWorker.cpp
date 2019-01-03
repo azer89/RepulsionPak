@@ -1722,8 +1722,9 @@ void StuffWorker::CalculateMetrics()
 		float offContainerArea = cvWRap.GetAreaOriented(offset_container); // area of the offset container
 		float area4 = 0; // area of the entire elements
 		std::vector<std::vector<AVector>> offsetElements4 = ClipperWrapper::ClipElementsWithContainer(offsetElements3_temp, offset_container, area4);
-		//_negVals.push_back( (offContainerArea - area4) / offContainerArea); // ratio of neg space using offset container
+
 		_negVals.push_back((offContainerArea - area4) / containerArea); // IS THIS CORRECT ? ratio of neg space using offset container
+		
 
 		// draw
 		if (saveSVGD)
@@ -1734,7 +1735,7 @@ void StuffWorker::CalculateMetrics()
 		}
 
 		// draw
-		DrawAccumulationBuffer(accumulationBuffer, startColor, offVal, area2 - area3, saveIter++);
+		//DrawAccumulationBuffer(accumulationBuffer, startColor, offVal, area2 - area3, saveIter++);
 
 		std::cout << offVal << "\n";
 		//std::cout << offContainerArea << "\n";

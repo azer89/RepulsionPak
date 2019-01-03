@@ -5,7 +5,7 @@ import matplotlib.pylab as plt
 
 import useful_things as ut
 
-h_gap = 0.2;
+h_gap = 0.1;
 r_vals = np.arange(h_gap, 20, h_gap);
 r_vals = np.insert(r_vals, 0, 0);
 
@@ -14,14 +14,16 @@ fig3 = plt.figure(1);
 fig3.patch.set_facecolor('white');
 plt.clf();
 ax = plt.gca();
+#ax.set_xlim(0, 15.5);
+#ax.set_ylim(-0.01, 0.55);
 
 
-green_array = scf_vals_pad_05;
-red_array   = scf_vals_pad_man2x;
+green_array = scf_vals_balabolka_01;
+red_array   = scf_vals_balabolka_man2x;
 
 #blue_array = [x for x in blue_array if x != 0]
-green_array = [x for x in green_array if x != 0];
-red_array = [x for x in red_array if x != 0];
+green_array = [x for x in green_array if x >= 1e-5];
+red_array = [x for x in red_array if x >= 1e-5];
 
 green_idx = r_vals[:len(green_array)];
 red_idx = r_vals[:len(red_array)];
@@ -29,7 +31,7 @@ red_idx = r_vals[:len(red_array)];
 plt.plot(red_idx, np.asarray(red_array), 'r', linewidth=1);
 plt.plot(green_idx, np.asarray(green_array), 'g', linewidth=1);
 
-plt.plot([5.746, 5.746], [0, 0.5], 'k--')
+#plt.plot([5.747, 5.747], [0, 0.5], 'k')
 
 #plt.plot(r_vals, np.asarray(scf_vals_boxes_e), 'b', linewidth=1);
 #plt.plot(r_vals, np.asarray(scf_vals_balabolka_man8x), 'r', linewidth=1.0);

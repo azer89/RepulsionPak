@@ -9,16 +9,16 @@ import statistics as stat
 import useful_things as ut
 
 d_gap      = 5.75;
-num_folder = "13";
-case_name  = "pad";  # case
-num_names  = ["man2x", "05"]; # names
+num_folder = "";
+case_name  = "balabolka";  # case
+num_names  = ["01", "man2x"]; # names
 
 
-r_vals = np.arange(0.0, 20, 0.2);
+#r_vals = np.arange(0.0, 20, 0.2);
 
 for num_name in num_names:
     ### 5
-    filename5 = 'C://Users//azer//OneDrive - University of Waterloo//__new_results__//' + num_folder + "_" + case_name + '_' + num_name +'//dist_5_offset_container_d_gap.csv';
+    filename5 = 'C://Users//azer//OneDrive - University of Waterloo//dump_results_06//' + num_folder + "" + case_name + '_' + num_name +'//dist_4.csv';
     print filename5;
     csv_data5 = pd.read_csv(filename5, sep=',',header=None);
     neg_area_vals_5 = csv_data5.values[:,0];
@@ -27,11 +27,11 @@ for num_name in num_names:
     for i in range(0, len(neg_area_vals_5)):
         negative_list_wrong.append(neg_area_vals_5[i]);
         
-    str_vals4 = "scp_vals_" + case_name + "_" + num_name + " = negative_list_wrong";
+    str_vals4 = "scf_vals_" + case_name + "_" + num_name + "= negative_list_wrong";
     exec(str_vals4);
     
 
-
+"""
 ###########################################################################
 fig3 = plt.figure(1);
 fig3.patch.set_facecolor('white')
@@ -60,6 +60,6 @@ plt.plot(green_idx, green_array, 'g', linewidth=1);
 
 plt.title(r"SCP with offset");
 plt.show();
-
+"""
 
 

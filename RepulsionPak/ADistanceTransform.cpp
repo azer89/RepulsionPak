@@ -319,9 +319,9 @@ void ADistanceTransform::CalculateSDF2(const std::vector<AGraph>& graphs, Collis
 
 			
 			////// exclude container
-			float minDist = std::numeric_limits<float>::max();
+			//float minDist = std::numeric_limits<float>::max();
 			////// include container
-			//float minDist = containerDistVal; 
+			float minDist = containerDistVal; 
 
 			bool isInside = false;
 			for (unsigned int a = 0; a < graphIndices.size(); a++)
@@ -378,10 +378,10 @@ void ADistanceTransform::CalculateSDF2(const std::vector<AGraph>& graphs, Collis
 	}
 
 	// THINNING
-	CVImg thinningImage;
+	/*CVImg thinningImage;
 	std::stringstream ss3;
 	ss3 << "thin_" << numIter;
-	thinningImage = SkeletonDistance(overlapMask, ss3.str());
+	thinningImage = SkeletonDistance(overlapMask, ss3.str());*/
 
 	std::stringstream ss6;
 	ss6 << "dist_" << numIter;
@@ -439,9 +439,9 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 			overlapMask[xIter + yIter * _sz] = 0; // (Overlap Mask) 
 
 			////// exclude container
-			float minDist = std::numeric_limits<float>::max(); 
+			//float minDist = std::numeric_limits<float>::max(); 
 			////// include container
-			//float minDist = containerDistVal; 
+			float minDist = containerDistVal; 
 			
 			
 			bool isInside = false;
@@ -504,10 +504,10 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 	}
 
 	// THINNING
-	CVImg thinningImage;
+	/*CVImg thinningImage;
 	std::stringstream ss3;
 	ss3 << "thin_" << numIter;
-	thinningImage = SkeletonDistance(overlapMask, ss3.str());
+	thinningImage = SkeletonDistance(overlapMask, ss3.str());*/
 
 	// create new elements !!!!
 	CalculatePeaks();

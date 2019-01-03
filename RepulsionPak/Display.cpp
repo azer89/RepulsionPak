@@ -367,7 +367,7 @@ void Display::Draw()
 				if (SystemParams::_output_files)
 				{
 					_sWorker.CalculateSDF(_sdf_int_counter++, false); // can be REMOVED
-					_sWorker.AnalyzeFinishedPacking();
+					//_sWorker.AnalyzeFinishedPacking();
 					_sWorker.SaveGraphs();
 
 					// === can be REMOVED ===

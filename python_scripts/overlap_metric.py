@@ -8,23 +8,23 @@ import statistics as stat
 
 import useful_things as ut
 
-d_gap = 5.75;
+#d_gap = 5.75;
 num_folder = "";
-case_name = "1000";  # case
-num_names = ["0", "1", "2", "3", "4"];
-container_area = 135700.0;
+case_name = "pad";  # case
+num_names = ["02", "man2x"];
+container_area = 146721.0;
 
-r_vals = np.arange(0.0, 40, 0.1);
+r_vals = np.arange(0.0, 20, 0.1);
 
 for num_name in num_names:
 
     # 2
-    filename2 = 'C://Users//azer//OneDrive - University of Waterloo//dump_results_02//' + num_folder + "" + case_name + '_' + num_name +'//dist_2.csv';
+    filename2 = 'C://Users//azer//OneDrive - University of Waterloo//dump_results_06//' + num_folder + "" + case_name + '_' + num_name +'//dist_2.csv';
     csv_data2 = pd.read_csv(filename2, sep=',',header=None);
     area_vals_2 = csv_data2.values[:,0];
     
     # 3
-    filename3 = 'C://Users//azer//OneDrive - University of Waterloo//dump_results_02//' + num_folder + "" + case_name + '_' + num_name +'//dist_3.csv';
+    filename3 = 'C://Users//azer//OneDrive - University of Waterloo//dump_results_06//' + num_folder + "" + case_name + '_' + num_name +'//dist_3.csv';
     csv_data3 = pd.read_csv(filename3, sep=',',header=None);
     area_vals_3 = csv_data3.values[:,0];
     scp_vals = [];
@@ -71,27 +71,31 @@ for num_name in num_names:
     exec(str_vals);
 
 ###########################################################################
-"""
+
+
 fig3 = plt.figure(1);
 fig3.patch.set_facecolor('white')
 plt.clf();
 ax = plt.gca();
+ax.set_xlim(0, 15.5);
+ax.set_ylim(-0.01, 0.7);
 
 plt.ylabel("overlap area");
 plt.xlabel("polygon offset");
 
 #input
-green_array = np.asarray(overlap_vals_pad_01);
-red_array = np.asarray(overlap_vals_pad_man2x);  
+green_array = np.asarray(overlap_vals_pad_02) / container_area;
+red_array = np.asarray(overlap_vals_pad_man2x) / container_area;  
 
 plt.plot(r_vals, np.asarray(green_array), 'g', linewidth=1);
 plt.plot(r_vals, np.asarray(red_array), 'r', linewidth=1);
 
-plt.plot([d_gap, d_gap], [0, 140000], 'k--')
+#plt.plot([d_gap, d_gap], [0, 0.7], 'k')
 
 plt.title(r"Overlap. PAD (red) vs RepulsionPak (green)");
 plt.show();
-"""
+
+
 
 '''
 ###########################################################################

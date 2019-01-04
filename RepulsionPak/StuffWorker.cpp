@@ -91,9 +91,9 @@ StuffWorker::StuffWorker()
 	//OpenCVWrapper _cvWrapper;
 
 	//CreateSquares();       // don't forget to change params.lua
-	//CreateManualPacking2();  // overlap metrics
+	CreateManualPacking2();  // overlap metrics
 	//CreateManualPacking(); // SDF and stuff
-	AnalyzeManualPacking();
+	//AnalyzeManualPacking();
 
 
 	//MyColor::_black.Print();
@@ -1116,7 +1116,7 @@ void StuffWorker::CalculateFillAndRMS()
 
 	//_aDTransform->UpdateBoundaries(_graphs);
 	//_aDTransform->CalculateFill(_cGrid, _fill_ratio, numIter, saveImage);
-	_fill_ratio = ClipperWrapper::CalculateFill(_containerWorker->_container_boundaries[0], _graphs);
+	_fill_ratio = ClipperWrapper::CalculateFill(_containerWorker->_container_boundaries[0], _graphs); //  uniuniart
 
 	_fill_ratio_array.push_back(_fill_ratio);
 	int sz = SystemParams::_rms_window + 1;
@@ -1614,7 +1614,7 @@ void StuffWorker::CalculateMetrics()
 {
 	// parameter
 	float maxOffVal  = 20;
-	float offValIter = 0.05;
+	float offValIter = 0.1;
 
 	bool saveSVGA = false; // elements without offset
 	bool saveSVGB = false;  // overlap
@@ -1722,7 +1722,9 @@ void StuffWorker::CalculateMetrics()
 		float offContainerArea = cvWRap.GetAreaOriented(offset_container); // area of the offset container
 		float area4 = 0; // area of the entire elements
 		std::vector<std::vector<AVector>> offsetElements4 = ClipperWrapper::ClipElementsWithContainer(offsetElements3_temp, offset_container, area4);
-		_negVals.push_back( (offContainerArea - area4) / containerArea); // ratio of neg space using offset container
+
+		_negVals.push_back((offContainerArea - area4) / containerArea); // IS THIS CORRECT ? ratio of neg space using offset container
+		
 
 		// draw
 		if (saveSVGD)
@@ -1735,14 +1737,16 @@ void StuffWorker::CalculateMetrics()
 		// draw
 		//DrawAccumulationBuffer(accumulationBuffer, startColor, offVal, area2 - area3, saveIter++);
 
-		std::cout << offVal << " --> " << area2 - area3 << "\n";
+		std::cout << offVal << "\n";
+		//std::cout << offContainerArea << "\n";
+		//std::cout << offVal << " --> " << area2 - area3 << "\n";
 
 	} // end for (float offVal = 0.0f; offVal < maxOffVal; offVal += offValIter)
 
 	PathIO pIO;
-	pIO.SaveSDF2CSV(_offsetVals2, SystemParams::_save_folder + "dist_2.csv");
-	pIO.SaveSDF2CSV(_offsetVals3, SystemParams::_save_folder + "dist_3.csv");
-	pIO.SaveSDF2CSV(_negVals,     SystemParams::_save_folder + "dist_4.csv");
+	pIO.SaveSDF2CSV(_offsetVals2, SystemParams::_save_folder + "dist_2.csv"); // for overlap metric
+	pIO.SaveSDF2CSV(_offsetVals3, SystemParams::_save_folder + "dist_3.csv"); // for overlap metric
+	pIO.SaveSDF2CSV(_negVals,     SystemParams::_save_folder + "dist_4.csv"); // for scp
 
 }
 

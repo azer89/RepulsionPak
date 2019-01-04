@@ -1,34 +1,34 @@
 import numpy as np
 import matplotlib.pylab as plt
 #import scipy.stats as stats
-import pandas as pd
+#import pandas as pd
 
 import sys
 import statistics as stat
 
-import useful_things as ut
+#import useful_things as ut
 
 
 
 
+num_folder = "";
 
-num_folder = "09";
 case_names = ["balabolka"];  # case
 
-num_names = ["man2x", "01"]; # names
+num_names = ["02", "man2x"]; # names
 
 for case_name in case_names:
     
     for num_name in num_names:
     
         # MASK
-        filename1 = 'C://Users//azer//OneDrive - University of Waterloo//__new_results__//' + num_folder + "_" + case_name + '_' + num_name +'//dist_mask.csv';
+        filename1 = 'C://Users//azer//OneDrive - University of Waterloo//dump_results_06//' + num_folder + "" + case_name + '_' + num_name +'//dist_mask.csv';
         csv_data1 = pd.read_csv(filename1, sep=',',header=None);
         #print filename1;
         mask_vals = csv_data1.values[:,0];
         
         # SDF
-        filename2 = 'C://Users//azer//OneDrive - University of Waterloo//__new_results__//' + num_folder + "_" + case_name + '_' + num_name +'//dist_all.csv';
+        filename2 = 'C://Users//azer//OneDrive - University of Waterloo//dump_results_06//' + num_folder + "" + case_name + '_' + num_name +'//dist_all.csv';
         csv_data2 = pd.read_csv(filename2, sep=',',header=None);
         #print filename2;
         sdf_vals = csv_data2.values[:,0];
@@ -79,8 +79,8 @@ for case_name in case_names:
         #######
         # stuff
         #######
-        h_gap = 0.25;
-        r_vals = np.arange(h_gap, 40, h_gap);
+        h_gap = 0.2;
+        r_vals = np.arange(h_gap, 20, h_gap);
         
         ###################################
         # calculate sphere contact function

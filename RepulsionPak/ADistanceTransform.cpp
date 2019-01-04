@@ -378,10 +378,10 @@ void ADistanceTransform::CalculateSDF2(const std::vector<AGraph>& graphs, Collis
 	}
 
 	// THINNING
-	CVImg thinningImage;
+	/*CVImg thinningImage;
 	std::stringstream ss3;
 	ss3 << "thin_" << numIter;
-	thinningImage = SkeletonDistance(overlapMask, ss3.str());
+	thinningImage = SkeletonDistance(overlapMask, ss3.str());*/
 
 	std::stringstream ss6;
 	ss6 << "dist_" << numIter;
@@ -513,11 +513,12 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 		pathIO.SaveSDF2CSV(_containerDistArray, SystemParams::_save_folder + "dist_mask.csv");
 	}
 
-	// THINNING
-	//CVImg thinningImage;
-	//std::stringstream ss3;
-	//ss3 << "thin_" << numIter;
-	//thinningImage = SkeletonDistance(overlapMask, ss3.str());
+
+	/*CVImg thinningImage;
+	std::stringstream ss3;
+	ss3 << "thin_" << numIter;
+	thinningImage = SkeletonDistance(overlapMask, ss3.str());*/
+	
 
 	// create new elements !!!!
 	CalculatePeaks();

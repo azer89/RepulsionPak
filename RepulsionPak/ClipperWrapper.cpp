@@ -937,6 +937,7 @@ float ClipperWrapper::CalculateFill(const std::vector<AVector>& container, const
 	 int numArt = 0;
 	 for (int a = 0; a < graphs.size(); a++)
 	 {
+		 // _uniuniArts
 		 numArt += graphs[a]._uniuniArts.size();
 	 }
 

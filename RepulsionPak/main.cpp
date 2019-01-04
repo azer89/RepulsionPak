@@ -85,6 +85,10 @@ int main(int argc, char **argv)
 		SystemParams::_seed %= 10000;
 	}
 
+	{ std::stringstream ss;
+	ss << "del " << SystemParams::_save_folder << "dist_max_is*";
+	std::system(ss.str().c_str()); }
+
 	srand(SystemParams::_seed);
 
 	//if (SystemParams::_seed <= 0)

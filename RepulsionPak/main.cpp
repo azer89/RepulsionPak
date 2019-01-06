@@ -82,7 +82,7 @@ int main(int argc, char **argv)
 		SystemParams::_seed %= 1000000;
 		SystemParams::_seed %= 1000000;
 		SystemParams::_seed %= 1000000;
-		SystemParams::_seed %= 10000;
+		SystemParams::_seed %= 1000000;
 	}
 
 	{ std::stringstream ss;
@@ -107,4 +107,3 @@ int main(int argc, char **argv)
 	
 	return 0;
 }
-

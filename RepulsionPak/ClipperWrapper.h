@@ -93,6 +93,9 @@ public:
 
 private:
 	//OpenCVWrapper _cvWrapper;
+
+public:
+	static float _cScaling;
 };
 
 #endif

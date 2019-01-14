@@ -62,7 +62,7 @@ void ContainerWorker::LoadContainer(CollissionGrid* cGrid)
 	std::cout << "_container_length=" << _container_length << "\n";
 
 	OpenCVWrapper cvWRap;
-	std::cout << "container area = " << cvWRap.GetAreaOriented(_container_boundaries[0]) << "\n";
+	std::cout << "____container area = " << cvWRap.GetAreaOriented(_container_boundaries[0]) << "\n";
 	
 	
 	// ---------- resampled ----------

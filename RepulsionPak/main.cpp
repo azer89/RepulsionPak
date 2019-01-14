@@ -14,6 +14,7 @@
 
 #include "Display.h"
 #include "ColorPalette.h"
+#include "ClipperWrapper.h" 
 
 
 
@@ -25,7 +26,8 @@ int main(int argc, char **argv)
 	// call this once
 
 	//Display::GetInstance()->DeleteFiles();
-	
+	ClipperWrapper::_cScaling = 1e10;
+
 	SystemParams::LoadParameters();
 	
 	// --- parameters ---

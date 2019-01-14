@@ -1157,6 +1157,27 @@ bool PathIO::DoesFileExist(std::string filename)
 	}
 }
 
+/*
+================================================================================
+================================================================================
+*/
+void PathIO::SaveSDF2CSV(std::vector<double> distArray, std::string filename)
+{
+	std::ofstream* f = new std::ofstream();
+	f->open(filename);
+
+	for (unsigned int a = 0; a < distArray.size(); a++)
+	{
+		//if (distArray[a] > 0)
+		//{
+		*f << std::setprecision(30) << distArray[a] << "\n";
+		//}
+	}
+
+	f->close();
+	delete f;
+}
+
 
 /*
 ================================================================================

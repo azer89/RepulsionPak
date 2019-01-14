@@ -9,6 +9,8 @@
 
 #include "clipper.hpp"
 
+float ClipperWrapper::_cScaling = 0;
+
 /*
 ================================================================================
 ================================================================================
@@ -33,7 +35,7 @@ the way it works, a XOR operation is performed, then followed by intersection op
 */
 std::vector<std::vector<AVector>> ClipperWrapper::XORIntersectionOperations(std::vector<AVector> targetShape, std::vector<std::vector<AVector>> clippingShapes)
 {
-	float cScaling = 1e10;
+	float cScaling = ClipperWrapper::_cScaling;
 
 	ClipperLib::Path cTargetShape;
 	ClipperLib::Paths cClippingShapes(clippingShapes.size());
@@ -89,7 +91,7 @@ std::vector<std::vector<AVector>> ClipperWrapper::XORIntersectionOperations(std:
 
 std::vector<AVector> ClipperWrapper::UnionOperation(std::vector<AVector> poly1, std::vector<AVector> poly2)
 {
-	float cScaling = 1e10;
+	float cScaling = ClipperWrapper::_cScaling;
 
 	ClipperLib::Path cTargetShape;
 	ClipperLib::Path cClippingShape;
@@ -142,7 +144,7 @@ std::vector<AVector> ClipperWrapper::UnionOperation(std::vector<std::vector<AVec
 {
 	if (polys.size() == 1) { return polys[0]; }
 
-	float cScaling = 1e10;
+	float cScaling = ClipperWrapper::_cScaling;
 
 	ClipperLib::Path cTargetShape;
 	ClipperLib::Paths cClippingShapes(polys.size() - 1);
@@ -227,7 +229,7 @@ AVector ClipperWrapper::FindTheFarthestIntersection(ALine line, std::vector<AVec
 	AVector endPt = line.GetPointB(); // the endpoint, because clipper thinks a closed path is also a *filled* path
 	AVector intersectPt;
 
-	float cScaling = 1e10; // because clipper only uses integer
+	float cScaling = ClipperWrapper::_cScaling; // because clipper only uses integer
 
 	ClipperLib::Path cShape;
 	ClipperLib::Path cLine;
@@ -286,7 +288,7 @@ AVector ClipperWrapper::FindTheFarthestIntersection(ALine line, std::vector<std:
 	AVector endPt = line.GetPointB(); // the endpoint, because clipper thinks a closed path is also a *filled* path
 	//AVector startPt = line.GetPointA();
 	AVector intersectPt;
-	float cScaling = 1e15; // because clipper only uses integer
+	float cScaling = ClipperWrapper::_cScaling; // because clipper only uses integer
 
 	for (int a = 0; a < boundaryNumber; a++)
 	{
@@ -337,7 +339,7 @@ AVector ClipperWrapper::FindTheClosestIntersection(ALine line, std::vector<std::
 	AVector startPt = line.GetPointA();
 	AVector intersectPt;
 
-	float cScaling = 1e15; // because clipper only uses integer
+	float cScaling = ClipperWrapper::_cScaling; // because clipper only uses integer
 
 	ClipperLib::Paths cShapes(shapes.size());
 	ClipperLib::Path cLine;
@@ -390,7 +392,7 @@ AVector ClipperWrapper::ClosestIntersectionWithOpenPoly(std::vector<AVector> pol
 	AVector intersectPt;
 
 	/*
-	float cScaling = 1e15; // because clipper only uses integer
+	float cScaling = ClipperWrapper::_cScaling; // because clipper only uses integer
 
 	ClipperLib::Paths cShapes(shapes.size());
 	ClipperLib::Path cPolyLine;
@@ -462,7 +464,7 @@ AVector ClipperWrapper::FindTheClosestIntersection2(ALine line, std::vector<AVec
 	AVector startPt = line.GetPointA();
 	AVector intersectPt;
 
-	float cScaling = 1e15; // because clipper only uses integer
+	float cScaling = ClipperWrapper::_cScaling; // because clipper only uses integer
 
 	ClipperLib::Path cShape;
 	ClipperLib::Path cLine;
@@ -511,7 +513,7 @@ AVector ClipperWrapper::FindTheClosestIntersection2(ALine line, std::vector<AVec
 */
 std::vector<std::vector<AVector>> ClipperWrapper::BlobBoundaryOffsetting(std::vector<AVector> blobBoundary, float offsetVal)
 {
-	float cScaling = 1e10;
+	float cScaling = ClipperWrapper::_cScaling;
 	ClipperLib::ClipperOffset cOffset;
 	cOffset.ArcTolerance = 0.25f * cScaling;
 
@@ -551,7 +553,7 @@ AVector ClipperWrapper::FindTheClosestIntersection(ALine line, std::vector<AVect
 	AVector startPt = line.GetPointA();
 	AVector intersectPt;
 
-	float cScaling = 1e15; // because clipper only uses integer
+	float cScaling = ClipperWrapper::_cScaling; // because clipper only uses integer
 
 	ClipperLib::Path cShape;
 	ClipperLib::Path cLine;
@@ -607,7 +609,7 @@ AVector ClipperWrapper::FindTheClosestIntersection(ALine line, std::vector<AVect
 // 
 std::vector<std::vector<AVector>> ClipperWrapper::GetUniPolys(std::vector<std::vector<AVector >> polygons)
 {
-	float cScaling = 1e10;
+	float cScaling = ClipperWrapper::_cScaling;
 	ClipperLib::ClipperOffset cOffset;
 	cOffset.ArcTolerance = 0.25 * cScaling;
 
@@ -650,7 +652,7 @@ std::vector<std::vector<AVector>> ClipperWrapper::GetUniPolys(std::vector<std::v
 {
 	if (polys.size() == 1) { return polys; }
 
-	float cScaling = 1e10;
+	float cScaling = ClipperWrapper::_cScaling;
 
 	ClipperLib::Path cTargetShape;
 	ClipperLib::Paths cClippingShapes(polys.size() - 1);
@@ -699,7 +701,7 @@ std::vector<std::vector<AVector>> ClipperWrapper::ClipElementsWithContainer(std:
 	                                                                        std::vector<AVector > container, 
 																			float& area)
 {
-	float cScaling = 1e10;
+	float cScaling = ClipperWrapper::_cScaling;
 
 	ClipperLib::Paths cTargetShapes(elements.size());
 	ClipperLib::Path  cClippingShape;
@@ -743,7 +745,8 @@ std::vector<std::vector<AVector>> ClipperWrapper::ClipElementsWithContainer(std:
 		}
 		outPolys.push_back(poly);
 	}
-	//std::cout << "polys.size " << outPolys.size() << "\n";
+
+	// why divided twice???
 	area /= cScaling;
 	area /= cScaling;
 
@@ -753,7 +756,7 @@ std::vector<std::vector<AVector>> ClipperWrapper::ClipElementsWithContainer(std:
 std::vector<std::vector<AVector>> ClipperWrapper::OffsetAll(std::vector<std::vector<AVector >> polygons, 
 	                                                        float offsetVal)
 {
-	float cScaling = 1e10;
+	float cScaling = ClipperWrapper::_cScaling;
 	ClipperLib::ClipperOffset cOffset;
 	cOffset.ArcTolerance = 0.25 * cScaling;
 
@@ -802,7 +805,7 @@ std::vector<std::vector<AVector>> ClipperWrapper::OffsetAll(std::vector<std::vec
 std::vector<std::vector<AVector>> ClipperWrapper::RoundOffsettingPP(std::vector<std::vector<AVector >> polygons, 
 	                                                                float offsetVal)
 {
-	float cScaling = 1e10;
+	float cScaling = ClipperWrapper::_cScaling;
 	ClipperLib::ClipperOffset cOffset;
 	cOffset.ArcTolerance = 0.25 * cScaling;
 
@@ -847,7 +850,7 @@ std::vector<std::vector<AVector>> ClipperWrapper::RoundOffsettingPP(std::vector<
 // to do: dublicate code
 float ClipperWrapper::CalculateFill(const std::vector<AVector>& container, const std::vector<std::vector<AVector >>& graphs)
 {
-	float cScaling = 1e10;
+	float cScaling = ClipperWrapper::_cScaling;
 
 	ClipperLib::Path cTargetShape;
 	ClipperLib::Paths cClippingShapes(graphs.size());
@@ -894,7 +897,7 @@ float ClipperWrapper::CalculateFill(const std::vector<AVector>& container, const
 
 void ClipperWrapper::CalculateSCP(const std::vector<AVector>& container, const std::vector<AGraph>& graphs)
 {
-	float cScaling = 1e10;
+	float cScaling = ClipperWrapper::_cScaling;
 
 	ClipperLib::Path cTargetShape;
 	ClipperLib::Paths cClippingShapes(graphs.size());
@@ -931,7 +934,7 @@ void ClipperWrapper::CalculateSCP(const std::vector<AVector>& container, const s
 
 float ClipperWrapper::CalculateFill(const std::vector<AVector>& container, const std::vector<AGraph>& graphs)
 {
-	 float cScaling = 1e10;
+	 float cScaling = ClipperWrapper::_cScaling;
 
 	 // calculate how many arts
 	 int numArt = 0;
@@ -997,7 +1000,7 @@ void ClipperWrapper::ClippingContainer(const std::vector<AVector>& container,
 	                                   std::vector<std::vector<AVector>>& outPolys,
 								       std::vector<bool>& orientationFlags)
 {
-	 float cScaling = 1e10;
+	 float cScaling = ClipperWrapper::_cScaling;
 
 	 ClipperLib::Path cTargetShape;
 	 ClipperLib::Paths cClippingShapes(skins.size());
@@ -1052,13 +1055,12 @@ void ClipperWrapper::ClippingContainer(const std::vector<AVector>& container,
  }
 
 // ROUND
-std::vector<std::vector<AVector>>  ClipperWrapper::RoundOffsettingP(std::vector<AVector> polygon, 
-															
+std::vector<std::vector<AVector>>  ClipperWrapper::RoundOffsettingP(std::vector<AVector> polygon, 															
 	                                                                float offsetVal)
 {
-	float cScaling = 1e10;
+	float cScaling = ClipperWrapper::_cScaling;
 	ClipperLib::ClipperOffset cOffset;
-	cOffset.ArcTolerance = 0.25f * cScaling;
+	//cOffset.ArcTolerance = 0.25f * cScaling;
 
 	ClipperLib::Path subj;
 	ClipperLib::Paths pSol;
@@ -1090,7 +1092,7 @@ std::vector<std::vector<AVector>> ClipperWrapper::MiterOffsettingPP(std::vector<
 	                                                           float offsetVal, 
 															   float miterLimit)
 {
-	float cScaling = 1e10;
+	float cScaling = ClipperWrapper::_cScaling;
 	ClipperLib::ClipperOffset cOffset;
 	cOffset.MiterLimit = miterLimit;
 
@@ -1137,7 +1139,7 @@ std::vector<std::vector<AVector>>  ClipperWrapper::MiterOffsettingP(std::vector<
 	                                                                float offsetVal, 
 															        float miterLimit)
 {
-	float cScaling = 1e10;
+	float cScaling = ClipperWrapper::_cScaling;
 	ClipperLib::ClipperOffset cOffset;
 	cOffset.MiterLimit = miterLimit;
 
@@ -1170,7 +1172,7 @@ std::vector<std::vector<AVector>> ClipperWrapper::MiterPNOffsettingP(std::vector
 	                                                                 float offsetVal, 
 																	 float miterLimit)
 {
-	float cScaling = 1e10;
+	float cScaling = ClipperWrapper::_cScaling;
 	ClipperLib::ClipperOffset cOffset;
 	cOffset.MiterLimit = miterLimit;
 
@@ -1186,7 +1188,7 @@ std::vector<std::vector<AVector>> ClipperWrapper::MiterPNOffsettingPP(std::vecto
 	                                                                  float offsetVal, 
 																	  float miterLimit)
 {
-	float cScaling = 1e10;
+	float cScaling = ClipperWrapper::_cScaling;
 	ClipperLib::ClipperOffset cOffset;
 	cOffset.MiterLimit = miterLimit;
 
@@ -1219,7 +1221,7 @@ std::vector<AVector> ClipperWrapper::GetLargestPoly(std::vector<std::vector<AVec
 
 std::vector<std::vector<AVector>> ClipperWrapper::OffsettingL(std::vector<AVector> someLine, float offsetVal)
 {
-	float cScaling = 1e10;
+	float cScaling = ClipperWrapper::_cScaling;
 	ClipperLib::ClipperOffset cOffset;
 
 	//cOffset.MiterLimit = miterLimit * cScaling;

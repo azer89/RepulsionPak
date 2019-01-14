@@ -93,7 +93,7 @@ StuffWorker::StuffWorker()
 	//CreateSquares();       // don't forget to change params.lua
 	//CreateManualPacking2();  // overlap metrics
 	//CreateManualPacking(); // SDF and stuff
-	AnalyzeManualPacking();
+	//AnalyzeManualPacking();
 
 
 	//MyColor::_black.Print();
@@ -1613,8 +1613,8 @@ void StuffWorker::AddToAccumulationBuffer(std::vector<std::vector<AVector>> elem
 void StuffWorker::CalculateMetrics()
 {
 	// parameter
-	float maxOffVal  = 20;
-	float offValIter = 0.1;
+	double maxOffVal  = 20;
+	double offValIter = 0.5;
 
 	bool saveSVGA = false; // elements without offset
 	bool saveSVGB = false;  // overlap
@@ -1632,7 +1632,7 @@ void StuffWorker::CalculateMetrics()
 	//accumulationBuffer.SetGrayscaleImageToBlack();
 
 	OpenCVWrapper cvWRap;
-	float containerArea = cvWRap.GetAreaOriented(_manualContainer[0]);
+	double containerArea = cvWRap.GetAreaOriented(_manualContainer[0]);
 	std::cout << "containerArea = " << containerArea << "\n";
 
 	// 1 - func-ception
@@ -1645,18 +1645,18 @@ void StuffWorker::CalculateMetrics()
 		ss1 << SystemParams::_save_folder << "SVG\\" << "debugA.svg";
 		MySVGRenderer::SaveShapesToSVG(ss1.str(), offsetElements1);
 	}
-	std::vector<float> _offsetVals2;
-	std::vector<float> _offsetVals3;
-	std::vector<float> _negVals;
+	std::vector<double> _offsetVals2;
+	std::vector<double> _offsetVals3;
+	std::vector<double> _negVals;
 
-	for (float offVal = 0.0f; offVal < maxOffVal; offVal += offValIter)
+	for (double offVal = 0.0f; offVal < maxOffVal; offVal += offValIter)
 	{ // begin for
 
 		// accumulation
 		accumulationBuffer.SetGrayscaleImageToSomething(startColor);
 
 		// 2 - Generate offset elements one by one
-		float area2 = 0;
+		double area2 = 0;
 		//float area2b = 0;
 		std::vector< std::vector<AVector>> offsetElements2;
 		for (unsigned int a = 0; a < _manualElementsss.size(); a++)
@@ -1719,11 +1719,11 @@ void StuffWorker::CalculateMetrics()
 		// this for SCP
 		std::vector<AVector> offset_container = ClipperWrapper::RoundOffsettingP(_manualContainer[0], -offVal)[0];
 		//std::vector<AVector> offset_container = ClipperWrapper::RoundOffsettingP(_manualContainer[0], SystemParams::_container_offset)[0];
-		float offContainerArea = cvWRap.GetAreaOriented(offset_container); // area of the offset container
+		double offContainerArea = cvWRap.GetAreaOriented(offset_container); // area of the offset container
 		float area4 = 0; // area of the entire elements
 		std::vector<std::vector<AVector>> offsetElements4 = ClipperWrapper::ClipElementsWithContainer(offsetElements3_temp, offset_container, area4);
 
-		_negVals.push_back((offContainerArea - area4) / containerArea); // IS THIS CORRECT ? ratio of neg space using offset container
+		_negVals.push_back((offContainerArea - area4) / containerArea); // IS THIS CORRECT ? ratio of neg space using offset container. YES
 		
 
 		// draw
@@ -1735,7 +1735,7 @@ void StuffWorker::CalculateMetrics()
 		}
 
 		// draw
-		//DrawAccumulationBuffer(accumulationBuffer, startColor, offVal, area2 - area3, saveIter++);
+		DrawAccumulationBuffer(accumulationBuffer, startColor, offVal, area2 - area3, saveIter++);
 
 		std::cout << offVal << "\n";
 		//std::cout << offContainerArea << "\n";

@@ -41,6 +41,7 @@ public:
 
 	void SaveNormSDF2CSV(std::vector<float> distArray, std::string filename);
 	void SaveSDF2CSV(std::vector<float> distArray, std::string filename);
+	void SaveSDF2CSV(std::vector<double> distArray, std::string filename);
 
 	// pair functions
 	//std::vector<LRFunctions> LoadPairFunctions(std::string filename);

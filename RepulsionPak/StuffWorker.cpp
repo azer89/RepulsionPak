@@ -92,7 +92,7 @@ StuffWorker::StuffWorker()
 
 	//CreateSquares();       // don't forget to change params.lua
 	//CreateManualPacking2();  // overlap metrics
-	CreateManualPacking(); // SDF and stuff
+	//CreateManualPacking(); // SDF and stuff
 	//AnalyzeManualPacking();
 
 
@@ -488,8 +488,17 @@ void StuffWorker::ProcessOrnaments()
 	if(SystemParams::_do_shape_matching)
 	{
 		//matchGraphs = _containerWorker->PlacementWithMatching3(_oriGraphs);	
+
+		int time1 = glutGet(GLUT_ELAPSED_TIME);		
+
 		_containerWorker->PlacementWithMatching3(_oriGraphs, matchGraphs, oriGraphFlags);
 		_graphs.insert(_graphs.end(), matchGraphs.begin(), matchGraphs.end());	
+
+		int time2 = glutGet(GLUT_ELAPSED_TIME);
+
+		std::cout << "shape matching time = " << time2 - time1 << "\n";
+	
+	
 	}
 	int match_sz = matchGraphs.size();
 

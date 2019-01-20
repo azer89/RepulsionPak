@@ -1614,7 +1614,7 @@ void StuffWorker::CalculateMetrics()
 {
 	// parameter
 	double maxOffVal  = 20;
-	double offValIter = 0.5;
+	double offValIter = 0.1;
 
 	bool saveSVGA = false; // elements without offset
 	bool saveSVGB = false;  // overlap

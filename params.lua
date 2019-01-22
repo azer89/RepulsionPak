@@ -1,20 +1,25 @@
 
 ---------- Physics-Pak ----------
 --- Title of the window
-_window_title = "1" 
+_window_title = "2" 
 --- A directory where we have to save output files
-_save_folder  = "C:\\Users\\azer\\workspace\\Images\\PhysicsPak_Snapshots_0" .. _window_title .. "\\"
+_save_folder  = "C:\\Users\\azer\\OneDrive\\Images\\PhysicsPak_Snapshots_0" .. _window_title .. "\\"
 
 
 ------ folders ------
-_image_folder         = "C:\\Users\\azer\\workspace\\Images\\";	--- where all the input files are located
+_image_folder         = "C:\\Users\\azer\\OneDrive\\Images\\";	--- where all the input files are located
 _artName              = "pp_rhino"; --- pp_lolwut	--- location of the container
 _manual_art_name      = "man_stripes";	--- manually drawn packing (for evaluation)
 _ornament_dir         = _image_folder .. "opp_b_leaf";		--- regular elements
 _ornament_dir_small_1 = _image_folder .. "opp_b_leaf"; --- filling elements (the elements to fill the remaining empty space after the simulation ends)
 
 ---------------------------------------------------------------------
-_do_shape_matching = true;
+--- metric
+_container_offset = 0; -- for SCP
+
+---------------------------------------------------------------------
+
+_do_shape_matching = false;
 
 --- PAD
 _pad_level = 5;
@@ -37,9 +42,6 @@ _resample_num       = 5000; --- curve resampling (how many points)
 
 _container_salient_gap = 100;
 _random_point_gap      = 5;   --- gap of random initial placement
-
---- metric
-_container_offset = 0; -- for SCP
 
 ---------------------------------------------------------------------
 --- WARNING, should be no whitespace before/after commas
@@ -70,7 +72,7 @@ _screen_width  = 1000;
 _screen_height = 600;
 _sleep_time    = 20; --- when simulation isn't running
 
-_should_rotate = false;
+_should_rotate = true;
 
 ---------------------------------------------------------------------
 --- _mouse_offset_x = 10;

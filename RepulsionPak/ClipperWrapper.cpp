@@ -606,6 +606,50 @@ AVector ClipperWrapper::FindTheClosestIntersection(ALine line, std::vector<AVect
 	return intersectPt;
 }
 
+//
+std::vector<std::vector<AVector>> ClipperWrapper::GetUniPolys(std::vector<std::vector<AVector >> polygons, float& area)
+{
+	float cScaling = ClipperWrapper::_cScaling;
+	ClipperLib::ClipperOffset cOffset;
+	cOffset.ArcTolerance = 0.25 * cScaling;
+
+	ClipperLib::Paths subjs(polygons.size());
+	ClipperLib::Paths pSol;
+	for (int i = 0; i < polygons.size(); i++)
+	{
+		for (int a = 0; a < polygons[i].size(); a++)
+		{
+			subjs[i] << ClipperLib::IntPoint(polygons[i][a].x * cScaling, polygons[i][a].y * cScaling);
+		}
+	}
+
+	cOffset.AddPaths(subjs, ClipperLib::jtRound, ClipperLib::etClosedPolygon);
+	cOffset.Execute(pSol, 0);
+
+	area = 0;
+	std::vector<std::vector<AVector>>  offPolys;	
+	for (int a = 0; a < pSol.size(); a++)
+	{
+		std::vector<AVector> offPoly;
+		area += ClipperLib::Area(pSol[a]);
+		for (int b = 0; b < pSol[a].size(); b++)
+		{
+			AVector iPt(pSol[a][b].X, pSol[a][b].Y);
+			iPt /= cScaling;
+			offPoly.push_back(iPt);
+		}
+
+		offPolys.push_back(offPoly);
+
+	}
+	// why divided twice???
+	area /= cScaling;
+	area /= cScaling;
+
+
+	return offPolys;
+}
+
 // 
 std::vector<std::vector<AVector>> ClipperWrapper::GetUniPolys(std::vector<std::vector<AVector >> polygons)
 {
@@ -696,6 +740,121 @@ std::vector<std::vector<AVector>> ClipperWrapper::GetUniPolys(std::vector<std::v
 
 	return outPolys;
 }*/
+
+std::vector<std::vector<AVector>> ClipperWrapper::ClipElementsWithElements(std::vector<std::vector<AVector >> elements1, 
+	                                                                       std::vector<std::vector<AVector >> elements2, 
+	                                                                       float& area)
+{
+	float cScaling = ClipperWrapper::_cScaling;
+
+	ClipperLib::Paths cTargetShapes(elements1.size());
+	ClipperLib::Paths  cClippingShapes(elements2.size());;
+	ClipperLib::PolyTree sol1;
+
+	// shapes that are clipped
+	for (int a = 0; a < elements1.size(); a++)
+	{
+		for (int b = 0; b < elements1[a].size(); b++)
+		{
+			cTargetShapes[a] << ClipperLib::IntPoint(elements1[a][b].x * cScaling, elements1[a][b].y * cScaling);
+		}
+	}
+
+	// clipper
+	for (int a = 0; a < elements2.size(); a++)
+	{
+		for (int b = 0; b < elements2[a].size(); b++)
+		{
+			cClippingShapes[a] << ClipperLib::IntPoint(elements2[a][b].x * cScaling, elements2[a][b].y * cScaling);
+		}
+	}
+
+	ClipperLib::Clipper myClipper1;
+	myClipper1.AddPaths(cTargetShapes, ClipperLib::ptClip, true); // the clipped shape
+	myClipper1.AddPaths(cClippingShapes, ClipperLib::ptSubject, true); // shapes that clip another shape
+
+																	 // Intersection
+	myClipper1.Execute(ClipperLib::ctIntersection, sol1, ClipperLib::pftNonZero, ClipperLib::pftNonZero);
+
+	ClipperLib::Paths pSol1;
+	ClipperLib::PolyTreeToPaths(sol1, pSol1);
+
+	area = 0;
+	std::vector<std::vector<AVector>> outPolys; // return list
+	for (int a = 0; a < pSol1.size(); a++)
+	{
+		area += ClipperLib::Area(pSol1[a]);
+		std::vector<AVector> poly;
+		for (int b = 0; b < pSol1[a].size(); b++)
+		{
+			AVector iPt(pSol1[a][b].X / cScaling, pSol1[a][b].Y / cScaling); // scaling down
+			poly.push_back(iPt);
+		}
+		outPolys.push_back(poly);
+	}
+
+	// why divided twice???
+	area /= cScaling;
+	area /= cScaling;
+
+	return outPolys;
+}
+
+// ELEMENTS MUST BE CLIPPED BY CONTAINER FIRST!
+std::vector<std::vector<AVector>> ClipperWrapper::DiffContainerWithElements(std::vector<std::vector<AVector >> elements, std::vector<AVector > container, float& area)
+{
+	float cScaling = ClipperWrapper::_cScaling;
+
+	ClipperLib::Path cTargetShape;
+	ClipperLib::Paths  cClippingShapes(elements.size());
+	ClipperLib::PolyTree sol1;
+
+	
+
+	// shapes that are clipped
+	for (int a = 0; a < container.size(); a++)
+	{
+		cTargetShape << ClipperLib::IntPoint(container[a].x * cScaling, container[a].y * cScaling);
+	}
+
+	// clipper
+	for (int a = 0; a < elements.size(); a++)
+	{
+		for (int b = 0; b < elements[a].size(); b++)
+		{
+			cClippingShapes[a] << ClipperLib::IntPoint(elements[a][b].x * cScaling, elements[a][b].y * cScaling);
+		}
+	}
+
+	ClipperLib::Clipper myClipper1;
+	myClipper1.AddPath(cTargetShape, ClipperLib::ptSubject, true); // the clipped shape
+	myClipper1.AddPaths(cClippingShapes, ClipperLib::ptClip, true); // shapes that clip another shape (clipper)
+	
+	myClipper1.Execute(ClipperLib::ctDifference, sol1, ClipperLib::pftNonZero, ClipperLib::pftNonZero);
+
+	ClipperLib::Paths pSol1;
+	ClipperLib::PolyTreeToPaths(sol1, pSol1);
+
+	area = 0;
+	std::vector<std::vector<AVector>> outPolys; // return list
+	for (int a = 0; a < pSol1.size(); a++)
+	{
+		area += ClipperLib::Area(pSol1[a]);
+		std::vector<AVector> poly;
+		for (int b = 0; b < pSol1[a].size(); b++)
+		{
+			AVector iPt(pSol1[a][b].X / cScaling, pSol1[a][b].Y / cScaling); // scaling down
+			poly.push_back(iPt);
+		}
+		outPolys.push_back(poly);
+	}
+
+	// why divided twice???
+	area /= cScaling;
+	area /= cScaling;
+
+	return outPolys;
+}
 
 std::vector<std::vector<AVector>> ClipperWrapper::ClipElementsWithContainer(std::vector<std::vector<AVector >> elements, 
 	                                                                        std::vector<AVector > container, 

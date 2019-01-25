@@ -1,7 +1,7 @@
 
 ---------- Physics-Pak ----------
 --- Title of the window
-_window_title = "2" 
+_window_title = "1" 
 --- A directory where we have to save output files
 _save_folder  = "C:\\Users\\azer\\OneDrive\\Images\\PhysicsPak_Snapshots_0" .. _window_title .. "\\"
 
@@ -9,7 +9,7 @@ _save_folder  = "C:\\Users\\azer\\OneDrive\\Images\\PhysicsPak_Snapshots_0" .. _
 ------ folders ------
 _image_folder         = "C:\\Users\\azer\\OneDrive\\Images\\";	--- where all the input files are located
 _artName              = "pp_rhino"; --- pp_lolwut	--- location of the container
-_manual_art_name      = "man_stripes";	--- manually drawn packing (for evaluation)
+_manual_art_name      = "man_balabolka_tvcg_5_layered";	--- manually drawn packing (for evaluation)
 _ornament_dir         = _image_folder .. "opp_b_leaf";		--- regular elements
 _ornament_dir_small_1 = _image_folder .. "opp_b_leaf"; --- filling elements (the elements to fill the remaining empty space after the simulation ends)
 

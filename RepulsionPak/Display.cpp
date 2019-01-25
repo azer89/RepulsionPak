@@ -518,6 +518,7 @@ void Display::Draw()
 
 void Display::DeleteFolders()
 {
+	/*
 	{ std::stringstream ss;
 	ss << "del /Q " << SystemParams::_save_folder << "FILL\\*.*";
 	std::system(ss.str().c_str()); }
@@ -545,6 +546,7 @@ void Display::DeleteFolders()
 	{ std::stringstream ss;
 	ss << "del /Q " << SystemParams::_save_folder << "SKELETON\\*.*";
 	std::system(ss.str().c_str()); }
+	*/
 }
 
 void Display::DeleteFiles()

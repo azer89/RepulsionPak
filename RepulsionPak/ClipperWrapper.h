@@ -49,6 +49,8 @@ public:
 	// element offsetting without deleting smaller polygons
 	static std::vector<std::vector<AVector>> OffsetAll(std::vector<std::vector<AVector >> polygons, float offsetVal); 
 	static std::vector<std::vector<AVector>> ClipElementsWithContainer(std::vector<std::vector<AVector >> elements, std::vector<AVector > container, float& area);
+	static std::vector<std::vector<AVector>> DiffContainerWithElements(std::vector<std::vector<AVector >> elements, std::vector<AVector > container, float& area);
+	static std::vector<std::vector<AVector>> ClipElementsWithElements(std::vector<std::vector<AVector >> elements1, std::vector<std::vector<AVector >> elements2, float& area);
 	//static std::vector<std::vector<AVector>> UnionAll(std::vector<std::vector<AVector>> polys);
 
 	// offsetting 
@@ -64,6 +66,7 @@ public:
 								  std::vector<bool>& orientationFlags);
 
 	static std::vector<std::vector<AVector>> GetUniPolys(std::vector<std::vector<AVector >> polygons);  // closed poly	
+	static std::vector<std::vector<AVector>> GetUniPolys(std::vector<std::vector<AVector >> polygons, float& area);
 
 	static float CalculateFill(const std::vector<AVector>& container, const std::vector<AGraph>& graphs);
 	static float CalculateFill(const std::vector<AVector>& container, const std::vector<std::vector<AVector >>& graphs);

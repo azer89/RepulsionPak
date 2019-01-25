@@ -91,11 +91,11 @@ StuffWorker::StuffWorker()
 	//OpenCVWrapper _cvWrapper;
 
 	//CreateSquares();       // don't forget to change params.lua
-	//CreateManualPacking2();  // overlap metrics
+	CreateManualPacking2();  // overlap metrics
 	//CreateManualPacking(); // SDF and stuff
 	//AnalyzeManualPacking();
 
-
+	glutLeaveMainLoop(); // WOOOOOOOOOOOOOOOOOOO
 	//MyColor::_black.Print();
 	//MyColor::_white.Print();
 	//_hasShrinkingInitiated = false;
@@ -1759,6 +1759,127 @@ void StuffWorker::CalculateMetrics()
 
 }
 
+void StuffWorker::CalculateMetrics2()
+{
+	// parameter
+	double maxOffVal = 25;
+	double offValIter = 0.25;
+
+	bool saveOriSVG = false; // original elements without offset
+	bool saveOverlapSVG = true;  // overlap
+	bool saveEmptySVG   = true; // positive space only
+	bool saveSCPSVG    = true; // positive space clipped by offset container
+
+	std::vector<double> overlap_area_array;
+	std::vector<double> empty_area_array;
+	std::vector<double> scp_array;
+
+	OpenCVWrapper cvWRap;
+	double containerArea = cvWRap.GetAreaOriented(_manualContainer[0]);
+	std::cout << "containerArea = " << containerArea << "\n";
+
+	// 1 -
+	std::vector< std::vector<AVector>> ori_elements = _manualElements;
+	// debug (comment me)
+	if (saveOriSVG)
+	{
+		std::stringstream ss1;
+		ss1 << SystemParams::_save_folder << "SVG\\" << "debugA.svg";
+		MySVGRenderer::SaveShapesToSVG(ss1.str(), ori_elements);
+	}
+
+	std::vector<std::vector<AVector>> overlapPolys_notUni;
+	std::vector<std::vector<AVector>> overlapPolys_Uni;
+	for (double offVal = 0.0f; offVal < maxOffVal; offVal += offValIter)
+	{ // begin for
+		// precompute offset elements
+		std::vector<GraphArt> offset_elements;
+		for (unsigned int a = 0; a < _manualElementsss.size(); a++)
+		{
+			std::vector<std::vector<AVector>> outputPolysA = ClipperWrapper::OffsetAll(_manualElementsss[a], offVal);
+			float tempArea2; // this does nothing
+			std::vector<std::vector<AVector>> outputPolysB = ClipperWrapper::ClipElementsWithContainer(outputPolysA, _manualContainer[0], tempArea2);
+			offset_elements.push_back(outputPolysB);
+		}
+
+
+		// 2 - overlap
+		for (unsigned int a = 0; a < offset_elements.size() - 1; a++)
+		{
+			/* clockwise = element
+			counterclockwise = hole */
+			
+			for (unsigned int b = a + 1; b < offset_elements.size(); b++)
+			{
+				float tempArea; // this does nothing
+				std::vector<std::vector<AVector>> outputPolys1 = ClipperWrapper::ClipElementsWithElements(offset_elements[a], offset_elements[b], tempArea);
+				overlapPolys_notUni.insert(overlapPolys_notUni.end(), outputPolys1.begin(), outputPolys1.end());
+			}
+		}
+		float overlapArea;
+		overlapPolys_Uni = ClipperWrapper::GetUniPolys(overlapPolys_notUni, overlapArea);
+		overlap_area_array.push_back(overlapArea);
+
+		// draw
+		if (saveOverlapSVG)
+		{
+			std::stringstream ss2;
+			ss2 << SystemParams::_save_folder << "SVG\\" << "overlap_" << offVal << ".svg";
+			MySVGRenderer::SaveShapesToSVG(ss2.str(), overlapPolys_Uni);
+		}
+		// area
+		//_offsetVals2.push_back(area2);
+
+		// 3 - empty poly
+		float all_elem_area;
+		std::vector< std::vector<AVector>> allElements_uni_not_clipped = ClipperWrapper::OffsetAll(ori_elements, offVal);
+		//float area_temp = 0; // does nothing
+		//std::vector<std::vector<AVector>> allElements_uni_clipped = ClipperWrapper::ClipElementsWithContainer(allElements_uni_not_clipped, _manualContainer[0], area_temp);
+		float empty_area;
+		std::vector<std::vector<AVector>> empty_polys = ClipperWrapper::DiffContainerWithElements(allElements_uni_not_clipped, _manualContainer[0], empty_area);
+		empty_area_array.push_back(empty_area);
+
+		// draw
+		if (saveEmptySVG)
+		{
+			std::stringstream ss3;
+			ss3 << SystemParams::_save_folder << "SVG\\" << "empty_" << offVal << ".svg";
+			MySVGRenderer::SaveShapesToSVG(ss3.str(), empty_polys);
+		}
+		// area
+		//_offsetVals3.push_back(area3);
+
+		// 4 - offset of union of elements minus offset of container
+		// this for SCP
+		std::vector<AVector> offset_container = ClipperWrapper::RoundOffsettingP(_manualContainer[0], -offVal)[0];
+		double offContainerArea = cvWRap.GetAreaOriented(offset_container); // area of the offset container
+		float area4 = 0; // area of the entire elements
+		std::vector<std::vector<AVector>> offsetElements4 = ClipperWrapper::ClipElementsWithContainer(allElements_uni_not_clipped, offset_container, area4);
+
+		scp_array.push_back((offContainerArea - area4) / containerArea); // IS THIS CORRECT ? ratio of neg space using offset container. YES
+
+
+		// draw
+		if (saveSCPSVG)
+		{
+			std::stringstream ss4;
+			ss4 << SystemParams::_save_folder << "SVG\\" << "scp_" << offVal << ".svg";
+			MySVGRenderer::SaveShapesToSVG(ss4.str(), offsetElements4);
+		}
+
+		std::cout << offVal << "\n";
+		//std::cout << offContainerArea << "\n";
+		//std::cout << offVal << " --> " << area2 - area3 << "\n";
+
+	} // end for (float offVal = 0.0f; offVal < maxOffVal; offVal += offValIter)
+
+	PathIO pIO;
+	pIO.SaveSDF2CSV(overlap_area_array, SystemParams::_save_folder + "overlap.csv"); // for overlap metric
+	pIO.SaveSDF2CSV(empty_area_array, SystemParams::_save_folder + "empty.csv"); // for overlap metric
+	pIO.SaveSDF2CSV(scp_array, SystemParams::_save_folder + "scp.csv"); // for scp
+
+}
+
 void StuffWorker:: AnalyzeFinishedPacking()
 {
 	// _manualElementsss && _manualElements
@@ -1808,7 +1929,7 @@ void StuffWorker::CreateManualPacking2()
 	// ----
 	// HERE
 	// ----
-	CalculateMetrics();
+	CalculateMetrics2();
 }
 
 /*

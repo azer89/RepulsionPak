@@ -33,6 +33,8 @@ int main(int argc, char **argv)
 	// --- parameters ---
 	SystemParams::_simulate_1 = true;
 	std::cout << "Have " << argc << " arguments:" << std::endl;
+
+	//Display::GetInstance()->DeleteFolders();
 	//for (int i = 0; i < argc; ++i) 
 	//{
 	//	std::cout << "param: " << argv[i] << std::endl;

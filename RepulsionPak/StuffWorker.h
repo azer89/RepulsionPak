@@ -191,12 +191,13 @@ public:
 
 	// ====================================================
 	CollissionGrid* _manualGrid;
-	std::vector<std::vector<AVector>> _manualElements;   // CreateManualPacking();
-	std::vector<GraphArt>			  _manualElementsss; // CreateManualPacking2();
+	std::vector<std::vector<AVector>> _manualElements;   // CreateManualPacking();  // all in 2D array
+	std::vector<GraphArt>			  _manualElementsss; // CreateManualPacking2(); // in 3D array
 	std::vector<std::vector<AVector>> _manualSkeletons;
 	std::vector<std::vector<AVector>> _manualContainer;
 
 	void CalculateMetrics();
+	void CalculateMetrics2();
 	void AddToAccumulationBuffer(std::vector<std::vector<AVector>> elem, CVImg& accumulationBuffer, int startVal, int numIter);
 	void DrawAccumulationBuffer(CVImg accumulationBuffer, float startColor, float offsetVal,float overlapArea, int numIter);
 

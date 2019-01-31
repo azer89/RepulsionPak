@@ -8,10 +8,10 @@ _save_folder  = "C:\\Users\\azer\\OneDrive\\Images\\PhysicsPak_Snapshots_0" .. _
 
 ------ folders ------
 _image_folder         = "C:\\Users\\azer\\OneDrive\\Images\\";	--- where all the input files are located
-_artName              = "pp_rhino"; --- pp_lolwut	--- location of the container
+_artName              = "pp_rect_strip"; --- pp_lolwut	--- location of the container
 _manual_art_name      = "man_balabolka_tvcg_5_layered";	--- manually drawn packing (for evaluation)
-_ornament_dir         = _image_folder .. "opp_b_leaf";		--- regular elements
-_ornament_dir_small_1 = _image_folder .. "opp_b_leaf"; --- filling elements (the elements to fill the remaining empty space after the simulation ends)
+_ornament_dir         = _image_folder .. "opp_b_penguin_giraffe";		--- regular elements
+_ornament_dir_small_1 = _image_folder .. "opp_b_penguin_giraffe"; --- filling elements (the elements to fill the remaining empty space after the simulation ends)
 
 ---------------------------------------------------------------------
 --- metric
@@ -61,7 +61,7 @@ _colors = "190,221,244#" .. --- light blue
 _back_color = "255,255,255"
 
 _show_container      = false;
-_show_elements       = false;
+_show_elements       = true;
 _show_skins          = true;
 _show_triangles      = false;
 _show_bending_edges  = false;
@@ -86,11 +86,11 @@ _seed = -1; --- negative means random
 --- (not the actual number)
 --- larger the number, more elements you get,
 --- but the simulation time gets slower
-_num_element_pos       = 1500;
-_num_element_pos_limit = 100;
+_num_element_pos       = 1000;
+_num_element_pos_limit = 60;
 
 --- Time step for numerical integration (euler method)
-_dt = 0.1;   --- do not set this higher than 0.1
+_dt = 0.05;   --- do not set this higher than 0.1
 
 --- random animation
 ---_shrink_fill_ratio = 1.65;
@@ -105,15 +105,17 @@ _dt = 0.1;   --- do not set this higher than 0.1
 
 --- Force parameters
 _k_neg_space_edge      = 10;	--- edge force for springs
-_k_edge                = 20;	--- edge force for filling elements
+_k_edge                = 80;	--- edge force for filling elements
 _k_edge_small_factor   = 12;
-_k_repulsion           = 20;	--- repulsion force
+_k_repulsion           = 60;	--- repulsion force
 _repulsion_soft_factor = 1.0;	--- soft factor for repulsion force
-_k_overlap             = 40;	--- overlap force
-_k_boundary            = 20;	--- boundary force
+_k_overlap             = 5;	--- overlap force
+_k_boundary            = 5;	--- boundary force
 _k_noise               = 0;
-_k_rotate              = 0;		--- 1
+_k_rotate              = 1;		--- 1
 _k_dock                = 100;
+
+--- _fuk_this = 0.000001;
 
 --- to find peaks where the filling elements should be placed
 --- minimum height of the peak to be considered
@@ -129,10 +131,10 @@ _focal_offset = 2;
 
 --- for preprocessing
 --- skin width
-_skin_offset                = 1;  
+_skin_offset                = 20;  
 --- density of random points inside the skin
 --- if the density is higher, you get more triangles
-_sampling_num               = 50000;
+_sampling_num               = 300;
 --- uniform sampling on the skin
 _boundary_sampling_factor   = 1.5;  -- [Do not edit]
 ---_should_recalculate_element = true;
@@ -147,9 +149,9 @@ _collission_block_radius = 1;
 
 --- for growing
 --- incremetal step for growing
-_growth_scale_iter     = 0.005;
+_growth_scale_iter     = 0.003;
 --- initial scale after placing the elements inside the target container
-_element_initial_scale = 0.4; 
+_element_initial_scale = 0.04; 
 --- epsilon for halting the growth
 _growth_min_dist       = 1; 
 

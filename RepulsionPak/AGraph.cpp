@@ -15,6 +15,9 @@
 #include <random>
 #include <algorithm>
 
+#define PI 3.14159265359
+#define PI2 6.28318530718
+
 //std::vector<AMass> AGraph::_massList = std::vector<AMass>();
 
 // constructir
@@ -2136,7 +2139,55 @@ void AGraph::SolveForTriangleSprings()
 	}
 
 	// rotation
-	float eps_rot = 3.14 * 0.01;
+	float eps_rot = 3.14 * 0.001;
+	//AVector curNorm;
+	//AVector rForce;
+	
+	float xPosNorm = PI * -_centroid.x / SystemParams::_upscaleFactor;
+	float angleValAvg = 0;
+	for (unsigned int a = 0; a < _skinPointNum; a++)
+	{
+		AVector targetVector = UtilityFunctions::Rotate(_normFromCentroidArray[a], AVector(0, 0), xPosNorm);
+		AVector curNorm = (_massList[a]._pos - _centroid).Norm();
+		float angleVal = UtilityFunctions::Angle2D(curNorm.x, curNorm.y, targetVector.x, targetVector.y);
+		angleValAvg += angleVal;
+	}
+	angleValAvg /= (float)_skinPointNum;
+	for (unsigned int a = 0; a < _skinPointNum; a++)
+	{
+
+		//AVector targetVector = UtilityFunctions::Rotate(_normFromCentroidArray[a], AVector(0, 0), xPosNorm);
+		//float angleVal = UtilityFunctions::Angle2D(curNorm.x, curNorm.y, targetVector.x, targetVector.y);
+
+		if (std::abs(angleValAvg) > eps_rot)
+		{
+			AVector curNorm = (_massList[a]._pos - _centroid).Norm();
+
+			if (angleValAvg > 0)
+			{
+				// anticlockwise
+				AVector dRIght(-curNorm.y, curNorm.x); // this is left
+				_rotateArray[a] = dRIght;
+			}
+			else
+			{
+				AVector dLeft(curNorm.y, -curNorm.x);  // this is right
+				_rotateArray[a] = dLeft;
+			}
+		}
+		else
+		{
+			_rotateArray[a] = AVector(0, 0);
+			//angleValAvg = 0;
+		}
+
+		AVector rForce = _rotateArray[a] * SystemParams::_k_rotate;
+		if (!rForce.IsBad())
+		{
+			_massList[a]._rotationForce += rForce;	// _massList[idx0]._distToBoundary;
+		}
+	}
+	/*float eps_rot = 3.14 * 0.01;
 	AVector curNorm;
 	AVector rForce;
 	for (unsigned int a = 0; a < _skinPointNum; a++)
@@ -2170,5 +2221,5 @@ void AGraph::SolveForTriangleSprings()
 		{
 			_massList[a]._rotationForce += rForce;	// _massList[idx0]._distToBoundary;
 		}
-	}
+	}*/
 }

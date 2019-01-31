@@ -91,11 +91,11 @@ StuffWorker::StuffWorker()
 	//OpenCVWrapper _cvWrapper;
 
 	//CreateSquares();       // don't forget to change params.lua
-	CreateManualPacking2();  // overlap metrics
+	//CreateManualPacking2();  // overlap metrics
 	//CreateManualPacking(); // SDF and stuff
 	//AnalyzeManualPacking();
 
-	glutLeaveMainLoop(); // WOOOOOOOOOOOOOOOOOOO
+	//glutLeaveMainLoop(); // WOOOOOOOOOOOOOOOOOOO
 	//MyColor::_black.Print();
 	//MyColor::_white.Print();
 	//_hasShrinkingInitiated = false;
@@ -716,13 +716,19 @@ AGraph StuffWorker::ProcessAnOrnament(AGraph oriGraph, AVector pos, float scale,
 
 	g1.RecalculateEdgeLengths(); // NN EDGES
 	g1.RecalculateTriangleEdgeLengths();
+	g1.RecalculateArts();
 
 	if (SystemParams::_should_rotate)
 	{
 	// rotate
-		float randomVal = rand() % 628 - 314;
-		randomVal /= 3.14f;
-		g1.Rotate(randomVal);
+		//float randomVal = rand() % 628 - 314;
+		//randomVal /= 3.14f;
+		float pi = 3.14159265359;
+		float xPosNorm = -g1._centroid.x / SystemParams::_upscaleFactor;
+		//AVector targetVector = UtilityFunctions::Rotate(_normFromCentroidArray[a], AVector(0, 0), xPosNorm * PI);
+		//float angleVal = UtilityFunctions::Angle2D(curNorm.x, curNorm.y, targetVector.x, targetVector.y);
+
+		g1.Rotate(xPosNorm * pi);
 	}
 
 	return g1;
@@ -1209,36 +1215,22 @@ void StuffWorker::CalculateThings(float dt)
 		}
 	}
 
-	/*if (_fill_ratio > SystemParams::_shrink_fill_ratio && !_hasShrinkingInitiated)
-	{
-		std::cout << "shrink initiated\n";
-		std::cout << _fill_ratio << "\n";
-		for (unsigned int a = 0; a < _graphs.size(); a++)
-			{ _graphs[a].InitShrinking(); }
-		_hasShrinkingInitiated = true;
-	}*/
+
+
 
 	// calculate scale iter here !!!
 	float scale_iter = SystemParams::_growth_scale_iter;
 	_fill_diff = _fill_ratio - _man_neg_ratio;
 
-	//std::cout << "_fill_diff = " << _fill_diff << "  _fill_ratio = " << _fill_ratio << "  _man_neg_ratio = " << _man_neg_ratio << "\n";
-
-	if (_fill_diff > 0.0f) // over
+	// THISSSS
+	/*if (_fill_diff > 0.0f) // over
 	{
 		scale_iter = -SystemParams::_growth_scale_iter_2;
-		//std::cout << "over\n";
 	}
 	else if (_fill_diff < 0 && _fill_diff > -SystemParams::_growth_threshold_a) // under
 	{
 		scale_iter = SystemParams::_growth_scale_iter_2;
-		//std::cout << "careful\n";
-	}
-
-	//if (scale_iter < 0)
-	//{
-	//	std::cout << "scale iter neg\n";
-	//}
+	}*/
 	
 
 	//if(_fill_ratio < _man_neg_ratio)

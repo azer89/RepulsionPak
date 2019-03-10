@@ -30,7 +30,7 @@
     <ProjectGuid>{A12CA17F-D17B-44DF-A6BE-24119BCE876C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>RepulsionPak</RootNamespace>
-    <ProjectName>RepulsionPak_SCP</ProjectName>
+    <ProjectName>RepulsionPak_Orientation</ProjectName>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

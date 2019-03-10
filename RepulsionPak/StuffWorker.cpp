@@ -91,7 +91,7 @@ StuffWorker::StuffWorker()
 	//OpenCVWrapper _cvWrapper;
 
 	//CreateSquares();       // don't forget to change params.lua
-	CreateManualPacking2();  // overlap metrics
+	//CreateManualPacking2();  // overlap metrics
 	//CreateManualPacking(); // SDF and stuff
 	//AnalyzeManualPacking();
 
@@ -716,13 +716,19 @@ AGraph StuffWorker::ProcessAnOrnament(AGraph oriGraph, AVector pos, float scale,
 
 	g1.RecalculateEdgeLengths(); // NN EDGES
 	g1.RecalculateTriangleEdgeLengths();
+	g1.RecalculateArts();
 
 	if (SystemParams::_should_rotate)
 	{
 	// rotate
-		float randomVal = rand() % 628 - 314;
-		randomVal /= 3.14f;
-		g1.Rotate(randomVal);
+		//float randomVal = rand() % 628 - 314;
+		//randomVal /= 3.14f;
+		float pi = 3.14159265359;
+		float xPosNorm = -g1._centroid.x / SystemParams::_upscaleFactor;
+		//AVector targetVector = UtilityFunctions::Rotate(_normFromCentroidArray[a], AVector(0, 0), xPosNorm * PI);
+		//float angleVal = UtilityFunctions::Angle2D(curNorm.x, curNorm.y, targetVector.x, targetVector.y);
+
+		g1.Rotate(xPosNorm * pi);
 	}
 
 	return g1;

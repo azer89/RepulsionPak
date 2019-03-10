@@ -41,6 +41,7 @@ public:
 
 	// for orientation force
 	std::vector<AVector> _normFromCentroidArray;
+	float _angleVal;
 	std::vector<AVector> _rotateArray;
 
 	// for shrinking
@@ -151,6 +152,8 @@ public:
 	void CalculateCentroid();
 
 	void CalculateVecToCentroidArray();
+
+	//void CalculateVecToCentroidArray2();
 
 	float GetArea();
 

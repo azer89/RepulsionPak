@@ -1219,7 +1219,7 @@ std::vector<std::vector<AVector>>  ClipperWrapper::RoundOffsettingP(std::vector<
 {
 	float cScaling = ClipperWrapper::_cScaling;
 	ClipperLib::ClipperOffset cOffset;
-	//cOffset.ArcTolerance = 0.25f * cScaling;
+	cOffset.ArcTolerance = 0.25f * cScaling;
 
 	ClipperLib::Path subj;
 	ClipperLib::Paths pSol;

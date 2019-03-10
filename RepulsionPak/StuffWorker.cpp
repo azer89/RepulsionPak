@@ -95,7 +95,7 @@ StuffWorker::StuffWorker()
 	//CreateManualPacking(); // SDF and stuff
 	//AnalyzeManualPacking();
 
-	glutLeaveMainLoop(); // WOOOOOOOOOOOOOOOOOOO
+	//glutLeaveMainLoop(); // WOOOOOOOOOOOOOOOOOOO
 	//MyColor::_black.Print();
 	//MyColor::_white.Print();
 	//_hasShrinkingInitiated = false;
@@ -1209,36 +1209,22 @@ void StuffWorker::CalculateThings(float dt)
 		}
 	}
 
-	/*if (_fill_ratio > SystemParams::_shrink_fill_ratio && !_hasShrinkingInitiated)
-	{
-		std::cout << "shrink initiated\n";
-		std::cout << _fill_ratio << "\n";
-		for (unsigned int a = 0; a < _graphs.size(); a++)
-			{ _graphs[a].InitShrinking(); }
-		_hasShrinkingInitiated = true;
-	}*/
+
+
 
 	// calculate scale iter here !!!
 	float scale_iter = SystemParams::_growth_scale_iter;
 	_fill_diff = _fill_ratio - _man_neg_ratio;
 
-	//std::cout << "_fill_diff = " << _fill_diff << "  _fill_ratio = " << _fill_ratio << "  _man_neg_ratio = " << _man_neg_ratio << "\n";
-
-	if (_fill_diff > 0.0f) // over
+	// THISSSS
+	/*if (_fill_diff > 0.0f) // over
 	{
 		scale_iter = -SystemParams::_growth_scale_iter_2;
-		//std::cout << "over\n";
 	}
 	else if (_fill_diff < 0 && _fill_diff > -SystemParams::_growth_threshold_a) // under
 	{
 		scale_iter = SystemParams::_growth_scale_iter_2;
-		//std::cout << "careful\n";
-	}
-
-	//if (scale_iter < 0)
-	//{
-	//	std::cout << "scale iter neg\n";
-	//}
+	}*/
 	
 
 	//if(_fill_ratio < _man_neg_ratio)
@@ -1500,6 +1486,9 @@ void StuffWorker::CalculateSkeleton()
 void StuffWorker::DrawAccumulationBuffer(CVImg accumulationBuffer, float startColor, float offsetVal, float overlapArea, int numIter)
 {
 	int img_sz = accumulationBuffer.GetRows();
+
+	CVImg colorBuffer;
+	colorBuffer.CreateColorImage(img_sz);
 	//CVImg substractImg;
 	//substractImg.CreateGrayscaleImage(img_sz);
 	//substractImg.SetGrayscaleImageToSomething(startColor);
@@ -1512,33 +1501,37 @@ void StuffWorker::DrawAccumulationBuffer(CVImg accumulationBuffer, float startCo
 			if (val > startColor + 1)
 			{
 				//std::cout << val << "\n";
-				accumulationBuffer.SetGrayValue(x, y, 255);
+				//accumulationBuffer.SetGrayValue(x, y, 255);
+
+				colorBuffer.SetColorPixel(x, y, MyColor(9, 116, 178));
 			}
 
 			else if (val > startColor)
 			{
 				//std::cout << val << "\n";
-				accumulationBuffer.SetGrayValue(x, y, 20);
+				//accumulationBuffer.SetGrayValue(x, y, 20);
+				colorBuffer.SetColorPixel(x, y, MyColor(95, 178, 230));
 			}
 			else
 			{
 				//std::cout << val << "\n";
-				accumulationBuffer.SetGrayValue(x, y, 0);
+				//accumulationBuffer.SetGrayValue(x, y, 0);
+				colorBuffer.SetColorPixel(x, y, MyColor(255, 255, 255));
 			}
 		}
 	}
 
 	std::stringstream ss2;
 	ss2 << "offset = " << offsetVal;
-	_cvWrapper.PutText(accumulationBuffer._img, ss2.str(), AVector(10, 40), MyColor(255), 1);
+	_cvWrapper.PutText(colorBuffer._img, ss2.str(), AVector(10, 40), MyColor(0, 0, 0), 1, 2);
 
 	std::stringstream ss1;
 	ss1 << "overlap area = " << overlapArea;
-	_cvWrapper.PutText(accumulationBuffer._img, ss1.str(), AVector(10, 70), MyColor(255), 1);
+	_cvWrapper.PutText(colorBuffer._img, ss1.str(), AVector(10, 70), MyColor(0, 0, 0), 1, 2);
 
 	std::stringstream ss;
 	ss << SystemParams::_save_folder << "OVERLAP\\" << "overlap_" << numIter << ".png";
-	accumulationBuffer.SaveImage(ss.str());
+	colorBuffer.SaveImage(ss.str());
 	/*accumulationBuffer._img -= startColor;
 	for (unsigned int x = 0; x < img_sz; x++)
 	{
@@ -1622,8 +1615,8 @@ void StuffWorker::AddToAccumulationBuffer(std::vector<std::vector<AVector>> elem
 void StuffWorker::CalculateMetrics()
 {
 	// parameter
-	double maxOffVal  = 20;
-	double offValIter = 0.1;
+	double maxOffVal  = 15.05;
+	double offValIter = 0.05;
 
 	bool saveSVGA = false; // elements without offset
 	bool saveSVGB = false;  // overlap
@@ -1759,16 +1752,57 @@ void StuffWorker::CalculateMetrics()
 
 }
 
+void StuffWorker::CalculateMetrics3()
+{
+	// parameter
+	double maxOffVal = 16;
+	double offValIter = 0.1;
+
+	bool saveOriSVG = false; // original elements without offset
+	bool saveOverlapSVG = false;  // overlap
+	bool saveEmptySVG = false; // positive space only
+	bool saveSCPSVG = false; // positive space clipped by offset container
+
+	std::vector<double> overlap_area_array;
+	std::vector<double> empty_area_array;
+	std::vector<double> scp_array;
+
+	OpenCVWrapper cvWRap;
+	double containerArea = cvWRap.GetAreaOriented(_manualContainer[0]);
+	std::cout << "containerArea = " << containerArea << "\n";
+
+	// 1 -
+	std::vector< std::vector<AVector>> ori_elements = _manualElements;
+
+	for (double offVal = 0.0f; offVal < maxOffVal; offVal += offValIter)
+	{
+
+		std::vector< std::vector<AVector>> allElements_uni_not_clipped = ClipperWrapper::OffsetAll(ori_elements, offVal);
+		float area = 0;
+		std::vector<std::vector<AVector>> offsetElements4 = ClipperWrapper::ClipElementsWithContainer(allElements_uni_not_clipped, _manualContainer[0], area);
+
+		std::stringstream ss5;
+		ss5 << SystemParams::_save_folder << "SVG\\" << "offset_" << offVal << ".svg";
+		MySVGRenderer::SaveShapesToSVG(ss5.str(), offsetElements4);
+
+		std::cout << offVal << "\n";
+		//std::cout << offContainerArea << "\n";
+		//std::cout << offVal << " --> " << area2 - area3 << "\n";
+
+	} // end for (float offVal = 0.0f; offVal < maxOffVal; offVal += offValIter)
+
+}
+
 void StuffWorker::CalculateMetrics2()
 {
 	// parameter
-	double maxOffVal = 25;
-	double offValIter = 0.25;
+	double maxOffVal  = 16;
+	double offValIter = 0.1;
 
 	bool saveOriSVG = false; // original elements without offset
-	bool saveOverlapSVG = true;  // overlap
-	bool saveEmptySVG   = true; // positive space only
-	bool saveSCPSVG    = true; // positive space clipped by offset container
+	bool saveOverlapSVG = false;  // overlap
+	bool saveEmptySVG   = false; // positive space only
+	bool saveSCPSVG    = false; // positive space clipped by offset container
 
 	std::vector<double> overlap_area_array;
 	std::vector<double> empty_area_array;
@@ -1867,6 +1901,10 @@ void StuffWorker::CalculateMetrics2()
 			MySVGRenderer::SaveShapesToSVG(ss4.str(), offsetElements4);
 		}
 
+		std::stringstream ss5;
+		ss5 << SystemParams::_save_folder << "SVG\\" << "offset_" << offVal << ".svg";
+		MySVGRenderer::SaveShapesToSVG(ss5.str(), allElements_uni_not_clipped);
+
 		std::cout << offVal << "\n";
 		//std::cout << offContainerArea << "\n";
 		//std::cout << offVal << " --> " << area2 - area3 << "\n";
@@ -1879,6 +1917,8 @@ void StuffWorker::CalculateMetrics2()
 	pIO.SaveSDF2CSV(scp_array, SystemParams::_save_folder + "scp.csv"); // for scp
 
 }
+
+
 
 void StuffWorker:: AnalyzeFinishedPacking()
 {
@@ -1926,10 +1966,26 @@ void StuffWorker::CreateManualPacking2()
 			{ _manualContainer = temp; }
 	}
 
+	/*VFRegion reg = pathIO.LoadRegions(SystemParams::_image_folder + SystemParams::_manual_art_name + ".path")[0];
+
+	// assignments
+	_manualElements = reg.GetFocalBoundaries();
+	std::cout << "_manualElements.size() = " << _manualElements.size() << "\n";
+	for (unsigned int a = 0; a < _manualElements.size(); a++)
+	{
+		GraphArt g;
+		g.push_back(_manualElements[a]);
+		_manualElementsss.push_back(g);
+	}
+
+	//_manualSkeletons = reg.GetFields();
+	_manualContainer = reg.GetBoundaries(); // target container
+	*/
+
 	// ----
 	// HERE
 	// ----
-	CalculateMetrics2();
+	CalculateMetrics();
 }
 
 /*

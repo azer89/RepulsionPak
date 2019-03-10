@@ -198,6 +198,7 @@ public:
 
 	void CalculateMetrics();
 	void CalculateMetrics2();
+	void CalculateMetrics3();
 	void AddToAccumulationBuffer(std::vector<std::vector<AVector>> elem, CVImg& accumulationBuffer, int startVal, int numIter);
 	void DrawAccumulationBuffer(CVImg accumulationBuffer, float startColor, float offsetVal,float overlapArea, int numIter);
 

@@ -104,8 +104,8 @@ _dt = 0.05;   --- do not set this higher than 0.1
 --- _noise_map_update_time = 10000000; --- in ms (disabled)
 
 --- Force parameters
-_k_neg_space_edge      = 10;	--- edge force for springs
 _k_edge                = 40;	--- edge force for filling elements
+_k_neg_space_edge      = 10;	--- edge force for springs
 _k_edge_small_factor   = 12;
 _k_repulsion           = 60;	--- repulsion force
 _repulsion_soft_factor = 1.0;	--- soft factor for repulsion force

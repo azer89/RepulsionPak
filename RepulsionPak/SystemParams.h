@@ -1,5 +1,5 @@
 
-/* ---------- ShapeRadiusMatching V2  ---------- */
+/* ---------- RepulsionPak  ---------- */
 
 #ifndef __System_Params__
 #define __System_Params__

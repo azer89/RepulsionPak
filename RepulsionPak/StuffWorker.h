@@ -1,4 +1,6 @@
 
+/* ---------- RepulsionPak  ---------- */
+
 #ifndef STUFF_WORKER_H
 #define STUFF_WORKER_H
 

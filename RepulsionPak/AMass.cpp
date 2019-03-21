@@ -18,12 +18,12 @@
 
 
 // sorting edges
-bool CompareByAngle(const AnIndexedLine &a, const AnIndexedLine &b)
-{ return a._angle < b._angle; }
+//bool CompareByAngle(const AnIndexedLine &a, const AnIndexedLine &b)
+//{ return a._angle < b._angle; }
 
 // sorting angle connectors
-bool CompareByAngle2(const AngleConnector &a, const AngleConnector &b)
-{ return a._angle < b._angle; }
+//bool CompareByAngle2(const AngleConnector &a, const AngleConnector &b)
+//{ return a._angle < b._angle; }
 
 
 // Constructor

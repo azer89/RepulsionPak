@@ -1,5 +1,5 @@
 
-/* ---------- ShapeRadiusMatching V2  ---------- */
+/* ---------- RepulsionPak  ---------- */
 
 #ifndef __Self_Intersection_Fixer_h__
 #define __Self_Intersection_Fixer_h__

@@ -4,8 +4,10 @@ import matplotlib.pylab as plt
 h_step = 0.1; # gap
 max_val = 20;
 r_vals = np.arange(0.0, max_val, h_step );
+#r_vals = np.negative(r_vals);
 
-log_vals = np.exp(-1 * r_vals * r_vals / 40000);
+#log_vals = np.exp(-1 * r_vals * r_vals / 10);
+log_vals = -r_vals * 2;
 
 figfig = plt.figure(1);
 figfig.patch.set_facecolor('white');

@@ -1,4 +1,6 @@
 
+/* ---------- RepulsionPak  ---------- */
+
 #ifndef __Rigid_Registration__
 #define __Rigid_Registration__
 

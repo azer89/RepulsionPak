@@ -41,7 +41,7 @@ public:
 	// y
 	float y;
 
-	float radAngle;
+	//float radAngle;
 
 	// what is this?
 	float aCertainInfo;
@@ -51,7 +51,7 @@ public:
 	{
 		this->x = -1;
 		this->y = -1;
-		this->radAngle = 0;
+		//this->radAngle = 0;
 	}
 
 	// Constructor
@@ -59,7 +59,7 @@ public:
 	{
 		this->x = x;
 		this->y = y;
-		this->radAngle = 0;
+		//this->radAngle = 0;
 	}
 
 	// Scale a point
@@ -229,7 +229,7 @@ public:
 
 	void Print()
 	{
-		std::cout << "(" << x << ", " << y << ")\n";
+		std::cout << "(" << x << ", " << y << ", " << z << ")\n";
 	}
 };
 

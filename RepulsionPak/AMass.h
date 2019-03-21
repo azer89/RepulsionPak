@@ -148,13 +148,7 @@ public:
 
 	void CalculateFoldingForce(const std::vector<AMass>& otherMasses);
 
-	void Solve(const int& massNumber,
-		       AGraph& parentGraph,
-			   //const std::vector<AGraph>& allGraphs,
-			   //CollissionGrid* cGrid,
-			   const std::vector<std::vector<AVector>>& boundaries,
-			   const std::vector<std::vector<AVector>>& holes,
-			   const std::vector<std::vector<AVector>>& focalOffsets);
+	
 
 	//void IntersectionRelax(int parentGraphIndex, std::vector<AGraph>& allGraphs);
 
@@ -178,6 +172,14 @@ public:
 	void Init(); // reset force to zero
 
 	void Simulate(float dt/*, float dampingVal*/);
+
+	void Solve(const int& massNumber,
+		AGraph& parentGraph,
+		//const std::vector<AGraph>& allGraphs,
+		//CollissionGrid* cGrid,
+		const std::vector<std::vector<AVector>>& boundaries,
+		const std::vector<std::vector<AVector>>& holes,
+		const std::vector<std::vector<AVector>>& focalOffsets);
 
 	void UpdatePos(float dt, float dtdt_half); // dtdt_half = dt * dt * 0.5
 	void UpdateVelocity(float dt_half, float dampingVal);

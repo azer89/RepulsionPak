@@ -1,3 +1,6 @@
+
+/* ---------- RepulsionPak  ---------- */
+
 #ifndef __QT_OBJECT_H__
 #define __QT_OBJECT_H__
 

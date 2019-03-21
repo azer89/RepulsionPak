@@ -1,3 +1,6 @@
+
+/* ---------- RepulsionPak  ---------- */
+
 #ifndef __QUADTREE_H__
 #define __QUADTREE_H__
 

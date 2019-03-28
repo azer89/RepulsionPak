@@ -908,22 +908,14 @@ void AMass::Simulate(float dt/*, float dampingVal*/)
 		                                   _rotationForce  + 
 		                                   _selfIntersectForce) * dt);
 	float len = _velocity.Length();
-	//if (len < dampingVal) { _velocity = AVector(0, 0); }
-	float capVal = SystemParams::_velocity_cap * dt;
 
-	/*if (len < SystemParams::_velocity_damping)
-	{
-		_velocity = AVector(0, 0);
-	}
-	else*/ if (len > capVal)
+	float capVal = SystemParams::_velocity_cap * dt; 
+	
+	if (len > capVal)
 	{
 		_velocity = _velocity.Norm() * capVal;
 	}
-	//else
-	//{
-	//
-	//}
-	//else { _velocity -= _velocity.Norm() * dampingVal; }
+
 	_pos = _pos + _velocity * dt;
 
 }

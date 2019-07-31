@@ -8,10 +8,10 @@ _save_folder  = "C:\\Users\\azer\\OneDrive\\Images\\PhysicsPak_Snapshots_0" .. _
 
 ------ folders ------
 _image_folder         = "C:\\Users\\azer\\OneDrive\\Images\\";	--- where all the input files are located
-_artName              = "pp_rect_strip"; --- pp_lolwut	--- location of the container 
+_artName              = "pp_heart_2"; --- pp_lolwut	--- location of the container 
 _manual_art_name      = "man_balabolka_layered";	--- manually drawn packing (for evaluation)
-_ornament_dir         = _image_folder .. "opp_b_penguin_giraffe";		--- regular elements
-_ornament_dir_small_1 = _image_folder .. "opp_b_penguin_giraffe"; --- filling elements (the elements to fill the remaining empty space after the simulation ends)
+_ornament_dir         = _image_folder .. "opp_b_blue_bunny";		--- regular elements
+_ornament_dir_small_1 = _image_folder .. "opp_b_blue_bunny"; --- filling elements (the elements to fill the remaining empty space after the simulation ends)
 
 ---------------------------------------------------------------------
 --- metric
@@ -87,10 +87,10 @@ _seed = -1; --- negative means random
 --- larger the number, more elements you get,
 --- but the simulation time gets slower
 _num_element_pos       = 1000;
-_num_element_pos_limit = 60;
+_num_element_pos_limit = 20;
 
 --- Time step for numerical integration (euler method)
-_dt = 0.05;   --- do not set this higher than 0.1
+_dt = 0.1;   --- do not set this higher than 0.1
 
 --- random animation
 ---_shrink_fill_ratio = 1.65;
@@ -104,15 +104,15 @@ _dt = 0.05;   --- do not set this higher than 0.1
 --- _noise_map_update_time = 10000000; --- in ms (disabled)
 
 --- Force parameters
-_k_edge                = 40;	--- edge force for filling elements
-_k_neg_space_edge      = 10;	--- edge force for springs
+_k_edge                = 20;	--- edge force for filling elements
+_k_neg_space_edge      = 5;	--- edge force for springs
 _k_edge_small_factor   = 12;
-_k_repulsion           = 60;	--- repulsion force
+_k_repulsion           = 400;	--- repulsion force
 _repulsion_soft_factor = 1.0;	--- soft factor for repulsion force
 _k_overlap             = 5;	--- overlap force
-_k_boundary            = 5;	--- boundary force
+_k_boundary            = 20;	--- boundary force
 _k_noise               = 0;
-_k_rotate              = 1;		--- 1
+_k_rotate              = 0;		--- 1
 _k_dock                = 100;
 
 --- _fuk_this = 0.000001;
@@ -134,7 +134,7 @@ _focal_offset = 2;
 _skin_offset                = 20;  
 --- density of random points inside the skin
 --- if the density is higher, you get more triangles
-_sampling_num               = 500;
+_sampling_num               = 100;
 --- uniform sampling on the skin
 _boundary_sampling_factor   = 1.5;  -- [Do not edit]
 ---_should_recalculate_element = true;

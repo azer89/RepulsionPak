@@ -1,5 +1,5 @@
 
-/* ---------- ShapeRadiusMatching V2  ---------- */
+/* ---------- RepulsionPak  ---------- */
 
 #ifndef ARECTANGLE_H
 #define ARECTANGLE_H

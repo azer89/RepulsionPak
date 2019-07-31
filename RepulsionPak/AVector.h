@@ -229,7 +229,7 @@ public:
 
 	void Print()
 	{
-		std::cout << "(" << x << ", " << y << ", " << z << ")\n";
+		std::cout << "(" << x << ", " << y << ")\n";
 	}
 };
 

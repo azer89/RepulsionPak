@@ -62,6 +62,7 @@ void AGraph::CalculateCentroid()
 
 void AGraph::CalculateVecToCentroidArray()
 {
+	//
 	for (unsigned int a = 0; a < _skinPointNum; a++)
 	{
 		_normFromCentroidArray.push_back((_massList[a]._pos - _centroid).Norm());
@@ -2022,6 +2023,7 @@ void AGraph::SolveForNegativeSPaceSprings()
 		pt1 = _massList[idx1]._pos;
 
 		float dist = pt0.Distance(pt1);
+		//float threshold = _negSpaceEdges[a].GetDist() * SystemParams::_self_intersection_threshold;
 		float threshold = _averageEdgeLength * SystemParams::_self_intersection_threshold;
 		if (dist < threshold)
 		{
@@ -2140,14 +2142,13 @@ void AGraph::SolveForTriangleSprings()
 
 	// rotation
 	float eps_rot = 3.14 * 0.001;
-	//AVector curNorm;
-	//AVector rForce;
 	
 	float xPosNorm = PI * -_centroid.x / SystemParams::_upscaleFactor;
 	float angleValAvg = 0;
 	for (unsigned int a = 0; a < _skinPointNum; a++)
 	{
-		AVector targetVector = UtilityFunctions::Rotate(_normFromCentroidArray[a], AVector(0, 0), xPosNorm);
+		//AVector targetVector = UtilityFunctions::Rotate(_normFromCentroidArray[a], AVector(0, 0), xPosNorm);
+		AVector targetVector(0, -1);
 		AVector curNorm = (_massList[a]._pos - _centroid).Norm();
 		float angleVal = UtilityFunctions::Angle2D(curNorm.x, curNorm.y, targetVector.x, targetVector.y);
 		angleValAvg += angleVal;
@@ -2155,9 +2156,6 @@ void AGraph::SolveForTriangleSprings()
 	angleValAvg /= (float)_skinPointNum;
 	for (unsigned int a = 0; a < _skinPointNum; a++)
 	{
-
-		//AVector targetVector = UtilityFunctions::Rotate(_normFromCentroidArray[a], AVector(0, 0), xPosNorm);
-		//float angleVal = UtilityFunctions::Angle2D(curNorm.x, curNorm.y, targetVector.x, targetVector.y);
 
 		if (std::abs(angleValAvg) > eps_rot)
 		{

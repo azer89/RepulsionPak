@@ -165,8 +165,7 @@ public:
 	void ComputeBarycentric();
 
 	void ComputeTesselateBarycentric();
-
-
+	
 	void TesselateArts();
 
 	//

@@ -141,7 +141,7 @@ _boundary_sampling_factor   = 1.5;  -- [Do not edit]
 
 --- Grid for collision detection
 --- size of a cell
-_bin_square_size         = 50.0;
+_bin_square_size         = 20.0;
 --- cell gap for detection, 
 --- 1 means considering all cells that are 1 block away from the query (3x3)
 --- 2 means considering all cells that are 2 block away from the query (5x5)

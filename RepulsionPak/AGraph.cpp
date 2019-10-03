@@ -2079,7 +2079,9 @@ void AGraph::SolveForTriangleSprings()
 		float   oriDist = _triEdges[a].GetDist();
 		float signVal = 1;
 		float diff = dist - oriDist;
+		
 		if (diff < 0) { signVal = -1; }
+
 		eForce = (dir * k_edge *  signVal * diff * diff);
 		//eForce = (dir * k_edge *  diff);
 		// ORI

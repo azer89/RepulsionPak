@@ -118,9 +118,6 @@
     <ClCompile Include="ContainerWorker.cpp">
       <Filter>CPP</Filter>
     </ClCompile>
-    <ClCompile Include="CmCurveEx.cpp">
-      <Filter>CPP</Filter>
-    </ClCompile>
     <ClCompile Include="PixelTracer.cpp">
       <Filter>CPP</Filter>
     </ClCompile>
@@ -295,9 +292,6 @@
       <Filter>H</Filter>
     </ClInclude>
     <ClInclude Include="KDTreeVectorOfVectorsAdaptor.h">
-      <Filter>H</Filter>
-    </ClInclude>
-    <ClInclude Include="CmCurveEx.h">
       <Filter>H</Filter>
     </ClInclude>
     <ClInclude Include="PixelTracer.h">

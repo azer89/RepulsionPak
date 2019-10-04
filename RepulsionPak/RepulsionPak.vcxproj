@@ -137,7 +137,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\azer\workspace\opencv\build\x86\vc12\lib;C:\Users\azer\workspace\Core\lib\win32;C:\Users\azer\workspace\VecFieldDesign\vfd\lib;C:\Users\azer\workspace\DecorativeOrnaments\DecorativeOrnaments\lib\win32;C:\Program Files (x86)\IntelSWTools\compilers_and_libraries_2016\windows\compiler\lib\ia32;C:\Program Files (x86)\IntelSWTools\compilers_and_libraries_2016\windows\mkl\lib\ia32;C:\Program Files (x86)\IntelSWTools\compilers_and_libraries_2016.3.207\windows\tbb\lib\ia32\vc12;C:\Users\azer\workspace\SuperLU_3.1\lib;C:\Users\azer\workspace\Lua533\$(ConfigurationName);C:\Users\azer\workspace\CGAL-4.6.3\bin\lib;C:\Users\azer\workspace\CGAL-4.6.3\auxiliary\gmp\lib;C:\Users\azer\workspace\boost_1_59_0\lib32-msvc-12.0;C:\Users\azer\workspace\imgui_freeglut\lib\win32;C:\Users\azer\workspace\imgui_freeglut\Debug</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\azer\workspace\opencv\build\x86\vc12\lib;C:\Users\azer\workspace\Lua533\$(ConfigurationName);C:\Users\azer\workspace\CGAL-4.6.3\bin\lib;C:\Users\azer\workspace\CGAL-4.6.3\auxiliary\gmp\lib;C:\Users\azer\workspace\boost_1_59_0\lib32-msvc-12.0;C:\Users\azer\workspace\imgui_freeglut\lib\win32;C:\Users\azer\workspace\imgui_freeglut\Debug</AdditionalLibraryDirectories>
       <AdditionalDependencies>freeglut.lib;imgui.lib;opencv_core2412d.lib;opencv_highgui2412d.lib;opencv_imgproc2412d.lib;Lua533.lib;libgmp-10.lib;libmpfr-4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -269,7 +269,6 @@
     <ClInclude Include="CGALOffsetter.h" />
     <ClInclude Include="CGALTriangulation.h" />
     <ClInclude Include="CGALTriangulation2.h" />
-    <ClInclude Include="CmCurveEx.h" />
     <ClInclude Include="CollissionGrid.h" />
     <ClInclude Include="ColorPalette.h" />
     <ClInclude Include="ContainerWorker.h" />
@@ -323,7 +322,6 @@
     <ClCompile Include="CGALTriangulation2.cpp" />
     <ClCompile Include="clipper.cpp" />
     <ClCompile Include="ClipperWrapper.cpp" />
-    <ClCompile Include="CmCurveEx.cpp" />
     <ClCompile Include="CollissionGrid.cpp" />
     <ClCompile Include="ColorPalette.cpp" />
     <ClCompile Include="ContainerWorker.cpp" />

@@ -1,6 +1,6 @@
 # RepulsionPak
 
-Dependencies:
+What you need:
 * Lua 5.3.3
 * CGAL 4.6.3
 * boost 1.59.0

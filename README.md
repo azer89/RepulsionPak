@@ -7,3 +7,6 @@ Dependencies:
 * Eigen 3.2
 * OpenCV 2.41.2
 * imgui with freeglut
+
+Additional tool:
+* Illustrator plugin to convert .ai files to .path files (https://github.com/azer89/IllustratorPathConverter)

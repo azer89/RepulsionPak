@@ -1,4 +1,4 @@
-# RepulsionPak_SCP
+# RepulsionPak
 
 Dependencies:
 * Lua 5.3.3

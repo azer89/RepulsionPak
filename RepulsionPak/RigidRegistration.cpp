@@ -369,7 +369,7 @@ void RigidRegistration::LineUpArts()
 	}
 
 	// save svg
-	MySVGRenderer::LineUpArts(SystemParams::_save_folder + "DEFORMED_ELEMENTS\\line_up.svg",
+	MySVGRenderer::LineUpArts(SystemParams::_output_folder + "DEFORMED_ELEMENTS\\line_up.svg",
 							  oArts,
 							  dArts,
 							  _artFColors,

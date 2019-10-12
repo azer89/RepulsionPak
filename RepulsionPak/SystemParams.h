@@ -43,14 +43,14 @@ public:
 	//static float _e_step_length;
 	//static float _e_min_length;
 
-	static std::string _image_folder;
-	static std::string _artName;		// Art name
-	static std::string _manual_art_name; // for manual creation of a packing using Illustrator
-	static std::string _ornament_dir;	// ornaments
-	static std::string _ornament_dir_small_1;
+	//static std::string _image_folder;
+	static std::string _container_file;		// Art name
+	//static std::string _manual_art_name; // for manual creation of a packing using Illustrator
+	static std::string _primary_elem_dir;	// ornaments
+	static std::string _secondary_elem_dir;
 	//static std::string _ornament_dir_small_2;
 	//static std::string _small_ornament_dir; // not used
-	static std::string _save_folder;
+	static std::string _output_folder;
 
 	//static bool _shouldUDFlip;
 	//static float _min_blob_sum;

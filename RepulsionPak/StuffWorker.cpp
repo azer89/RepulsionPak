@@ -171,7 +171,7 @@ void StuffWorker::LoadOrnaments()
 	PathIO pathIO;
 
 	// ---------- regular ornaments ----------
-	std::vector<std::string> ornamentFiles2 = LoadFiles(SystemParams::_ornament_dir); ////
+	std::vector<std::string> ornamentFiles2 = LoadFiles(SystemParams::_primary_elem_dir); ////
 
 	//if (SystemParams::_seed <= 0)
 	//{
@@ -192,7 +192,7 @@ void StuffWorker::LoadOrnaments()
 		if (ornamentFiles2[a] == "." || ornamentFiles2[a] == "..") { continue; }
 		if (!UtilityFunctions::HasEnding(ornamentFiles2[a], ".path")) { continue; }
 
-		std::string fileName = SystemParams::_ornament_dir + "\\" + ornamentFiles2[a];
+		std::string fileName = SystemParams::_primary_elem_dir + "\\" + ornamentFiles2[a];
 		VFRegion reg = pathIO.LoadRegions(fileName)[0]; // note that one file only has one region
 		reg._name = ornamentFiles2[a];
 		reg.MakeBoundariesClockwise();
@@ -203,14 +203,14 @@ void StuffWorker::LoadOrnaments()
 	_numBigOnes = _ornamentRegions.size();
 
 	// ---------- small ornaments 1 ----------
-	std::vector<std::string> ornamentFiles3 = LoadFiles(SystemParams::_ornament_dir_small_1);
+	std::vector<std::string> ornamentFiles3 = LoadFiles(SystemParams::_secondary_elem_dir);
 	for (unsigned int a = 0; a < ornamentFiles3.size(); a++)
 	{
 		// is path valid?
 		if (ornamentFiles3[a] == "." || ornamentFiles3[a] == "..") { continue; }
 		if (!UtilityFunctions::HasEnding(ornamentFiles3[a], ".path")) { continue; }
 
-		std::string fileName = SystemParams::_ornament_dir_small_1 + "\\" + ornamentFiles3[a];
+		std::string fileName = SystemParams::_secondary_elem_dir + "\\" + ornamentFiles3[a];
 		VFRegion reg = pathIO.LoadRegions(fileName)[0]; // note that one file only has one region
 		reg._name = ornamentFiles3[a];
 		reg.MakeBoundariesClockwise();
@@ -975,7 +975,7 @@ void StuffWorker::SaveDataToCSV()
 	_stuffData.push_back(fData);
 
 	std::stringstream ss;
-	ss << SystemParams::_save_folder << "data.csv";
+	ss << SystemParams::_output_folder << "data.csv";
 	PathIO pIO;
 	pIO.SaveData(_stuffData, ss.str());
 }
@@ -988,7 +988,7 @@ void StuffWorker::SaveSVG(int frameCounter)
 
 	// Elements, Skins, and Container
 	std::stringstream ss5;
-	ss5 << SystemParams::_save_folder << "SVG\\" << "result_" << frameCounter << ".svg";
+	ss5 << SystemParams::_output_folder << "SVG\\" << "result_" << frameCounter << ".svg";
 	MySVGRenderer::SaveElementsAndSkins(ss5.str(), 
 		                                _graphs, 
 		                                _containerWorker->_focals, 
@@ -1071,7 +1071,7 @@ void StuffWorker::SavePNG(int frameCounter)
 	//	_cvWrapper.DrawPolysOnCVImage(_pngImg._img, _focals[a], MyColor(57, 139, 203), true, lineThickness, imgScale);
 	//}
 
-	_pngImg.SaveImage(SystemParams::_save_folder + "PNG\\" + ss1.str() + ".png");
+	_pngImg.SaveImage(SystemParams::_output_folder + "PNG\\" + ss1.str() + ".png");
 
 	//delete cvcv;
 }
@@ -1438,7 +1438,10 @@ void StuffWorker::Operate(float dt)
 
 void StuffWorker::AnalyzeManualPacking()
 {
-	std::cout << "AnalyzeManualPacking\n";
+	// analyze manual packing is disabled
+
+
+	/*std::cout << "AnalyzeManualPacking\n";
 
 	PathIO pathIO;
 	VFRegion reg = pathIO.LoadRegions(SystemParams::_image_folder + SystemParams::_manual_art_name + ".path")[0];
@@ -1449,7 +1452,7 @@ void StuffWorker::AnalyzeManualPacking()
 	_man_neg_ratio = ClipperWrapper::CalculateFill(_manualContainer[0], _manualElements);
 
 	std::cout << "_manualElements = " << _manualElements.size() << "\n";
-	std::cout << "_man_neg_ratio = " << _man_neg_ratio << "\n";
+	std::cout << "_man_neg_ratio = " << _man_neg_ratio << "\n";*/
 }
 
 /*void StuffWorker::CreateManualPacking2()
@@ -1531,7 +1534,7 @@ void StuffWorker::DrawAccumulationBuffer(CVImg accumulationBuffer, float startCo
 	_cvWrapper.PutText(colorBuffer._img, ss1.str(), AVector(10, 70), MyColor(0, 0, 0), 1, 2);
 
 	std::stringstream ss;
-	ss << SystemParams::_save_folder << "OVERLAP\\" << "overlap_" << numIter << ".png";
+	ss << SystemParams::_output_folder << "OVERLAP\\" << "overlap_" << numIter << ".png";
 	colorBuffer.SaveImage(ss.str());
 	/*accumulationBuffer._img -= startColor;
 	for (unsigned int x = 0; x < img_sz; x++)
@@ -1645,7 +1648,7 @@ void StuffWorker::CalculateMetrics()
 	if(saveSVGA)
 	{
 		std::stringstream ss1;
-		ss1 << SystemParams::_save_folder << "SVG\\" << "debugA.svg";
+		ss1 << SystemParams::_output_folder << "SVG\\" << "debugA.svg";
 		MySVGRenderer::SaveShapesToSVG(ss1.str(), offsetElements1);
 	}
 	std::vector<double> _offsetVals2;
@@ -1693,7 +1696,7 @@ void StuffWorker::CalculateMetrics()
 		if (saveSVGB)
 		{
 			std::stringstream ss2;
-			ss2 << SystemParams::_save_folder << "SVG\\" << "debugB_" << offVal << ".svg";
+			ss2 << SystemParams::_output_folder << "SVG\\" << "debugB_" << offVal << ".svg";
 			MySVGRenderer::SaveShapesToSVG(ss2.str(), offsetElements2);
 		}
 		// area
@@ -1712,7 +1715,7 @@ void StuffWorker::CalculateMetrics()
 		if (saveSVGC)
 		{
 			std::stringstream ss3;
-			ss3 << SystemParams::_save_folder << "SVG\\" << "debugC_" << offVal << ".svg";
+			ss3 << SystemParams::_output_folder << "SVG\\" << "debugC_" << offVal << ".svg";
 			MySVGRenderer::SaveShapesToSVG(ss3.str(), offsetElements3);
 		}
 		// area
@@ -1733,7 +1736,7 @@ void StuffWorker::CalculateMetrics()
 		if (saveSVGD)
 		{
 			std::stringstream ss4;
-			ss4 << SystemParams::_save_folder << "SVG\\" << "debugD_" << offVal << ".svg";
+			ss4 << SystemParams::_output_folder << "SVG\\" << "debugD_" << offVal << ".svg";
 			MySVGRenderer::SaveShapesToSVG(ss4.str(), offsetElements4);
 		}
 
@@ -1747,9 +1750,9 @@ void StuffWorker::CalculateMetrics()
 	} // end for (float offVal = 0.0f; offVal < maxOffVal; offVal += offValIter)
 
 	PathIO pIO;
-	pIO.SaveSDF2CSV(_offsetVals2, SystemParams::_save_folder + "dist_2.csv"); // for overlap metric
-	pIO.SaveSDF2CSV(_offsetVals3, SystemParams::_save_folder + "dist_3.csv"); // for overlap metric
-	pIO.SaveSDF2CSV(_negVals,     SystemParams::_save_folder + "dist_4.csv"); // for scp
+	pIO.SaveSDF2CSV(_offsetVals2, SystemParams::_output_folder + "dist_2.csv"); // for overlap metric
+	pIO.SaveSDF2CSV(_offsetVals3, SystemParams::_output_folder + "dist_3.csv"); // for overlap metric
+	pIO.SaveSDF2CSV(_negVals,     SystemParams::_output_folder + "dist_4.csv"); // for scp
 
 }
 
@@ -1783,7 +1786,7 @@ void StuffWorker::CalculateMetrics3()
 		std::vector<std::vector<AVector>> offsetElements4 = ClipperWrapper::ClipElementsWithContainer(allElements_uni_not_clipped, _manualContainer[0], area);
 
 		std::stringstream ss5;
-		ss5 << SystemParams::_save_folder << "SVG\\" << "offset_" << offVal << ".svg";
+		ss5 << SystemParams::_output_folder << "SVG\\" << "offset_" << offVal << ".svg";
 		MySVGRenderer::SaveShapesToSVG(ss5.str(), offsetElements4);
 
 		std::cout << offVal << "\n";
@@ -1819,7 +1822,7 @@ void StuffWorker::CalculateMetrics2()
 	if (saveOriSVG)
 	{
 		std::stringstream ss1;
-		ss1 << SystemParams::_save_folder << "SVG\\" << "debugA.svg";
+		ss1 << SystemParams::_output_folder << "SVG\\" << "debugA.svg";
 		MySVGRenderer::SaveShapesToSVG(ss1.str(), ori_elements);
 	}
 
@@ -1859,7 +1862,7 @@ void StuffWorker::CalculateMetrics2()
 		if (saveOverlapSVG)
 		{
 			std::stringstream ss2;
-			ss2 << SystemParams::_save_folder << "SVG\\" << "overlap_" << offVal << ".svg";
+			ss2 << SystemParams::_output_folder << "SVG\\" << "overlap_" << offVal << ".svg";
 			MySVGRenderer::SaveShapesToSVG(ss2.str(), overlapPolys_Uni);
 		}
 		// area
@@ -1878,7 +1881,7 @@ void StuffWorker::CalculateMetrics2()
 		if (saveEmptySVG)
 		{
 			std::stringstream ss3;
-			ss3 << SystemParams::_save_folder << "SVG\\" << "empty_" << offVal << ".svg";
+			ss3 << SystemParams::_output_folder << "SVG\\" << "empty_" << offVal << ".svg";
 			MySVGRenderer::SaveShapesToSVG(ss3.str(), empty_polys);
 		}
 		// area
@@ -1898,12 +1901,12 @@ void StuffWorker::CalculateMetrics2()
 		if (saveSCPSVG)
 		{
 			std::stringstream ss4;
-			ss4 << SystemParams::_save_folder << "SVG\\" << "scp_" << offVal << ".svg";
+			ss4 << SystemParams::_output_folder << "SVG\\" << "scp_" << offVal << ".svg";
 			MySVGRenderer::SaveShapesToSVG(ss4.str(), offsetElements4);
 		}
 
 		std::stringstream ss5;
-		ss5 << SystemParams::_save_folder << "SVG\\" << "offset_" << offVal << ".svg";
+		ss5 << SystemParams::_output_folder << "SVG\\" << "offset_" << offVal << ".svg";
 		MySVGRenderer::SaveShapesToSVG(ss5.str(), allElements_uni_not_clipped);
 
 		std::cout << offVal << "\n";
@@ -1913,9 +1916,9 @@ void StuffWorker::CalculateMetrics2()
 	} // end for (float offVal = 0.0f; offVal < maxOffVal; offVal += offValIter)
 
 	PathIO pIO;
-	pIO.SaveSDF2CSV(overlap_area_array, SystemParams::_save_folder + "overlap.csv"); // for overlap metric
-	pIO.SaveSDF2CSV(empty_area_array, SystemParams::_save_folder + "empty.csv"); // for overlap metric
-	pIO.SaveSDF2CSV(scp_array, SystemParams::_save_folder + "scp.csv"); // for scp
+	pIO.SaveSDF2CSV(overlap_area_array, SystemParams::_output_folder + "overlap.csv"); // for overlap metric
+	pIO.SaveSDF2CSV(empty_area_array, SystemParams::_output_folder + "empty.csv"); // for overlap metric
+	pIO.SaveSDF2CSV(scp_array, SystemParams::_output_folder + "scp.csv"); // for scp
 
 }
 
@@ -1949,44 +1952,44 @@ void StuffWorker:: AnalyzeFinishedPacking()
 
 void StuffWorker::CreateManualPacking2()
 {
-	PathIO pathIO;
-	std::vector<VFRegion> regs = pathIO.LoadRegions(SystemParams::_image_folder + SystemParams::_manual_art_name + ".path");
-	
-	// _manualElementsss && _manualElements
-	for (unsigned int a = 0; a < regs.size(); a++)
-	{ 
-		_manualElementsss.push_back(regs[a].GetFocalBoundaries()); 
-		_manualElements.insert(_manualElements.end(), _manualElementsss[a].begin(), _manualElementsss[a].end());
-	}
+	//PathIO pathIO;
+	//std::vector<VFRegion> regs = pathIO.LoadRegions(SystemParams::_image_folder + SystemParams::_manual_art_name + ".path");
+	//
+	//// _manualElementsss && _manualElements
+	//for (unsigned int a = 0; a < regs.size(); a++)
+	//{ 
+	//	_manualElementsss.push_back(regs[a].GetFocalBoundaries()); 
+	//	_manualElements.insert(_manualElements.end(), _manualElementsss[a].begin(), _manualElementsss[a].end());
+	//}
 
-	// find container
-	for (unsigned int a = 0; a < regs.size(); a++)
-	{
-		std::vector<std::vector<AVector>> temp = regs[a].GetBoundaries();
-		if (temp.size() > 0)
-			{ _manualContainer = temp; }
-	}
+	//// find container
+	//for (unsigned int a = 0; a < regs.size(); a++)
+	//{
+	//	std::vector<std::vector<AVector>> temp = regs[a].GetBoundaries();
+	//	if (temp.size() > 0)
+	//		{ _manualContainer = temp; }
+	//}
 
-	/*VFRegion reg = pathIO.LoadRegions(SystemParams::_image_folder + SystemParams::_manual_art_name + ".path")[0];
+	///*VFRegion reg = pathIO.LoadRegions(SystemParams::_image_folder + SystemParams::_manual_art_name + ".path")[0];
 
-	// assignments
-	_manualElements = reg.GetFocalBoundaries();
-	std::cout << "_manualElements.size() = " << _manualElements.size() << "\n";
-	for (unsigned int a = 0; a < _manualElements.size(); a++)
-	{
-		GraphArt g;
-		g.push_back(_manualElements[a]);
-		_manualElementsss.push_back(g);
-	}
+	//// assignments
+	//_manualElements = reg.GetFocalBoundaries();
+	//std::cout << "_manualElements.size() = " << _manualElements.size() << "\n";
+	//for (unsigned int a = 0; a < _manualElements.size(); a++)
+	//{
+	//	GraphArt g;
+	//	g.push_back(_manualElements[a]);
+	//	_manualElementsss.push_back(g);
+	//}
 
-	//_manualSkeletons = reg.GetFields();
-	_manualContainer = reg.GetBoundaries(); // target container
-	*/
+	////_manualSkeletons = reg.GetFields();
+	//_manualContainer = reg.GetBoundaries(); // target container
+	//*/
 
-	// ----
-	// HERE
-	// ----
-	CalculateMetrics();
+	//// ----
+	//// HERE
+	//// ----
+	//CalculateMetrics();
 }
 
 /*
@@ -1997,71 +2000,71 @@ std::vector<std::vector<AVector>> _manualContainer;
 */
 void StuffWorker::CreateManualPacking()
 {
-	// ---------- load regions ----------
-	PathIO pathIO;
-	VFRegion reg = pathIO.LoadRegions(SystemParams::_image_folder + SystemParams::_manual_art_name + ".path")[0];
-	   
-	// assignments
-	_manualElements = reg.GetFocalBoundaries();
-	//_manualElements = ClipperWrapper::OffsetAll( ClipperWrapper::OffsetAll( reg.GetFocalBoundaries(), preOffset), -preOffset); // the actual elements	
-	_manualSkeletons = reg.GetFields();
-	_manualContainer =  reg.GetBoundaries(); // target container
-
-	// ----
-	// HERE
-	// ----
-	//CalculateMetrics();
-
-	/*
-	std::stringstream ss5;
-	ss5 << SystemParams::_save_folder << "SVG\\" << "result_" << frameCounter << ".svg";
-	MySVGRenderer::SaveElementsAndSkins(ss5.str(), 
-		                                _graphs, 
-		                                _containerWorker->_focals, 
-		                                _containerWorker->_offsetFocalBoundaries, 
-		                                _containerWorker->_container_boundaries); //B
-	*/
-	/*std::vector<std::vector<AVector>> offsetShapes = ClipperWrapper::OffsetAll(_manualElements, 5.746f);
-	std::stringstream ss5;
-	ss5 << SystemParams::_save_folder << "SVG\\" << "offset.svg";
-	MySVGRenderer::SaveShapesToSVG(ss5.str(), offsetShapes);*/
-		
-	// use this for skeletons
-	//float offVal = 5.0f;
-	//std::vector<std::vector<AVector>> temp1 = ClipperWrapper::RoundOffsettingPP(reg.GetBoundaries(), offVal);
-	//_manualContainer = ClipperWrapper::RoundOffsettingPP(temp1, -offVal);
-	//_manualContainer = temp1;
-	// -------------------
-
-
-	std::cout << "_manualSkeletons.size() " << _manualSkeletons.size() << "\n";
-
-	// prepare things
-	std::vector<std::vector<AVector>> focals;
-	ADistanceTransform* mDistTransform = new ADistanceTransform(_manualContainer, _containerWorker->_holes, focals, 2.0);
-	for (int a = 0; a < _manualElements.size(); a++)
-	{
-		mDistTransform->AddGraph(_manualElements[a]);
-	}
-
-	_manualGrid = new CollissionGrid();
-	std::vector<std::vector<AVector>> offsetFocalBoundaries;
-	_manualGrid->AnalyzeContainer(_manualContainer, _containerWorker->_holes, offsetFocalBoundaries);
-
-	// assign to c grid
-	for (unsigned int a = 0; a < _manualElements.size(); a++)
-	{
-		// boundary
-		for (unsigned int b = 0; b < _manualElements[a].size(); b++)
-			{ _manualGrid->InsertAPoint(_manualElements[a][b].x, _manualElements[a][b].y, a, b); }
-	}
-
-	float m_fill_ratio = 0;
-	mDistTransform->_manualSkeletons = _manualSkeletons;
-	mDistTransform->CalculateFill(_manualGrid, m_fill_ratio, 0, true);
-	mDistTransform->CalculateSDF1(_manualGrid, 0, true);
-
-	delete mDistTransform;
+//	// ---------- load regions ----------
+//	PathIO pathIO;
+//	VFRegion reg = pathIO.LoadRegions(SystemParams::_image_folder + SystemParams::_manual_art_name + ".path")[0];
+//	   
+//	// assignments
+//	_manualElements = reg.GetFocalBoundaries();
+//	//_manualElements = ClipperWrapper::OffsetAll( ClipperWrapper::OffsetAll( reg.GetFocalBoundaries(), preOffset), -preOffset); // the actual elements	
+//	_manualSkeletons = reg.GetFields();
+//	_manualContainer =  reg.GetBoundaries(); // target container
+//
+//	// ----
+//	// HERE
+//	// ----
+//	//CalculateMetrics();
+//
+//	/*
+//	std::stringstream ss5;
+//	ss5 << SystemParams::_save_folder << "SVG\\" << "result_" << frameCounter << ".svg";
+//	MySVGRenderer::SaveElementsAndSkins(ss5.str(), 
+//		                                _graphs, 
+//		                                _containerWorker->_focals, 
+//		                                _containerWorker->_offsetFocalBoundaries, 
+//		                                _containerWorker->_container_boundaries); //B
+//	*/
+//	/*std::vector<std::vector<AVector>> offsetShapes = ClipperWrapper::OffsetAll(_manualElements, 5.746f);
+//	std::stringstream ss5;
+//	ss5 << SystemParams::_save_folder << "SVG\\" << "offset.svg";
+//	MySVGRenderer::SaveShapesToSVG(ss5.str(), offsetShapes);*/
+//		
+//	// use this for skeletons
+//	//float offVal = 5.0f;
+//	//std::vector<std::vector<AVector>> temp1 = ClipperWrapper::RoundOffsettingPP(reg.GetBoundaries(), offVal);
+//	//_manualContainer = ClipperWrapper::RoundOffsettingPP(temp1, -offVal);
+//	//_manualContainer = temp1;
+//	// -------------------
+//
+//
+//	std::cout << "_manualSkeletons.size() " << _manualSkeletons.size() << "\n";
+//
+//	// prepare things
+//	std::vector<std::vector<AVector>> focals;
+//	ADistanceTransform* mDistTransform = new ADistanceTransform(_manualContainer, _containerWorker->_holes, focals, 2.0);
+//	for (int a = 0; a < _manualElements.size(); a++)
+//	{
+//		mDistTransform->AddGraph(_manualElements[a]);
+//	}
+//
+//	_manualGrid = new CollissionGrid();
+//	std::vector<std::vector<AVector>> offsetFocalBoundaries;
+//	_manualGrid->AnalyzeContainer(_manualContainer, _containerWorker->_holes, offsetFocalBoundaries);
+//
+//	// assign to c grid
+//	for (unsigned int a = 0; a < _manualElements.size(); a++)
+//	{
+//		// boundary
+//		for (unsigned int b = 0; b < _manualElements[a].size(); b++)
+//			{ _manualGrid->InsertAPoint(_manualElements[a][b].x, _manualElements[a][b].y, a, b); }
+//	}
+//
+//	float m_fill_ratio = 0;
+//	mDistTransform->_manualSkeletons = _manualSkeletons;
+//	mDistTransform->CalculateFill(_manualGrid, m_fill_ratio, 0, true);
+//	mDistTransform->CalculateSDF1(_manualGrid, 0, true);
+//
+//	delete mDistTransform;
 }
 
 /*void StuffWorker::CreateSquares()

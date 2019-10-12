@@ -330,7 +330,7 @@ void Display::Draw()
 					std::string infoFile = "info_main_1.txt";
 					if (_sWorker._hasSmallElements) { infoFile = "info_main_2.txt"; }
 					PathIO pIO;
-					pIO.SaveInfo(SystemParams::_save_folder + infoFile,
+					pIO.SaveInfo(SystemParams::_output_folder + infoFile,
 						_simulation_time,           // 1
 						_sWorker._fill_ratio,       // 2
 						_sWorker._fill_rms,         // 3
@@ -372,10 +372,10 @@ void Display::Draw()
 
 					// === can be REMOVED ===
 					std::cout << "save info\n";
-					std::string infoFile = "info_main_1.txt";
-					if (_sWorker._hasSmallElements) { infoFile = "info_main_2.txt"; }
+					std::string infoFile = "1st_simulation_statistics.txt";
+					if (_sWorker._hasSmallElements) { infoFile = "2nd_simulation_statistics.txt"; }
 					PathIO pIO;
-					pIO.SaveInfo(SystemParams::_save_folder + infoFile,
+					pIO.SaveInfo(SystemParams::_output_folder + infoFile,
 						_simulation_time,           // 1
 						_sWorker._fill_ratio,       // 2
 						_sWorker._fill_rms,         // 3
@@ -554,25 +554,25 @@ void Display::DeleteFiles()
 	DeleteFolders();
 	
 	{ std::stringstream ss;
-	ss << "del " << SystemParams::_save_folder << "data.csv";
+	ss << "del " << SystemParams::_output_folder << "data.csv";
 	std::system(ss.str().c_str()); }
 	{ std::stringstream ss;
-	ss << "del " << SystemParams::_save_folder << "dist.csv";
+	ss << "del " << SystemParams::_output_folder << "dist.csv";
 	std::system(ss.str().c_str()); }
 	{ std::stringstream ss;
-	ss << "del " << SystemParams::_save_folder << "dist_mask.csv";
+	ss << "del " << SystemParams::_output_folder << "dist_mask.csv";
 	std::system(ss.str().c_str()); }
 	{ std::stringstream ss;
-	ss << "del " << SystemParams::_save_folder << "dist_all.csv";
+	ss << "del " << SystemParams::_output_folder << "dist_all.csv";
 	std::system(ss.str().c_str()); }
 	{ std::stringstream ss;
-	ss << "del " << SystemParams::_save_folder << "info_main_1.txt";
+	ss << "del " << SystemParams::_output_folder << "info_main_1.txt";
 	std::system(ss.str().c_str()); }
 	{ std::stringstream ss;
-	ss << "del " << SystemParams::_save_folder << "info_main_2.txt";
+	ss << "del " << SystemParams::_output_folder << "info_main_2.txt";
 	std::system(ss.str().c_str()); }
 	{ std::stringstream ss;
-	ss << "del " << SystemParams::_save_folder << "params.lua";
+	ss << "del " << SystemParams::_output_folder << "params.lua";
 	std::system(ss.str().c_str()); }
 }
 

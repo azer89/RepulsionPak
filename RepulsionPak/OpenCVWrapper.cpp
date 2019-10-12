@@ -813,11 +813,11 @@ CVImg OpenCVWrapper::GetDistanceMapSlow(int numRegion,
 	int sz = SystemParams::_upscaleFactor;
 	CVImg distanceMat;
 
-	std::stringstream ss1;
-	ss1 << SystemParams::_image_folder << "\\segmentation\\" << SystemParams::_artName << "_region_" << numRegion << ".floatmap";
+	//std::stringstream ss1;
+	//ss1 << SystemParams::_image_folder << "\\segmentation\\" << SystemParams::_artName << "_region_" << numRegion << ".floatmap";
 
-	std::stringstream ss2;
-	ss2 << SystemParams::_image_folder << "\\segmentation\\" << SystemParams::_artName << "_region_" << numRegion << ".png";
+	//std::stringstream ss2;
+	//ss2 << SystemParams::_image_folder << "\\segmentation\\" << SystemParams::_artName << "_region_" << numRegion << ".png";
 
 	//if (_recalculate_distance_map) // calculate
 	//{
@@ -846,17 +846,9 @@ CVImg OpenCVWrapper::GetDistanceMapSlow(int numRegion,
 		}
 	}
 
-	//_pathIO.SaveFloatImage(distanceMat, ss1.str());
 
-	//}
-	//else // do not calculate
-	//{
-	//	distanceMat = _pathIO.LoadFloatImage(ss1.str());
-	//}
 
-	distanceMat.SaveDistanceImage(ss2.str());
-
-	//std::cout << "GetDistanceMapSlow time: " << float(clock() - begin_time) / CLOCKS_PER_SEC << "\n";
+	//distanceMat.SaveDistanceImage(ss2.str());
 
 	return distanceMat;
 }

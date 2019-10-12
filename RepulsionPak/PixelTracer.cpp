@@ -112,5 +112,5 @@ void PixelTracer::InitImage(CVImg input_img)
 			//testImage.SetColorPixel(x, y, MyColor(0, 255, 0));
 		}
 	}
-	cv:imwrite(SystemParams::_save_folder + "SDF\\" + "debug.png", testImage._img);
+	cv:imwrite(SystemParams::_output_folder + "SDF\\" + "debug.png", testImage._img);
 }

@@ -35,8 +35,8 @@ void ContainerWorker::LoadContainer(CollissionGrid* cGrid)
 {
 	// ---------- load regions ----------
 	PathIO pathIO;
-	_container_vf_region = pathIO.LoadRegions(SystemParams::_image_folder + SystemParams::_artName + ".path");
-
+	//_container_vf_region = pathIO.LoadRegions(SystemParams::_image_folder + SystemParams::_artName + ".path");
+	_container_vf_region = pathIO.LoadRegions(SystemParams::_container_file);
 
 	std::cout << "region size: " << _container_vf_region.size() << "\n";
 
@@ -569,7 +569,7 @@ void ContainerWorker::DrawDebug(const std::vector<AVector>& uniArt,
 
 	
 
-	_debugImg.SaveImage(SystemParams::_save_folder + "DEBUG\\" + ss1.str() + ".png");
+	_debugImg.SaveImage(SystemParams::_output_folder + "DEBUG\\" + ss1.str() + ".png");
 	
 }
 

@@ -280,7 +280,7 @@ void ADistanceTransform::CalculateFill(CollissionGrid* cGrid,
 	if (saveImage)
 	{
 		std::stringstream ss;
-		ss << SystemParams::_save_folder << "FILL\\" << "fill_" << numIter << ".png";
+		ss << SystemParams::_output_folder << "FILL\\" << "fill_" << numIter << ".png";
 		fillImg.SaveIntegerImage(ss.str());
 	}
 
@@ -390,8 +390,8 @@ void ADistanceTransform::CalculateSDF2(const std::vector<AGraph>& graphs, Collis
 	if (SystemParams::_output_files)
 	{
 		PathIO pathIO;
-		pathIO.SaveSDF2CSV(_distArray, SystemParams::_save_folder + "dist_all.csv");
-		pathIO.SaveSDF2CSV(_containerDistArray, SystemParams::_save_folder + "dist_mask.csv");
+		pathIO.SaveSDF2CSV(_distArray, SystemParams::_output_folder + "dist_all.csv");
+		pathIO.SaveSDF2CSV(_containerDistArray, SystemParams::_output_folder + "dist_mask.csv");
 	}
 
 
@@ -413,7 +413,7 @@ void ADistanceTransform::CalculateSDF2(const std::vector<AGraph>& graphs, Collis
 		std::stringstream ss666;
 		ss666 << "dist_max_is_" << _maxDist << ".csv";
 		PathIO pathIO;
-		pathIO.SaveSDF2CSV(dummyARray, SystemParams::_save_folder + ss666.str());
+		pathIO.SaveSDF2CSV(dummyARray, SystemParams::_output_folder + ss666.str());
 	}
 
 
@@ -509,8 +509,8 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 	if (SystemParams::_output_files)
 	{
 		PathIO pathIO;
-		pathIO.SaveSDF2CSV(_distArray, SystemParams::_save_folder + "dist_all.csv");
-		pathIO.SaveSDF2CSV(_containerDistArray, SystemParams::_save_folder + "dist_mask.csv");
+		pathIO.SaveSDF2CSV(_distArray, SystemParams::_output_folder + "dist_all.csv");
+		pathIO.SaveSDF2CSV(_containerDistArray, SystemParams::_output_folder + "dist_mask.csv");
 	}
 
 
@@ -537,7 +537,7 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 		std::stringstream ss666;
 		ss666 << "dist_max_is_" << _maxDist << ".csv";
 		PathIO pathIO;
-		pathIO.SaveSDF2CSV(dummyARray, SystemParams::_save_folder + ss666.str());
+		pathIO.SaveSDF2CSV(dummyARray, SystemParams::_output_folder + ss666.str());
 	}
 
 	std::cout << "_maxDist = " << _maxDist << "\n";
@@ -561,7 +561,7 @@ CVImg ADistanceTransform::SkeletonDraw(std::string imageName)
 		}
 		
 	}
-	thinningImage.SaveImage(SystemParams::_save_folder + "SDF\\" + imageName + ".png");
+	thinningImage.SaveImage(SystemParams::_output_folder + "SDF\\" + imageName + ".png");
 	return thinningImage;
 }
 
@@ -670,11 +670,11 @@ CVImg ADistanceTransform::VoronoiSkeleton(CollissionGrid* cGrid, int numIter)
 	
 	std::stringstream ss1;
 	ss1 << "voronoi_skeleton_" << numIter;
-	thinningImage.SaveImage( SystemParams::_save_folder + "SDF\\" + ss1.str() + ".png" );
+	thinningImage.SaveImage( SystemParams::_output_folder + "SDF\\" + ss1.str() + ".png" );
 
 	std::stringstream ss2;
 	ss2 << "voronoi_color" << numIter;
-	voronoiImage.SaveImage( SystemParams::_save_folder + "SDF\\" + ss2.str() + ".png" );
+	voronoiImage.SaveImage( SystemParams::_output_folder + "SDF\\" + ss2.str() + ".png" );
 
 	//CVImg thinningImg;
 	return thinningImage;
@@ -726,7 +726,7 @@ CVImg ADistanceTransform::SkeletonDistance(std::vector<int> overlapMask, std::st
 	///////////
 	CVImg thinningImage = emptyImage.ThinningFromGrayscale();
 	//thinningImage.SaveImage( SystemParams::_save_folder + "SDF\\" + imageName + ".png" );
-	emptyImage.SaveImage( SystemParams::_save_folder + "SDF\\" + imageName + "_mask.png" );
+	emptyImage.SaveImage( SystemParams::_output_folder + "SDF\\" + imageName + "_mask.png" );
 	
 	/*cv::Mat cloneImg = thinningImage._img.clone();
 	cloneImg.convertTo(cloneImg, CV_32FC1);
@@ -755,7 +755,7 @@ CVImg ADistanceTransform::SkeletonDistance(std::vector<int> overlapMask, std::st
 		}
 	}
 
-	cv:imwrite(SystemParams::_save_folder + "SDF\\" + imageName + ".png", testImage._img);
+	cv:imwrite(SystemParams::_output_folder + "SDF\\" + imageName + ".png", testImage._img);
 
 	return thinningImage;
 }
@@ -814,7 +814,7 @@ void ADistanceTransform::DebugOverlapMask(std::vector<int> overlapMask, CVImg th
 		}
 	}
 
-	cv::imwrite( SystemParams::_save_folder + "SDF\\" + imageName + ".png" , drawing);
+	cv::imwrite( SystemParams::_output_folder + "SDF\\" + imageName + ".png" , drawing);
 }
 
 void ADistanceTransform::DebugDistanceImage(std::string imageName)
@@ -872,7 +872,7 @@ void ADistanceTransform::DebugDistanceImage(std::string imageName)
 
 	// debug
 	//std::cout << "debug\n";
-	cv::imwrite( SystemParams::_save_folder + "SDF\\" + imageName + ".png" , drawing);
+	cv::imwrite( SystemParams::_output_folder + "SDF\\" + imageName + ".png" , drawing);
 }
 
 
@@ -951,7 +951,7 @@ void  ADistanceTransform::DebugDistanceImage(CVImg thinningImage, std::string im
 
 	// debug
 	//std::cout << "debug\n";
-	cv::imwrite( SystemParams::_save_folder  + "SDF\\" + imageName + ".png", drawing);
+	cv::imwrite( SystemParams::_output_folder + "SDF\\" + imageName + ".png", drawing);
 }
 
 /*cv::Mat ADistanceTransform::CalculateDistanceTransform(const std::vector<AVector> boundary, cv::Mat& dImage)

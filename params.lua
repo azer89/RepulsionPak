@@ -1,17 +1,19 @@
 
 ---------- Physics-Pak ----------
 --- Title of the window
-_window_title = "1" 
---- A directory where we have to save output files
-_save_folder  = "C:\\Users\\azer\\OneDrive\\Images\\PhysicsPak_Snapshots_0" .. _window_title .. "\\"
+_window_title = "LOL XD";
+
 
 
 ------ folders ------
-_image_folder         = "C:\\Users\\azer\\OneDrive\\Images\\";	--- where all the input files are located
-_artName              = "pp_heart_2"; --- pp_lolwut	--- location of the container 
-_manual_art_name      = "man_balabolka_layered";	--- manually drawn packing (for evaluation)
-_ornament_dir         = _image_folder .. "opp_b_blue_bunny";		--- regular elements
-_ornament_dir_small_1 = _image_folder .. "opp_b_blue_bunny"; --- filling elements (the elements to fill the remaining empty space after the simulation ends)
+--_image_folder     = "C:\\Users\\azer\\OneDrive\\Images\\";	--- where all the input files are located
+_container_file     = "C:\\Users\\azer\\workspace\\repulsionpak_data\\containers\\heart.path"; --- file of the container 
+-- _manual_art_name = "man_balabolka_layered";	--- manually drawn packing (for evaluation)
+_primary_elem_dir   = "C:\\Users\\azer\\workspace\\repulsionpak_data\\animals\\";	--- folder containing primary elements
+_secondary_elem_dir = "C:\\Users\\azer\\workspace\\repulsionpak_data\\small_cat\\"; --- folder containing secondary elements (the elements to fill the remaining empty space after the simulation ends)
+
+--- A directory where we have to save output files
+_output_folder  = "C:\\Users\\azer\\workspace\\repulsionpak_data\\output\\";
 
 ---------------------------------------------------------------------
 --- metric
@@ -47,18 +49,18 @@ _random_point_gap      = 5;   --- gap of random initial placement
 --- WARNING, should be no whitespace before/after commas
 --- always add a # character (for splitting)
 --- except the last one
-_colors = "190,221,244#" .. --- light blue
-          "58,162,219#" ..  --- blue
-          "57,139,203#" ..  --- darkblue
-          "251,192,45#" ..  --- yellow
-          "244,124,32#" ..  --- orange
-          "242,128,170#" .. --- pink
-          "157,156,158#" .. --- gray
-          "0,0,0#" ..       --- black
-          "255,255,255";    --- white
+---_colors = "190,221,244#" .. --- light blue
+---          "58,162,219#" ..  --- blue
+---          "57,139,203#" ..  --- darkblue
+---          "251,192,45#" ..  --- yellow
+---         "244,124,32#" ..  --- orange
+---          "242,128,170#" .. --- pink
+---          "157,156,158#" .. --- gray
+---          "0,0,0#" ..       --- black
+---          "255,255,255";    --- white
 
 --- background color
-_back_color = "255,255,255"
+---_back_color = "255,255,255"
 
 _show_container      = false;
 _show_elements       = true;

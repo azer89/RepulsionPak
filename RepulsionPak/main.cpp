@@ -90,7 +90,7 @@ int main(int argc, char **argv)
 	}
 
 	{ std::stringstream ss;
-	ss << "del " << SystemParams::_save_folder << "dist_max_is*";
+	ss << "del " << SystemParams::_output_folder << "dist_max_is*";
 	std::system(ss.str().c_str()); }
 
 	srand(SystemParams::_seed);

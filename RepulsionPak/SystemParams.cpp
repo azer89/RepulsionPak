@@ -38,14 +38,14 @@ void SystemParams::LoadParameters()
 	//SystemParams::_max_lr_ray_length = script.get<float>("_max_lr_ray_length");
 	//SystemParams::_shouldUDFlip      = script.get<bool>("_shouldUDFlip");
 
-	SystemParams::_image_folder         = script.get<std::string>("_image_folder");
-	SystemParams::_artName              = script.get<std::string>("_artName");
-	SystemParams::_manual_art_name      = script.get<std::string>("_manual_art_name");
-	SystemParams::_ornament_dir         = script.get<std::string>("_ornament_dir");
-	SystemParams::_ornament_dir_small_1 = script.get<std::string>("_ornament_dir_small_1");
+	//SystemParams::_image_folder         = script.get<std::string>("_image_folder");
+	SystemParams::_container_file = script.get<std::string>("_container_file");
+	//SystemParams::_manual_art_name      = script.get<std::string>("_manual_art_name");
+	SystemParams::_primary_elem_dir = script.get<std::string>("_primary_elem_dir");
+	SystemParams::_secondary_elem_dir = script.get<std::string>("_secondary_elem_dir");
 	//SystemParams::_ornament_dir_small_2 = script.get<std::string>("_ornament_dir_small_2");
 	//SystemParams::_small_ornament_dir   = script.get<std::string>("_small_ornament_dir");
-	SystemParams::_save_folder          = script.get<std::string>("_save_folder");
+	SystemParams::_output_folder = script.get<std::string>("_output_folder");
 
 	//SystemParams::_min_blob_sum = (SystemParams::_function_length * SystemParams::_max_lr_ray_length) / 2.0f;
 	// things
@@ -163,12 +163,12 @@ void SystemParams::LoadParameters()
 	//SystemParams::_mouse_offset_y = script.get<float>("_mouse_offset_y");
 	
 	//
-	std::string colors = script.get<std::string>("_colors");
-	std::vector<std::string> color_array = UtilityFunctions::Split(colors, '#');
-	for (unsigned int a = 0; a < color_array.size(); a++)
-		{ ColorPalette::AddColorString(color_array[a]); }
-	std::string _back_color = script.get<std::string>("_back_color");
-	ColorPalette::_back_color = ColorPalette::AddColorString(_back_color);
+	//std::string colors = script.get<std::string>("_colors");
+	//std::vector<std::string> color_array = UtilityFunctions::Split(colors, '#');
+	//for (unsigned int a = 0; a < color_array.size(); a++)
+	//	{ ColorPalette::AddColorString(color_array[a]); }
+	//std::string _back_color = script.get<std::string>("_back_color");
+	//ColorPalette::_back_color = ColorPalette::AddColorString(_back_color);
 		
 	SystemParams::_output_files  = script.get<bool>("_output_files");
 	SystemParams::_screen_width  = script.get<int>("_screen_width");
@@ -209,13 +209,13 @@ void SystemParams::LoadParameters()
 	//ss << "copy " << lua_file << " " << SystemParams::_save_folder << "params.lua";
 	//std::cout << ss.str() << "\n";
 	//std::system(ss.str().c_str());
-	if (SystemParams::_output_files)
+	/*if (SystemParams::_output_files)
 	{
 		std::stringstream ss;
-		ss << "copy " << _lua_file << " " << SystemParams::_save_folder << "params.lua";
+		ss << "copy " << _lua_file << " " << SystemParams::_output_folder << "params.lua";
 		std::cout << ss.str() << "\n";
 		std::system(ss.str().c_str());
-	}
+	}*/
 }
 
 
@@ -232,14 +232,14 @@ float SystemParams::_downscaleFactor       = 0.0f;
 //float SystemParams::_max_lr_ray_length     = 0.0f;
 //bool SystemParams::_shouldUDFlip           = false; 
 
-std::string SystemParams::_image_folder         = "";
-std::string SystemParams::_artName              = ""; 
-std::string SystemParams::_manual_art_name      = "";
-std::string SystemParams::_ornament_dir         = "";
+//std::string SystemParams::_image_folder         = "";
+std::string SystemParams::_container_file = "";
+//std::string SystemParams::_manual_art_name      = "";
+std::string SystemParams::_primary_elem_dir = "";
 //std::string SystemParams::_small_ornament_dir   = "";
-std::string SystemParams::_ornament_dir_small_1 = "";
+std::string SystemParams::_secondary_elem_dir = "";
 //std::string SystemParams::_ornament_dir_small_2 = "";
-std::string SystemParams::_save_folder          = "";
+std::string SystemParams::_output_folder = "";
 // blob rejection
 //float SystemParams::_min_blob_sum = 0;
 

@@ -5,7 +5,7 @@ What you need:
 * CGAL 4.6.3
 * boost 1.59.0
 * Eigen 3.2
-* OpenCV 2.41.2
+* OpenCV 2.41.2 (https://cs.uwaterloo.ca/~radhitya/repulsionpak/opencv.zip)
 * Input and output data (https://github.com/azer89/repulsionpak_data)
 * imgui with freeglut (https://github.com/azer89/imgui_freeglut)
 

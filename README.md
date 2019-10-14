@@ -1,5 +1,7 @@
 # RepulsionPak
 
+OS and Compiler: Windows 10 and Visual Studio 2013
+
 What you need:
 * Lua 5.3.3 (https://cs.uwaterloo.ca/~radhitya/repulsionpak/Lua533.zip)
 * CGAL 4.6.3 (https://cs.uwaterloo.ca/~radhitya/repulsionpak/CGAL-4.6.3.zip)

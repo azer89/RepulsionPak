@@ -1,7 +1,7 @@
 # RepulsionPak
 
 What you need:
-* Lua 5.3.3
+* Lua 5.3.3 (https://cs.uwaterloo.ca/~radhitya/repulsionpak/Lua533.zip)
 * CGAL 4.6.3
 * boost 1.59.0
 * Eigen 3.2

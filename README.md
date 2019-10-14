@@ -2,7 +2,7 @@
 
 What you need:
 * Lua 5.3.3 (https://cs.uwaterloo.ca/~radhitya/repulsionpak/Lua533.zip)
-* CGAL 4.6.3
+* CGAL 4.6.3 (https://cs.uwaterloo.ca/~radhitya/repulsionpak/CGAL-4.6.3.zip)
 * boost 1.59.0
 * Eigen 3.2
 * OpenCV 2.41.2 (https://cs.uwaterloo.ca/~radhitya/repulsionpak/opencv.zip)

@@ -28,6 +28,8 @@ void SystemParams::LoadParameters()
 	SystemParams::_upscaleFactor   = script.get<float>("_upscaleFactor");
 	SystemParams::_downscaleFactor = script.get<float>("_downscaleFactor");
 
+	SystemParams::_target_fill_ratio = script.get<float>("_target_fill_ratio");
+
 	//SystemParams::_function_length = script.get<int>("_function_length");
 	//SystemParams::_focal_min_gap         = script.get<float>("_focal_min_gap");
 	//SystemParams::_half_max_curve_length = script.get<float>("_half_max_curve_length");
@@ -232,6 +234,8 @@ float SystemParams::_downscaleFactor       = 0.0f;
 //float SystemParams::_max_lr_ray_length     = 0.0f;
 //bool SystemParams::_shouldUDFlip           = false; 
 
+float SystemParams::_target_fill_ratio = 0.0f;
+
 //std::string SystemParams::_image_folder         = "";
 std::string SystemParams::_container_file = "";
 //std::string SystemParams::_manual_art_name      = "";
@@ -280,7 +284,7 @@ float SystemParams::_k_rotate                = 0;
 float SystemParams::_k_noise                 = 0;
 float SystemParams::_k_neg_space_edge        = 0;
 float SystemParams::_k_edge                  = 0;
-float SystemParams::_k_edge_dynamic          = 1;
+//float SystemParams::_k_edge_dynamic          = 1;
 float SystemParams::_k_edge_small_factor     = 0;
 float SystemParams::_k_repulsion             = 0;
 float SystemParams::_repulsion_soft_factor   = 0;

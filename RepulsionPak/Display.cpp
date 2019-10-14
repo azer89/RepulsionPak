@@ -268,7 +268,7 @@ void Display::Draw()
 		CalculateFillRMS(time_delta);
 		//CalculateSDF(time_delta);
 
-		if (_sWorker._fill_ratio < _sWorker._man_neg_ratio * 0.75)
+		/*if (_sWorker._fill_ratio < _sWorker._man_neg_ratio * 0.75)
 		{
 			SystemParams::_k_edge_dynamic = 2.0f;
 		}
@@ -279,16 +279,16 @@ void Display::Draw()
 		else
 		{
 			SystemParams::_k_edge_dynamic = 1.0f;
-		}
+		}*/
 
 		// ---------- STOP ----------
-		if (_rms_int_counter   > SystemParams::_rms_window &&    // bigger than window
-			_sWorker._fill_rms < SystemParams::_rms_threshold && // fill ratio does not improve
-			_sWorker._numGrowingElement == 0)                    // no element is growing
+		//if (_rms_int_counter   > SystemParams::_rms_window &&    // bigger than window
+		//	_sWorker._fill_rms < SystemParams::_rms_threshold && // fill ratio does not improve
+		//	_sWorker._numGrowingElement == 0)                    // no element is growing
 
 		// _simulation_time
-		//float abs_fill = std::abs(_sWorker._fill_ratio - _sWorker._man_neg_ratio);
-		//if(abs_fill < SystemParams::_growth_threshold_b || _simulation_time > _sWorker._sim_timeout)
+		// ---------- STOP ----------
+		if(_sWorker._fill_ratio >= SystemParams::_target_fill_ratio)
 		{			
 			SystemParams::_simulate_1 = false; // flags
 			SystemParams::_simulate_2 = false; // flags			
@@ -323,7 +323,7 @@ void Display::Draw()
 
 				if (SystemParams::_output_files)
 				{
-					_sWorker.SaveGraphs();					
+					//_sWorker.SaveGraphs();					
 					std::cout << "4\n";
 
 					std::cout << "save info\n";
@@ -366,9 +366,9 @@ void Display::Draw()
 
 				if (SystemParams::_output_files)
 				{
-					_sWorker.CalculateSDF(_sdf_int_counter++, false); // can be REMOVED
+					//_sWorker.CalculateSDF(_sdf_int_counter++, false); // can be REMOVED
 					//_sWorker.AnalyzeFinishedPacking();
-					_sWorker.SaveGraphs();
+					//_sWorker.SaveGraphs();
 
 					// === can be REMOVED ===
 					std::cout << "save info\n";
@@ -393,7 +393,7 @@ void Display::Draw()
 
 				std::cout << "simulation DONE!!!\n";
 
-				glutLeaveMainLoop();
+				//glutLeaveMainLoop();
 			}
 
 		}
@@ -422,8 +422,8 @@ void Display::Draw()
 	bool show_another_window = false;	
 	ImGui::Begin("PhysicsPak", &show_another_window, ImVec2(240, 540));
 
-	if (_rms_time_counter > 0)
-	{
+	//if (_rms_time_counter > 0)
+	//{
 		if (SystemParams::_simulate_1)
 		{
 			ImGui::Text("SIMULATION #1");
@@ -439,19 +439,19 @@ void Display::Draw()
 			ImGui::Text("SIMULATION HAS DONE");
 			ImGui::Text("");
 		}
-	}
-	else
-	{
-		ImGui::Text("SIMULATION HASN'T STARTED");
-		ImGui::Text("");
-	}
+	//}
+	//else
+	//{
+	//	ImGui::Text("SIMULATION HASN'T STARTED");
+	//	ImGui::Text("");
+	//}
 	ImGui::Separator();
 
 	if (time_delta > 0) { ImGui::Text(("FPS: " + std::to_string(1000 / time_delta)).c_str()); }
 	else { ImGui::Text("FPS : -"); }
 	ImGui::Text(("Runtime: " + std::to_string((int)(_simulation_time / 1000.0f)) + " s").c_str());
 
-	ImGui::Text(("Target fill ratio: " + std::to_string(_sWorker._man_neg_ratio)).c_str());
+	ImGui::Text(("Target fill ratio: " + std::to_string(SystemParams::_target_fill_ratio)).c_str());
 	ImGui::Text(("Fill ratio: "   + std::to_string(_sWorker._fill_ratio)).c_str());
 
 	ImGui::Text(("Edge param: "     + std::to_string(SystemParams::_k_edge)).c_str());
@@ -490,7 +490,7 @@ void Display::Draw()
 
 	if (ImGui::Button("Save to SVG"))       
 	{ 
-		_sWorker.SaveGraphs(); 
+		//_sWorker.SaveGraphs(); 
 		_sWorker.SaveSVG(_svg_int_counter++);
 		_sWorker.CalculateSDF(_sdf_int_counter++, true);
 	}

@@ -141,7 +141,9 @@ void ContainerWorker::LoadContainer(CollissionGrid* cGrid)
 		//for (int bb = 0; bb < _offsetFocalBoundaries.size() && isInside; bb++)
 		//{ isInside = !UtilityFunctions::InsidePolygon(_offsetFocalBoundaries[bb], pt); }
 
-		if (isInside) 
+		float d = UtilityFunctions::DistanceToBunchOfPoints(_randomPositions, pt);
+
+		if (isInside && d > 30) 
 			{ _randomPositions.push_back(pt); }
 	}
 
@@ -789,7 +791,8 @@ void ContainerWorker::CreatePoints(std::vector<AVector> ornamentBoundary,
 		if (UtilityFunctions::InsidePolygon(ornamentBoundary, pt.x, pt.y))
 		{
 			float d = UtilityFunctions::DistanceToClosedCurve(resampledBoundary, pt);
-			if (d > resamplingGap)
+			//float d2 = UtilityFunctions::DistanceToBunchOfPoints(randomPoints, pt);
+			if (d > resamplingGap/* && d2 > 50*/)
 			{
 				randomPoints.push_back(pt);
 			}

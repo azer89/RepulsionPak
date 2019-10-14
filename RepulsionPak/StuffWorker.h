@@ -103,7 +103,7 @@ public:
 
 public:
 
-	float _man_neg_ratio;
+	//float _man_neg_ratio;
 
 	//AVector start_ln;
 	//AVector end_ln;

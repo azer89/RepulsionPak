@@ -28,4 +28,4 @@ MyColor ColorPalette::AddColorString(std::string str)
 
 std::vector<MyColor> ColorPalette::_palette_01 = std::vector<MyColor>();
 
-MyColor ColorPalette::_back_color = MyColor();
+MyColor ColorPalette::_back_color = MyColor(255, 255, 255);

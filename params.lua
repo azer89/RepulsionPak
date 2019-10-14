@@ -15,6 +15,9 @@ _secondary_elem_dir = "C:\\Users\\azer\\workspace\\repulsionpak_data\\small_cat\
 --- A directory where we have to save output files
 _output_folder  = "C:\\Users\\azer\\workspace\\repulsionpak_data\\output\\";
 
+_target_fill_ratio = 0.1;
+
+
 ---------------------------------------------------------------------
 --- metric
 _container_offset = 0; -- for SCP
@@ -121,7 +124,7 @@ _k_dock                = 100;
 
 --- to find peaks where the filling elements should be placed
 --- minimum height of the peak to be considered
-_peak_dist_stop = 7.0; --- set this really high to disable filling elements
+_peak_dist_stop = 1000.0; --- set this really high to disable filling elements
 _peak_gap       = 17.0;	--- any pair of peaks should be separated by this distance
 
 --- capping the velocity
@@ -136,7 +139,7 @@ _focal_offset = 2;
 _skin_offset                = 20;  
 --- density of random points inside the skin
 --- if the density is higher, you get more triangles
-_sampling_num               = 100;
+_sampling_num               = 200;
 --- uniform sampling on the skin
 _boundary_sampling_factor   = 1.5;  -- [Do not edit]
 ---_should_recalculate_element = true;
@@ -186,6 +189,9 @@ _svg_snapshot_capture_time = 10000000;
 
 _png_snapshot_capture_time = 500;  --- PNG capture time (in milisecond)
 _sdf_capture_time          = 1000000000;  --- SDF (Signed distance function) capture time (in milisecond)
+
+
+
 
 --- RMS (Root of mean square) capture time
  

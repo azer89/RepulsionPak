@@ -31,6 +31,8 @@ public:
 	static float _upscaleFactor;
 	static float _downscaleFactor;
 
+	static float _target_fill_ratio;
+
 	// LR functions
 	//static int _function_length; // radius function length
 	//static float _max_lr_ray_length;
@@ -78,7 +80,7 @@ public:
 	static float _k_rotate;
 	static float _k_noise;
 	static float _k_neg_space_edge;
-	static float _k_edge_dynamic;
+	//static float _k_edge_dynamic;
 	static float _k_edge;
 	static float _k_edge_small_factor;
 	//static float _k_edge_more;

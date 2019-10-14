@@ -36,7 +36,7 @@ StuffWorker::StuffWorker()
 {
 	_skeletonIter = 0;
 
-	_man_neg_ratio = -1.0;
+	//_man_neg_ratio = -1.0;
 
 	_numBigOnes = 0;
 	_numReplicatedBigOnes = 0;
@@ -1215,7 +1215,7 @@ void StuffWorker::CalculateThings(float dt)
 
 	// calculate scale iter here !!!
 	float scale_iter = SystemParams::_growth_scale_iter;
-	_fill_diff = _fill_ratio - _man_neg_ratio;
+	//_fill_diff = _fill_ratio - _man_neg_ratio;
 
 	// THISSSS
 	/*if (_fill_diff > 0.0f) // over

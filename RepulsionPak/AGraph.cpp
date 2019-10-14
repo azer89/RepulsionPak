@@ -2046,7 +2046,7 @@ void AGraph::SolveForNegativeSPaceSprings()
 void AGraph::SolveForTriangleSprings()
 {
 	// param
-	float k_edge = SystemParams::_k_edge * SystemParams::_k_edge_dynamic;
+	float k_edge = SystemParams::_k_edge/* * SystemParams::_k_edge_dynamic*/;
 
 	if (!_bigOne)
 	{

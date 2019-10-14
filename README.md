@@ -6,6 +6,7 @@ What you need:
 * boost 1.59.0
 * Eigen 3.2
 * OpenCV 2.41.2
+* Input and Output folder (https://github.com/azer89/repulsionpak_data)
 * imgui with freeglut (https://github.com/azer89/imgui_freeglut)
 
 Additional tool:

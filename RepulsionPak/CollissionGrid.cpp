@@ -2,6 +2,8 @@
 #include "CollissionGrid.h"
 #include "UtilityFunctions.h"
 
+#include <thread>
+
 
 CollissionGrid::CollissionGrid()
 {
@@ -20,6 +22,8 @@ CollissionGrid::CollissionGrid()
 			_squares.push_back(new ASquare(x, y, _maxLength));
 		}
 	}
+
+	_graphIndexArray.reserve(_squares.size());
 }
 
 CollissionGrid::CollissionGrid(float cellSize)
@@ -39,6 +43,8 @@ CollissionGrid::CollissionGrid(float cellSize)
 			_squares.push_back(new ASquare(x, y, _maxLength));
 		}
 	}
+
+	_graphIndexArray.reserve(_squares.size());
 }
 
 CollissionGrid::~CollissionGrid()
@@ -91,6 +97,75 @@ void CollissionGrid::InsertAPoint(float x, float y, int info1, int info2)
 	_squares[(xPos * _numColumn) + yPos]->_objects.push_back(obj);
 }
 
+void CollissionGrid::PrecomputeData_Prepare_Threads()
+{
+	// prepare vector
+	int len = _squares.size();
+	int num_threads = SystemParams::_num_thread_cg;
+	int thread_stride = (len + num_threads - 1) / num_threads;
+
+
+	std::vector<std::thread> t_list;
+	for (int a = 0; a < num_threads; a++)
+	{
+		int startIdx = a * thread_stride;
+		int endIdx = startIdx + thread_stride;
+		t_list.push_back(std::thread(&CollissionGrid::PrecomputeGraphIndices_Thread, this, startIdx, endIdx));
+	}
+
+	for (int a = 0; a < num_threads; a++)
+	{
+		t_list[a].join();
+	}
+}
+
+void CollissionGrid::PrecomputeGraphIndices_Thread(int startIdx, int endIdx)
+{
+	//_graphIndexArray.clear();
+	for (unsigned int iter = startIdx; iter < endIdx; iter++)
+	{
+		if (iter >= _squares.size()) { return; }
+
+		GraphIndices gIndices;
+
+		int xPos = iter / _numColumn;
+		int yPos = iter - (xPos * _numColumn);
+
+		int offst = SystemParams::_collission_block_radius;
+
+		int xBegin = xPos - offst;
+		if (xBegin < 0) { xBegin = 0; }
+
+		int xEnd = xPos + offst;
+		if (xEnd >= _numColumn) { xEnd = _numColumn - 1; }
+
+		int yBegin = yPos - offst;
+		if (yBegin < 0) { yBegin = 0; }
+
+		int yEnd = yPos + offst;
+		if (yEnd >= _numColumn) { yEnd = _numColumn - 1; }
+
+		for (unsigned int xIter = xBegin; xIter <= xEnd; xIter++)
+		{
+			for (unsigned int yIter = yBegin; yIter <= yEnd; yIter++)
+			{
+				int idx = (xIter * _numColumn) + yIter;
+				for (unsigned int a = 0; a < _squares[idx]->_objects.size(); a++)
+				{
+					int info1 = _squares[idx]->_objects[a]->_info1;
+					if (UtilityFunctions::GetIndexFromIntList(gIndices, info1) == -1)
+					{
+						gIndices.push_back(info1);
+					}
+				}
+			}
+		}
+
+		//_graphIndexArray.push_back(gIndices);
+		_graphIndexArray[iter] = gIndices;
+	}
+}
+
 
 void CollissionGrid::PrecomputeGraphIndices()
 {
@@ -98,7 +173,7 @@ void CollissionGrid::PrecomputeGraphIndices()
 	// int _numColumn;
 	// std::vector<GraphIndices> _graphIndexArray;
 
-	_graphIndexArray.clear();
+	//_graphIndexArray.clear();
 	for (unsigned int iter = 0; iter < _squares.size(); iter++)
 	{
 		GraphIndices gIndices;
@@ -136,7 +211,8 @@ void CollissionGrid::PrecomputeGraphIndices()
 			}
 		}
 
-		_graphIndexArray.push_back(gIndices);
+		//_graphIndexArray.push_back(gIndices);
+		_graphIndexArray[iter] = gIndices;
 	}
 }
 

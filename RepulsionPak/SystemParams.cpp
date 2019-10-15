@@ -206,6 +206,11 @@ void SystemParams::LoadParameters()
 
 	SystemParams::_container_offset   = script.get<float>("_container_offset");
 
+	SystemParams::_num_thread_cg = script.get<int>("_num_thread_cg");
+	SystemParams::_num_thread_springs = script.get<int>("_num_thread_springs");
+	SystemParams::_num_thread_c_pt = script.get<int>("_num_thread_c_pt");
+	SystemParams::_num_thread_solve = script.get<int>("_num_thread_solve");
+
 	// save
 	//std::stringstream ss;
 	//ss << "copy " << lua_file << " " << SystemParams::_save_folder << "params.lua";
@@ -372,6 +377,11 @@ int  SystemParams::_sleep_time    = 0;
 
 bool SystemParams::_should_rotate = false;
 int  SystemParams::_num_element_pos_limit = 1000000;
+
+int SystemParams::_num_thread_cg = 0;
+int SystemParams::_num_thread_springs = 0;
+int SystemParams::_num_thread_c_pt = 0;
+int SystemParams::_num_thread_solve = 0;
 
 //float SystemParams::_shrink_fill_ratio = 0.0f;
 //float SystemParams::_shrink_transition_time = 0.0f;

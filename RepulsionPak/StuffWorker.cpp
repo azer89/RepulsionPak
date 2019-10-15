@@ -1194,8 +1194,8 @@ void StuffWorker::CalculateThings(float dt)
 			{ _graphs[a]._isGrowing = false; }
 	}
 
-	_cGrid->PrecomputeGraphIndices();
-
+	//_cGrid->PrecomputeGraphIndices();
+	_cGrid->PrecomputeData_Prepare_Threads();
 
 	// ---------- get closest point ----------
 	// OMP

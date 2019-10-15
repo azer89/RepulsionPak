@@ -1,26 +1,18 @@
 
----------- Physics-Pak ----------
+---------- RepulsionPak ----------
 --- Title of the window
 _window_title = "LOL XD";
 
-
-
 ------ folders ------
---_image_folder     = "C:\\Users\\azer\\OneDrive\\Images\\";	--- where all the input files are located
-_container_file     = "C:\\Users\\azer\\workspace\\repulsionpak_data\\containers\\heart.path"; --- file of the container 
--- _manual_art_name = "man_balabolka_layered";	--- manually drawn packing (for evaluation)
-_primary_elem_dir   = "C:\\Users\\azer\\workspace\\repulsionpak_data\\animals\\";	--- folder containing primary elements
-_secondary_elem_dir = "C:\\Users\\azer\\workspace\\repulsionpak_data\\small_cat\\"; --- folder containing secondary elements (the elements to fill the remaining empty space after the simulation ends)
+_container_file     = "..\\..\\repulsionpak_data\\containers\\heart.path"; --- file of the container 
+_primary_elem_dir   = "..\\..\\repulsionpak_data\\animals\\";	--- folder containing primary elements
+_secondary_elem_dir = "..\\..\\repulsionpak_data\\small_cat\\"; --- folder containing secondary elements (the elements to fill the remaining empty space after the simulation ends)
 
 --- A directory where we have to save output files
-_output_folder  = "C:\\Users\\azer\\workspace\\repulsionpak_data\\output\\";
+_output_folder  = "..\\..\\repulsionpak_data\\output\\";
 
-_target_fill_ratio = 0.1;
-
-
----------------------------------------------------------------------
---- metric
-_container_offset = 0; -- for SCP
+-- target of positive space area
+_target_fill_ratio = 0.3;
 
 ---------------------------------------------------------------------
 
@@ -198,3 +190,15 @@ _sdf_capture_time          = 1000000000;  --- SDF (Signed distance function) cap
 _rms_capture_time = 1000;  --- it is set to 1 second
 _rms_window       = 50;    --- Window length is 50
 _rms_threshold    = 0.02;  --- RMS stopping criteria
+
+---------------------------------------------------------------------
+--- metric
+_container_offset = 0; -- for SCP
+
+
+---------------------------------------------------------------------
+-- THREADS
+_num_thread_cg      = 12; -- collision grid
+_num_thread_springs = 10;
+_num_thread_c_pt    = 12; -- closest point
+_num_thread_solve   = 12;

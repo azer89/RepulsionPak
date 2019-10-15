@@ -55,7 +55,13 @@ public:
 
 	void PrecomputeGraphIndices();
 
+	void PrecomputeData_Prepare_Threads();
+	void PrecomputeGraphIndices_Thread(int startIdx, int endIdx);
+
 	bool NearBoundary(float x, float y);
+
+	
+	//void PrecomputeData_Thread(int startIdx, int endIdx);
 
 public:
 	std::vector<GraphIndices> _graphIndexArray;

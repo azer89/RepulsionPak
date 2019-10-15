@@ -206,6 +206,12 @@ public:
 	// for SCP
 	static float _container_offset;
 	//static float _desc_max_length_ratio;
+
+	// Threads
+	static int _num_thread_cg;
+	static int _num_thread_springs;
+	static int _num_thread_c_pt;
+	static int _num_thread_solve;
 };
 
 #endif

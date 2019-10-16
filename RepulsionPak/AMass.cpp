@@ -320,10 +320,7 @@ void AMass::CalculateNNEdges(const std::vector<AMass>& otherMasses, int numBound
 	}*/
 }
 
-void AMass::GetClosestPoints2(int parentGraphIndex
-							/*std::vector<AGraph>& allGraphs,*/
-							//std::vector<AVector> peaks,
-							/*CollissionGrid* cGrid*/)
+void AMass::GetClosestPoints2(int parentGraphIndex)
 {
 	if (parentGraphIndex < 0 || parentGraphIndex >= StuffWorker::_graphs.size()) { return; }
 	if (this->_idx >= StuffWorker::_graphs[parentGraphIndex]._skinPointNum) { return; } // uncomment me

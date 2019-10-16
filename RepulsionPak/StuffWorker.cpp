@@ -1277,8 +1277,11 @@ void StuffWorker::CalculateThings(float dt)
 	_cGrid->PrecomputeData_Prepare_Threads();
 	auto elapsed1 = std::chrono::system_clock::now() - start1; // timing
 	_cg_thread_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed1).count(); // timing
+
+
 	// ---------- get closest point ----------
-	/*for ( int a = startIter; a < _graphs.size(); a++)
+	auto start3 = std::chrono::system_clock::now(); // timing
+	for ( int a = startIter; a < _graphs.size(); a++)
 	{
 		
 		for (int b = 0; b < _graphs[a]._massList.size(); b++)
@@ -1286,7 +1289,11 @@ void StuffWorker::CalculateThings(float dt)
 			
 			this->_graphs[a]._massList[b].GetClosestPoints2(a);
 		}
-	}*/
+	}
+	auto elapsed3 = std::chrono::system_clock::now() - start3; // timing
+	_c_pt_cpu_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed3).count(); // timing
+	
+	
 	auto start2 = std::chrono::system_clock::now(); // timing
 	GetClosestPt_Prepare_Threads();
 	auto elapsed2 = std::chrono::system_clock::now() - start2; // timing

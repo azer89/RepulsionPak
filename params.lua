@@ -131,7 +131,7 @@ _focal_offset = 2;
 _skin_offset                = 20;  
 --- density of random points inside the skin
 --- if the density is higher, you get more triangles
-_sampling_num               = 200;
+_sampling_num               = 500;
 --- uniform sampling on the skin
 _boundary_sampling_factor   = 1.5;  -- [Do not edit]
 ---_should_recalculate_element = true;
@@ -198,7 +198,7 @@ _container_offset = 0; -- for SCP
 
 ---------------------------------------------------------------------
 -- THREADS
-_num_thread_cg      = 4; -- collision grid
-_num_thread_springs = 4;
-_num_thread_c_pt    = 4; -- closest point
-_num_thread_solve   = 4;
+_num_thread_cg      = 2; -- collision grid
+_num_thread_springs = 2;
+_num_thread_c_pt    = 6; -- closest point
+_num_thread_solve   = 2;

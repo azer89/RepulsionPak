@@ -83,6 +83,12 @@ public:
 	void Operate(float dt);
 	// --------------------------------------------
 
+	void SolveSprings_Prepare_Threads();
+	void SolveSprings_Thread(int startIdx, int endIdx);
+
+	void GetClosestPt_Prepare_Threads();
+	void GetClosestPt_Thread(int startIdx, int endIdx);
+
 	void UpdatePosition(float dt); // verlet
 	void UpdateVelocity(float dt); // verlet
 	
@@ -103,6 +109,10 @@ public:
 
 public:
 
+	int _cg_thread_t;
+	int _springs_thread_t;
+	int _c_pt_thread_t;
+	int _solve_thread_t;
 	//float _man_neg_ratio;
 
 	//AVector start_ln;

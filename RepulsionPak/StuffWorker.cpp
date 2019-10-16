@@ -26,6 +26,8 @@
 #include <time.h> 
 #include <random>
 
+#include <thread>
+
 // static stuff
 std::vector<std::vector<AVector>> StuffWorker::_perlinMap = std::vector<std::vector<AVector>>();
 std::vector<AGraph>  StuffWorker::_graphs = std::vector<AGraph>();
@@ -34,6 +36,11 @@ CollissionGrid* StuffWorker::_cGrid = 0;
 // constructor
 StuffWorker::StuffWorker()
 {
+	_cg_thread_t = 0;
+	_springs_thread_t = 0;
+	_c_pt_thread_t = 0;
+	_solve_thread_t = 0;
+
 	_skeletonIter = 0;
 
 	//_man_neg_ratio = -1.0;
@@ -1157,6 +1164,77 @@ void StuffWorker::Init()
 	}
 }
 
+void StuffWorker::SolveSprings_Prepare_Threads()
+{
+	int len = _graphs.size();
+	int num_threads = SystemParams::_num_thread_springs;
+	int thread_stride = (len + num_threads - 1) / num_threads;
+
+	std::vector<std::thread> t_list;
+	for (int a = 0; a < num_threads; a++)
+	{
+		int startIdx = a * thread_stride;
+		int endIdx = startIdx + thread_stride;
+		t_list.push_back(std::thread(&StuffWorker::SolveSprings_Thread, this, startIdx, endIdx));
+	}
+
+	for (int a = 0; a < num_threads; a++)
+	{
+		t_list[a].join();
+	}
+}
+
+void StuffWorker::SolveSprings_Thread(int startIdx, int endIdx)
+{
+	//_graphs[a].SolveForTriangleSprings();
+	//_graphs[a].SolveForTriangleSprings();
+
+
+	for (unsigned int iter = startIdx; iter < endIdx; iter++)
+	{
+		// make sure...
+		if (iter >= _graphs.size()) { break; }
+
+		_graphs[iter].SolveForTriangleSprings();
+		_graphs[iter].SolveForNegativeSPaceSprings();
+	}
+}
+
+void StuffWorker::GetClosestPt_Prepare_Threads()
+{
+	int len = _graphs.size();
+	int num_threads = SystemParams::_num_thread_c_pt;
+	int thread_stride = (len + num_threads - 1) / num_threads;
+
+	std::vector<std::thread> t_list;
+	for (int a = 0; a < num_threads; a++)
+	{
+		int startIdx = a * thread_stride;
+		int endIdx = startIdx + thread_stride;
+		t_list.push_back(std::thread(&StuffWorker::GetClosestPt_Thread, this, startIdx, endIdx));
+	}
+
+	for (int a = 0; a < num_threads; a++)
+	{
+		t_list[a].join();
+	}
+}
+
+void StuffWorker::GetClosestPt_Thread(int startIdx, int endIdx)
+{
+	for (unsigned int iter = startIdx; iter < endIdx; iter++)
+	{
+		// make sure...
+		if (iter >= _graphs.size()) { break; }
+
+		for (int b = 0; b < _graphs[iter]._massList.size(); b++)
+		{
+			_graphs[iter]._massList[b].GetClosestPoints2(iter);
+		}
+
+	}
+}
+
 
 // physics sim
 void StuffWorker::CalculateThings(float dt)
@@ -1195,20 +1273,24 @@ void StuffWorker::CalculateThings(float dt)
 	}
 
 	//_cGrid->PrecomputeGraphIndices();
+	auto start1 = std::chrono::system_clock::now(); // timing
 	_cGrid->PrecomputeData_Prepare_Threads();
-
+	auto elapsed1 = std::chrono::system_clock::now() - start1; // timing
+	_cg_thread_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed1).count(); // timing
 	// ---------- get closest point ----------
-	// OMP
-	//#pragma omp for
-	for ( int a = startIter; a < _graphs.size(); a++)
+	/*for ( int a = startIter; a < _graphs.size(); a++)
 	{
 		
 		for (int b = 0; b < _graphs[a]._massList.size(); b++)
 		{
 			
-			this->_graphs[a]._massList[b].GetClosestPoints2(a/*, _graphs, _cGrid*/);
+			this->_graphs[a]._massList[b].GetClosestPoints2(a);
 		}
-	}
+	}*/
+	auto start2 = std::chrono::system_clock::now(); // timing
+	GetClosestPt_Prepare_Threads();
+	auto elapsed2 = std::chrono::system_clock::now() - start2; // timing
+	_c_pt_thread_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed2).count(); // timing
 
 
 
@@ -1262,12 +1344,17 @@ void StuffWorker::Solve()
 	//std::vector<int> randomIndices;
 	//for (unsigned int a = startIter; a < _graphs.size(); a++) { randomIndices.push_back(a); }
 	
+	auto start1 = std::chrono::system_clock::now();
+	SolveSprings_Prepare_Threads();
+	auto elapsed1 = std::chrono::system_clock::now() - start1; // timing
+	_springs_thread_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed1).count(); // timing
+
 	for (unsigned int a = startIter; a < _graphs.size(); a++)
 	{
 		//int idx = randomIndices[a];
 		// ----------  ----------
-		_graphs[a].SolveForTriangleSprings();
-		_graphs[a].SolveForNegativeSPaceSprings();
+		//_graphs[a].SolveForTriangleSprings();
+		//_graphs[a].SolveForNegativeSPaceSprings();
 
 		
 		//_graphs[a].SolveForNoise();

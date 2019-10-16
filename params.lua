@@ -12,7 +12,7 @@ _secondary_elem_dir = "..\\..\\repulsionpak_data\\small_cat\\"; --- folder conta
 _output_folder  = "..\\..\\repulsionpak_data\\output\\";
 
 -- target of positive space area
-_target_fill_ratio = 0.3;
+_target_fill_ratio = 0.5;
 
 ---------------------------------------------------------------------
 
@@ -179,7 +179,7 @@ _downscaleFactor = 1.0 / _upscaleFactor;
 --- it creates an SVG file every 1 second
 _svg_snapshot_capture_time = 10000000;  
 
-_png_snapshot_capture_time = 500;  --- PNG capture time (in milisecond)
+_png_snapshot_capture_time = 5000000000;  --- PNG capture time (in milisecond)
 _sdf_capture_time          = 1000000000;  --- SDF (Signed distance function) capture time (in milisecond)
 
 
@@ -198,7 +198,7 @@ _container_offset = 0; -- for SCP
 
 ---------------------------------------------------------------------
 -- THREADS
-_num_thread_cg      = 12; -- collision grid
-_num_thread_springs = 10;
-_num_thread_c_pt    = 12; -- closest point
-_num_thread_solve   = 12;
+_num_thread_cg      = 4; -- collision grid
+_num_thread_springs = 4;
+_num_thread_c_pt    = 4; -- closest point
+_num_thread_solve   = 4;

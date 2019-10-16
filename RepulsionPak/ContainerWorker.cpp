@@ -143,7 +143,7 @@ void ContainerWorker::LoadContainer(CollissionGrid* cGrid)
 
 		float d = UtilityFunctions::DistanceToBunchOfPoints(_randomPositions, pt);
 
-		if (isInside && d > 30) 
+		if (isInside && d > 40) 
 			{ _randomPositions.push_back(pt); }
 	}
 

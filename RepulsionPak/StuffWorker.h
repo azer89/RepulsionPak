@@ -112,8 +112,10 @@ public:
 	int _cg_thread_t;
 	int _springs_thread_t;
 	int _c_pt_thread_t;
-	int _c_pt_cpu_t;
 	int _solve_thread_t;
+
+	int _cg_cpu_t;
+	int _c_pt_cpu_t;
 	//float _man_neg_ratio;
 
 	//AVector start_ln;

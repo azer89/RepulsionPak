@@ -65,8 +65,8 @@ _show_bending_edges  = false;
 _show_shape_matching = false;
 
 _output_files  = true;
-_screen_width  = 1000;
-_screen_height = 600;
+_screen_width  = 1200;
+_screen_height = 800;
 _sleep_time    = 20; --- when simulation isn't running
 
 _should_rotate = true;
@@ -198,7 +198,7 @@ _container_offset = 0; -- for SCP
 
 ---------------------------------------------------------------------
 -- THREADS
-_num_thread_cg      = 2; -- collision grid
-_num_thread_springs = 2;
-_num_thread_c_pt    = 6; -- closest point
+_num_thread_cg      = 12; -- collision grid
+_num_thread_springs = 12;
+_num_thread_c_pt    = 12; -- closest point
 _num_thread_solve   = 2;

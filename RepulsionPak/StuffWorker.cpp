@@ -1272,26 +1272,20 @@ void StuffWorker::CalculateThings(float dt)
 			{ _graphs[a]._isGrowing = false; }
 	}
 
-	//_cGrid->PrecomputeGraphIndices();
+	
+
+
 	auto start1 = std::chrono::system_clock::now(); // timing
 	_cGrid->PrecomputeData_Prepare_Threads();
 	auto elapsed1 = std::chrono::system_clock::now() - start1; // timing
 	_cg_thread_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed1).count(); // timing
 
+	auto start0 = std::chrono::system_clock::now(); // timing
+	_cGrid->PrecomputeGraphIndices();
+	auto elapsed0 = std::chrono::system_clock::now() - start0; // timing
+	_cg_cpu_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed0).count(); // timing
 
-	// ---------- get closest point ----------
-	auto start3 = std::chrono::system_clock::now(); // timing
-	for ( int a = startIter; a < _graphs.size(); a++)
-	{
-		
-		for (int b = 0; b < _graphs[a]._massList.size(); b++)
-		{
-			
-			this->_graphs[a]._massList[b].GetClosestPoints2(a);
-		}
-	}
-	auto elapsed3 = std::chrono::system_clock::now() - start3; // timing
-	_c_pt_cpu_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed3).count(); // timing
+
 	
 	
 	auto start2 = std::chrono::system_clock::now(); // timing
@@ -1300,6 +1294,19 @@ void StuffWorker::CalculateThings(float dt)
 	_c_pt_thread_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed2).count(); // timing
 
 
+	// ---------- get closest point ----------
+	auto start3 = std::chrono::system_clock::now(); // timing
+	for (int a = startIter; a < _graphs.size(); a++)
+	{
+
+		for (int b = 0; b < _graphs[a]._massList.size(); b++)
+		{
+
+			this->_graphs[a]._massList[b].GetClosestPoints2(a);
+		}
+	}
+	auto elapsed3 = std::chrono::system_clock::now() - start3; // timing
+	_c_pt_cpu_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed3).count(); // timing
 
 
 	// calculate scale iter here !!!

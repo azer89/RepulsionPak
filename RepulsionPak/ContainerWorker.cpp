@@ -160,7 +160,7 @@ void ContainerWorker::LoadContainer(CollissionGrid* cGrid)
 	cGrid->AnalyzeContainer(_container_boundaries, _holes, _offsetFocalBoundaries);
 }
 
-bool ContainerWorker::IsGraphInside(const AGraph& g)
+bool ContainerWorker::IsGraphInside(const AnElement& g)
 {
 	for (unsigned int a = 0; a < g._padCalc._sorted_descriptors.size(); a++)
 	{
@@ -175,7 +175,7 @@ bool ContainerWorker::IsGraphInside(const AGraph& g)
 	return true;
 }
 
-void ContainerWorker::PlacementWithMatching3(std::vector<AGraph>& oriGraphs, std::vector<AGraph>& matchedGraphs, std::vector<bool>& oriGraphsFlags)
+void ContainerWorker::PlacementWithMatching3(std::vector<AnElement>& oriGraphs, std::vector<AnElement>& matchedGraphs, std::vector<bool>& oriGraphsFlags)
 {
 	//std::vector<AGraph> matchedGraphs;
 	
@@ -214,7 +214,7 @@ void ContainerWorker::PlacementWithMatching3(std::vector<AGraph>& oriGraphs, std
 		// scaling
 		float s_c = _padCalc._sorted_descriptors[i]._total_length;
 
-		AGraph yay_g; // the choice !
+		AnElement yay_g; // the choice !
 
 		my_vector_of_info_t indices = GetNN(_padCalc._sorted_descriptors[i].GetDescriptor());
 		std::cout << "indices size = " << indices.size() << "\n";
@@ -226,7 +226,7 @@ void ContainerWorker::PlacementWithMatching3(std::vector<AGraph>& oriGraphs, std
 			// non-repeating
 			if (oriGraphsFlags[idx1]) continue;
 
-			AGraph candidate_g = oriGraphs[idx1];
+			AnElement candidate_g = oriGraphs[idx1];
 			candidate_g.CalculatePADBary();
 
 			// docking
@@ -361,7 +361,7 @@ my_vector_of_info_t ContainerWorker::GetNN(std::vector<float> queryPt)
 	return returnArray;
 }
 
-void ContainerWorker::PrepareKNN(std::vector<AGraph>& oriGraphs)
+void ContainerWorker::PrepareKNN(std::vector<AnElement>& oriGraphs)
 {
 	//typedef std::vector<std::vector<float> > my_vector_of_vectors_t;
 	// first index is which element, the second index 
@@ -387,9 +387,9 @@ void ContainerWorker::PrepareKNN(std::vector<AGraph>& oriGraphs)
 	_mat_index->index->buildIndex();
 }
 
-std::vector<AGraph> ContainerWorker::PlacementWithMatching2(std::vector<AGraph>& oriGraphs)
+std::vector<AnElement> ContainerWorker::PlacementWithMatching2(std::vector<AnElement>& oriGraphs)
 {
-	std::vector<AGraph> matchedGraphs;
+	std::vector<AnElement> matchedGraphs;
 
 	// write some code here !!!
 	int desc_sz = _padCalc._sorted_descriptors.size();
@@ -410,7 +410,7 @@ std::vector<AGraph> ContainerWorker::PlacementWithMatching2(std::vector<AGraph>&
 		AVector cA      = _smooth_container[c_l_idx]; AVector cB = _smooth_container[c_r_idx];
 		AVector cVector = (cB - cA).Norm();
 
-		AGraph yay_g; // the choice !
+		AnElement yay_g; // the choice !
 
 		for (unsigned int b = 0; b < g_sz; b++) // loop graphs
 		{
@@ -422,7 +422,7 @@ std::vector<AGraph> ContainerWorker::PlacementWithMatching2(std::vector<AGraph>&
 
 				//if (dist < d)
 				{
-					AGraph candidate_g = oriGraphs[b];
+					AnElement candidate_g = oriGraphs[b];
 					candidate_g.CalculatePADBary();
 
 					// docking
@@ -652,9 +652,9 @@ float ContainerWorker::GetScore(const std::vector<AVector>& uniArt,
 	return scoreVal;
 }
 
-std::vector<AGraph> ContainerWorker::PlacementWithMatching(std::vector<AGraph>& oriGraphs)
+std::vector<AnElement> ContainerWorker::PlacementWithMatching(std::vector<AnElement>& oriGraphs)
 {
-	std::vector<AGraph> matchedGraphs;
+	std::vector<AnElement> matchedGraphs;
 
 	// write some code here !!!
 	int desc_sz = _padCalc._sorted_descriptors.size();
@@ -711,7 +711,7 @@ std::vector<AGraph> ContainerWorker::PlacementWithMatching(std::vector<AGraph>& 
 		std::cout << "c_ratio = " << c_ratio << " , e_ratio = " << e_ratio << "\n";
 
 
-		AGraph g = oriGraphs[best_b_idx]; // prev
+		AnElement g = oriGraphs[best_b_idx]; // prev
 		g.CalculatePADBary();			  // prev
 		g._isMatched = true;              // prev
 		g.SetMatchedPoint(e_pt, c_pt);          // next

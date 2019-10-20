@@ -6,7 +6,7 @@
 
 #include "OpenCVWrapper.h"
 #include "AVector.h"
-#include "AGraph.h"
+#include "AnElement.h"
 
 #include "MyColor.h"
 
@@ -27,9 +27,9 @@ public:
 	RigidRegistration();
 	~RigidRegistration();
 
-	void SaveOriGraph(AGraph g2, int numGraph2);
+	void SaveOriGraph(AnElement g2, int numGraph2);
 
-	float CalculateDistance(AGraph g1, AGraph g2, int numGraph1, int numGraph2);
+	float CalculateDistance(AnElement g1, AnElement g2, int numGraph1, int numGraph2);
 
 	float CalculateDistance(std::vector<AVector> points1, 
 		                    std::vector<AVector> points2, 

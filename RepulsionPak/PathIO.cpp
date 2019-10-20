@@ -55,7 +55,7 @@ file format:
 	...
 */
 // graph
-void PathIO::SaveAGraph(AGraph aGraph, std::string filename)
+void PathIO::SaveAGraph(AnElement aGraph, std::string filename)
 {
 	std::ofstream* f = new std::ofstream();
 	f->open(filename);
@@ -174,10 +174,10 @@ void PathIO::SaveAGraph(AGraph aGraph, std::string filename)
 	u0 v0 w0...											% bary of art 2
 	...
 */
-AGraph PathIO::LoadAGraph(std::string filename)
+AnElement PathIO::LoadAGraph(std::string filename)
 {
 	//return AGraph();
-	AGraph aGraph;
+	AnElement aGraph;
 	std::ifstream myfile(filename);
 
 	// num_point

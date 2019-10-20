@@ -4,9 +4,6 @@
     <ClCompile Include="ADistanceTransform.cpp">
       <Filter>CPP</Filter>
     </ClCompile>
-    <ClCompile Include="AGraph.cpp">
-      <Filter>CPP</Filter>
-    </ClCompile>
     <ClCompile Include="AMass.cpp">
       <Filter>CPP</Filter>
     </ClCompile>
@@ -121,15 +118,15 @@
     <ClCompile Include="PixelTracer.cpp">
       <Filter>CPP</Filter>
     </ClCompile>
+    <ClCompile Include="AnElement.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ABary.h">
       <Filter>H</Filter>
     </ClInclude>
     <ClInclude Include="ADistanceTransform.h">
-      <Filter>H</Filter>
-    </ClInclude>
-    <ClInclude Include="AGraph.h">
       <Filter>H</Filter>
     </ClInclude>
     <ClInclude Include="ALine.h">
@@ -295,6 +292,9 @@
       <Filter>H</Filter>
     </ClInclude>
     <ClInclude Include="PixelTracer.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="AnElement.h">
       <Filter>H</Filter>
     </ClInclude>
   </ItemGroup>

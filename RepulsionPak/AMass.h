@@ -21,7 +21,7 @@
 #include <algorithm>
 #include <unordered_map>
 
-struct AGraph;
+struct AnElement;
 
 // An object to represent a mass
 class AMass
@@ -156,7 +156,7 @@ public:
 
 	void VerletSyncEdgeLengths(const std::vector<AMass>& otherMasses); // currently not used
 
-	void CollissionRelax(int parentGraphIndex, std::vector<AGraph>& allGraphs);
+	void CollissionRelax(int parentGraphIndex, std::vector<AnElement>& allGraphs);
 
 	//void VerletRelax(std::vector<AMass>& otherMasses); // move this to AGraph
 
@@ -174,7 +174,7 @@ public:
 	void Simulate(float dt/*, float dampingVal*/);
 
 	void Solve(const int& massNumber,
-		AGraph& parentGraph,
+		AnElement& parentGraph,
 		//const std::vector<AGraph>& allGraphs,
 		//CollissionGrid* cGrid,
 		const std::vector<std::vector<AVector>>& boundaries,

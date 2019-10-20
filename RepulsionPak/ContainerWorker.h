@@ -4,7 +4,7 @@
 #include "PAD.h"
 #include "CollissionGrid.h"
 #include "VFRegion.h"
-#include "AGraph.h"
+#include "AnElement.h"
 
 #include "nanoflann.hpp"
 #include "KDTreeVectorOfVectorsAdaptor.h"
@@ -32,11 +32,11 @@ public:
 
 	void Draw();
 
-	bool IsGraphInside(const AGraph& g);
+	bool IsGraphInside(const AnElement& g);
 
-	std::vector<AGraph> PlacementWithMatching(std::vector<AGraph>& oriGraphs);
-	std::vector<AGraph> PlacementWithMatching2(std::vector<AGraph>& oriGraphs);
-	void PlacementWithMatching3(std::vector<AGraph>& oriGraphs, std::vector<AGraph>& matchedGraphs, std::vector<bool>& oriGraphsFlags);
+	std::vector<AnElement> PlacementWithMatching(std::vector<AnElement>& oriGraphs);
+	std::vector<AnElement> PlacementWithMatching2(std::vector<AnElement>& oriGraphs);
+	void PlacementWithMatching3(std::vector<AnElement>& oriGraphs, std::vector<AnElement>& matchedGraphs, std::vector<bool>& oriGraphsFlags);
 	
 	void DrawDebug(const std::vector<AVector>& uniArt, 
 					const std::vector<AVector>& l_poly,
@@ -61,7 +61,7 @@ public:
 	void  GetLRSegments(PADDescriptor desc, std::vector<AVector> poly, std::vector<AVector>& l_poly, std::vector<AVector>& r_poly);
 
 	// KNN
-	void PrepareKNN(std::vector<AGraph>& oriGraphs);
+	void PrepareKNN(std::vector<AnElement>& oriGraphs);
 	my_vector_of_info_t GetNN(std::vector<float> queryPt);
 
 public:

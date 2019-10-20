@@ -3,7 +3,7 @@
 #define A_DISTANCE_TRANSFORM_H
 
 #include "OpenCVWrapper.h"
-#include "AGraph.h"
+#include "AnElement.h"
 #include "AVector.h"
 #include "CollissionGrid.h"
 #include <vector>
@@ -22,10 +22,10 @@ public:
 	//				   float scale = 2);//B
 	~ADistanceTransform();
 
-	void AddGraph(const AGraph& aGraph);
+	void AddGraph(const AnElement& aGraph);
 	void AddGraph(const std::vector<AVector>& graphs);
 
-	void UpdateBoundaries(const std::vector<AGraph>& graphs);
+	void UpdateBoundaries(const std::vector<AnElement>& graphs);
 
 	// use this
 	//void CalculateFillWoSkin(CollissionGrid* cGrid, float& fill_percentage, int numIter, bool saveImage = false);
@@ -38,7 +38,7 @@ public:
 
 	// uhhhh...
 	void CalculateSDF1(CollissionGrid* cGrid, int numIter, bool saveImage = false); // for manual packing
-	void CalculateSDF2(const std::vector<AGraph>& graphs, CollissionGrid* cGrid, int numIter, bool saveImage = false); // for graphs (_arts)
+	void CalculateSDF2(const std::vector<AnElement>& graphs, CollissionGrid* cGrid, int numIter, bool saveImage = false); // for graphs (_arts)
 	
 
 	void CalculatePeaks();

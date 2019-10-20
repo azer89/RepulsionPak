@@ -5,7 +5,7 @@
 #include "OpenCVWrapper.h"
 
 #include "ClipperWrapper.h"
-#include "AGraph.h"
+#include "AnElement.h"
 
 #include "clipper.hpp"
 
@@ -1054,7 +1054,7 @@ float ClipperWrapper::CalculateFill(const std::vector<AVector>& container, const
 	return elementArea / containerArea;
 }
 
-void ClipperWrapper::CalculateSCP(const std::vector<AVector>& container, const std::vector<AGraph>& graphs)
+void ClipperWrapper::CalculateSCP(const std::vector<AVector>& container, const std::vector<AnElement>& graphs)
 {
 	float cScaling = ClipperWrapper::_cScaling;
 
@@ -1091,7 +1091,7 @@ void ClipperWrapper::CalculateSCP(const std::vector<AVector>& container, const s
 	ClipperLib::PolyTreeToPaths(sol1, pSol1);
 }
 
-float ClipperWrapper::CalculateFill(const std::vector<AVector>& container, const std::vector<AGraph>& graphs)
+float ClipperWrapper::CalculateFill(const std::vector<AVector>& container, const std::vector<AnElement>& graphs)
 {
 	 float cScaling = ClipperWrapper::_cScaling;
 

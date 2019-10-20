@@ -10,7 +10,7 @@
 #include "UtilityFunctions.h"
 #include "SystemParams.h"
 
-#include "AGraph.h"
+#include "AnElement.h"
 
 #include "ContainerWorker.h"
 
@@ -64,7 +64,7 @@ public:
 	void ProcessFocalOrnaments();
 	void AddNewSmallElements();
 	
-	AGraph ProcessAnOrnament(AGraph oriGraph, AVector pos, float scale, int graphID/*, float maxEdgeLengthFactor*/);
+	AnElement ProcessAnOrnament(AnElement oriGraph, AVector pos, float scale, int graphID/*, float maxEdgeLengthFactor*/);
 		
 	void FindClickedMass(float x, float y);
 	void DragClickedMass(float x, float y);
@@ -109,6 +109,8 @@ public:
 
 public:
 
+	//int _num_vertex;
+
 	int _cg_thread_t;
 	int _springs_thread_t;
 	int _c_pt_thread_t;
@@ -132,9 +134,9 @@ public:
 	int  _numReplicatedBigOnes; // duplicated
 	bool _hasSmallElements;     // flag
 	std::vector<VFRegion>       _ornamentRegions; // elements	
-	static std::vector<AGraph>  _graphs;          // elements	
-	std::vector<AGraph>         _oriGraphs;       // elements
-	std::vector<AGraph>         _smallOriGraph1;  // elements
+	static std::vector<AnElement>  _graphs;          // elements	
+	std::vector<AnElement>         _oriGraphs;       // elements
+	std::vector<AnElement>         _smallOriGraph1;  // elements
 
 	//std::vector<AVector> _randomPositions;  // for elements
 	

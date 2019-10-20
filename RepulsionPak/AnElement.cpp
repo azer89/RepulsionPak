@@ -1,5 +1,5 @@
 
-#include "AGraph.h"
+#include "AnElement.h"
 #include "ARectangle.h"
 
 #include "ColorPalette.h"
@@ -21,7 +21,7 @@
 //std::vector<AMass> AGraph::_massList = std::vector<AMass>();
 
 // constructir
-AGraph::AGraph()
+AnElement::AnElement()
 {
 	this->_isMatched = false;
 	this->_oriSkiOffset = 0;
@@ -42,12 +42,12 @@ AGraph::AGraph()
 	//this->_transition_time = 0.0f;
 }
 
-float AGraph::DistanceToBoundary(AVector pt)
+float AnElement::DistanceToBoundary(AVector pt)
 {
 	return UtilityFunctions::DistanceToClosedCurve(_uniArt, pt);
 }
 
-void AGraph::CalculateCentroid()
+void AnElement::CalculateCentroid()
 {
 	//std::vector<AMass>::const_iterator first_iter = _massList.begin();
 	//std::vector<AMass>::const_iterator last_iter = _massList.begin() + _skinPointNum;
@@ -60,7 +60,7 @@ void AGraph::CalculateCentroid()
 	this->_centroid = _cvWrapper.GetCenter(boundary_test);
 }
 
-void AGraph::CalculateVecToCentroidArray()
+void AnElement::CalculateVecToCentroidArray()
 {
 	//
 	for (unsigned int a = 0; a < _skinPointNum; a++)
@@ -70,12 +70,12 @@ void AGraph::CalculateVecToCentroidArray()
 	}
 }
 
-float AGraph::GetArea()
+float AnElement::GetArea()
 {
 	return _cvWrapper.GetArea(this->_skin);
 }
 
-void AGraph::CalculateSumVelocity()
+void AnElement::CalculateSumVelocity()
 {
 	_sumVelocity = 0;
 	for (unsigned int b = 0; b < _massList.size(); b++)
@@ -84,7 +84,7 @@ void AGraph::CalculateSumVelocity()
 	}
 }
 
-void AGraph::TesselateArts()
+void AnElement::TesselateArts()
 {
 
 	for (int a = 0; a < _arts.size(); a++)
@@ -104,12 +104,12 @@ void AGraph::TesselateArts()
 	}
 }
 
-void AGraph::ComputeTesselateBarycentric()
+void AnElement::ComputeTesselateBarycentric()
 {
 	
 }
 
-void AGraph::CalculatePADBary()
+void AnElement::CalculatePADBary()
 {
 	// calculate triangles
 	std::vector<std::vector<AVector>> actualTriangles;
@@ -124,7 +124,7 @@ void AGraph::CalculatePADBary()
 	_padCalc.CalculateBarycentric(actualTriangles);
 }
 
-void AGraph::ComputeBarycentric()
+void AnElement::ComputeBarycentric()
 {
 	// calculate triangles
 	std::vector<std::vector<AVector>> actualTriangles;
@@ -373,7 +373,7 @@ void AGraph::ComputeBarycentric()
 	}
 }
 
-void AGraph::CalculateOriAvgEdgeLength()
+void AnElement::CalculateOriAvgEdgeLength()
 {
 	_oriAvgEdgeLength = 0;
 	for (unsigned int a = 0; a < _triEdges.size(); a++)
@@ -385,7 +385,7 @@ void AGraph::CalculateOriAvgEdgeLength()
 	_oriAvgEdgeLength /= (float)_edges.size();*/
 }
 
-void AGraph::RemoveShortNegSpaceEdges()
+void AnElement::RemoveShortNegSpaceEdges()
 {
 	float avgEdgeLength = 0;
 	for (unsigned int a = 0; a < _triEdges.size(); a++)
@@ -409,7 +409,7 @@ void AGraph::RemoveShortNegSpaceEdges()
 	}
 }
 
-void AGraph::CalculateSmoothSkin()
+void AnElement::CalculateSmoothSkin()
 {
 	// ----------  ----------
 	UtilityFunctions::UniformResampleClosed(_uniArt, _resampled_skin, SystemParams::_resample_gap_float);
@@ -421,7 +421,7 @@ void AGraph::CalculateSmoothSkin()
 	css.SmoothCurve1(_smooth_skin);
 }
 
-void AGraph::CalculatePAD()
+void AnElement::CalculatePAD()
 {
 	// PAD and friends
 	_skin_length = UtilityFunctions::CurveLengthClosed(_skin); // 1
@@ -511,7 +511,7 @@ void AGraph::CalculatePAD()
 	//std::cout << "PAD element\n";
 }
 
-void AGraph::SetMatchedPoint(AVector e_pt, AVector c_pt)
+void AnElement::SetMatchedPoint(AVector e_pt, AVector c_pt)
 {
 	_isMatched = true;
 	_matchedPoint = e_pt;
@@ -572,7 +572,7 @@ void AGraph::SetMatchedPoint(AVector e_pt, AVector c_pt)
 	
 }
 
-void AGraph::UpdateBoundaryAndAvgEdgeLength()
+void AnElement::UpdateBoundaryAndAvgEdgeLength()
 {
 	//_boundary.clear();
 	//_boundaryNormals.clear();
@@ -612,7 +612,7 @@ void AGraph::UpdateBoundaryAndAvgEdgeLength()
 	_averageEdgeLength /= (float)_edges.size();*/
 }
 
-AVector AGraph::FindClosestPtOnEdges(int idx, AVector pt)
+AVector AnElement::FindClosestPtOnEdges(int idx, AVector pt)
 {
 	float minDist = std::numeric_limits<float>::max();
 	AVector closestPt;
@@ -634,7 +634,7 @@ AVector AGraph::FindClosestPtOnEdges(int idx, AVector pt)
 	return closestPt;
 }
 
-void AGraph::SelfIntersectionFlagging()
+void AnElement::SelfIntersectionFlagging()
 {
 	/*
 	for (unsigned int a = 0; a < _boundaryPointNum; a++)
@@ -664,7 +664,7 @@ void AGraph::SelfIntersectionFlagging()
 	}*/
 }
 
-void AGraph::SelfIntersectionRelax()
+void AnElement::SelfIntersectionRelax()
 {
 	//std::vector<int> randomIndices;
 	//for (unsigned int a = 0; a < _massList.size(); a++) { randomIndices.push_back(a); }
@@ -736,7 +736,7 @@ void AGraph::SelfIntersectionRelax()
 	}
 }
 
-void AGraph::CalculateBoundaryEdges()
+void AnElement::CalculateBoundaryEdges()
 {
 	for (unsigned int a = 0; a < _skinPointNum - 1; a++)
 	{
@@ -753,7 +753,7 @@ void AGraph::CalculateBoundaryEdges()
 	}
 }
 
-void AGraph::DrawAsSelected()
+void AnElement::DrawAsSelected()
 {
 	if (_isGrowing){ glColor3f(0, 0, 1); }
 	else { glColor3f(0, 0, 0); }
@@ -769,7 +769,7 @@ void AGraph::DrawAsSelected()
 	glEnd();
 }
 
-void AGraph::Draw()
+void AnElement::Draw()
 {
 	/*for (unsigned int a = 0; a < _massList.size(); a++)
 	{
@@ -1159,7 +1159,7 @@ void AGraph::Draw()
 	
 }
 
-void AGraph::Move(AVector vec)
+void AnElement::Move(AVector vec)
 {
 	UpdateBoundaryAndAvgEdgeLength();
 	ARectangle bb = UtilityFunctions::GetBoundingBox(_skin);
@@ -1184,7 +1184,7 @@ void AGraph::Move(AVector vec)
 	//for (unsigned int a = 0; a < _massList.size(); a++) { _oriMassPos.push_back(_massList[a]._pos); }
 }
 
-void AGraph::Translate(AVector vec)
+void AnElement::Translate(AVector vec)
 {
 	for (int a = 0; a < _massList.size(); a++)
 	{
@@ -1192,7 +1192,7 @@ void AGraph::Translate(AVector vec)
 	}
 }
 
-void AGraph::ReflectXAxis()
+void AnElement::ReflectXAxis()
 {
 	// get center of mass
 	AVector centerPos(0, 0);
@@ -1210,7 +1210,7 @@ void AGraph::ReflectXAxis()
 	}
 }
 
-void AGraph::Rotate(float radValue)
+void AnElement::Rotate(float radValue)
 {
 	// get center of mass
 	AVector centerPos(0, 0);
@@ -1230,7 +1230,7 @@ void AGraph::Rotate(float radValue)
 	}
 }
 
-void AGraph::Scale(float scaleFactor)
+void AnElement::Scale(float scaleFactor)
 {
 	for (unsigned int a = 0; a < _massList.size(); a++)
 		{ _massList[a]._pos *= scaleFactor; }
@@ -1253,7 +1253,7 @@ void AGraph::Scale(float scaleFactor)
 	}
 }*/
 
-void AGraph::ConvertMassMapToList() // we don't use MST anymore
+void AnElement::ConvertMassMapToList() // we don't use MST anymore
 {
 	// this one is automatically sorted
 	/*std::map<int, AMass>::iterator it;
@@ -1284,7 +1284,7 @@ void AGraph::ConvertMassMapToList() // we don't use MST anymore
 	_edges.insert(_edges.end(), anotherGraph._edges.begin(), anotherGraph._edges.end());
 }*/
 
-bool AGraph::CanGrow()
+bool AnElement::CanGrow()
 {
 	float minDist = std::numeric_limits<float>::max(); // very large
 	for (unsigned int a = 0; a < _massList.size(); a++)
@@ -1397,7 +1397,7 @@ bool AGraph::CanGrow()
 //	_transition_time_counter = rand() % (int)_transition_time;
 //}
 
-void AGraph::Grow(float growth_scale_iter, std::vector<AGraph>& allGraphs, float dt)
+void AnElement::Grow(float growth_scale_iter, std::vector<AnElement>& allGraphs, float dt)
 { 
 	for (unsigned int a = 0; a < _skinPointNum && _isGrowing; a++)
 	{
@@ -1434,7 +1434,7 @@ void AGraph::Grow(float growth_scale_iter, std::vector<AGraph>& allGraphs, float
 		{ _auxiliaryEdges[a].MakeLonger(/* _shrinking_state * */ growth_scale_iter, dt); }
 }
 
-void AGraph::ComputeFoldingForces()
+void AnElement::ComputeFoldingForces()
 {
 	std::vector<bool> massFlags;
 	//for (unsigned int a = 0; a < _boundaryPointNum; a++)
@@ -1535,7 +1535,7 @@ void AGraph::ComputeFoldingForces()
 	}
 }*/
 
-AVector AGraph::FlipVertex(AVector l1, AVector l2, AVector pt)
+AVector AnElement::FlipVertex(AVector l1, AVector l2, AVector pt)
 {
 	AVector dir = l1.DirectionTo(l2).Norm();
 	AVector leftDir(dir.y, -dir.x);
@@ -1546,7 +1546,7 @@ AVector AGraph::FlipVertex(AVector l1, AVector l2, AVector pt)
 	//return closestPt;
 }
 
-void AGraph::MSTEdgeRelax()
+void AnElement::MSTEdgeRelax()
 {
 	/*std::vector<int> randomIndices;
 	for (unsigned int a = 0; a < _edges.size(); a++) { randomIndices.push_back(a); }
@@ -1601,7 +1601,7 @@ void AGraph::MSTEdgeRelax()
 }
 
 // NN EDGES
-void AGraph::RecalculateEdgeLengths()
+void AnElement::RecalculateEdgeLengths()
 {
 	// mass list
 	for (unsigned int a = 0; a < _massList.size(); a++)
@@ -1620,19 +1620,19 @@ void AGraph::RecalculateEdgeLengths()
 }
 
 // need to call RecalculateArts
-bool AGraph::InsideArts(AVector pt) const
+bool AnElement::InsideArts(AVector pt) const
 {
 	// true if inside
 	return UtilityFunctions::InsidePolygons(_uniuniArts, pt.x, pt.y);
 }
 
 // need to call RecalculateArts
-float AGraph::DistToArts(AVector pt) const
+float AnElement::DistToArts(AVector pt) const
 {
 	return UtilityFunctions::DistanceToClosedCurves(_uniuniArts, pt);
 }
 
-void AGraph::RecalculateUniUniArts()
+void AnElement::RecalculateUniUniArts()
 {
 	AnIdxTriangle tri(0, 0, 0);
 	ABary bary(0, 0, 0);
@@ -1656,7 +1656,7 @@ void AGraph::RecalculateUniUniArts()
 	}
 }
 
-void AGraph::RecalculateArts()
+void AnElement::RecalculateArts()
 {
 	AnIdxTriangle tri(0, 0, 0);
 	ABary bary(0, 0, 0);
@@ -1767,7 +1767,7 @@ void AGraph::RecalculateArts()
 }
 
 // triangle edges
-void AGraph::RecalculateTriangleEdgeLengths()
+void AnElement::RecalculateTriangleEdgeLengths()
 {
 	for (unsigned int a = 0; a < _triEdges.size(); a++)
 	{
@@ -1801,7 +1801,7 @@ void AGraph::RecalculateTriangleEdgeLengths()
 	}*/
 }
 
-int AGraph::GetUnsharedVertexIndex(AnIdxTriangle tri, AnIndexedLine edge)
+int AnElement::GetUnsharedVertexIndex(AnIdxTriangle tri, AnIndexedLine edge)
 {
 	if (tri.idx0 != edge._index0 && tri.idx0 != edge._index1) { return tri.idx0; }
 
@@ -1813,7 +1813,7 @@ int AGraph::GetUnsharedVertexIndex(AnIdxTriangle tri, AnIndexedLine edge)
 }
 
 //
-void AGraph::CreateBendingSprings()
+void AnElement::CreateBendingSprings()
 {
 	for (unsigned a = 0; a < _edgeToTri.size(); a++)
 	{
@@ -1838,7 +1838,7 @@ void AGraph::CreateBendingSprings()
 }
 
 // triangle edges
-void AGraph::CalculateTriangleEdges()
+void AnElement::CalculateTriangleEdges()
 {
 	// triangle edge springs
 	for (unsigned int a = 0; a < _triangles.size(); a++)
@@ -1918,7 +1918,7 @@ void AGraph::CalculateTriangleEdges()
 	}*/
 }
 
-bool AGraph::TryToAddTriangleEdge(AnIndexedLine anEdge, int triIndex)
+bool AnElement::TryToAddTriangleEdge(AnIndexedLine anEdge, int triIndex)
 {
 	int edgeIndex = FindTriangleEdge(anEdge);
 	//if (!FindTriangleEdge(anEdge)/* && !FindEdge(anEdge)*/)
@@ -1949,7 +1949,7 @@ bool AGraph::TryToAddTriangleEdge(AnIndexedLine anEdge, int triIndex)
 
 
 // triangle edges
-int AGraph::FindTriangleEdge(AnIndexedLine anEdge)
+int AnElement::FindTriangleEdge(AnIndexedLine anEdge)
 {
 	for (unsigned int a = 0; a < _triEdges.size(); a++)
 	{
@@ -1988,7 +1988,7 @@ float clip(int n, int lower, int upper)
 	return std::max(lower, std::min(n, upper));
 }
 
-void  AGraph::SolveForNoise(/*std::vector<std::vector<AVector>> perlinMap*/)
+void  AnElement::SolveForNoise(/*std::vector<std::vector<AVector>> perlinMap*/)
 {
 	//if (_transition_time > 0.001)
 	//{
@@ -2006,7 +2006,7 @@ void  AGraph::SolveForNoise(/*std::vector<std::vector<AVector>> perlinMap*/)
 	
 }
 
-void AGraph::SolveForNegativeSPaceSprings()
+void AnElement::SolveForNegativeSPaceSprings()
 {
 	float k_edge = SystemParams::_k_neg_space_edge;
 
@@ -2043,7 +2043,7 @@ void AGraph::SolveForNegativeSPaceSprings()
 }
 
 // triangle edges
-void AGraph::SolveForTriangleSprings()
+void AnElement::SolveForTriangleSprings()
 {
 	// param
 	float k_edge = SystemParams::_k_edge/* * SystemParams::_k_edge_dynamic*/;

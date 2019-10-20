@@ -17,7 +17,7 @@ radhitya@uwaterloo.ca
 //#include "ABlob.h"
 //#include "LRFunctions.h"
 #include "OpenCVWrapper.h"
-#include "AGraph.h"
+#include "AnElement.h"
 
 #include <vector>
 #include <cstring>
@@ -32,8 +32,8 @@ public:
 	void SaveData(std::vector < std::vector<float> > forceData, std::string filename);
 
 	// graph
-	void SaveAGraph(AGraph, std::string filename);
-	AGraph LoadAGraph(std::string filename);
+	void SaveAGraph(AnElement, std::string filename);
+	AnElement LoadAGraph(std::string filename);
 
 	// art
 	void SaveArtData(std::vector<ArtData> artDataArray, std::string filename);

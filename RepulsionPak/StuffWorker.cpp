@@ -5,7 +5,7 @@
 //#include "PoissonGenerator.h"
 #include "Kruskal.h"
 #include "ARectangle.h"
-#include "AGraph.h"
+#include "AnElement.h"
 
 #include "MySVGRenderer.h"
 
@@ -30,7 +30,7 @@
 
 // static stuff
 std::vector<std::vector<AVector>> StuffWorker::_perlinMap = std::vector<std::vector<AVector>>();
-std::vector<AGraph>  StuffWorker::_graphs = std::vector<AGraph>();
+std::vector<AnElement>  StuffWorker::_graphs = std::vector<AnElement>();
 CollissionGrid* StuffWorker::_cGrid = 0;
 
 // constructor
@@ -268,7 +268,7 @@ void StuffWorker::SkinAndTriangulateOrnaments()
 			arts_for_offset.insert(arts_for_offset.end(), focals.begin(), focals.end());
 		}
 				
-		AGraph oriGraph; // yohooo	
+		AnElement oriGraph; // yohooo	
 
 		// BAD PACKING? GOOD PACKING?????????? BACKPACKING?
 		float addOffset = 0;
@@ -472,7 +472,7 @@ void StuffWorker::ProcessOrnaments()
 	///// ori graphs (save to PNG files)
 	for (unsigned int a = 0; a < _oriGraphs.size(); a++)
 	{
-		AGraph g2 = _oriGraphs[a];
+		AnElement g2 = _oriGraphs[a];
 		g2.Scale(SystemParams::_element_initial_scale / g2._scale);
 		//std::cout << "save ori graph\n";
 		_rr->SaveOriGraph(g2, a); // rr is rigid registration
@@ -482,7 +482,7 @@ void StuffWorker::ProcessOrnaments()
 	// delete random points
 	
 	// disable shape matching
-	std::vector<AGraph> matchGraphs;
+	std::vector<AnElement> matchGraphs;
 	std::vector<bool>   oriGraphFlags;
 
 
@@ -521,7 +521,7 @@ void StuffWorker::ProcessOrnaments()
 		// uncomment this if you want repetition
 		if (oriGraphFlags[idx]) { continue; }
 
-		AGraph g = ProcessAnOrnament(_oriGraphs[idx],
+		AnElement g = ProcessAnOrnament(_oriGraphs[idx],
 			                         _containerWorker->_randomPositions[a],
 			                         SystemParams::_element_initial_scale,
 									 a + match_sz/*,
@@ -548,7 +548,7 @@ void StuffWorker::ProcessOrnaments()
 	for (int a = 0; a < _graphs.size(); a++)
 		{ _aDTransform->AddGraph(_graphs[a]); }
 	
-	for (AGraph& aGraph : _graphs)  
+	for (AnElement& aGraph : _graphs)
 	{ 
 		aGraph.CalculateOriAvgEdgeLength();  ///// ori avg adge length
 		aGraph.RecalculateArts();            ///// recalculate arts
@@ -604,7 +604,7 @@ void StuffWorker::AddNewSmallElements()
 	_hasSmallElements = true; // a flag
 	_numReplicatedBigOnes = _graphs.size();
 
-	std::vector<AGraph> newGraphs;
+	std::vector<AnElement> newGraphs;
 
 	std::cout << "AddNewSmallElements _aDTransform->_peaks.size " << _aDTransform->_peaks.size() << "\n";
 
@@ -612,7 +612,7 @@ void StuffWorker::AddNewSmallElements()
 	for (unsigned int a = 0; a < _aDTransform->_peaks.size(); a++)
 	{
 		int idx = a % _smallOriGraph1.size();
-		AGraph g = ProcessAnOrnament(_smallOriGraph1[idx],
+		AnElement g = ProcessAnOrnament(_smallOriGraph1[idx],
 			                         _aDTransform->_peaks[a],
 									 scaleVal,
 									 _graphs.size() + a/*,
@@ -638,7 +638,7 @@ void StuffWorker::AddNewSmallElements()
 	//for (int a = 0; a < newGraphs.size(); a++)
 	//	{ _aDTransform->AddGraph(newGraphs[a]); }
 	
-	for (AGraph& aGraph : newGraphs)
+	for (AnElement& aGraph : newGraphs)
 	{ 
 		aGraph.CalculateOriAvgEdgeLength();  ///// ori avg adge length
 		aGraph.RecalculateArts();            ///// recalculate arts
@@ -678,10 +678,10 @@ void StuffWorker::SaveGraphs()
 
 	for (unsigned int a = 0; a < _graphs.size(); a++)
 	{
-		AGraph g1 = _graphs[a];
+		AnElement g1 = _graphs[a];
 		g1.Scale(1.0f / g1._scale);
 
-		AGraph g2;
+		AnElement g2;
 		if (g1._bigOne) { g2 = _oriGraphs[g1._ori_id]; }
 		else { g2 = _smallOriGraph1[g1._ori_id]; }
 		g2.Scale(SystemParams::_element_initial_scale / g2._scale);
@@ -712,9 +712,9 @@ void StuffWorker::SaveGraphs()
 	}
 }*/
 
-AGraph StuffWorker::ProcessAnOrnament(AGraph oriGraph, AVector pos, float scale, int graphID/*, float maxEdgeLengthFactor*/)
+AnElement StuffWorker::ProcessAnOrnament(AnElement oriGraph, AVector pos, float scale, int graphID/*, float maxEdgeLengthFactor*/)
 {
-	AGraph g1 = oriGraph;
+	AnElement g1 = oriGraph;
 
 	g1._id = graphID; // identification
 	g1.Scale(scale);         // make it smaller
@@ -1009,7 +1009,7 @@ void StuffWorker::SavePNG(int frameCounter)
 
 	// make sure
 	if (!SystemParams::_show_elements)
-		{ for (AGraph& aGraph : _graphs)  { aGraph.RecalculateArts(); } }
+		{ for (AnElement& aGraph : _graphs)  { aGraph.RecalculateArts(); } }
 	
 	float imgScale = 4.0f;
 	float lineThickness = 2.0f;
@@ -1032,7 +1032,7 @@ void StuffWorker::SavePNG(int frameCounter)
 		_cvWrapper.DrawPolyOnCVImage(_pngImg._img, _containerWorker->_holes[i], MyColor(237, 28, 36), true, 1, imgScale);
 	}
 
-	for (AGraph& aGraph : _graphs)
+	for (AnElement& aGraph : _graphs)
 	{
 		// element
 		//for (int a = 0; a < aGraph._arts.size(); a++)

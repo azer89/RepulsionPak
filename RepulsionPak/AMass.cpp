@@ -1,6 +1,6 @@
 
 #include "AMass.h"
-#include "AGraph.h"
+#include "AnElement.h"
 
 #include "AVector.h"
 
@@ -473,7 +473,7 @@ void AMass::GetClosestPoints2(int parentGraphIndex)
 //	}*/
 //}
 
-void AMass::CollissionRelax(int parentGraphIndex, std::vector<AGraph>& allGraphs)
+void AMass::CollissionRelax(int parentGraphIndex, std::vector<AnElement>& allGraphs)
 {
 	this->_isInside = false;
 
@@ -722,7 +722,7 @@ void AMass::CalculateFoldingForce(const std::vector<AMass>& otherMasse)
 
 
 void AMass::Solve(const int& massNumber,
-	              AGraph& parentGraph,
+	              AnElement& parentGraph,
 				  const std::vector<std::vector<AVector>>& boundaries,
 				  const std::vector<std::vector<AVector>>& holes,
 				  const std::vector<std::vector<AVector>>& focalOffsets)

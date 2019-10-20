@@ -87,7 +87,7 @@ _num_element_pos       = 1000;
 _num_element_pos_limit = 20;
 
 --- Time step for numerical integration (euler method)
-_dt = 0.1;   --- do not set this higher than 0.1
+_dt = 0.01;   --- do not set this higher than 0.1
 
 --- random animation
 ---_shrink_fill_ratio = 1.65;
@@ -131,7 +131,7 @@ _focal_offset = 2;
 _skin_offset                = 20;  
 --- density of random points inside the skin
 --- if the density is higher, you get more triangles
-_sampling_num               = 500;
+_sampling_num               = 10000;
 --- uniform sampling on the skin
 _boundary_sampling_factor   = 1.5;  -- [Do not edit]
 ---_should_recalculate_element = true;
@@ -183,8 +183,6 @@ _png_snapshot_capture_time = 5000000000;  --- PNG capture time (in milisecond)
 _sdf_capture_time          = 1000000000;  --- SDF (Signed distance function) capture time (in milisecond)
 
 
-
-
 --- RMS (Root of mean square) capture time
  
 _rms_capture_time = 1000;  --- it is set to 1 second
@@ -198,7 +196,7 @@ _container_offset = 0; -- for SCP
 
 ---------------------------------------------------------------------
 -- THREADS
-_num_thread_cg      = 12; -- collision grid
-_num_thread_springs = 12;
+_num_thread_cg      = 2; -- collision grid
+_num_thread_springs = 2;
 _num_thread_c_pt    = 12; -- closest point
 _num_thread_solve   = 2;

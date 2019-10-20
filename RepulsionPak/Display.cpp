@@ -316,7 +316,7 @@ void Display::Draw()
 				//_sWorker.RecreateDistanceTransform(1.0f);
 				int time_a = glutGet(GLUT_ELAPSED_TIME);
 				std::cout << "1\n";
-				for (AGraph& aGraph : _sWorker._graphs)  { aGraph.RecalculateArts(); }
+				for (AnElement& aGraph : _sWorker._graphs)  { aGraph.RecalculateArts(); }
 				std::cout << "2\n";
 				_sWorker.CalculateSDF(_sdf_int_counter++, false);
 				std::cout << "3\n";
@@ -361,7 +361,7 @@ void Display::Draw()
 			}
 			else
 			{
-				for (AGraph& aGraph : _sWorker._graphs)  { aGraph.RecalculateArts(); } // can be REMOVED				
+				for (AnElement& aGraph : _sWorker._graphs)  { aGraph.RecalculateArts(); } // can be REMOVED				
 				_sWorker.SaveSVG(_svg_int_counter++);
 
 				if (SystemParams::_output_files)
@@ -454,18 +454,18 @@ void Display::Draw()
 	ImGui::Text(("Target fill ratio: " + std::to_string(SystemParams::_target_fill_ratio)).c_str());
 	ImGui::Text(("Fill ratio: "   + std::to_string(_sWorker._fill_ratio)).c_str());
 
-	ImGui::Text(("Edge param: "     + std::to_string(SystemParams::_k_edge)).c_str());
+	ImGui::Text(("Num vertices: "     + std::to_string(_sWorker._numPoints)).c_str());
 
 	//ImGui::Text(("Deformation: " + std::to_string(_sWorker._deformationValue)).c_str());
 
 	ImGui::Text(("Average skin offset: " + std::to_string(_sWorker._avgSkinThickness)).c_str());
 	ImGui::Text(("# Growing elements: " + std::to_string(_sWorker._numGrowingElement) + " / " + std::to_string(_sWorker._graphs.size())).c_str());
 
-	ImGui::Text(("_cg_thread_t      = " + std::to_string(_sWorker._cg_thread_t)).c_str());
-	ImGui::Text(("_springs_thread_t = " + std::to_string(_sWorker._springs_thread_t)).c_str());
+	//ImGui::Text(("_cg_thread_t      = " + std::to_string(_sWorker._cg_thread_t)).c_str());
+	//ImGui::Text(("_springs_thread_t = " + std::to_string(_sWorker._springs_thread_t)).c_str());
 	ImGui::Text(("_c_pt_thread_t    = " + std::to_string(_sWorker._c_pt_thread_t)).c_str());
 
-	ImGui::Text(("_cg_cpu_t         = " + std::to_string(_sWorker._cg_cpu_t)).c_str());
+	//ImGui::Text(("_cg_cpu_t         = " + std::to_string(_sWorker._cg_cpu_t)).c_str());
 	ImGui::Text(("_c_pt_cpu_t       = " + std::to_string(_sWorker._c_pt_cpu_t)).c_str());
 	
 		

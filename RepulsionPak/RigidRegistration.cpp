@@ -29,7 +29,7 @@ AVector RigidRegistration::GetCentroid(const std::vector<AVector>& points)
 	return centroidPt;
 }
 
-void RigidRegistration::SaveOriGraph(AGraph g2, int numGraph2)
+void RigidRegistration::SaveOriGraph(AnElement g2, int numGraph2)
 {
 	// ===== get points =====
 	std::vector<AVector> points2;
@@ -103,8 +103,8 @@ void RigidRegistration::SaveOriGraph(AGraph g2, int numGraph2)
 	MySVGRenderer::SaveArts(SystemParams::_save_folder + "ORI_ELEMENTS\\" + ss1.str() + ".svg", arts2, g2._fColors, g2._bColors);*/
 }
 
-float RigidRegistration::CalculateDistance(AGraph g1_deformed,  // deformed
-	                                       AGraph g2_ori,  // original
+float RigidRegistration::CalculateDistance(AnElement g1_deformed,  // deformed
+	                                       AnElement g2_ori,  // original
 										   int numGraph1,
 										   int numGraph2)
 {

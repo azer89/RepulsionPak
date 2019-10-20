@@ -2,7 +2,7 @@
 #ifndef KRUSKAL_H
 #define KRUSKAL_H
 
-#include "AGraph.h"
+#include "AnElement.h"
 
 #include <vector>
 

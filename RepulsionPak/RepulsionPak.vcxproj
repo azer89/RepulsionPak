@@ -253,7 +253,7 @@
   <ItemGroup>
     <ClInclude Include="ABary.h" />
     <ClInclude Include="ADistanceTransform.h" />
-    <ClInclude Include="AGraph.h" />
+    <ClInclude Include="AnElement.h" />
     <ClInclude Include="ASquare.h" />
     <ClInclude Include="ALine.h" />
     <ClInclude Include="AngleConnector.h" />
@@ -312,7 +312,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ADistanceTransform.cpp" />
-    <ClCompile Include="AGraph.cpp" />
+    <ClCompile Include="AnElement.cpp" />
     <ClCompile Include="AMass.cpp" />
     <ClCompile Include="BezierSmoothing.cpp" />
     <ClCompile Include="CGALBoolean.cpp" />

@@ -18,7 +18,7 @@ radhitya@uwaterloo.ca
 //#include "ABlob.h"
 //#include "LRFunctions.h"
 
-#include "AGraph.h"
+#include "AnElement.h"
 #include "MyColor.h"
 
 #include <vector>
@@ -44,15 +44,15 @@ public:
 						 std::vector<int> bColors);
 
 	static void SaveElementsAndSkins(std::string filename, 
-		                             std::vector<AGraph> graphs,
+		                             std::vector<AnElement> graphs,
 									 const std::vector<std::vector<std::vector<AVector>>>& focals,
 									 const std::vector<std::vector<AVector>>& offsetFocalBoundaries,
 									 std::vector<std::vector<AVector>> boundaries);
 
-	static void SaveTriangles(std::string filename, std::vector<AGraph> graphs);
+	static void SaveTriangles(std::string filename, std::vector<AnElement> graphs);
 
 	// physics pak
-	static void SaveGraphElements(std::string filename, std::vector<AGraph> graphs);
+	static void SaveGraphElements(std::string filename, std::vector<AnElement> graphs);
 	 
 	//std::vector<std::vector<std::vector<AVector>>> _focals;
 	//std::vector<std::vector<AVector>> _offsetFocalBoundaries;

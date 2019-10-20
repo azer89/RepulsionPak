@@ -18,7 +18,7 @@ radhitya@uwaterloo.ca
 //#include "VFRegion.h"
 
 struct VFRegion;
-struct AGraph;
+struct AnElement;
 
 #include <vector>
 
@@ -68,10 +68,10 @@ public:
 	static std::vector<std::vector<AVector>> GetUniPolys(std::vector<std::vector<AVector >> polygons);  // closed poly	
 	static std::vector<std::vector<AVector>> GetUniPolys(std::vector<std::vector<AVector >> polygons, float& area);
 
-	static float CalculateFill(const std::vector<AVector>& container, const std::vector<AGraph>& graphs);
+	static float CalculateFill(const std::vector<AVector>& container, const std::vector<AnElement>& graphs);
 	static float CalculateFill(const std::vector<AVector>& container, const std::vector<std::vector<AVector >>& graphs);
 
-	static void CalculateSCP(const std::vector<AVector>& container, const std::vector<AGraph>& graphs);
+	static void CalculateSCP(const std::vector<AVector>& container, const std::vector<AnElement>& graphs);
 
 	// offsetting
 	static std::vector<std::vector<AVector>> OffsettingL(std::vector<AVector> someLine, float offsetVal); 

@@ -25,7 +25,7 @@ typedef std::pair<int, int> ABinItem;
 typedef std::vector<AnIdxTriangle> ArtTri;
 
 
-struct AGraph // should be renamed to elements
+struct AnElement // should be renamed to elements
 {
 public:
 
@@ -139,7 +139,7 @@ public:
 
 	OpenCVWrapper _cvWrapper;
 	
-	AGraph();
+	AnElement();
 
 	float DistanceToBoundary(AVector pt) ;
 
@@ -234,7 +234,7 @@ public:
 	//void InitShrinking();
 
 	//
-	void Grow(float growth_scale_iter, std::vector<AGraph>& allGraphs,  float dt);	
+	void Grow(float growth_scale_iter, std::vector<AnElement>& allGraphs,  float dt);
 
 	//
 	void ComputeFoldingForces();	

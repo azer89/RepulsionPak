@@ -231,7 +231,7 @@ void ADistanceTransform::AddGraph(const std::vector<AVector>& graphs)
 }
 
 
-void ADistanceTransform::AddGraph(const AGraph& aGraph)
+void ADistanceTransform::AddGraph(const AnElement& aGraph)
 {
 	_graphBoundaries.push_back(_cvWrapper.ConvertList<AVector, cv::Point2f>(aGraph._uniArt));
 	_voronoiColors.push_back(MyColor(rand() % 254 + 1, rand() % 254 + 1, rand() % 254 + 1));// voronoi
@@ -242,7 +242,7 @@ void ADistanceTransform::AddGraph(const AGraph& aGraph)
 	_voronoiBWImages.push_back(img);  // voronoi
 }
 
-void ADistanceTransform::UpdateBoundaries(const std::vector<AGraph>& graphs)
+void ADistanceTransform::UpdateBoundaries(const std::vector<AnElement>& graphs)
 {
 	for (unsigned int a = 0; a < _graphBoundaries.size(); a++)
 	{
@@ -287,7 +287,7 @@ void ADistanceTransform::CalculateFill(CollissionGrid* cGrid,
 }
 
 // USE THIS for your simulation
-void ADistanceTransform::CalculateSDF2(const std::vector<AGraph>& graphs, CollissionGrid* cGrid, int numIter, bool saveImage)
+void ADistanceTransform::CalculateSDF2(const std::vector<AnElement>& graphs, CollissionGrid* cGrid, int numIter, bool saveImage)
 {
 	int szsz = _sz * _sz;
 	std::vector<int> overlapMask(szsz); // (Overlap Mask) initialization

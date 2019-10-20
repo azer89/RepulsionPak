@@ -10,7 +10,7 @@
 
 #include "simple_svg.h" // external library
 
-void MySVGRenderer::SaveTriangles(std::string filename, std::vector<AGraph> graphs)
+void MySVGRenderer::SaveTriangles(std::string filename, std::vector<AnElement> graphs)
 {
 	svg::Dimensions dimensions(SystemParams::_upscaleFactor, SystemParams::_upscaleFactor);
 
@@ -51,7 +51,7 @@ void MySVGRenderer::SaveTriangles(std::string filename, std::vector<AGraph> grap
 }
 
 void MySVGRenderer::SaveElementsAndSkins(std::string filename, 
-	                                     std::vector<AGraph> graphs, 
+	                                     std::vector<AnElement> graphs,
 										 const std::vector<std::vector<std::vector<AVector>>>& focals,
 										 const std::vector<std::vector<AVector>>& offsetFocalBoundaries,
 										 std::vector<std::vector<AVector>> boundaries)
@@ -220,7 +220,7 @@ void MySVGRenderer::SaveElementsAndSkins(std::string filename,
 
 }
 
-void MySVGRenderer::SaveGraphElements(std::string filename, std::vector<AGraph> graphs)
+void MySVGRenderer::SaveGraphElements(std::string filename, std::vector<AnElement> graphs)
 {
 	svg::Dimensions dimensions(SystemParams::_upscaleFactor, SystemParams::_upscaleFactor);
 

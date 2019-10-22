@@ -31,11 +31,11 @@ public:
 
 	void InsertAPoint(float x, float y, int info1, int info2);
 
-	void GetGraphIndices1(float x, float y, std::vector<int>& closestGraphIndices);
+	void GetGraphIndices1(float x, float y, std::vector<int>& closestGraphIndices); // ADistanceTransform
 
-	void GetGraphIndices1B(float x, float y, std::vector<int>& closestGraphIndices);
+	void GetGraphIndices1B(float x, float y, std::vector<int>& closestGraphIndices); // ADistanceTransform
 
-	void GetGraphIndices2(float x, float y, int parentGraphIndex, std::vector<int>& closestGraphIndices);
+	//void GetGraphIndices2(float x, float y, int parentGraphIndex, std::vector<int>& closestGraphIndices);
 
 	void GetGraphIndices2B(float x, float y, int parentGraphIndex, std::vector<int>& closestGraphIndices);
 
@@ -64,7 +64,7 @@ public:
 	//void PrecomputeData_Thread(int startIdx, int endIdx);
 
 public:
-	std::vector<GraphIndices> _graphIndexArray;
+	//std::vector<GraphIndices> _graphIndexArray;
 
 	int _numColumn;
 	float _maxLength;

@@ -23,7 +23,7 @@ CollissionGrid::CollissionGrid()
 		}
 	}
 
-	_graphIndexArray.reserve(_squares.size());
+	//_graphIndexArray.reserve(_squares.size());
 }
 
 CollissionGrid::CollissionGrid(float cellSize)
@@ -44,7 +44,7 @@ CollissionGrid::CollissionGrid(float cellSize)
 		}
 	}
 
-	_graphIndexArray.reserve(_squares.size());
+	//_graphIndexArray.reserve(_squares.size());
 }
 
 CollissionGrid::~CollissionGrid()
@@ -124,7 +124,7 @@ void CollissionGrid::PrecomputeGraphIndices_Thread(int startIdx, int endIdx)
 	//_graphIndexArray.clear();
 	for (unsigned int iter = startIdx; iter < endIdx; iter++)
 	{
-		if (iter >= _squares.size()) { return; }
+		if (iter >= _squares.size()) { break; }
 
 		GraphIndices gIndices;
 
@@ -162,7 +162,8 @@ void CollissionGrid::PrecomputeGraphIndices_Thread(int startIdx, int endIdx)
 		}
 
 		//_graphIndexArray.push_back(gIndices);
-		_graphIndexArray[iter] = gIndices;
+		//_graphIndexArray[iter] = gIndices;
+		_squares[iter]->_closestGraphIndices = gIndices;
 	}
 }
 
@@ -212,7 +213,8 @@ void CollissionGrid::PrecomputeGraphIndices()
 		}
 
 		//_graphIndexArray.push_back(gIndices);
-		_graphIndexArray[iter] = gIndices;
+		//_graphIndexArray[iter] = gIndices;
+		_squares[iter]->_closestGraphIndices = gIndices;
 	}
 }
 
@@ -226,8 +228,13 @@ void CollissionGrid::GetGraphIndices1B(float x, float y, std::vector<int>& close
 
 	int idx = (xPos * _numColumn) + yPos;
 
-	if (_graphIndexArray[idx].size() > 0)
-		closestGraphIndices = _graphIndexArray[idx];
+	//if (_graphIndexArray[idx].size() > 0)
+	if(_squares[idx]->_closestGraphIndices.size() > 0)
+	{
+		closestGraphIndices = _squares[idx]->_closestGraphIndices;
+		//closestGraphIndices = _graphIndexArray[idx];
+	}
+		
 }
 
 void CollissionGrid::GetGraphIndices2B(float x, float y, int parentGraphIndex, std::vector<int>& closestGraphIndices)
@@ -242,23 +249,8 @@ void CollissionGrid::GetGraphIndices2B(float x, float y, int parentGraphIndex, s
 
 	int idx = (xPos * _numColumn) + yPos;
 
-	//if (_graphIndexArray[idx].size() > 0)
-	//{
-		closestGraphIndices = _graphIndexArray[idx];
-	//}
-	//else
-	//{
-	//	return;
-	//}
-
-	/*for (unsigned int a = 0; a < closestGraphIndices.size(); a++)
-	{
-		if (closestGraphIndices[a] == parentGraphIndex)
-		{
-			closestGraphIndices.erase(closestGraphIndices.begin() + a);
-			break;
-		}
-	}*/
+	//closestGraphIndices = _graphIndexArray[idx];
+	closestGraphIndices = _squares[idx]->_closestGraphIndices;
 }
 
 void CollissionGrid::GetGraphIndices1(float x, float y, std::vector<int>& closestGraphIndices)
@@ -304,7 +296,7 @@ void CollissionGrid::GetGraphIndices1(float x, float y, std::vector<int>& closes
 	}
 }
 
-void CollissionGrid::GetGraphIndices2(float x, float y, int parentGraphIndex, std::vector<int>& closestGraphIndices)
+/*void CollissionGrid::GetGraphIndices2(float x, float y, int parentGraphIndex, std::vector<int>& closestGraphIndices)
 {
 	//std::vector<AnObject*> nearObjects;
 
@@ -352,7 +344,8 @@ void CollissionGrid::GetGraphIndices2(float x, float y, int parentGraphIndex, st
 			}
 		}
 	}
-}
+}*/
+
 void  CollissionGrid::GetClosestPoints(float x, float y, std::vector<AVector>& closestPts)
 {
 	if (std::isnan(x) || std::isinf(x) || std::isnan(y) || std::isinf(y))

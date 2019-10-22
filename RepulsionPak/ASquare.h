@@ -29,6 +29,9 @@ public:
 		_yCenter = _y + (_length * 0.5);
 
 		_containerFlag = 0;
+
+		//_elem_indices.reserve(SystemParams::_max_cg_indices);
+		//_elem_indices_actual_sz = 0;
 	}
 
 	~ASquare()
@@ -56,6 +59,10 @@ public:
 	float _y2;
 
 	std::vector<AnObject*>	_objects;
+
+	std::vector<int> _closestGraphIndices;
+	//std::vector<int> _elem_indices;
+	//int _elem_indices_actual_sz;
 
 	inline bool Contains(AnObject* obj)
 	{

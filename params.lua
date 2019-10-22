@@ -144,6 +144,8 @@ _bin_square_size         = 20.0;
 --- 2 means considering all cells that are 2 block away from the query (5x5)
 _collission_block_radius = 1;  
 
+_max_cg_indices = 500; -- see ASquare.h 
+
 --- for growing
 --- incremetal step for growing
 _growth_scale_iter     = 0.003;
@@ -198,5 +200,5 @@ _container_offset = 0; -- for SCP
 -- THREADS
 _num_thread_cg      = 2; -- collision grid
 _num_thread_springs = 2;
-_num_thread_c_pt    = 12; -- closest point
+_num_thread_c_pt    = 2; -- closest point
 _num_thread_solve   = 2;

@@ -1288,10 +1288,10 @@ void StuffWorker::CalculateThings(float dt)
 
 	
 	
-	auto start2 = std::chrono::system_clock::now(); // timing
-	GetClosestPt_Prepare_Threads();
-	auto elapsed2 = std::chrono::system_clock::now() - start2; // timing
-	_c_pt_thread_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed2).count(); // timing
+	//auto start2 = std::chrono::system_clock::now(); // timing
+	//GetClosestPt_Prepare_Threads();
+	//auto elapsed2 = std::chrono::system_clock::now() - start2; // timing
+	//_c_pt_thread_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed2).count(); // timing
 
 
 	// ---------- get closest point ----------
@@ -1358,17 +1358,17 @@ void StuffWorker::Solve()
 	//std::vector<int> randomIndices;
 	//for (unsigned int a = startIter; a < _graphs.size(); a++) { randomIndices.push_back(a); }
 	
-	auto start1 = std::chrono::system_clock::now();
-	SolveSprings_Prepare_Threads();
-	auto elapsed1 = std::chrono::system_clock::now() - start1; // timing
-	_springs_thread_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed1).count(); // timing
+	//auto start1 = std::chrono::system_clock::now();
+	//SolveSprings_Prepare_Threads();
+	//auto elapsed1 = std::chrono::system_clock::now() - start1; // timing
+	//_springs_thread_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed1).count(); // timing
 
 	for (unsigned int a = startIter; a < _graphs.size(); a++)
 	{
 		//int idx = randomIndices[a];
 		// ----------  ----------
-		//_graphs[a].SolveForTriangleSprings();
-		//_graphs[a].SolveForNegativeSPaceSprings();
+		_graphs[a].SolveForTriangleSprings();
+		_graphs[a].SolveForNegativeSPaceSprings();
 
 		
 		//_graphs[a].SolveForNoise();

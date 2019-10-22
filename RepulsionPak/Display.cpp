@@ -461,12 +461,12 @@ void Display::Draw()
 	ImGui::Text(("Average skin offset: " + std::to_string(_sWorker._avgSkinThickness)).c_str());
 	ImGui::Text(("# Growing elements: " + std::to_string(_sWorker._numGrowingElement) + " / " + std::to_string(_sWorker._graphs.size())).c_str());
 
-	ImGui::Text(("_cg_thread_t      = " + std::to_string(_sWorker._cg_thread_t)).c_str());
+	//ImGui::Text(("_cg_thread_t      = " + std::to_string(_sWorker._cg_thread_t)).c_str());
 	//ImGui::Text(("_springs_thread_t = " + std::to_string(_sWorker._springs_thread_t)).c_str());
-	//ImGui::Text(("_c_pt_thread_t    = " + std::to_string(_sWorker._c_pt_thread_t)).c_str());
+	ImGui::Text(("_c_pt_thread_t    = " + std::to_string(_sWorker._c_pt_thread_t)).c_str());
 
-	ImGui::Text(("_cg_cpu_t         = " + std::to_string(_sWorker._cg_cpu_t)).c_str());
-	//ImGui::Text(("_c_pt_cpu_t       = " + std::to_string(_sWorker._c_pt_cpu_t)).c_str());
+	//ImGui::Text(("_cg_cpu_t         = " + std::to_string(_sWorker._cg_cpu_t)).c_str());
+	ImGui::Text(("_c_pt_cpu_t       = " + std::to_string(_sWorker._c_pt_cpu_t)).c_str());
 	
 		
 	//ImGui::Text(("# Points: "    + std::to_string(_sWorker._numPoints)).c_str());

@@ -118,7 +118,7 @@ void SystemParams::LoadParameters()
 	SystemParams::_element_initial_scale = script.get<float>("_element_initial_scale");
 
 	SystemParams::_collission_block_radius = script.get<int>("_collission_block_radius");
-	SystemParams::_max_cg_indices = script.get<int>("_max_cg_indices");
+	//SystemParams::_max_cg_indices = script.get<int>("_max_cg_indices");
 	
 	SystemParams::_velocity_cap            = script.get<float>("_velocity_cap");
 	SystemParams::_relax_iter_num = script.get<int>("_relax_iter_num");
@@ -302,7 +302,7 @@ int   SystemParams::_sampling_num            = 0;
 
 float SystemParams::_growth_scale_iter       = 0.0f;
 int   SystemParams::_collission_block_radius = 0;
-int   SystemParams::_max_cg_indices = 0;
+//int   SystemParams::_max_cg_indices = 0;
 float SystemParams::_velocity_cap            = 0;
 
 //float SystemParams::_fill_ratio = 0.0f;

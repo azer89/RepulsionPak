@@ -1275,14 +1275,14 @@ void StuffWorker::CalculateThings(float dt)
 	
 
 
-	//auto start1 = std::chrono::system_clock::now(); // timing
+	//auto start1 = std::chrono::steady_clock::now(); // timing
 	//_cGrid->PrecomputeData_Prepare_Threads();
-	//auto elapsed1 = std::chrono::system_clock::now() - start1; // timing
+	//auto elapsed1 = std::chrono::steady_clock::now() - start1; // timing
 	//_cg_thread_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed1).count(); // timing
 
-	//auto start0 = std::chrono::system_clock::now(); // timing
+	//auto start0 = std::chrono::steady_clock::now(); // timing
 	_cGrid->PrecomputeGraphIndices();
-	//auto elapsed0 = std::chrono::system_clock::now() - start0; // timing
+	//auto elapsed0 = std::chrono::steady_clock::now() - start0; // timing
 	//_cg_cpu_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed0).count(); // timing
 
 

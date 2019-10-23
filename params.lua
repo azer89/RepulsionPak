@@ -84,10 +84,10 @@ _seed = -1; --- negative means random
 --- larger the number, more elements you get,
 --- but the simulation time gets slower
 _num_element_pos       = 1000;
-_num_element_pos_limit = 20;
+_num_element_pos_limit = 100;
 
 --- Time step for numerical integration (euler method)
-_dt = 0.01;   --- do not set this higher than 0.1
+_dt = 0.1;   --- do not set this higher than 0.1
 
 --- random animation
 ---_shrink_fill_ratio = 1.65;
@@ -131,7 +131,7 @@ _focal_offset = 2;
 _skin_offset                = 20;  
 --- density of random points inside the skin
 --- if the density is higher, you get more triangles
-_sampling_num               = 50000;
+_sampling_num               = 10000;
 --- uniform sampling on the skin
 _boundary_sampling_factor   = 1.5;  -- [Do not edit]
 ---_should_recalculate_element = true;
@@ -144,7 +144,7 @@ _bin_square_size         = 20.0;
 --- 2 means considering all cells that are 2 block away from the query (5x5)
 _collission_block_radius = 1;  
 
-_max_cg_indices = 500; -- see ASquare.h 
+--_max_cg_indices = 500; -- see ASquare.h 
 
 --- for growing
 --- incremetal step for growing
@@ -198,7 +198,7 @@ _container_offset = 0; -- for SCP
 
 ---------------------------------------------------------------------
 -- THREADS
-_num_thread_cg      = 2; -- collision grid
+_num_thread_cg      = 4; -- collision grid
 _num_thread_springs = 2;
-_num_thread_c_pt    = 4; -- closest point
+_num_thread_c_pt    = 24; -- closest point
 _num_thread_solve   = 2;

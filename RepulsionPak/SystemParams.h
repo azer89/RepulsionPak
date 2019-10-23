@@ -99,7 +99,7 @@ public:
 	//static float _growth_scale;
 	static float _growth_scale_iter;
 	static int   _collission_block_radius;
-	static int   _max_cg_indices;
+	//static int   _max_cg_indices;
 	//static float _velocity_damping;
 	static float _velocity_cap;
 

@@ -363,10 +363,7 @@ void AMass::GetClosestPoints2(int parentGraphIndex)
 			_closestPoints[_closestPt_fill_sz] = pt;
 			_closestPt_fill_sz++;
 			//if (pt.IsInvalid()) { std::cout << "."; }
-
-			
 			//_closestPoints.push_back(pt);
-
 		}
 	}
 

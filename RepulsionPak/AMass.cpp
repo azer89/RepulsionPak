@@ -329,11 +329,9 @@ void AMass::GetClosestPoints2(int parentGraphIndex)
 	//this->_closestPoints.clear();
 	this->_closestPt_fill_sz = 0;
 	this->_isInside = false;           // "inside" flag
-
-
+	
 	StuffWorker::_cGrid->GetGraphIndices2B(_pos.x, _pos.y, parentGraphIndex, _closestGraphIndices);
-
-
+	
 	if (_closestGraphIndices.size() > 0)
 	{
 		std::vector<bool> insideGraphFlags;
@@ -378,7 +376,6 @@ void AMass::GetClosestPoints2(int parentGraphIndex)
 		}
 	}
 	_closestDist = std::sqrt(_closestDist); // SQRT
-
 }
 
 //void AMass::GetClosestPoints(int parentGraphIndex,

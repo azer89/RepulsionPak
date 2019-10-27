@@ -103,18 +103,18 @@ public:
 	}
 
 	// ===== color =====
-	void LoadColor(std::string filename)
+	/*void LoadColor(std::string filename)
 	{
 		_img = cv::imread(filename, CV_LOAD_IMAGE_COLOR);
 		_isColor = true;
-	}
+	}*/
 
 	// ===== grayscale ===== 
-	void LoadGrayscale(std::string filename)
+	/*void LoadGrayscale(std::string filename)
 	{
 		_img = cv::imread(filename, CV_LOAD_IMAGE_GRAYSCALE);
 		_isColor = false;
-	}
+	}*/
 
 	// ===== create =====
 	void CreateGrayscaleImage(int height, int width) { _img = cv::Mat::zeros(height,     width,      CV_8UC1);  _isColor = true;  }

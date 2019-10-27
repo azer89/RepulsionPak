@@ -51,41 +51,41 @@ typedef Traits::Polygon_with_holes_2                      Polygon_with_holes_2;
 typedef Kernel::Point_2                                   Point;
 typedef CGAL::Polygon_2<Kernel>                           Linear_polygon;*/
 
-std::vector<AVector> CGALOffsetter::OffsettingP(std::vector<AVector> somePoly, float offsetVal)
-{
-	// exact version
-	std::vector<Rat_point> points; // change Rat_point to Point 
-	for (int a = 0; a < somePoly.size(); a++)
-		{ points.push_back(Rat_point(somePoly[a].x, somePoly[a].y)); }
-
-	Polygon_2  P(points.begin(), points.end());
-	Traits traits;
-	Offset_polygon_with_holes_2 offset = CGAL::offset_polygon_2(P, 5, traits);
-
-	std::vector<AVector> offsetPoly;	
-
-	typedef Offset_polygon_with_holes_2::Polygon_2::Curve_const_iterator  PIter;
-	for (PIter iter = offset.outer_boundary().curves_begin(); iter != offset.outer_boundary().curves_end(); iter++)
-	{
-		float x = CGAL::to_double(iter->left().x());
-		float y = CGAL::to_double(iter->left().y());
-		offsetPoly.push_back(AVector(x, y));
-	}
-	std::cout << "done\n";
-
-	return offsetPoly;
-
-	// this one is approximate version
-
-	/*Linear_polygon P(points.begin(), points.end());
-	Polygon_with_holes_2 offset = CGAL::approximated_offset_2(P, 5, 0.00001);
-	std::vector<AVector> offsetPoly;
-	typedef Polygon_2::Curve_const_iterator  PIter;
-	for (PIter iter = offset.outer_boundary().curves_begin(); iter != offset.outer_boundary().curves_end(); iter++)
-	{
-		float x = CGAL::to_double(iter->left().x());
-		float y = CGAL::to_double(iter->left().y());
-		offsetPoly.push_back(AVector(x, y));
-	}
-	return offsetPoly;*/
-}
+//std::vector<AVector> CGALOffsetter::OffsettingP(std::vector<AVector> somePoly, float offsetVal)
+//{
+//	// exact version
+//	std::vector<Rat_point> points; // change Rat_point to Point 
+//	for (int a = 0; a < somePoly.size(); a++)
+//		{ points.push_back(Rat_point(somePoly[a].x, somePoly[a].y)); }
+//
+//	Polygon_2  P(points.begin(), points.end());
+//	Traits traits;
+//	Offset_polygon_with_holes_2 offset = CGAL::offset_polygon_2(P, 5, traits);
+//
+//	std::vector<AVector> offsetPoly;	
+//
+//	typedef Offset_polygon_with_holes_2::Polygon_2::Curve_const_iterator  PIter;
+//	for (PIter iter = offset.outer_boundary().curves_begin(); iter != offset.outer_boundary().curves_end(); iter++)
+//	{
+//		float x = CGAL::to_double(iter->left().x());
+//		float y = CGAL::to_double(iter->left().y());
+//		offsetPoly.push_back(AVector(x, y));
+//	}
+//	std::cout << "done\n";
+//
+//	return offsetPoly;
+//
+//	// this one is approximate version
+//
+//	/*Linear_polygon P(points.begin(), points.end());
+//	Polygon_with_holes_2 offset = CGAL::approximated_offset_2(P, 5, 0.00001);
+//	std::vector<AVector> offsetPoly;
+//	typedef Polygon_2::Curve_const_iterator  PIter;
+//	for (PIter iter = offset.outer_boundary().curves_begin(); iter != offset.outer_boundary().curves_end(); iter++)
+//	{
+//		float x = CGAL::to_double(iter->left().x());
+//		float y = CGAL::to_double(iter->left().y());
+//		offsetPoly.push_back(AVector(x, y));
+//	}
+//	return offsetPoly;*/
+//}

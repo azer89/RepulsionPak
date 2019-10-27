@@ -131,7 +131,7 @@ _focal_offset = 2;
 _skin_offset                = 20;  
 --- density of random points inside the skin
 --- if the density is higher, you get more triangles
-_sampling_num               = 10000;
+_sampling_num               = 100;
 --- uniform sampling on the skin
 _boundary_sampling_factor   = 1.5;  -- [Do not edit]
 ---_should_recalculate_element = true;

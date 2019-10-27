@@ -58,7 +58,7 @@ void OpenCVWrapper::CreateImage(std::string imageName, int width, int height, in
 void OpenCVWrapper::ShowImage(std::string imageName)
 {
 	cv::Mat img = _images[imageName];
-	cv::namedWindow(imageName, CV_WINDOW_AUTOSIZE);
+	//cv::namedWindow(imageName, CV_WINDOW_AUTOSIZE);
 	cv::imshow(imageName, img);
 }
 
@@ -101,7 +101,7 @@ std::vector<AVector> OpenCVWrapper::GetContour(CVImg img)
 {
 	std::vector<std::vector<cv::Point> > contours;
 	std::vector<cv::Vec4i> hierarchy;
-	findContours(img.GetCVImage(), contours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
+	findContours(img.GetCVImage(), contours, hierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
 	//std::cout << img._img.cols << " - " << img._img.rows << "\n";
 	int longestIdx = GetLongestContourIndex(contours);
 	return ConvertList<cv::Point, AVector>(contours[longestIdx]);
@@ -122,7 +122,7 @@ std::vector<std::vector<AVector>> OpenCVWrapper::GetContours(CVImg img, int blur
 		cv::blur(gray_img, gray_img, cv::Size(blurSize, blurSize));
 	}
 
-	findContours(gray_img, cvContours, hierarchy, CV_RETR_TREE, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
+	findContours(gray_img, cvContours, hierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
 
 	for (int a = 0; a < cvContours.size(); a++)
 	{
@@ -617,7 +617,7 @@ void OpenCVWrapper::DrawFilledPolyInt(CVImg& img,
 		{ new_contours.push_back(cv::Point((int)(shape_contours[b].x * scale + xOffset), int(shape_contours[b].y * scale + yOffset))); }
 	std::vector<std::vector<cv::Point>> contours;
 	contours.push_back(new_contours);
-	cv::fillPoly(img._img, contours, val, CV_AA);
+	cv::fillPoly(img._img, contours, val);
 }
 
 template

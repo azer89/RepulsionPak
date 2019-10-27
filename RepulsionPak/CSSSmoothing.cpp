@@ -152,7 +152,7 @@ void CSSSmoothing::getdXYcurve(std::vector<AVector> oriCurve,
 
 bool CSSSmoothing::ShouldDoSmoothing(std::vector<AVector> oriCurve, int n, cv::Mat distance_img)
 {
-	cv::vector<int> distList;
+	std::vector<int> distList;
 
 	int L = 2;
 	for (int k = -L; k < L + 1; k++) 

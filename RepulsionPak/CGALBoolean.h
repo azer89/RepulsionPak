@@ -8,6 +8,6 @@
 class CGALBoolean
 {
 public:
-	static std::vector<AVector> UnionOperationWithGrowing(std::vector<std::vector<AVector>>& polys);
+	//static std::vector<AVector> UnionOperationWithGrowing(std::vector<std::vector<AVector>>& polys);
 };
 #endif

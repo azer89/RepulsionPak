@@ -503,33 +503,33 @@ PADDescriptor PADCalculator::ComputePADatPoint(int idx)
 	return padDesc;
 }
 
-void PADCalculator::FindClickedPoint(float x, float y)
-{
-	// clicking is disabled
-	AVector pt(x, y);
-	float minDist = std::numeric_limits<float>::max();
-
-	std::cout << "PADCalculator::FindClickedMass\n";
-
-	for (unsigned int a = 0; a < _rdpIndices.size(); a++)
-	{
-
-		float d = this->_aShape[_rdpIndices[a]].DistanceSquared(pt);
-		if (d < minDist)
-		{
-			minDist = d;
-			_clickedIdx = _rdpIndices[a];
-		}
-	}
-
-	if (minDist > 10000.0f) { _clickedIdx = -1; }
-	else
-	{
-		std::cout << "_clickedIdx = " << _clickedIdx << "\n";
-		_descriptors[_clickedIdx].Print();
-		std::cout << "\n";
-	}
-}
+//void PADCalculator::FindClickedPoint(float x, float y)
+//{
+//	// clicking is disabled
+//	AVector pt(x, y);
+//	float minDist = std::numeric_limits<float>::max();
+//
+//	std::cout << "PADCalculator::FindClickedMass\n";
+//
+//	for (unsigned int a = 0; a < _rdpIndices.size(); a++)
+//	{
+//
+//		float d = this->_aShape[_rdpIndices[a]].DistanceSquared(pt);
+//		if (d < minDist)
+//		{
+//			minDist = d;
+//			_clickedIdx = _rdpIndices[a];
+//		}
+//	}
+//
+//	if (minDist > 10000.0f) { _clickedIdx = -1; }
+//	else
+//	{
+//		std::cout << "_clickedIdx = " << _clickedIdx << "\n";
+//		_descriptors[_clickedIdx].Print();
+//		std::cout << "\n";
+//	}
+//}
 
 void PADCalculator::CalculateBarycentric(std::vector<std::vector<AVector>> actualTriangles)
 {

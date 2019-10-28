@@ -838,13 +838,9 @@ bool Display::MouseEvent(int button, int state, int x, int y)
 	{
 		io.MouseDown[0] = true;
 
-		_clickPoint = MapScreenToFieldSpace((float)x, (float)y);
-		//std::cout << "mouse down, x: " << _clickPoint.x << ", y: " << _clickPoint.y << "\n";
-		// physics simulation
-		_sWorker.FindClickedMass(_clickPoint.x, _clickPoint.y);
-		_sWorker._containerWorker->_padCalc.FindClickedPoint(_clickPoint.x, _clickPoint.y);
-
-		//_sWorker.GetPerlinVector(_clickPoint.x, _clickPoint.y);
+		//_clickPoint = MapScreenToFieldSpace((float)x, (float)y);
+		//_sWorker.FindClickedMass(_clickPoint.x, _clickPoint.y);
+		//_sWorker._containerWorker->_padCalc.FindClickedPoint(_clickPoint.x, _clickPoint.y);
 	}
 	else
 	{

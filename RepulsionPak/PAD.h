@@ -190,7 +190,7 @@ public:
 					  std::vector<float>  ddy,
 					  std::vector<float>& ks);
 
-	void PADCalculator::FindClickedPoint(float x, float y);
+	//void PADCalculator::FindClickedPoint(float x, float y);
 
 	void Draw();
 	void Draw2();

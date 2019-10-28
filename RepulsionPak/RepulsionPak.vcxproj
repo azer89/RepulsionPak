@@ -212,7 +212,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\opencv_4_0_1\build\include;..\..\Lua533_vs2017\Lua533;..\..\CGAL-4.13.1\include;..\..\CGAL-4.13.1\auxiliary\gmp\include;..\..\CGAL-4.13.1\bin\include;..\..\boost_1_71_0;..\..\Eigen_3_3_7;..\..\imgui_freeglut\include;..\..\imgui_freeglut\imgui</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\opencv_4_0_1\build\include;..\..\Lua533_vs2017\Lua533;..\..\CGAL-4.13.1\include;..\..\CGAL-4.13.1\auxiliary\gmp\include;..\..\CGAL-4.13.1\bin\include;..\..\Eigen_3_3_7;..\..\imgui_freeglut\include;..\..\imgui_freeglut\imgui</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
@@ -221,8 +221,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\Users\azer\workspace\CGAL-4.13.1\auxiliary\gmp\lib;C:\Users\azer\workspace\boost_1_71_0\lib64-msvc-14.1;C:\Users\azer\workspace\CGAL-4.13.1\bin\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>C:\Users\azer\workspace\imgui_freeglut_2017\lib\x64\freeglut.lib;C:\Users\azer\workspace\opencv_4_0_1\build\x64\vc15\lib\opencv_world401.lib;libgmp-10.lib;libmpfr-4.lib;C:\Users\azer\workspace\Lua533_vs2017\x64\Release\Lua533.lib;C:\Users\azer\workspace\imgui_freeglut_2017\imgui\x64\Release\imgui.lib;C:\Users\azer\workspace\imgui_freeglut_2017\x64\Release\imgui_freeglut.lib;C:\Users\azer\workspace\CGAL-4.13.1\bin\lib\CGAL_Core-vc140-mt-4.13.1.lib;C:\Users\azer\workspace\CGAL-4.13.1\bin\lib\CGAL-vc140-mt-4.13.1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\CGAL-4.13.1\auxiliary\gmp\lib;..\..\boost_1_71_0\lib64-msvc-14.1;..\..\CGAL-4.13.1\bin\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>..\lib\freeglut.lib;..\..\opencv_4_0_1\build\x64\vc15\lib\opencv_world401.lib;..\..\CGAL-4.13.1\auxiliary\gmp\lib\libgmp-10.lib;..\..\CGAL-4.13.1\auxiliary\gmp\lib\libmpfr-4.lib;..\..\Lua533_vs2017\x64\Release\Lua533.lib;..\..\imgui_freeglut\imgui\x64\Release\imgui.lib;..\..\imgui_freeglut\x64\Release\imgui_freeglut.lib;..\..\CGAL-4.13.1\bin\lib\CGAL_Core-vc140-mt-4.13.1.lib;..\..\CGAL-4.13.1\bin\lib\CGAL-vc140-mt-4.13.1.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Debug|x64'">

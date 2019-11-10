@@ -1289,14 +1289,14 @@ void StuffWorker::CalculateThings(float dt)
 	
 	
 	// ---------- get closest point ----------
-	auto start2 = std::chrono::steady_clock::now(); // timing
-	GetClosestPt_Prepare_Threads();
-	auto elapsed2 = std::chrono::steady_clock::now() - start2; // timing
-	_c_pt_thread_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed2).count(); // timing
+	//auto start2 = std::chrono::steady_clock::now(); // timing
+	//GetClosestPt_Prepare_Threads();
+	//auto elapsed2 = std::chrono::steady_clock::now() - start2; // timing
+	//_c_pt_thread_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed2).count(); // timing
 
 
 	// ---------- get closest point ----------
-	auto start3 = std::chrono::steady_clock::now(); // timing
+	//auto start3 = std::chrono::steady_clock::now(); // timing
 	for (int a = startIter; a < _graphs.size(); a++)
 	{
 
@@ -1306,11 +1306,8 @@ void StuffWorker::CalculateThings(float dt)
 			this->_graphs[a]._massList[b].GetClosestPoints2(a);
 		}
 	}
-	auto elapsed3 = std::chrono::steady_clock::now() - start3; // timing
-	_c_pt_cpu_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed3).count(); // timing
-
-
-
+	//auto elapsed3 = std::chrono::steady_clock::now() - start3; // timing
+	//_c_pt_cpu_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed3).count(); // timing
 
 	// calculate scale iter here !!!
 	float scale_iter = SystemParams::_growth_scale_iter;

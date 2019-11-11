@@ -131,6 +131,7 @@ StuffWorker::StuffWorker()
 
 	//start_ln = AVector(200, 100);
 	//end_ln = AVector(330, 300);
+	_c_pt_threadpool = new ThreadPool(SystemParams::_num_thread_c_pt);
 }
 
 //void StuffWorker::InitStatic()
@@ -145,6 +146,7 @@ StuffWorker::~StuffWorker()
 	if (_manualGrid)      { delete _manualGrid; }
 	if (_rr)              { delete _rr; }
 	if (_aDTransform)     { delete _aDTransform; }
+	if (_c_pt_threadpool) { delete _c_pt_threadpool; }
 }
 
 /*
@@ -1164,6 +1166,17 @@ void StuffWorker::Init()
 	}
 }
 
+/*void StuffWorker::PrepareThreads_01()
+{
+	_main_iter_01 = -1;
+	for (int a = 0; a < SystemParams::_num_thread_c_pt; a++)
+	{
+		_thread_iters_01.push_back(-1);
+	}
+}*/
+
+
+
 void StuffWorker::SolveSprings_Prepare_Threads()
 {
 	int len = _graphs.size();
@@ -1200,13 +1213,39 @@ void StuffWorker::SolveSprings_Thread(int startIdx, int endIdx)
 	}
 }
 
+void work_proc_2(int startIdx, int endIdx)
+{
+	for (unsigned int iter = startIdx; iter < endIdx; iter++)
+	{
+		// make sure...
+		if (iter >= StuffWorker::_graphs.size()) { break; }
+
+		for (int b = 0; b < StuffWorker::_graphs[iter]._massList.size(); b++)
+		{
+			StuffWorker::_graphs[iter]._massList[b].GetClosestPoints2(iter);
+		}
+
+	}
+}
+
 void StuffWorker::GetClosestPt_Prepare_Threads()
 {
+	//ThreadPool _c_pt_threadpool(SystemParams::_num_thread_c_pt);
+
 	int len = _graphs.size();
 	int num_threads = SystemParams::_num_thread_c_pt;
 	int thread_stride = (len + num_threads - 1) / num_threads;
 
-	std::vector<std::thread> t_list;
+	for (int a = 0; a < num_threads; a++)
+	{
+		int startIdx = a * thread_stride;
+		int endIdx = startIdx + thread_stride;
+		_c_pt_threadpool->submit(work_proc_2, startIdx, endIdx);
+	}
+
+	_c_pt_threadpool->waitFinished();
+
+	/*std::vector<std::thread> t_list;
 	for (int a = 0; a < num_threads; a++)
 	{
 		int startIdx = a * thread_stride;
@@ -1217,7 +1256,9 @@ void StuffWorker::GetClosestPt_Prepare_Threads()
 	for (int a = 0; a < num_threads; a++)
 	{
 		t_list[a].join();
-	}
+	}*/
+
+
 }
 
 void StuffWorker::GetClosestPt_Thread(int startIdx, int endIdx)
@@ -1289,14 +1330,14 @@ void StuffWorker::CalculateThings(float dt)
 	
 	
 	// ---------- get closest point ----------
-	//auto start2 = std::chrono::steady_clock::now(); // timing
-	//GetClosestPt_Prepare_Threads();
-	//auto elapsed2 = std::chrono::steady_clock::now() - start2; // timing
-	//_c_pt_thread_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed2).count(); // timing
+	auto start2 = std::chrono::steady_clock::now(); // timing
+	GetClosestPt_Prepare_Threads();
+	auto elapsed2 = std::chrono::steady_clock::now() - start2; // timing
+	_c_pt_thread_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed2).count(); // timing
 
 
 	// ---------- get closest point ----------
-	//auto start3 = std::chrono::steady_clock::now(); // timing
+	auto start3 = std::chrono::steady_clock::now(); // timing
 	for (int a = startIter; a < _graphs.size(); a++)
 	{
 
@@ -1306,8 +1347,8 @@ void StuffWorker::CalculateThings(float dt)
 			this->_graphs[a]._massList[b].GetClosestPoints2(a);
 		}
 	}
-	//auto elapsed3 = std::chrono::steady_clock::now() - start3; // timing
-	//_c_pt_cpu_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed3).count(); // timing
+	auto elapsed3 = std::chrono::steady_clock::now() - start3; // timing
+	_c_pt_cpu_t = std::chrono::duration_cast<std::chrono::microseconds>(elapsed3).count(); // timing
 
 	// calculate scale iter here !!!
 	float scale_iter = SystemParams::_growth_scale_iter;

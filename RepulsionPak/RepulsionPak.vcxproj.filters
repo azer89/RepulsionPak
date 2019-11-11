@@ -121,6 +121,9 @@
     <ClCompile Include="AnElement.cpp">
       <Filter>CPP</Filter>
     </ClCompile>
+    <ClCompile Include="ThreadPool.cpp">
+      <Filter>CPP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ABary.h">
@@ -295,6 +298,9 @@
       <Filter>H</Filter>
     </ClInclude>
     <ClInclude Include="AnElement.h">
+      <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool.h">
       <Filter>H</Filter>
     </ClInclude>
   </ItemGroup>

@@ -29,6 +29,10 @@
 
 #include "PAD.h"
 
+#include "ThreadPool.h"
+//#include <atomic>
+//#include <mutex>
+
 // bins
 //	first: which graph
 //	second: edge index
@@ -83,11 +87,7 @@ public:
 	void Operate(float dt);
 	// --------------------------------------------
 
-	void SolveSprings_Prepare_Threads();
-	void SolveSprings_Thread(int startIdx, int endIdx);
-
-	void GetClosestPt_Prepare_Threads();
-	void GetClosestPt_Thread(int startIdx, int endIdx);
+	
 
 	void UpdatePosition(float dt); // verlet
 	void UpdateVelocity(float dt); // verlet
@@ -201,6 +201,25 @@ public:
 	FastNoise          myNoise2;
 	//int _clickedGraphIndex;
 
+// thread
+public:
+	ThreadPool* _c_pt_threadpool;
+	//int _main_iter_01;
+	//std::vector<int> _thread_iters_01;
+	//std::mutex _mutex_01;
+
+	//void PrepareThreads_01();
+
+
+public:
+	//void InitThreads();
+
+	void SolveSprings_Prepare_Threads();
+	void SolveSprings_Thread(int startIdx, int endIdx);
+
+	void GetClosestPt_Prepare_Threads();
+	void GetClosestPt_Thread(int startIdx, int endIdx);
+
 public:
 	// ====================================================
 	void CalculateSkeleton();
@@ -229,6 +248,8 @@ public:
 	std::vector<std::vector<AVector>> _squares;
 	std::vector<std::vector<AVector>> _squareContainer;
 	//void CreateSquares();
+
+
 };
 
 #endif

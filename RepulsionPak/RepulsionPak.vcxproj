@@ -297,6 +297,7 @@
     <ClInclude Include="SelfIntersectionFixer.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="StuffWorker.h" />
+    <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="VFRegion.h" />
     <ClInclude Include="ArtData.h" />
     <ClInclude Include="AVector.h" />
@@ -351,6 +352,7 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="StuffWorker.cpp" />
     <ClCompile Include="SystemParams.cpp" />
+    <ClCompile Include="ThreadPool.cpp" />
     <ClCompile Include="UtilityFunctions.cpp" />
     <ClCompile Include="VFRegion.cpp" />
   </ItemGroup>

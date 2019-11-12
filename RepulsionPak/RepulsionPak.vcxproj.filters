@@ -121,9 +121,6 @@
     <ClCompile Include="AnElement.cpp">
       <Filter>CPP</Filter>
     </ClCompile>
-    <ClCompile Include="ThreadPool.cpp">
-      <Filter>CPP</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ABary.h">
@@ -302,6 +299,9 @@
     </ClInclude>
     <ClInclude Include="ThreadPool.h">
       <Filter>H</Filter>
+    </ClInclude>
+    <ClInclude Include="ATimerStat.h">
+      <Filter>CPP</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

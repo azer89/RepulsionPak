@@ -420,7 +420,7 @@ void Display::Draw()
 	ImGui::SetNextWindowPos(ImVec2(5, 15), ImGuiSetCond_FirstUseEver);  // set position
 
 	bool show_another_window = false;	
-	ImGui::Begin("PhysicsPak", &show_another_window, ImVec2(240, 600));
+	ImGui::Begin("PhysicsPak", &show_another_window, ImVec2(280, 700));
 
 	//if (_rms_time_counter > 0)
 	//{
@@ -463,9 +463,15 @@ void Display::Draw()
 
 	
 	//ImGui::Text(("_springs_thread_t = " + std::to_string(_sWorker._springs_thread_t)).c_str());
-	ImGui::Text(("_c_pt_thread_t    = " + std::to_string(_sWorker._c_pt_thread_t)).c_str());
-	ImGui::Text(("_c_pt_cpu_t       = " + std::to_string(_sWorker._c_pt_cpu_t)).c_str());
-
+	ImGui::Separator();
+	ImGui::Text("Multithreading average time\n(microseconds)");	
+	ImGui::Text(("Collision grid update (N) = " + std::to_string((int)_sWorker._c_grid_thread_time.Avg())).c_str());
+	//ImGui::Text(("Collision grid update (1) = " + std::to_string((int)_sWorker._c_grid_cpu_time.Avg())).c_str());
+	ImGui::Text(("Other else (N)            = " + std::to_string((int)_sWorker._closest_pt_thread_time.Avg())).c_str());
+	//ImGui::Text(("Other else (1)            = " + std::to_string((int)_sWorker._closest_pt_cpu_time.Avg())).c_str());
+	//ImGui::Text(("Calculate forces (N)        = " + std::to_string((int)_sWorker._solve_s_thread_time.Avg())).c_str());
+	//ImGui::Text(("Calculate forces (1)        = " + std::to_string((int)_sWorker._solve_s_cpu_time.Avg())).c_str());
+	ImGui::Separator();
 	//ImGui::Text(("_cg_thread_t      = " + std::to_string(_sWorker._cg_thread_t)).c_str());
 	//ImGui::Text(("_cg_cpu_t         = " + std::to_string(_sWorker._cg_cpu_t)).c_str());
 	

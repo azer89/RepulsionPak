@@ -29,6 +29,7 @@
 
 #include "PAD.h"
 
+#include "ATimerStat.h"
 #include "ThreadPool.h"
 //#include <atomic>
 //#include <mutex>
@@ -79,7 +80,11 @@ public:
 	void Draw();
 	//void DrawBins();
 
-	// ------------ physics simulation ------------	
+	void AlmostAllYourShit_PrepareThreadPool(float dt);
+	void AlmostAllYourShit_ThreadTask(float dt, int startIdx, int endIdx);
+
+	// ------------ physics simulation ------------
+	void AlmostAllYourShit(float dt);
 	void Init();
 	void Solve();
 	void CalculateThings(float dt);
@@ -111,13 +116,7 @@ public:
 
 	//int _num_vertex;
 
-	int _cg_thread_t;
-	int _springs_thread_t;
-	int _c_pt_thread_t;
-	int _solve_thread_t;
-
-	int _cg_cpu_t;
-	int _c_pt_cpu_t;
+	
 	//float _man_neg_ratio;
 
 	//AVector start_ln;
@@ -203,13 +202,29 @@ public:
 
 // thread
 public:
-	ThreadPool* _c_pt_threadpool;
+	ThreadPool* _my_threadpool;
+	ThreadPool* _my_threadpool_solve_springs;
 	//int _main_iter_01;
 	//std::vector<int> _thread_iters_01;
 	//std::mutex _mutex_01;
 
 	//void PrepareThreads_01();
+	//int _cg_thread_t;
+	//int _springs_thread_t;
+	//int _c_pt_thread_t;
+	//int _solve_thread_t;
 
+	//int _cg_cpu_t;
+	//int _c_pt_cpu_t;
+
+	ATimerStat _closest_pt_cpu_time;
+	ATimerStat _closest_pt_thread_time;
+
+	ATimerStat _solve_s_cpu_time;
+	ATimerStat _solve_s_thread_time;
+
+	ATimerStat _c_grid_cpu_time;
+	ATimerStat _c_grid_thread_time;
 
 public:
 	//void InitThreads();

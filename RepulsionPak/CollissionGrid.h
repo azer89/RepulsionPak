@@ -8,6 +8,8 @@
 #include "ASquare.h"
 #include "AVector.h"
 
+#include "ThreadPool.h"
+
 #include <cmath>
 
 // to read:
@@ -72,6 +74,8 @@ public:
 	std::vector<AnObject*> _objects;
 
 	std::vector<ASquare*> _squares;
+
+	ThreadPool* _my_threadpool;
 };
 
 #endif

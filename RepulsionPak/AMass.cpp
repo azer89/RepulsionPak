@@ -716,7 +716,7 @@ void AMass::CalculateFoldingForce(const std::vector<AMass>& otherMasse)
 
 
 void AMass::Solve(const int& massNumber,
-	              AnElement& parentGraph,
+	              const AnElement& parentGraph,
 				  const std::vector<std::vector<AVector>>& boundaries,
 				  const std::vector<std::vector<AVector>>& holes,
 				  const std::vector<std::vector<AVector>>& focalOffsets)
@@ -734,9 +734,9 @@ void AMass::Solve(const int& massNumber,
 				AVector dir;
 				for (unsigned int a = 0; a < _triangles.size(); a++)
 				{
-					ctrPt = (parentGraph._massList[_triangles[a].idx0]._pos +        // triangle vertex
-						               parentGraph._massList[_triangles[a].idx1]._pos +        // triangle vertex
-									   parentGraph._massList[_triangles[a].idx2]._pos) / 3.0f; // triangle vertex
+					ctrPt = (parentGraph._massList[_triangles[a].idx0].GetPos() +        // triangle vertex
+						               parentGraph._massList[_triangles[a].idx1].GetPos() +        // triangle vertex
+									   parentGraph._massList[_triangles[a].idx2].GetPos()) / 3.0f; // triangle vertex
 
 					dir = _pos.DirectionTo(ctrPt);
 					sumO += dir;

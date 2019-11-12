@@ -84,7 +84,7 @@ _seed = -1; --- negative means random
 --- larger the number, more elements you get,
 --- but the simulation time gets slower
 _num_element_pos       = 1000;
-_num_element_pos_limit = 100;
+_num_element_pos_limit = 40;
 
 --- Time step for numerical integration (euler method)
 _dt = 0.1;   --- do not set this higher than 0.1
@@ -198,7 +198,7 @@ _container_offset = 0; -- for SCP
 
 ---------------------------------------------------------------------
 -- THREADS
-_num_thread_cg      = 2; -- collision grid
-_num_thread_springs = 2;
+_num_thread_cg      = 12; -- collision grid
+_num_thread_springs = 12;
 _num_thread_c_pt    = 12; -- closest point
 _num_thread_solve   = 2;

@@ -12,41 +12,40 @@
 #include <future>
 
 // thanks bruh
-// https://stackoverflow.com/questions/23896421/efficiently-waiting-for-all-tasks-in-a-threadpool-to-finish
+// https_//stackoverflow.com/questions/23896421/efficiently-waiting-for-all-tasks-in-a-threadpool-to-finish
 
 class ThreadPool
 {
+private:
+	std::vector<std::thread>          _workers;
+	std::deque<std::function<void()>> _tasks;
+	std::mutex                        _queue_mutex;
+	std::condition_variable           _cv_task;
+	std::condition_variable           _cv_finished;
+	std::atomic_uint                  _processed;
+	unsigned int                      _busy;
+	bool                              _stop;
+
 public:
-	/*ThreadPool(unsigned int n = std::thread::hardware_concurrency());
-	~ThreadPool();
 
-	template<class F> void enqueue(F&& f);
-	void waitFinished();
-	
-
-	unsigned int getProcessed() const { return processed; }*/
-
-	ThreadPool(unsigned int n)
-		: busy()
-		, processed()
-		, stop()
+	ThreadPool(unsigned int n = std::thread::hardware_concurrency()) : _busy(), _processed(), _stop()
 	{
-		//std::cout << "num_thread = " << n << "\n";
-
 		for (unsigned int i = 0; i < n; ++i)
-			workers.emplace_back(std::bind(&ThreadPool::thread_proc, this));
+		{
+			_workers.emplace_back(std::bind(&ThreadPool::thread_proc, this)); // std::vector<std::thread>
+		}
 	}
 
 	~ThreadPool()
 	{
 		// set stop-condition
-		std::unique_lock<std::mutex> latch(queue_mutex);
-		stop = true;
-		cv_task.notify_all();
+		std::unique_lock<std::mutex> latch(_queue_mutex);
+		_stop = true;
+		_cv_task.notify_all();
 		latch.unlock();
 
 		// all threads terminate, then we're done.
-		for (auto& t : workers)
+		for (auto& t : _workers)
 			t.join();
 	}
 
@@ -57,75 +56,65 @@ public:
 	{
 		// Create a function with bounded parameters ready to execute
 		//std::function<decltype(f(args...))()> func = std::bind(std::forward<F>(f), std::forward<Args>(args)...);
-		std::function<decltype(f(args...))()> func = std::bind(f, args...);
+		//std::function<decltype(f(args...))()> func = std::bind(f, args...);
+		auto g = std::bind(f, args...);
 		// Encapsulate it into a shared ptr in order to be able to copy construct / assign 
 		//auto task_ptr = std::make_shared<std::packaged_task<decltype(f(args...))()>>(func);
 
 		// Wrap packaged task into void function
-		//std::function<void()> wrapper_func = [task_ptr]() {
-		//	(*task_ptr)();
-		//};
-
-		// ROFLMAO
-		//enqueue(wrapper_func);
-		enqueue(func);
+		/*std::function<void()> wrapper_func = [task_ptr]() {
+			(*task_ptr)();
+		};*/
+		
+		//enqueue(wrapper_func); // ROFLMAO
+		enqueue(g); // ROFLMAO
 	}
 
 	// generic function push
 	template<class F>
 	void enqueue(F&& f)
 	{
-		std::unique_lock<std::mutex> lock(queue_mutex);
-		tasks.emplace_back(std::forward<F>(f));
-		cv_task.notify_one();
+		std::unique_lock<std::mutex> lock(_queue_mutex);
+		_tasks.emplace_back(std::forward<F>(f));
+		_cv_task.notify_one();
 	}
 
 	// waits until the queue is empty.
 	void waitFinished()
 	{
-		std::unique_lock<std::mutex> lock(queue_mutex);
-		cv_finished.wait(lock, [this]() { return tasks.empty() && (busy == 0); });
+		std::unique_lock<std::mutex> lock(_queue_mutex);
+		_cv_finished.wait(lock, [this]() { return _tasks.empty() && (_busy == 0); });
 	}
 
 private:
-	std::vector< std::thread > workers;
-	std::deque< std::function<void()> > tasks;
-	std::mutex queue_mutex;
-	std::condition_variable cv_task;
-	std::condition_variable cv_finished;
-	std::atomic_uint processed;
-	//std::atomic<unsigned int> processed;
-	unsigned int busy;
-	bool stop;
 
-	//void thread_proc();
 	void thread_proc()
 	{
 		while (true)
 		{
-			std::unique_lock<std::mutex> latch(queue_mutex);
-			cv_task.wait(latch, [this]() { return stop || !tasks.empty(); });
-			if (!tasks.empty())
+			std::unique_lock<std::mutex> latch(_queue_mutex);
+			_cv_task.wait(latch, [this]() { return _stop || !_tasks.empty(); });
+			if (!_tasks.empty())
 			{
 				// got work. set busy.
-				++busy;
+				++_busy;
 
 				// pull from queue
-				auto fn = tasks.front();
-				tasks.pop_front();
+				auto fn = _tasks.front();
+				_tasks.pop_front();
 
 				// release lock. run async
 				latch.unlock();
 
 				// run function outside context
 				fn();
-				++processed;
+				++_processed;
 
 				latch.lock();
-				--busy;
-				cv_finished.notify_one();
+				--_busy;
+				_cv_finished.notify_one();
 			}
-			else if (stop)
+			else if (_stop)
 			{
 				break;
 			}

@@ -265,6 +265,7 @@
     <ClInclude Include="APath.h" />
     <ClInclude Include="AQuad.h" />
     <ClInclude Include="ARectangle.h" />
+    <ClInclude Include="ATimerStat.h" />
     <ClInclude Include="BezierSmoothing.h" />
     <ClInclude Include="CGALBoolean.h" />
     <ClInclude Include="CGALIntersector.h" />
@@ -352,7 +353,6 @@
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="StuffWorker.cpp" />
     <ClCompile Include="SystemParams.cpp" />
-    <ClCompile Include="ThreadPool.cpp" />
     <ClCompile Include="UtilityFunctions.cpp" />
     <ClCompile Include="VFRegion.cpp" />
   </ItemGroup>

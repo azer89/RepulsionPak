@@ -45,6 +45,11 @@ public:
 	AVector _velocity;
 	//AVector _prevPos; // previous
 
+	AVector GetPos() const
+	{
+		return _pos;
+	}
+
 	std::vector<AnIdxTriangle> _triangles;
 	//std::vector<AVector>       _triCenters;
 
@@ -174,7 +179,7 @@ public:
 	void Simulate(float dt/*, float dampingVal*/);
 
 	void Solve(const int& massNumber,
-		AnElement& parentGraph,
+		const AnElement& parentGraph,
 		//const std::vector<AGraph>& allGraphs,
 		//CollissionGrid* cGrid,
 		const std::vector<std::vector<AVector>>& boundaries,

@@ -81,6 +81,7 @@ public:
 	//void DrawBins();
 
 	// Send tasks to threadpool, see AlmostAllYourShit()
+	void UpdateCollisionGrid_PrepareThreadPool();
 	void AlmostAllYourShit_PrepareThreadPool(float dt);
 
 	// A task for a single thread

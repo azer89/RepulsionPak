@@ -1159,6 +1159,24 @@ void StuffWorker::CalculateFillAndRMS()
 	}
 }
 
+void StuffWorker::UpdateCollisionGrid_PrepareThreadPool()
+{
+	// prepare vector
+	int len = _cGrid->_squares.size();
+	int num_threads = SystemParams::_num_threads;
+	int thread_stride = (len + num_threads - 1) / num_threads;
+
+
+	std::vector<std::thread> t_list;
+	for (int a = 0; a < num_threads; a++)
+	{
+		int startIdx = a * thread_stride;
+		int endIdx = startIdx + thread_stride;
+		_my_threadpool->submit(&CollissionGrid::PrecomputeGraphIndices_Thread, _cGrid, startIdx, endIdx);
+	}
+	_my_threadpool->waitFinished();
+}
+
 void StuffWorker::AlmostAllYourShit_PrepareThreadPool(float dt)
 {
 	int len = _graphs.size();
@@ -1439,7 +1457,8 @@ void StuffWorker::CalculateThings(float dt)
 
 	// ---------- collission grid ----------
 	auto start1 = std::chrono::steady_clock::now(); // timing
-	_cGrid->PrecomputeData_Prepare_Threads();
+	//_cGrid->PrecomputeData_Prepare_Threads();
+	UpdateCollisionGrid_PrepareThreadPool();
 	auto elapsed1 = std::chrono::steady_clock::now() - start1; // timing
 	_c_grid_thread_time.AddTime(std::chrono::duration_cast<std::chrono::microseconds>(elapsed1).count()); // timing
 

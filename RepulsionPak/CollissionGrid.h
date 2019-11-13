@@ -57,7 +57,7 @@ public:
 
 	void PrecomputeGraphIndices();
 
-	void PrecomputeData_Prepare_Threads();
+	//void PrecomputeData_Prepare_Threads();
 	void PrecomputeGraphIndices_Thread(int startIdx, int endIdx);
 
 	bool NearBoundary(float x, float y);
@@ -75,7 +75,7 @@ public:
 
 	std::vector<ASquare*> _squares;
 
-	ThreadPool* _my_threadpool;
+	//ThreadPool* _my_threadpool;
 };
 
 #endif

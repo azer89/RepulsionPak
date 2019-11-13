@@ -25,7 +25,7 @@ CollissionGrid::CollissionGrid()
 
 	//_graphIndexArray.reserve(_squares.size());
 	// code duplication
-	_my_threadpool = new ThreadPool(SystemParams::_num_threads);
+	//_my_threadpool = new ThreadPool(SystemParams::_num_threads);
 }
 
 CollissionGrid::CollissionGrid(float cellSize)
@@ -48,7 +48,7 @@ CollissionGrid::CollissionGrid(float cellSize)
 
 	//_graphIndexArray.reserve(_squares.size());
 	// code duplication
-	_my_threadpool = new ThreadPool(SystemParams::_num_threads);
+	//_my_threadpool = new ThreadPool(SystemParams::_num_threads);
 }
 
 CollissionGrid::~CollissionGrid()
@@ -60,7 +60,7 @@ CollissionGrid::~CollissionGrid()
 	}
 	_squares.clear();
 
-	if (_my_threadpool) { delete _my_threadpool; }
+	//if (_my_threadpool) { delete _my_threadpool; }
 }
 
 void CollissionGrid::GetCellPosition(int& xPos, int& yPos, float x, float y)
@@ -103,7 +103,7 @@ void CollissionGrid::InsertAPoint(float x, float y, int info1, int info2)
 	_squares[(xPos * _numColumn) + yPos]->_objects.push_back(obj);
 }
 
-void CollissionGrid::PrecomputeData_Prepare_Threads()
+/*void CollissionGrid::PrecomputeData_Prepare_Threads()
 {
 	// prepare vector
 	int len = _squares.size();
@@ -116,15 +116,10 @@ void CollissionGrid::PrecomputeData_Prepare_Threads()
 	{
 		int startIdx = a * thread_stride;
 		int endIdx = startIdx + thread_stride;
-		//t_list.push_back(std::thread(&CollissionGrid::PrecomputeGraphIndices_Thread, this, startIdx, endIdx));
 		_my_threadpool->submit(&CollissionGrid::PrecomputeGraphIndices_Thread, this, startIdx, endIdx);
 	}
 	_my_threadpool->waitFinished();
-	//for (int a = 0; a < num_threads; a++)
-	//{
-		//t_list[a].join();
-	//}
-}
+}*/
 
 void CollissionGrid::PrecomputeGraphIndices_Thread(int startIdx, int endIdx)
 {

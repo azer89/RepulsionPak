@@ -135,8 +135,8 @@ StuffWorker::StuffWorker()
 
 	//start_ln = AVector(200, 100);
 	//end_ln = AVector(330, 300);
-	_my_threadpool = new ThreadPool(SystemParams::_num_thread_c_pt);
-	_my_threadpool_solve_springs = new ThreadPool(SystemParams::_num_thread_springs);
+	_my_threadpool = new ThreadPool(SystemParams::_num_threads);
+	//_my_threadpool_solve_springs = new ThreadPool(SystemParams::_num_thread_springs);
 }
 
 //void StuffWorker::InitStatic()
@@ -152,7 +152,7 @@ StuffWorker::~StuffWorker()
 	if (_rr)              { delete _rr; }
 	if (_aDTransform)     { delete _aDTransform; }
 	if (_my_threadpool)   { delete _my_threadpool; }
-	if (_my_threadpool_solve_springs) { delete _my_threadpool_solve_springs; }
+	//if (_my_threadpool_solve_springs) { delete _my_threadpool_solve_springs; }
 }
 
 /*
@@ -1162,7 +1162,7 @@ void StuffWorker::CalculateFillAndRMS()
 void StuffWorker::AlmostAllYourShit_PrepareThreadPool(float dt)
 {
 	int len = _graphs.size();
-	int num_threads = SystemParams::_num_thread_c_pt;
+	int num_threads = SystemParams::_num_threads;
 	int thread_stride = (len + num_threads - 1) / num_threads;
 
 	for (int a = 0; a < num_threads; a++)
@@ -1176,6 +1176,7 @@ void StuffWorker::AlmostAllYourShit_PrepareThreadPool(float dt)
 	_my_threadpool->waitFinished();
 }
 
+// a task for a thread
 void StuffWorker::AlmostAllYourShit_ThreadTask(float dt, int startIdx, int endIdx)
 {
 	for (unsigned int iter = startIdx; iter < endIdx; iter++)
@@ -1183,7 +1184,7 @@ void StuffWorker::AlmostAllYourShit_ThreadTask(float dt, int startIdx, int endId
 		// make sure...
 		if (iter >= _graphs.size()) { break; }
 
-		// reset forces
+		// ---------- reset forces to zero ----------
 		for (unsigned int b = 0; b < _graphs[iter]._massList.size(); b++)
 		{
 			this->_graphs[iter]._massList[b].Init();
@@ -1203,17 +1204,25 @@ void StuffWorker::AlmostAllYourShit_ThreadTask(float dt, int startIdx, int endId
 		for (unsigned int b = 0; b < _graphs[iter]._massList.size(); b++)
 		{
 			this->_graphs[iter]._massList[b].Solve(b,
-				_graphs[iter],
-				_containerWorker->_container_boundaries,
-				_containerWorker->_holes,
-				_containerWorker->_offsetFocalBoundaries);
+												_graphs[iter],
+												_containerWorker->_container_boundaries,
+												_containerWorker->_holes,
+												_containerWorker->_offsetFocalBoundaries);
 		}
 
-		// integration
+		// ---------- integration ----------
 		for (unsigned int b = 0; b < _graphs[iter]._massList.size(); b++)
 		{
 			this->_graphs[iter]._massList[b].Simulate(dt);
 		}
+
+
+		//this->_graphs[iter].RecalculateArts();
+		// visualization
+		//if (SystemParams::_show_elements)
+		//{
+		//	this->_graphs[iter].RecalculateArts();
+		//}
 	}
 }
 
@@ -1230,7 +1239,7 @@ void StuffWorker::AlmostAllYourShit(float dt)
 	_closest_pt_thread_time.AddTime(std::chrono::duration_cast<std::chrono::microseconds>(elapsed2).count()); // timing
 
 
-	
+	// SINGLE THREAD VERSION (COMMENTED)
 	/*auto start3 = std::chrono::steady_clock::now(); // timing
 	for (int a = startIter; a < _graphs.size(); a++)
 	{
@@ -1274,6 +1283,7 @@ void StuffWorker::AlmostAllYourShit(float dt)
 // physics sim
 void StuffWorker::Init()
 {
+	// not used anymore
 	/*int startIter = 0;
 	if (SystemParams::_simulate_2)  { startIter = _numReplicatedBigOnes; }
 
@@ -1297,6 +1307,7 @@ void StuffWorker::Init()
 
 void StuffWorker::SolveSprings_Prepare_Threads()
 {
+	/*
 	int len = _graphs.size();
 	int num_threads = SystemParams::_num_thread_springs;
 	int thread_stride = (len + num_threads - 1) / num_threads;
@@ -1310,19 +1321,13 @@ void StuffWorker::SolveSprings_Prepare_Threads()
 		_my_threadpool_solve_springs->submit(&StuffWorker::SolveSprings_Thread, this, startIdx, endIdx);
 	}
 	_my_threadpool_solve_springs->waitFinished();
-
-	//for (int a = 0; a < num_threads; a++)
-	//{
-	//	t_list[a].join();
-	//}
+	*/
 }
 
 void StuffWorker::SolveSprings_Thread(int startIdx, int endIdx)
 {
-	//_graphs[a].SolveForTriangleSprings();
-	//_graphs[a].SolveForTriangleSprings();
 
-
+	/*
 	for (unsigned int iter = startIdx; iter < endIdx; iter++)
 	{
 		// make sure...
@@ -1340,6 +1345,7 @@ void StuffWorker::SolveSprings_Thread(int startIdx, int endIdx)
 											_containerWorker->_offsetFocalBoundaries);
 		}
 	}
+	*/
 }
 
 /*void work_proc_2(int startIdx, int endIdx)
@@ -1359,8 +1365,7 @@ void StuffWorker::SolveSprings_Thread(int startIdx, int endIdx)
 
 void StuffWorker::GetClosestPt_Prepare_Threads()
 {
-	//ThreadPool _c_pt_threadpool(SystemParams::_num_thread_c_pt);
-
+	/*
 	int len = _graphs.size();
 	int num_threads = SystemParams::_num_thread_c_pt;
 	int thread_stride = (len + num_threads - 1) / num_threads;
@@ -1374,7 +1379,7 @@ void StuffWorker::GetClosestPt_Prepare_Threads()
 	}
 
 	_my_threadpool->waitFinished();
-
+	*/
 	/*std::vector<std::thread> t_list;
 	for (int a = 0; a < num_threads; a++)
 	{
@@ -1393,7 +1398,7 @@ void StuffWorker::GetClosestPt_Prepare_Threads()
 
 void StuffWorker::GetClosestPt_Thread(int startIdx, int endIdx)
 {
-	for (unsigned int iter = startIdx; iter < endIdx; iter++)
+	/*for (unsigned int iter = startIdx; iter < endIdx; iter++)
 	{
 		// make sure...
 		if (iter >= _graphs.size()) { break; }
@@ -1403,7 +1408,7 @@ void StuffWorker::GetClosestPt_Thread(int startIdx, int endIdx)
 			_graphs[iter]._massList[b].GetClosestPoints2(iter);
 		}
 
-	}
+	}*/
 }
 
 
@@ -1438,11 +1443,11 @@ void StuffWorker::CalculateThings(float dt)
 	auto elapsed1 = std::chrono::steady_clock::now() - start1; // timing
 	_c_grid_thread_time.AddTime(std::chrono::duration_cast<std::chrono::microseconds>(elapsed1).count()); // timing
 
-	// ---------- collission grid ----------
-	auto start0 = std::chrono::steady_clock::now(); // timing
-	_cGrid->PrecomputeGraphIndices();
-	auto elapsed0 = std::chrono::steady_clock::now() - start0; // timing
-	_c_grid_cpu_time.AddTime(std::chrono::duration_cast<std::chrono::microseconds>(elapsed0).count()); // timing
+	// ---------- collission grid SINGLE THREAD ----------
+	//auto start0 = std::chrono::steady_clock::now(); // timing
+	//_cGrid->PrecomputeGraphIndices();
+	//auto elapsed0 = std::chrono::steady_clock::now() - start0; // timing
+	//_c_grid_cpu_time.AddTime(std::chrono::duration_cast<std::chrono::microseconds>(elapsed0).count()); // timing
 
 	// ---------- reset growing ----------
 	for (unsigned int a = startIter; a < _graphs.size(); a++)
@@ -1450,6 +1455,7 @@ void StuffWorker::CalculateThings(float dt)
 		_graphs[a]._isGrowing = true; 
 	}
 
+	// for primary elem in 2nd simulation
 	if (startIter > 0)
 	{
 		for (unsigned int a = 0; a < startIter; a++)
@@ -1488,6 +1494,7 @@ void StuffWorker::CalculateThings(float dt)
 		_graphs[a].UpdateBoundaryAndAvgEdgeLength();
 	}
 	
+	// CODE BELOW IS MOVED TO AlmostAllYourShit()
 	// ---------- get closest point ----------
 	/*auto start2 = std::chrono::steady_clock::now(); // timing
 	GetClosestPt_Prepare_Threads();
@@ -1506,12 +1513,12 @@ void StuffWorker::CalculateThings(float dt)
 	}
 	auto elapsed3 = std::chrono::steady_clock::now() - start3; // timing
 	_closest_pt_cpu_time.AddTime(std::chrono::duration_cast<std::chrono::microseconds>(elapsed3).count()); // timing*/
-
-	
 }
 
 void StuffWorker::Solve()
 {
+	// not used anymore, see see AlmostAllYourShit()
+
 	/*int startIter = 0;
 	if (SystemParams::_simulate_2)  { startIter = _numReplicatedBigOnes; }
 
@@ -1547,8 +1554,11 @@ void StuffWorker::Solve()
 
 void StuffWorker::Simulate(float dt)
 {
-	int startIter = 0;
-	if (SystemParams::_simulate_2)  { startIter = _numReplicatedBigOnes; }
+	// not used anymore, see AlmostAllYourShit()
+
+
+	//int startIter = 0;
+	//if (SystemParams::_simulate_2)  { startIter = _numReplicatedBigOnes; }
 
 	/*
 	for (unsigned int a = startIter; a < _graphs.size(); a++)
@@ -1610,7 +1620,6 @@ void StuffWorker::Operate(float dt)
 	{
 		for (unsigned int a = startIter; a < _graphs.size(); a++)
 			{ this->_graphs[a].RecalculateArts(); }
-		//for (AGraph& aGraph : _graphs)  { aGraph.RecalculateArts(); } }
 	}
 
 	// ---------- position delta ----------

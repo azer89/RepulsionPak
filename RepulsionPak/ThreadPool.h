@@ -57,7 +57,7 @@ public:
 		// Create a function with bounded parameters ready to execute
 		//std::function<decltype(f(args...))()> func = std::bind(std::forward<F>(f), std::forward<Args>(args)...);
 		//std::function<decltype(f(args...))()> func = std::bind(f, args...);
-		auto g = std::bind(f, args...);
+		//auto g = std::bind(f, args...);
 		// Encapsulate it into a shared ptr in order to be able to copy construct / assign 
 		//auto task_ptr = std::make_shared<std::packaged_task<decltype(f(args...))()>>(func);
 
@@ -67,7 +67,7 @@ public:
 		};*/
 		
 		//enqueue(wrapper_func); // ROFLMAO
-		enqueue(g); // ROFLMAO
+		enqueue(std::bind(f, args...)); // ROFLMAO
 	}
 
 	// generic function push

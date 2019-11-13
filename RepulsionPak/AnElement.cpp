@@ -574,12 +574,6 @@ void AnElement::SetMatchedPoint(AVector e_pt, AVector c_pt)
 
 void AnElement::UpdateBoundaryAndAvgEdgeLength()
 {
-	//_boundary.clear();
-	//_boundaryNormals.clear();
-
-	//std::cout << "_boundary size: " << _boundary.size() << "\n";
-	//std::cout << "_massList size: " << _massList.size() << "\n";
-
 	_randommm_indices = std::vector<int>(_skinPointNum);
 	for (unsigned int a = 0; a < _skinPointNum; a++) { _randommm_indices[a] = a; }
 
@@ -598,18 +592,12 @@ void AnElement::UpdateBoundaryAndAvgEdgeLength()
 
 	// calculate average edge length
 	_averageEdgeLength = 0;
-	//_minEdgeLength = std::numeric_limits<float>::max();
 	int trsz = _triEdges.size();
 	for (unsigned int a = 0; a < trsz; a++)
 	{
-		//float len = _massList[_triEdges[a]._index0]._pos.Distance(_massList[_triEdges[a]._index1]._pos);
 		_averageEdgeLength += _massList[_triEdges[a]._index0]._pos.Distance(_massList[_triEdges[a]._index1]._pos);
 	}
 	_averageEdgeLength /= (float)trsz;
-	
-	/*for (unsigned int a = 0; a < _edges.size(); a++)
-	{ _averageEdgeLength += _massList[_edges[a]._index0]._pos.Distance(_massList[_edges[a]._index1]._pos); }
-	_averageEdgeLength /= (float)_edges.size();*/
 }
 
 AVector AnElement::FindClosestPtOnEdges(int idx, AVector pt)

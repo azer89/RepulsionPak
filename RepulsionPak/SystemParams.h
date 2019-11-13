@@ -209,10 +209,11 @@ public:
 	//static float _desc_max_length_ratio;
 
 	// Threads
-	static int _num_thread_cg;
-	static int _num_thread_springs;
-	static int _num_thread_c_pt;
-	static int _num_thread_solve;
+	//static int _num_thread_cg;
+	//static int _num_thread_springs;
+	//static int _num_thread_c_pt;
+	//static int _num_thread_solve;
+	static int _num_threads;
 };
 
 #endif

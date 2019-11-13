@@ -25,7 +25,7 @@ CollissionGrid::CollissionGrid()
 
 	//_graphIndexArray.reserve(_squares.size());
 	// code duplication
-	_my_threadpool = new ThreadPool(SystemParams::_num_thread_cg);
+	_my_threadpool = new ThreadPool(SystemParams::_num_threads);
 }
 
 CollissionGrid::CollissionGrid(float cellSize)
@@ -48,7 +48,7 @@ CollissionGrid::CollissionGrid(float cellSize)
 
 	//_graphIndexArray.reserve(_squares.size());
 	// code duplication
-	_my_threadpool = new ThreadPool(SystemParams::_num_thread_cg);
+	_my_threadpool = new ThreadPool(SystemParams::_num_threads);
 }
 
 CollissionGrid::~CollissionGrid()
@@ -107,7 +107,7 @@ void CollissionGrid::PrecomputeData_Prepare_Threads()
 {
 	// prepare vector
 	int len = _squares.size();
-	int num_threads = SystemParams::_num_thread_cg;
+	int num_threads = SystemParams::_num_threads;
 	int thread_stride = (len + num_threads - 1) / num_threads;
 
 

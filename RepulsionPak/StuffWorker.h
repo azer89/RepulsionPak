@@ -80,18 +80,21 @@ public:
 	void Draw();
 	//void DrawBins();
 
+	// Send tasks to threadpool, see AlmostAllYourShit()
 	void AlmostAllYourShit_PrepareThreadPool(float dt);
+
+	// A task for a single thread
 	void AlmostAllYourShit_ThreadTask(float dt, int startIdx, int endIdx);
 
 	// ------------ physics simulation ------------
-	void AlmostAllYourShit(float dt);
-	void Init();
-	void Solve();
-	void CalculateThings(float dt);
-	void Simulate(float dt);
+	void AlmostAllYourShit(float dt); // Init(), Solve(), Simulate() all combined in a single pass to threadpool
 	void Operate(float dt);
-	// --------------------------------------------
+	void CalculateThings(float dt);
 
+	void Init();              // not used anymore
+	void Solve();             // not used anymore	
+	void Simulate(float dt);  // not used anymore
+	// --------------------------------------------
 	
 
 	void UpdatePosition(float dt); // verlet
@@ -203,7 +206,7 @@ public:
 // thread
 public:
 	ThreadPool* _my_threadpool;
-	ThreadPool* _my_threadpool_solve_springs;
+	//ThreadPool* _my_threadpool_solve_springs;
 	//int _main_iter_01;
 	//std::vector<int> _thread_iters_01;
 	//std::mutex _mutex_01;

@@ -198,7 +198,8 @@ _container_offset = 0; -- for SCP
 
 ---------------------------------------------------------------------
 -- THREADS
-_num_thread_cg      = 12; -- collision grid
-_num_thread_springs = 12;
-_num_thread_c_pt    = 12; -- closest point
-_num_thread_solve   = 2;
+_num_threads = 24;
+--_num_thread_cg      = 12; -- collision grid
+--_num_thread_springs = 12;
+--_num_thread_c_pt    = 12; -- closest point
+--_num_thread_solve   = 2;

@@ -1172,9 +1172,9 @@ void StuffWorker::UpdateCollisionGrid_PrepareThreadPool()
 	{
 		int startIdx = a * thread_stride;
 		int endIdx = startIdx + thread_stride;
-		_my_threadpool->submit(&CollissionGrid::PrecomputeGraphIndices_Thread, _cGrid, startIdx, endIdx);
+		_my_threadpool->submit(&CollissionGrid::PrecomputeGraphIndices_ThreadTask, _cGrid, startIdx, endIdx);
 	}
-	_my_threadpool->waitFinished();
+	_my_threadpool->waitFinished(); // sync
 }
 
 void StuffWorker::AlmostAllYourShit_PrepareThreadPool(float dt)
@@ -1191,7 +1191,7 @@ void StuffWorker::AlmostAllYourShit_PrepareThreadPool(float dt)
 		_my_threadpool->submit(&StuffWorker::AlmostAllYourShit_ThreadTask, this, dt, startIdx, endIdx);
 	}
 
-	_my_threadpool->waitFinished();
+	_my_threadpool->waitFinished(); // sync
 }
 
 // a task for a thread

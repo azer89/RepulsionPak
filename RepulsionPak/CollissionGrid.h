@@ -58,7 +58,7 @@ public:
 	void PrecomputeGraphIndices();
 
 	//void PrecomputeData_Prepare_Threads();
-	void PrecomputeGraphIndices_Thread(int startIdx, int endIdx);
+	void PrecomputeGraphIndices_ThreadTask(int startIdx, int endIdx);
 
 	bool NearBoundary(float x, float y);
 

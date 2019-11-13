@@ -465,9 +465,9 @@ void Display::Draw()
 	//ImGui::Text(("_springs_thread_t = " + std::to_string(_sWorker._springs_thread_t)).c_str());
 	ImGui::Separator();
 	ImGui::Text("Multithreading average time\n(microseconds)");	
-	ImGui::Text(("Collision grid update (N) = " + std::to_string((int)_sWorker._c_grid_thread_time.Avg())).c_str());
+	ImGui::Text(("1st pass (Collision grid)  = " + std::to_string((int)_sWorker._c_grid_thread_time.Avg())).c_str());
 	//ImGui::Text(("Collision grid update (1) = " + std::to_string((int)_sWorker._c_grid_cpu_time.Avg())).c_str());
-	ImGui::Text(("Other else (N)            = " + std::to_string((int)_sWorker._closest_pt_thread_time.Avg())).c_str());
+	ImGui::Text(("2nd pass (Everything else) = " + std::to_string((int)_sWorker._closest_pt_thread_time.Avg())).c_str());
 	//ImGui::Text(("Other else (1)            = " + std::to_string((int)_sWorker._closest_pt_cpu_time.Avg())).c_str());
 	//ImGui::Text(("Calculate forces (N)        = " + std::to_string((int)_sWorker._solve_s_thread_time.Avg())).c_str());
 	//ImGui::Text(("Calculate forces (1)        = " + std::to_string((int)_sWorker._solve_s_cpu_time.Avg())).c_str());

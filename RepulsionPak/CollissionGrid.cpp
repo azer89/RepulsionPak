@@ -121,7 +121,7 @@ void CollissionGrid::InsertAPoint(float x, float y, int info1, int info2)
 	_my_threadpool->waitFinished();
 }*/
 
-void CollissionGrid::PrecomputeGraphIndices_Thread(int startIdx, int endIdx)
+void CollissionGrid::PrecomputeGraphIndices_ThreadTask(int startIdx, int endIdx)
 {
 	//_graphIndexArray.clear();
 	for (unsigned int iter = startIdx; iter < endIdx; iter++)

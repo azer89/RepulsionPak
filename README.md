@@ -1,4 +1,5 @@
-# RepulsionPak
+# RepulsionPak: Deformation-Driven Element Packing with Repulsion Forces (Graphics Interface 2018)
+# Improved Deformation-Driven Element Packing with RepulsionPak (IEEE TVCG 2019)
 
 Environment: Windows 10 x64 and Visual Studio 2017
 

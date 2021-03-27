@@ -972,7 +972,7 @@ void AnElement::Draw()
 	if (SystemParams::_show_triangles)
 	{
 		glColor3f(0.22745098, 0.635294118, 0.858823529);
-		glLineWidth(0.5f);
+		glLineWidth(1.0f);
 		glBegin(GL_LINES);
 		for (unsigned int a = 0; a < _triangles.size(); a++)
 		{

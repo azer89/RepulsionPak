@@ -1,7 +1,7 @@
 
 ---------- RepulsionPak ----------
 --- Title of the window
-_window_title = "LOL XD";
+_window_title = "RepulsionPak";
 
 ------ folders ------
 _container_file     = "..\\..\\repulsionpak_data\\containers\\heart.path"; --- file of the container 
@@ -12,15 +12,15 @@ _secondary_elem_dir = "..\\..\\repulsionpak_data\\small_cat\\"; --- folder conta
 _output_folder  = "..\\..\\repulsionpak_data\\output\\";
 
 -- target of positive space area
-_target_fill_ratio = 0.5;
+_target_fill_ratio = 0.55;
 
 ---------------------------------------------------------------------
 
 _do_shape_matching = false;
 
 --- PAD
-_pad_level = 5;
-_pad_delta = 0.5;
+_pad_level = 3;
+_pad_delta = 0.05;
 ---------------------------------------------------------------------
 
 -- 0.349066 is 20 deg
@@ -31,7 +31,7 @@ _beta_inside        = 0.001;
 _score_resample_num = 1000; -- for score function (instead of grid-based)
 _num_nn             = 10; -- number of nearest neighbors in the search space
 
-_gaussian_smoothing    = 1;    -- size of kernel
+_gaussian_smoothing    = 2;    -- size of kernel
 _gaussian_smoothing_element    = 1;
 
 _resample_gap_float = 1.0;
@@ -76,15 +76,15 @@ _should_rotate = true;
 --- _mouse_offset_y = 10;
 
 --- random seed
-_seed = -1; --- negative means random
+_seed = 871709; --- negative means random
 
 --- initial placement
 --- density of random points inside the container 
 --- (not the actual number)
 --- larger the number, more elements you get,
 --- but the simulation time gets slower
-_num_element_pos       = 1000;
-_num_element_pos_limit = 40;
+_num_element_pos       = 200;
+_num_element_pos_limit = 30;
 
 --- Time step for numerical integration (euler method)
 _dt = 0.1;   --- do not set this higher than 0.1
@@ -101,10 +101,10 @@ _dt = 0.1;   --- do not set this higher than 0.1
 --- _noise_map_update_time = 10000000; --- in ms (disabled)
 
 --- Force parameters
-_k_edge                = 20;	--- edge force for filling elements
-_k_neg_space_edge      = 5;	--- edge force for springs
+_k_edge                = 5;	--- edge force for filling elements
+_k_neg_space_edge      = 1;	--- edge force for springs
 _k_edge_small_factor   = 12;
-_k_repulsion           = 400;	--- repulsion force
+_k_repulsion           = 25;	--- repulsion force
 _repulsion_soft_factor = 1.0;	--- soft factor for repulsion force
 _k_overlap             = 5;	--- overlap force
 _k_boundary            = 20;	--- boundary force
@@ -117,7 +117,7 @@ _k_dock                = 100;
 --- to find peaks where the filling elements should be placed
 --- minimum height of the peak to be considered
 _peak_dist_stop = 1000.0; --- set this really high to disable filling elements
-_peak_gap       = 17.0;	--- any pair of peaks should be separated by this distance
+_peak_gap       = 25.0;	--- any pair of peaks should be separated by this distance
 
 --- capping the velocity
 _velocity_cap   = 5; -- [Do not edit]
@@ -133,22 +133,22 @@ _skin_offset                = 20;
 --- if the density is higher, you get more triangles
 _sampling_num               = 100;
 --- uniform sampling on the skin
-_boundary_sampling_factor   = 1.5;  -- [Do not edit]
+_boundary_sampling_factor   = 1.3;  -- [Do not edit]
 ---_should_recalculate_element = true;
 
 --- Grid for collision detection
 --- size of a cell
-_bin_square_size         = 20.0;
+_bin_square_size         = 50.0;
 --- cell gap for detection, 
 --- 1 means considering all cells that are 1 block away from the query (3x3)
 --- 2 means considering all cells that are 2 block away from the query (5x5)
-_collission_block_radius = 1;  
+_collission_block_radius = 2;  
 
 --_max_cg_indices = 500; -- see ASquare.h 
 
 --- for growing
 --- incremetal step for growing
-_growth_scale_iter     = 0.003;
+_growth_scale_iter     = 0.002;
 --- initial scale after placing the elements inside the target container
 _element_initial_scale = 0.05; 
 --- epsilon for halting the growth
@@ -188,7 +188,7 @@ _sdf_capture_time          = 1000000000;  --- SDF (Signed distance function) cap
 --- RMS (Root of mean square) capture time
  
 _rms_capture_time = 1000;  --- it is set to 1 second
-_rms_window       = 50;    --- Window length is 50
+_rms_window       = 100;    --- Window length is 50
 _rms_threshold    = 0.02;  --- RMS stopping criteria
 
 ---------------------------------------------------------------------
@@ -198,7 +198,7 @@ _container_offset = 0; -- for SCP
 
 ---------------------------------------------------------------------
 -- THREADS
-_num_threads = 24;
+_num_threads = 16;
 --_num_thread_cg      = 12; -- collision grid
 --_num_thread_springs = 12;
 --_num_thread_c_pt    = 12; -- closest point

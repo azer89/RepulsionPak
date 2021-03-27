@@ -143,12 +143,14 @@ void ContainerWorker::LoadContainer(CollissionGrid* cGrid)
 
 		float d = UtilityFunctions::DistanceToBunchOfPoints(_randomPositions, pt);
 
-		if (isInside && d > 40) 
+		if (isInside && d > 10) 
 			{ _randomPositions.push_back(pt); }
 	}
 
 	if (!SystemParams::_do_shape_matching && SystemParams::_num_element_pos_limit < _randomPositions.size())
 	{
+		std::cout << _randomPositions.size() << "\n";
+
 		while (_randomPositions.size() != SystemParams::_num_element_pos_limit)
 		{
 			std::mt19937 g(SystemParams::_seed);

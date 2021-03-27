@@ -376,18 +376,18 @@ void Display::Draw()
 					if (_sWorker._hasSmallElements) { infoFile = "2nd_simulation_statistics.txt"; }
 					PathIO pIO;
 					pIO.SaveInfo(SystemParams::_output_folder + infoFile,
-						_simulation_time,           // 1
-						_sWorker._fill_ratio,       // 2
-						_sWorker._fill_rms,         // 3
-						_sWorker._deformationValue, // 4
-						_sWorker._avgSkinThickness, // 5
-						_sWorker._graphs.size(),    // 6
-						_frameCounter,              // 7
-						_sWorker._numTriEdges,      // 8
-						_sWorker._numAuxEdges,      // 9
-						_sWorker._numPoints,        // 10
-						_sWorker._numTriangles,    // 11
-						SystemParams::_seed);
+								_simulation_time,           // 1
+								_sWorker._fill_ratio,       // 2
+								_sWorker._fill_rms,         // 3
+								_sWorker._deformationValue, // 4
+								_sWorker._avgSkinThickness, // 5
+								_sWorker._graphs.size(),    // 6
+								_frameCounter,              // 7
+								_sWorker._numTriEdges,      // 8
+								_sWorker._numAuxEdges,      // 9
+								_sWorker._numPoints,        // 10
+								_sWorker._numTriangles,    // 11
+								SystemParams::_seed);
 				}
 
 
@@ -474,7 +474,6 @@ void Display::Draw()
 	ImGui::Separator();
 	//ImGui::Text(("_cg_thread_t      = " + std::to_string(_sWorker._cg_thread_t)).c_str());
 	//ImGui::Text(("_cg_cpu_t         = " + std::to_string(_sWorker._cg_cpu_t)).c_str());
-	
 	
 		
 	//ImGui::Text(("# Points: "    + std::to_string(_sWorker._numPoints)).c_str());

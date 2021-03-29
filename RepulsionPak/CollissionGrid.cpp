@@ -169,6 +169,49 @@ void CollissionGrid::PrecomputeGraphIndices_ThreadTask(int startIdx, int endIdx)
 	}
 }
 
+void CollissionGrid::PrecomputeGraphIndices2()
+{
+	for (unsigned int iter = 0; iter < _squares.size(); iter++)
+	{
+		GraphIndices gIndices;
+
+		int xPos = iter / _numColumn;
+		int yPos = iter - (xPos * _numColumn);
+
+		int offst = SystemParams::_collission_block_radius;
+
+		int xBegin = xPos - offst;
+		if (xBegin < 0) { xBegin = 0; }
+
+		int xEnd = xPos + offst;
+		if (xEnd >= _numColumn) { xEnd = _numColumn - 1; }
+
+		int yBegin = yPos - offst;
+		if (yBegin < 0) { yBegin = 0; }
+
+		int yEnd = yPos + offst;
+		if (yEnd >= _numColumn) { yEnd = _numColumn - 1; }
+
+		for (unsigned int xIter = xBegin; xIter <= xEnd; xIter++)
+		{
+			for (unsigned int yIter = yBegin; yIter <= yEnd; yIter++)
+			{
+				int idx = (xIter * _numColumn) + yIter;
+				for (unsigned int a = 0; a < _squares[idx]->_objects.size(); a++)
+				{
+					int info1 = _squares[idx]->_objects[a]->_info1;
+					if (UtilityFunctions::GetIndexFromIntList(gIndices, info1) == -1)
+					{
+						gIndices.push_back(info1);
+					}
+				}
+			}
+		}
+
+		_squares[iter]->_closestGraphIndices = gIndices;
+	}
+}
+
 
 void CollissionGrid::PrecomputeGraphIndices()
 {

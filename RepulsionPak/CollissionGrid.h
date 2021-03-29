@@ -56,6 +56,7 @@ public:
 		                  const std::vector<std::vector<AVector>>& offsetFocalBoundaries);
 
 	void PrecomputeGraphIndices();
+	void PrecomputeGraphIndices2();
 
 	//void PrecomputeData_Prepare_Threads();
 	void PrecomputeGraphIndices_ThreadTask(int startIdx, int endIdx);

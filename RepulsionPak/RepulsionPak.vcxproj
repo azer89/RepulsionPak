@@ -296,7 +296,6 @@
     <ClInclude Include="Quadtree.h" />
     <ClInclude Include="RigidRegistration.h" />
     <ClInclude Include="SelfIntersectionFixer.h" />
-    <ClInclude Include="Simulation.h" />
     <ClInclude Include="StuffWorker.h" />
     <ClInclude Include="ThreadPool.h" />
     <ClInclude Include="VFRegion.h" />

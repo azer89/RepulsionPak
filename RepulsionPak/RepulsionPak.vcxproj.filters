@@ -252,9 +252,6 @@
     <ClInclude Include="SelfIntersectionFixer.h">
       <Filter>H</Filter>
     </ClInclude>
-    <ClInclude Include="Simulation.h">
-      <Filter>H</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>H</Filter>
     </ClInclude>

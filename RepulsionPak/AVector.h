@@ -63,7 +63,7 @@ public:
 	}
 
 	// Scale a point
-	AVector Resize(float val)
+	inline AVector Resize(float val)
 	{
 		AVector newP;
 		newP.x = this->x * val;
@@ -71,13 +71,13 @@ public:
 		return newP;
 	}
 
-	void SetInvalid()
+	inline void SetInvalid()
 	{
 		this->x = -1;
 		this->y = -1;
 	}
 
-	bool IsBad()
+	inline bool IsBad()
 	{
 		//if (Length() > 1000000) { std::cout << "huh?\n"; return true; }
 
@@ -85,7 +85,7 @@ public:
 	}
 
 	// if a point is (-1, -1)
-	bool IsInvalid()
+	inline bool IsInvalid()
 	{
 		if (((int)x) == -1 && ((int)y) == -1)
 		{
@@ -95,7 +95,7 @@ public:
 	}
 
 	// Normalize
-	AVector Norm() // get the unit vector
+	inline AVector Norm() // get the unit vector
 	{
 		float vlength = std::sqrt(x * x + y * y);
 
@@ -106,7 +106,7 @@ public:
 	}
 
 	// Euclidean distance
-	float Distance(const AVector& other)
+	inline float Distance(const AVector& other)
 	{
 		float xDist = x - other.x;
 		float yDist = y - other.y;
@@ -114,7 +114,7 @@ public:
 	}
 
 	// Euclidean distance
-	float Distance(float otherX, float otherY)
+	inline float Distance(float otherX, float otherY)
 	{
 		float xDist = x - otherX;
 		float yDist = y - otherY;
@@ -122,7 +122,7 @@ public:
 	}
 
 	// squared euclidean distance
-	float DistanceSquared(const AVector& other)
+	inline float DistanceSquared(const AVector& other)
 	{
 		float xDist = x - other.x;
 		float yDist = y - other.y;
@@ -130,11 +130,52 @@ public:
 	}
 
 	// squared euclidean distance
-	float DistanceSquared(float otherX, float otherY)
+	inline float DistanceSquared(float otherX, float otherY)
 	{
 		float xDist = x - otherX;
 		float yDist = y - otherY;
 		return (xDist * xDist + yDist * yDist);
+	}
+
+	// length of a vector
+	inline float Length() { return sqrt(x * x + y * y); }
+
+	// squared length of a vector
+	inline float LengthSquared() { return x * x + y * y; }
+
+	// dot product
+	inline float Dot(const AVector& otherVector) { return x * otherVector.x + y * otherVector.y; }
+
+	// cross product
+	AVector Cross(const AVector& otherVector)
+	{
+		//u x v = u.x * v.y - u.y * v.x
+		return AVector(x * otherVector.y, y * otherVector.x);
+	}
+
+	// linear dependency test
+	inline bool IsLinearDependent(const AVector& otherVector)
+	{
+		float det = (this->x * otherVector.y) - (this->y * otherVector.x);
+		if (det > -std::numeric_limits<float>::epsilon() && det < std::numeric_limits<float>::epsilon()) { return true; }
+		return false;
+	}
+
+	// angle direction
+	// not normalized
+	inline AVector DirectionTo(const AVector& otherVector)
+	{
+		return AVector(otherVector.x - this->x, otherVector.y - this->y);
+	}
+
+	inline bool IsOut()
+	{
+		return (x < 0 || x > SystemParams::_upscaleFactor || y < 0 || y > SystemParams::_upscaleFactor);
+	}
+
+	inline void Print()
+	{
+		std::cout << "(" << x << ", " << y << ")\n";
 	}
 
 	// operator overloading
@@ -191,46 +232,7 @@ public:
 		return *this;
 	}
 
-	// length of a vector
-	float Length() { return sqrt(x * x + y * y); }
-
-	// squared length of a vector
-	float LengthSquared() { return x * x + y * y; }
-
-	// dot product
-	float Dot(const AVector& otherVector) { return x * otherVector.x + y * otherVector.y; }
-
-	// cross product
-	AVector Cross(const AVector& otherVector)
-	{
-		//u x v = u.x * v.y - u.y * v.x
-		return AVector(x * otherVector.y, y * otherVector.x);
-	}
-
-	// linear dependency test
-	bool IsLinearDependent(const AVector& otherVector)
-	{
-		float det = (this->x * otherVector.y) - (this->y * otherVector.x);
-		if (det > -std::numeric_limits<float>::epsilon() && det < std::numeric_limits<float>::epsilon()) { return true; }
-		return false;
-	}
-
-	// angle direction
-	// not normalized
-	AVector DirectionTo(const AVector& otherVector)
-	{
-		return AVector(otherVector.x - this->x, otherVector.y - this->y);
-	}
-
-	bool IsOut()
-	{
-		return (x < 0 || x > SystemParams::_upscaleFactor || y < 0 || y > SystemParams::_upscaleFactor);
-	}
-
-	void Print()
-	{
-		std::cout << "(" << x << ", " << y << ")\n";
-	}
+	
 };
 
 typedef std::vector<std::vector<AVector>> GraphArt;

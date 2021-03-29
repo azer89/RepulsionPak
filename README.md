@@ -4,9 +4,9 @@ Conference paper: https://graphicsinterface.org/proceedings/gi2018/gi2018-3/
 
 # Improved Deformation-Driven Element Packing with RepulsionPak (IEEE TVCG 2019)
 
-Journal paper: https://ieeexplore.ieee.org/document/8886386
+Journal paper: https://doi.org/10.1109/TVCG.2019.2950235
 
-Environment: Windows 10 x64 and Visual Studio 2017
+Environment: Windows 10 x64 and Visual Studio 2017 (C++17)
 
 What you need:
 * Lua 5.3.3 (https://cs.uwaterloo.ca/~radhitya/repulsionpak/Lua533.zip)

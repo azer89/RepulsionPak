@@ -173,6 +173,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OpenMPSupport>true</OpenMPSupport>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -195,6 +196,7 @@
       <AdditionalIncludeDirectories>..\..\opencv_4_0_1\build\include;..\..\Lua533_vs2017\Lua533;..\..\CGAL-4.13.1\include;..\..\CGAL-4.13.1\auxiliary\gmp\include;..\..\CGAL-4.13.1\bin\include;..\..\boost_1_71_0;..\..\Eigen_3_3_7;..\..\imgui_freeglut\include;..\..\imgui_freeglut\imgui</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -212,13 +214,14 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_SILENCE_CXX17_ALLOCATOR_VOID_DEPRECATION_WARNING;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\opencv_4_0_1\build\include;..\..\Lua533\Lua533;..\..\CGAL-4.13.1\include;..\..\CGAL-4.13.1\auxiliary\gmp\include;..\..\CGAL-4.13.1\bin\include;..\..\Eigen_3_3_7;..\..\imgui_freeglut\include;..\..\imgui_freeglut\imgui;..\..\boost_1_71_0</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
       <ConformanceMode>true</ConformanceMode>
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <SDLCheck>true</SDLCheck>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -241,6 +244,7 @@
       <AdditionalIncludeDirectories>C:\Users\azer\workspace\opencv\build\include;C:\Users\azer\workspace\VecFieldDesign\vfd\inc;C:\Users\azer\workspace\VecFieldDesign\vfd\src;C:\Users\azer\workspace\Core\inc;C:\Users\azer\workspace\Lua533\Lua533;C:\Users\azer\workspace\CGAL-4.6.3\include;C:\Users\azer\workspace\CGAL-4.6.3\auxiliary\gmp\include;C:\Users\azer\workspace\CGAL-4.6.3\bin\include;C:\Users\azer\workspace\boost_1_59_0;C:\Users\azer\workspace\Eigen_3_2;C:\Users\azer\workspace\imgui_freeglut\include;C:\Users\azer\workspace\imgui_freeglut\imgui</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

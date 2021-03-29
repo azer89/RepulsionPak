@@ -3,6 +3,7 @@
 #include "UtilityFunctions.h"
 
 #include <thread>
+#include <unordered_set>
 
 
 CollissionGrid::CollissionGrid()
@@ -128,7 +129,10 @@ void CollissionGrid::PrecomputeGraphIndices_ThreadTask(int startIdx, int endIdx)
 	{
 		if (iter >= _squares.size()) { break; }
 
-		GraphIndices gIndices;
+		// typedef std::vector<int> GraphIndices;
+		//GraphIndices gIndices;
+		std::unordered_set<int> int_set;
+
 
 		int xPos = iter / _numColumn;
 		int yPos = iter - (xPos * _numColumn);
@@ -155,62 +159,29 @@ void CollissionGrid::PrecomputeGraphIndices_ThreadTask(int startIdx, int endIdx)
 				for (unsigned int a = 0; a < _squares[idx]->_objects.size(); a++)
 				{
 					int info1 = _squares[idx]->_objects[a]->_info1;
-					if (UtilityFunctions::GetIndexFromIntList(gIndices, info1) == -1)
+					/*if (UtilityFunctions::GetIndexFromIntList(gIndices, info1) == -1)
 					{
 						gIndices.push_back(info1);
+					}*/
+					if (int_set.find(info1) == int_set.end())
+					{
+						int_set.insert(info1);
 					}
 				}
 			}
 		}
 
-		//_graphIndexArray.push_back(gIndices);
-		//_graphIndexArray[iter] = gIndices;
-		_squares[iter]->_closestGraphIndices = gIndices;
-	}
-}
-
-void CollissionGrid::PrecomputeGraphIndices2()
-{
-	for (unsigned int iter = 0; iter < _squares.size(); iter++)
-	{
-		GraphIndices gIndices;
-
-		int xPos = iter / _numColumn;
-		int yPos = iter - (xPos * _numColumn);
-
-		int offst = SystemParams::_collission_block_radius;
-
-		int xBegin = xPos - offst;
-		if (xBegin < 0) { xBegin = 0; }
-
-		int xEnd = xPos + offst;
-		if (xEnd >= _numColumn) { xEnd = _numColumn - 1; }
-
-		int yBegin = yPos - offst;
-		if (yBegin < 0) { yBegin = 0; }
-
-		int yEnd = yPos + offst;
-		if (yEnd >= _numColumn) { yEnd = _numColumn - 1; }
-
-		for (unsigned int xIter = xBegin; xIter <= xEnd; xIter++)
+		// stackoverflow.com/questions/42519867/efficiently-moving-contents-of-stdunordered-set-to-stdvector
+		_squares[iter]->_closestGraphIndices.clear();
+		_squares[iter]->_closestGraphIndices.reserve(int_set.size());
+		for (auto it = int_set.begin(); it != int_set.end(); ) 
 		{
-			for (unsigned int yIter = yBegin; yIter <= yEnd; yIter++)
-			{
-				int idx = (xIter * _numColumn) + yIter;
-				for (unsigned int a = 0; a < _squares[idx]->_objects.size(); a++)
-				{
-					int info1 = _squares[idx]->_objects[a]->_info1;
-					if (UtilityFunctions::GetIndexFromIntList(gIndices, info1) == -1)
-					{
-						gIndices.push_back(info1);
-					}
-				}
-			}
+			_squares[iter]->_closestGraphIndices.push_back(std::move(int_set.extract(it++).value()));
 		}
-
-		_squares[iter]->_closestGraphIndices = gIndices;
+		//_squares[iter]->_closestGraphIndices = gIndices;
 	}
 }
+
 
 
 void CollissionGrid::PrecomputeGraphIndices()

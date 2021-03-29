@@ -6,7 +6,7 @@ Conference paper: https://graphicsinterface.org/proceedings/gi2018/gi2018-3/
 
 Journal paper: https://ieeexplore.ieee.org/document/8886386
 
-Environment: Windows 10 x64 and Visual Studio 2017
+Environment: Windows 10 x64 and Visual Studio 2017 (C++17)
 
 What you need:
 * Lua 5.3.3 (https://cs.uwaterloo.ca/~radhitya/repulsionpak/Lua533.zip)

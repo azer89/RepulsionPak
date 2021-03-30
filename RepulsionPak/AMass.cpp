@@ -838,13 +838,6 @@ void AMass::Solve(const int& massNumber,
 
 /*
 */
-/*void AMass::applyForce(AVector force)
-{
-	this->_force += force;	// The external force is added to the force of the mass
-}*/
-
-/*
-*/
 void AMass::Init()
 {
 	//_attractionForce = AVector(0, 0);

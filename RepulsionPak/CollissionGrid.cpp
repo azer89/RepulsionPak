@@ -173,12 +173,16 @@ void CollissionGrid::PrecomputeGraphIndices_ThreadTask(int startIdx, int endIdx)
 
 		// stackoverflow.com/questions/42519867/efficiently-moving-contents-of-stdunordered-set-to-stdvector
 		_squares[iter]->_closestGraphIndices.clear();
-		_squares[iter]->_closestGraphIndices.reserve(int_set.size());
+		// copy
+		_squares[iter]->_closestGraphIndices.insert(_squares[iter]->_closestGraphIndices.end(), 
+			                                        int_set.begin(), 
+			                                        int_set.end());
+		// C++17
+		/*_squares[iter]->_closestGraphIndices.reserve(int_set.size());
 		for (auto it = int_set.begin(); it != int_set.end(); ) 
 		{
 			_squares[iter]->_closestGraphIndices.push_back(std::move(int_set.extract(it++).value()));
-		}
-		//_squares[iter]->_closestGraphIndices = gIndices;
+		}*/
 	}
 }
 

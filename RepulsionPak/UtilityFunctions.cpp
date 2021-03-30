@@ -355,8 +355,6 @@ AVector UtilityFunctions::ClosestPtAtFiniteLine2(const AVector& lnStart, const A
 */
 AVector UtilityFunctions::GetClosestPtOnClosedCurve(const std::vector<AVector>& polyline, const AVector& p)
 {
-	//polyline.push_back(polyline[0]); // because loop
-	//return UtilityFunctions::GetClosestPtOnPolyline(polyline, p);
 	float dist = 10000000000;
 	AVector closestPt;
 	AVector pt;
@@ -372,6 +370,7 @@ AVector UtilityFunctions::GetClosestPtOnClosedCurve(const std::vector<AVector>& 
 			closestPt = pt;
 		}
 	}
+
 	{ // first and last point
 		pt = ClosestPtAtFiniteLine2(polyline[p_size - 1], polyline[0], p);
 		d = DistSquared(p, pt); //p.DistanceSquared(pt);
@@ -381,6 +380,7 @@ AVector UtilityFunctions::GetClosestPtOnClosedCurve(const std::vector<AVector>& 
 			closestPt = pt;
 		}
 	}
+
 	return closestPt;
 }
 
@@ -714,12 +714,12 @@ bool UtilityFunctions::InsidePolygons(const std::vector<std::vector<AVector>>& p
 bool UtilityFunctions::InsidePolygon(const std::vector<AVector>& polygon, float px, float py)
 {
 	// http_:_//alienryderflex_._com/polygon/
-
 	int poly_sz = polygon.size();
-	unsigned int   i, j = poly_sz - 1;
+	
 	bool  oddNodes = false;
 
-
+	unsigned int   i;
+	unsigned int j = poly_sz - 1;
 	for (i = 0; i < poly_sz; i++)
 	{
 		if ((polygon[i].y < py && polygon[j].y >= py ||

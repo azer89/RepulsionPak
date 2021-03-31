@@ -5,3 +5,4 @@
 * (NAH) move semantics from uniform grid to elements:
 	* AMass::GetClosestPoints2()
 	* CollissionGrid::PrecomputeGraphIndices_ThreadTask(int startIdx, int endIdx)
+* Data-oriented design --> flat arrays (https://gamesfromwithin.com/data-oriented-design)

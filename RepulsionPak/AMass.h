@@ -61,7 +61,8 @@ public:
 	// closest point from other graph
 	//float   _closestOtherDist;
 	float                _closestDist;
-	std::vector<int>     _closestGraphIndices;
+	int _n_closest_elems;
+	//std::vector<int>     _closestGraphIndices;
 
 
 	std::vector<AVector> _closestPoints;
@@ -161,7 +162,7 @@ public:
 
 	void VerletSyncEdgeLengths(const std::vector<AMass>& otherMasses); // currently not used
 
-	void CollissionRelax(int parentGraphIndex, std::vector<AnElement>& allGraphs);
+	//void CollissionRelax(int parentGraphIndex, std::vector<AnElement>& allGraphs);
 
 	//void VerletRelax(std::vector<AMass>& otherMasses); // move this to AGraph
 

@@ -273,6 +273,22 @@ void CollissionGrid::GetGraphIndices2B(float x, float y, int parentGraphIndex, s
 	closestGraphIndices = _squares[idx]->_closestGraphIndices;
 }
 
+std::vector<int>* CollissionGrid::GetGraphIndicesPtr(float x, float y, int parentGraphIndex)
+{
+	// warning !!! no check
+	//if (std::isnan(x) || std::isinf(x) || std::isnan(y) || std::isinf(y)) { return; }
+	//if (x < 0 || x > SystemParams::_upscaleFactor || y < 0 || y > SystemParams::_upscaleFactor) { return; }
+
+	int xPos;
+	int yPos;
+	GetCellPosition(xPos, yPos, x, y);
+
+	int idx = (xPos * _numColumn) + yPos;
+
+	//closestGraphIndices = _graphIndexArray[idx];
+	return &_squares[idx]->_closestGraphIndices;
+}
+
 void CollissionGrid::GetGraphIndices1(float x, float y, std::vector<int>& closestGraphIndices)
 {
 	if (std::isnan(x) || std::isinf(x) || std::isnan(y) || std::isinf(y)) { return; }

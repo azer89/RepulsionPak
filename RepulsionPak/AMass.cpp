@@ -325,23 +325,29 @@ void AMass::GetClosestPoints2(int parentGraphIndex)
 	if (parentGraphIndex < 0 || parentGraphIndex >= StuffWorker::_graphs.size()) { return; }
 	if (this->_idx >= StuffWorker::_graphs[parentGraphIndex]._skinPointNum) { return; } // uncomment me
 
-	this->_closestGraphIndices.clear();
-	//this->_closestPoints.clear();
+	
+
+	//this->_closestGraphIndices.clear();
 	this->_closestPt_fill_sz = 0;
 	this->_isInside = false;           // "inside" flag
+	this->_n_closest_elems = 0;
 	
-	StuffWorker::_cGrid->GetGraphIndices2B(_pos.x, _pos.y, parentGraphIndex, _closestGraphIndices);
+	//StuffWorker::_cGrid->GetGraphIndices2B(_pos.x, _pos.y, parentGraphIndex, _closestGraphIndices);
+	GraphIndices* _closestGraphIndices;
+	_closestGraphIndices = StuffWorker::_cGrid->GetGraphIndicesPtr(_pos.x, _pos.y, parentGraphIndex);
+
+	this->_n_closest_elems = _closestGraphIndices->size();
 	
-	if (_closestGraphIndices.size() > 0)
+	if (_closestGraphIndices->size() > 0)
 	{
 		std::vector<bool> insideGraphFlags;
-		int sz = _closestGraphIndices.size();
+		int sz = _closestGraphIndices->size();
 		for (unsigned int a = 0; a < sz; a++)
 		{
 			// fake!!!
-			if (_closestGraphIndices[a] == parentGraphIndex) { insideGraphFlags.push_back(true); continue; }
+			if ((*_closestGraphIndices)[a] == parentGraphIndex) { insideGraphFlags.push_back(true); continue; }
 
-			if (UtilityFunctions::InsidePolygon(StuffWorker::_graphs[_closestGraphIndices[a]]._skin, _pos.x, _pos.y))
+			if (UtilityFunctions::InsidePolygon(StuffWorker::_graphs[(*_closestGraphIndices)[a]]._skin, _pos.x, _pos.y))
 			{
 				insideGraphFlags.push_back(true);
 				_isInside = true;
@@ -357,7 +363,7 @@ void AMass::GetClosestPoints2(int parentGraphIndex)
 		{
 			if (insideGraphFlags[a]) { continue; }
 
-			AVector pt = UtilityFunctions::GetClosestPtOnClosedCurve(StuffWorker::_graphs[_closestGraphIndices[a]]._skin, _pos);			
+			AVector pt = UtilityFunctions::GetClosestPtOnClosedCurve(StuffWorker::_graphs[(*_closestGraphIndices)[a]]._skin, _pos);
 			_closestPoints[_closestPt_fill_sz] = pt;
 			_closestPt_fill_sz++;
 			//if (pt.IsInvalid()) { std::cout << "."; }
@@ -467,7 +473,7 @@ void AMass::GetClosestPoints2(int parentGraphIndex)
 //	}*/
 //}
 
-void AMass::CollissionRelax(int parentGraphIndex, std::vector<AnElement>& allGraphs)
+/*void AMass::CollissionRelax(int parentGraphIndex, std::vector<AnElement>& allGraphs)
 {
 	this->_isInside = false;
 
@@ -491,7 +497,7 @@ void AMass::CollissionRelax(int parentGraphIndex, std::vector<AnElement>& allGra
 		_pos = pt;
 	}
 
-}
+}*/
 
 /*AVector AMass::GetClosestPointOnAnEdge(int parentGraphIndex,
 		                            const std::vector<AGraph>& allGraphs,
@@ -724,7 +730,7 @@ void AMass::Solve(const int& massNumber,
 
 	if (massNumber < parentGraph._skinPointNum)
 	{
-		if (_closestGraphIndices.size() > 0)
+		if (_n_closest_elems > 0)
 		{
 			if (_isInside)
 			{

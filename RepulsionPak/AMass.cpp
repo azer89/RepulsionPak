@@ -846,15 +846,19 @@ void AMass::Solve(const int& massNumber,
 */
 void AMass::Init()
 {
-	//_attractionForce = AVector(0, 0);
-	this->_edgeForce      = AVector(0, 0);
+	/*this->_edgeForce      = AVector(0, 0);
 	this->_repulsionForce = AVector(0, 0);
 	this->_boundaryForce  = AVector(0, 0);
 	this->_overlapForce   = AVector(0, 0);
-	//this->_noiseForce     = AVector(0, 0);
 	this->_rotationForce = AVector(0, 0);
-	this->_selfIntersectForce = AVector(0, 0);
-	//_foldingForce   = AVector(0, 0);
+	this->_selfIntersectForce = AVector(0, 0);*/
+
+	this->_edgeForce.SetZero();
+	this->_repulsionForce.SetZero();
+	this->_boundaryForce.SetZero();
+	this->_overlapForce.SetZero();
+	this->_rotationForce.SetZero();
+	this->_selfIntersectForce.SetZero();
 }
 
 /*

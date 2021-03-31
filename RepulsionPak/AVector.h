@@ -62,6 +62,12 @@ public:
 		//this->radAngle = 0;
 	}
 
+	inline void SetZero()
+	{
+		this->x = 0;
+		this->y = 0;
+	}
+
 	// Scale a point
 	inline AVector Resize(float val)
 	{

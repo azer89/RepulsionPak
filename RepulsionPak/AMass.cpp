@@ -75,27 +75,17 @@ void AMass::CallMeFromConstructor()
 
 	//this->_prevPos = this->_pos; // del
 	_velocity = AVector(0, 0);
-	_prevForce = AVector(0, 0);
+	//_prevForce = AVector(0, 0);
 
 	this->_avgEdgeLength = 0.0f;
-	//this->_closestOtherGraphIdx = -1;
-	//this->_closestSelfIdx = -1;
 	this->_isInside = false;
 
-	//this->_angleVel = AVector(0, 0);
-	//this->_edgeVel = AVector(0, 0);
-	//this->_repulsionVel = AVector(0, 0);
-	//this->_boundaryVel = AVector(0, 0);
-
-	//this->_attractionForce = AVector(0, 0);
 	this->_edgeForce      = AVector(0, 0);
 	this->_repulsionForce = AVector(0, 0);
 	this->_boundaryForce  = AVector(0, 0);
 	this->_overlapForce   = AVector(0, 0);
-	//this->_noiseForce     = AVector(0, 0);
 	this->_rotationForce = AVector(0, 0);
 	this->_selfIntersectForce = AVector(0, 0);
-	//this->_foldingForce = AVector(0, 0);
 
 	
 }
@@ -358,7 +348,6 @@ void AMass::Init()
 }
 
 
-
 /*
 Oiler method
 */
@@ -384,6 +373,21 @@ void AMass::Simulate(float dt/*, float dampingVal*/)
 
 	_pos = _pos + _velocity * dt;
 
+}
+
+void AMass::Grow(float growth_scale_iter, float dt)
+{
+	this->_mass += growth_scale_iter * dt;
+
+
+	// not used
+	//_distToMidPoint = _oriDistToMidPoint * _mass;
+
+	//for (unsigned int a = 0; a < _edges.size(); a++) { _edges[a].MakeLonger(growth_scale_iter, dt); }
+	//for (unsigned int a = 0; a < _angleConnectors.size(); a++) { _angleConnectors[a].MakeLonger(growth_scale_iter, dt); }
+	for (unsigned int a = 0; a < _triEdges.size(); a++) { _triEdges[a].MakeLonger(growth_scale_iter, dt); }
+	//for (unsigned int a = 0; a < _nnEdges.size();   a++) {  _nnEdges[a].MakeLonger(   growth_scale_iter, dt);  }
+	//for (unsigned int a = 0; a < _moreEdges.size(); a++) {  _moreEdges[a].MakeLonger( growth_scale_iter, dt);  }
 }
 
 // I believe this is never used
@@ -658,17 +662,6 @@ void AMass::UpdateLineSegment(const std::vector<AMass>& otherMasses)
 	}
 }*/
 
-// this is not sync'ed
-void AMass::VerletSyncEdgeLengths(const std::vector<AMass>& otherMasses)
-{
-	/*for (int a = 0; a < _edges.size(); a++) // n neighbors
-	{
-		AVector pt1 = otherMasses[_edges[a]._index0]._pos;
-		AVector pt2 = otherMasses[_edges[a]._index1]._pos;
-		_edges[a]._dist = pt1.Distance(pt2);
-	}*/
-}
-
 
 //void AMass::VerletRelax(std::vector<AMass>& otherMasses)
 //{
@@ -817,26 +810,13 @@ void AMass::VerletSyncEdgeLengths(const std::vector<AMass>& otherMasses)
 	std::sort(_edges.begin(), _edges.end(), CompareByAngle);
 }*/
 
-void AMass::Grow(float growth_scale_iter, float dt)
-{
-	this->_mass += growth_scale_iter * dt;
 
 
-	// not used
-	//_distToMidPoint = _oriDistToMidPoint * _mass;
-
-	//for (unsigned int a = 0; a < _edges.size(); a++) { _edges[a].MakeLonger(growth_scale_iter, dt); }
-	//for (unsigned int a = 0; a < _angleConnectors.size(); a++) { _angleConnectors[a].MakeLonger(growth_scale_iter, dt); }
-	for (unsigned int a = 0; a < _triEdges.size(); a++) { _triEdges[a].MakeLonger(growth_scale_iter, dt); }
-	//for (unsigned int a = 0; a < _nnEdges.size();   a++) {  _nnEdges[a].MakeLonger(   growth_scale_iter, dt);  }
-	//for (unsigned int a = 0; a < _moreEdges.size(); a++) {  _moreEdges[a].MakeLonger( growth_scale_iter, dt);  }
-}
-
-// NN EDGES
-// should only be called when cloning a graph that is scaled or moved
-void AMass::RecalculateEdgeLengths(const std::vector<AMass>& otherMasses)
-{
-}
+//// NN EDGES
+//// should only be called when cloning a graph that is scaled or moved
+//void AMass::RecalculateEdgeLengths(const std::vector<AMass>& otherMasses)
+//{
+//}
 
 /*void AMass::RecalculateEdgeLengths(std::vector<AMass>& otherMasses, float growFactor)
 {
@@ -853,111 +833,111 @@ void AMass::RecalculateEdgeLengths(const std::vector<AMass>& otherMasses)
 	}
 }*/
 
-void AMass::CalculateNNEdges(const std::vector<AMass>& otherMasses, int numBoundaryPoint)
-{
-	/*
-	///////////////////////////////////////////////////
-	if (this->_idx >= numBoundaryPoint) { return; }
+//void AMass::CalculateNNEdges(const std::vector<AMass>& otherMasses, int numBoundaryPoint)
+//{
+//	/*
+//	///////////////////////////////////////////////////
+//	if (this->_idx >= numBoundaryPoint) { return; }
+//
+//	std::vector<AVector> points;
+//	for (unsigned int a = numBoundaryPoint; a < otherMasses.size(); a++)
+//		{ points.push_back(otherMasses[a]._pos); }
+//
+//	NANOFLANNWrapper* knnStuff = new NANOFLANNWrapper();
+//	knnStuff->_leaf_max_size = 4;
+//	knnStuff->SetPointData(points);
+//	knnStuff->CreatePointKDTree();
+//
+//	int neighborSize = 5;
+//	std::vector<int> neighborIndices = knnStuff->GetClosestIndices(_pos, neighborSize);
+//
+//	for (unsigned int a = 0; a < neighborIndices.size(); a++)
+//	{
+//		if (IsNeighbor(neighborIndices[a])) { continue; }
+//		if (_nnEdges.size() >= 2) { break; }
+//
+//		int newIdx = numBoundaryPoint + neighborIndices[a];
+//		AnIndexedLine anEdge(this->_idx, newIdx,
+//			this->_pos.Distance(otherMasses[newIdx]._pos));
+//		_nnEdges.push_back(anEdge);
+//	}
+//	///////////////////////////////////////////////////
+//	*/
+//
+//	//std::cout << "num NN " << _nnEdges.size() << "\n";
+//
+//	// knn
+//	/*std::vector<AVector> points;
+//	for (unsigned int a = 0; a < otherMasses.size(); a++)
+//		{ points.push_back(otherMasses[a]._pos); }
+//
+//	NANOFLANNWrapper* knnStuff = new NANOFLANNWrapper();
+//	knnStuff->_leaf_max_size = 4;
+//	knnStuff->SetPointData(points);
+//	knnStuff->CreatePointKDTree();
+//
+//	int neighborSize = SystemParams::_neighbor_size + 8;
+//	if (neighborSize > otherMasses.size()) { neighborSize = otherMasses.size(); }
+//	std::vector<int> neighborIndices = knnStuff->GetClosestIndices(_pos, neighborSize);
+//
+//	for (unsigned int a = 0; a < neighborIndices.size(); a++)
+//	//for (int a = 0; a < otherMasses.size(); a++)
+//	{
+//		if (neighborIndices[a] == _idx) { continue;  }
+//		if (IsNeighbor(neighborIndices[a])) { continue; }
+//		if (_nnEdges.size() >= SystemParams::_neighbor_size) { break; }
+//
+//		AnIndexedLine anEdge(this->_idx, neighborIndices[a],
+//							 this->_pos.Distance(otherMasses[neighborIndices[a]]._pos));
+//
+//		_nnEdges.push_back(anEdge);
+//	}
+//
+//	//std::cout << "num NN " << _nnEdges.size() << "\n";
+//
+//	//if (_idx < numBoundaryPoint)
+//	{
+//		for (unsigned int a = 0; a < neighborIndices.size(); a++)
+//		{
+//			if (neighborIndices[a] == _idx) { continue; }
+//			if (IsNeighbor(neighborIndices[a])) { continue; }
+//			if (_moreEdges.size() >= SystemParams::_neighbor_size) { break; }
+//
+//			AnIndexedLine anEdge(this->_idx, neighborIndices[a],
+//				this->_pos.Distance(otherMasses[neighborIndices[a]]._pos));
+//
+//			_moreEdges.push_back(anEdge);
+//		}
+//	}*/
+//}
 
-	std::vector<AVector> points;
-	for (unsigned int a = numBoundaryPoint; a < otherMasses.size(); a++)
-		{ points.push_back(otherMasses[a]._pos); }
-
-	NANOFLANNWrapper* knnStuff = new NANOFLANNWrapper();
-	knnStuff->_leaf_max_size = 4;
-	knnStuff->SetPointData(points);
-	knnStuff->CreatePointKDTree();
-
-	int neighborSize = 5;
-	std::vector<int> neighborIndices = knnStuff->GetClosestIndices(_pos, neighborSize);
-
-	for (unsigned int a = 0; a < neighborIndices.size(); a++)
-	{
-		if (IsNeighbor(neighborIndices[a])) { continue; }
-		if (_nnEdges.size() >= 2) { break; }
-
-		int newIdx = numBoundaryPoint + neighborIndices[a];
-		AnIndexedLine anEdge(this->_idx, newIdx,
-			this->_pos.Distance(otherMasses[newIdx]._pos));
-		_nnEdges.push_back(anEdge);
-	}
-	///////////////////////////////////////////////////
-	*/
-
-	//std::cout << "num NN " << _nnEdges.size() << "\n";
-
-	// knn
-	/*std::vector<AVector> points;
-	for (unsigned int a = 0; a < otherMasses.size(); a++)
-		{ points.push_back(otherMasses[a]._pos); }
-
-	NANOFLANNWrapper* knnStuff = new NANOFLANNWrapper();
-	knnStuff->_leaf_max_size = 4;
-	knnStuff->SetPointData(points);
-	knnStuff->CreatePointKDTree();
-
-	int neighborSize = SystemParams::_neighbor_size + 8;
-	if (neighborSize > otherMasses.size()) { neighborSize = otherMasses.size(); }
-	std::vector<int> neighborIndices = knnStuff->GetClosestIndices(_pos, neighborSize);
-
-	for (unsigned int a = 0; a < neighborIndices.size(); a++)
-	//for (int a = 0; a < otherMasses.size(); a++)
-	{
-		if (neighborIndices[a] == _idx) { continue;  }
-		if (IsNeighbor(neighborIndices[a])) { continue; }
-		if (_nnEdges.size() >= SystemParams::_neighbor_size) { break; }
-
-		AnIndexedLine anEdge(this->_idx, neighborIndices[a],
-							 this->_pos.Distance(otherMasses[neighborIndices[a]]._pos));
-
-		_nnEdges.push_back(anEdge);
-	}
-
-	//std::cout << "num NN " << _nnEdges.size() << "\n";
-
-	//if (_idx < numBoundaryPoint)
-	{
-		for (unsigned int a = 0; a < neighborIndices.size(); a++)
-		{
-			if (neighborIndices[a] == _idx) { continue; }
-			if (IsNeighbor(neighborIndices[a])) { continue; }
-			if (_moreEdges.size() >= SystemParams::_neighbor_size) { break; }
-
-			AnIndexedLine anEdge(this->_idx, neighborIndices[a],
-				this->_pos.Distance(otherMasses[neighborIndices[a]]._pos));
-
-			_moreEdges.push_back(anEdge);
-		}
-	}*/
-}
-
-void AMass::CalculateFoldingForce(const std::vector<AMass>& otherMasse)
-{
-	/*
-
-	// zero velocity
-	//_prevPos = _pos; // delete
-	//_velocity = AVector(0, 0);
-
-	float k_folding = SystemParams::_k_folding;
-	//std::cout << k_folding << "\n";
-
-	for (unsigned int a = 0; a < _nnEdges.size(); a++) // n neighbors
-	{
-		AVector otherPt = otherMasse[_nnEdges[a]._index1]._pos;
-		float dist = _pos.Distance(otherPt);
-
-		// assume we need to make the dist shorter
-		AVector dir = _pos.DirectionTo(otherPt).Norm();
-		AVector fForce = (dir * k_folding *  (dist - _nnEdges[a].GetDist()));
-		if (!fForce.IsBad()) // check if NaN or Inf
-		{
-			this->_foldingForce += fForce;
-		}
-	}
-
-	*/
-}
+//void AMass::CalculateFoldingForce(const std::vector<AMass>& otherMasse)
+//{
+//	/*
+//
+//	// zero velocity
+//	//_prevPos = _pos; // delete
+//	//_velocity = AVector(0, 0);
+//
+//	float k_folding = SystemParams::_k_folding;
+//	//std::cout << k_folding << "\n";
+//
+//	for (unsigned int a = 0; a < _nnEdges.size(); a++) // n neighbors
+//	{
+//		AVector otherPt = otherMasse[_nnEdges[a]._index1]._pos;
+//		float dist = _pos.Distance(otherPt);
+//
+//		// assume we need to make the dist shorter
+//		AVector dir = _pos.DirectionTo(otherPt).Norm();
+//		AVector fForce = (dir * k_folding *  (dist - _nnEdges[a].GetDist()));
+//		if (!fForce.IsBad()) // check if NaN or Inf
+//		{
+//			this->_foldingForce += fForce;
+//		}
+//	}
+//
+//	*/
+//}
 
 /*
 verlet

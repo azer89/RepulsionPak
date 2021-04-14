@@ -1462,14 +1462,14 @@ void AnElement::ComputeFoldingForces()
 	}
 
 	//for (unsigned int a = 0; a < _boundaryPointNum; a++)
-	for (unsigned int a = 0; a < _massList.size(); a++)
-	{
-		//if (massFlags[a])
-		if (_massList[a]._isFolded)
-		{
-			_massList[a].CalculateFoldingForce(_massList);
-		}
-	}
+	//for (unsigned int a = 0; a < _massList.size(); a++)
+	//{
+	//	//if (massFlags[a])
+	//	if (_massList[a]._isFolded)
+	//	{
+	//		_massList[a].CalculateFoldingForce(_massList);
+	//	}
+	//}
 }
 
 /*void TriangleRelax()
@@ -1592,10 +1592,10 @@ void AnElement::MSTEdgeRelax()
 void AnElement::RecalculateEdgeLengths()
 {
 	// mass list
-	for (unsigned int a = 0; a < _massList.size(); a++)
-	{
-		_massList[a].RecalculateEdgeLengths(_massList);
-	}
+	//for (unsigned int a = 0; a < _massList.size(); a++)
+	//{
+	//	_massList[a].RecalculateEdgeLengths(_massList);
+	//}
 
 	// edges
 	/*for (unsigned int a = 0; a < _triEdges.size(); a++)

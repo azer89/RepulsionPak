@@ -187,8 +187,9 @@ public:
 		const std::vector<std::vector<AVector>>& holes,
 		const std::vector<std::vector<AVector>>& focalOffsets);
 
-	void UpdatePos(float dt, float dtdt_half); // dtdt_half = dt * dt * 0.5
-	void UpdateVelocity(float dt_half, float dampingVal);
+	// verlet
+	//void UpdatePos(float dt, float dtdt_half); // dtdt_half = dt * dt * 0.5
+	//void UpdateVelocity(float dt_half, float dampingVal);
 };
 
 #endif

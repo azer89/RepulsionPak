@@ -6,3 +6,5 @@
 	* AMass::GetClosestPoints2()
 	* CollissionGrid::PrecomputeGraphIndices_ThreadTask(int startIdx, int endIdx)
 * Data-oriented design --> flat arrays (https://gamesfromwithin.com/data-oriented-design)
+* Polygon precalculation http://alienryderflex.com/polygon/
+* Near and far collision checks

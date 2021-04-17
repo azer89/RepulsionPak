@@ -82,10 +82,10 @@ public:
 
 	// Send tasks to threadpool, see AlmostAllYourShit()
 	void UpdateCollisionGrid_PrepareThreadPool();
-	void AlmostAllYourShit_PrepareThreadPool(float dt);
+	void Final_PrepareThreadPool(float dt);
 
 	// A task for a single thread
-	void AlmostAllYourShit_ThreadTask(float dt, int startIdx, int endIdx);
+	void Final_ThreadTask(float dt, int startIdx, int endIdx);
 
 	// ------------ physics simulation ------------
 	void AlmostAllYourShit(float dt); // Init(), Solve(), Simulate() all combined in a single pass to threadpool

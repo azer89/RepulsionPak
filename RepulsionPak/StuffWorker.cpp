@@ -1177,7 +1177,7 @@ void StuffWorker::UpdateCollisionGrid_PrepareThreadPool()
 	_my_threadpool->waitFinished(); // sync
 }
 
-void StuffWorker::AlmostAllYourShit_PrepareThreadPool(float dt)
+void StuffWorker::Final_PrepareThreadPool(float dt)
 {
 	int len = _graphs.size();
 	int num_threads = SystemParams::_num_threads;
@@ -1188,14 +1188,14 @@ void StuffWorker::AlmostAllYourShit_PrepareThreadPool(float dt)
 		int startIdx = a * thread_stride;
 		int endIdx = startIdx + thread_stride;
 		//_c_pt_threadpool->submit(work_proc_2, startIdx, endIdx);
-		_my_threadpool->submit(&StuffWorker::AlmostAllYourShit_ThreadTask, this, dt, startIdx, endIdx);
+		_my_threadpool->submit(&StuffWorker::Final_ThreadTask, this, dt, startIdx, endIdx);
 	}
 
 	_my_threadpool->waitFinished(); // sync
 }
 
 // a task for a thread
-void StuffWorker::AlmostAllYourShit_ThreadTask(float dt, int startIdx, int endIdx)
+void StuffWorker::Final_ThreadTask(float dt, int startIdx, int endIdx)
 {
 	for (unsigned int iter = startIdx; iter < endIdx; iter++)
 	{
@@ -1252,7 +1252,7 @@ void StuffWorker::AlmostAllYourShit(float dt)
 
 	// ---------- get closest point ----------
 	auto start2 = std::chrono::steady_clock::now(); // timing
-	AlmostAllYourShit_PrepareThreadPool(dt);
+	Final_PrepareThreadPool(dt);
 	auto elapsed2 = std::chrono::steady_clock::now() - start2; // timing
 	_closest_pt_thread_time.AddTime(std::chrono::duration_cast<std::chrono::microseconds>(elapsed2).count()); // timing
 

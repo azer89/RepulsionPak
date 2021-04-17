@@ -8,3 +8,5 @@
 * Data-oriented design --> flat arrays (https://gamesfromwithin.com/data-oriented-design)
 * Polygon precalculation http://alienryderflex.com/polygon/
 * Near and far collision checks
+
+![alt tag](https://github.com/azer89/RepulsionPak/raw/master/performance_summary.png)

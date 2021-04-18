@@ -153,11 +153,11 @@ public:
 	inline float Dot(const AVector& otherVector) { return x * otherVector.x + y * otherVector.y; }
 
 	// cross product
-	AVector Cross(const AVector& otherVector)
-	{
+	//AVector Cross(const AVector& otherVector)
+	//{
 		//u x v = u.x * v.y - u.y * v.x
-		return AVector(x * otherVector.y, y * otherVector.x);
-	}
+	//	return AVector(x * otherVector.y, y * otherVector.x);
+	//}
 
 	// linear dependency test
 	inline bool IsLinearDependent(const AVector& otherVector)

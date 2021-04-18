@@ -44,11 +44,11 @@ public:
 	static AVector ClosestPoint(const std::vector<AVector>& points, AVector p);
 
 	// Distance to polylines
-	static float   DistanceToPolyline(         const std::vector<AVector>& polyline,               AVector p); 
+	static float   DistanceToPolyline(         const std::vector<AVector>& polyline,               AVector p);
 	static float   DistanceToPolylines(        const std::vector<std::vector<AVector>>& polylines, AVector p);
 	static AVector GetClosestPtOnPolyline(     const std::vector<AVector>& polyline,               AVector p);
 	//static AVector GetClosestPtOnClosedPolyline(std::vector<AVector> polyline, AVector p);
-	static float   DistanceToClosedCurve(      std::vector<AVector> polyline,               AVector p); 
+	static float   DistanceToClosedCurve(      std::vector<AVector> polyline,               AVector p);
 	static float   DistanceToClosedCurves(	   const std::vector<std::vector<AVector>>& polylines, AVector p);
 	static AVector GetClosestPtOnClosedCurve(  const std::vector<AVector>& polyline,               const AVector& p);
 
@@ -67,8 +67,8 @@ public:
 	// Todo: implement closed curves
 	static float CurveLength(std::vector<AVector> curves);
 	static float CurveLengthClosed(std::vector<AVector> curves);
-	static bool   InsidePolygon(const std::vector<AVector>& polygon, float px, float py);
-	static bool   InsidePolygons(const std::vector<std::vector<AVector>>& polygons, float px, float py);
+	static bool InsidePolygon(const std::vector<AVector>& polygon, float px, float py);
+	static bool InsidePolygons(const std::vector<std::vector<AVector>>& polygons, float px, float py);
 	static float Angle2D(float x1, float y1, float x2, float y2);
 
 	// curve orientation

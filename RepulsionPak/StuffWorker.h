@@ -88,7 +88,7 @@ public:
 	void Final_ThreadTask(float dt, int startIdx, int endIdx);
 
 	// ------------ physics simulation ------------
-	void AlmostAllYourShit(float dt); // Init(), Solve(), Simulate() all combined in a single pass to threadpool
+	void Finall_ThreadPass(float dt); // Init(), Solve(), Simulate() all combined in a single pass to threadpool
 	void Operate(float dt);
 	void CalculateThings(float dt);
 

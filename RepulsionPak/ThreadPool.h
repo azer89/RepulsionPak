@@ -11,7 +11,7 @@
 #include <atomic>
 #include <future>
 
-// thanks bruh
+// adapted from
 // https_//stackoverflow.com/questions/23896421/efficiently-waiting-for-all-tasks-in-a-threadpool-to-finish
 
 class ThreadPool
@@ -66,8 +66,8 @@ public:
 			(*task_ptr)();
 		};*/
 		
-		//enqueue(wrapper_func); // ROFLMAO
-		enqueue(std::bind(f, args...)); // ROFLMAO
+		//enqueue(wrapper_func); 
+		enqueue(std::bind(f, args...)); 
 	}
 
 	// generic function push

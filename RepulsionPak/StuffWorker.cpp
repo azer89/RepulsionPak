@@ -1244,7 +1244,7 @@ void StuffWorker::Final_ThreadTask(float dt, int startIdx, int endIdx)
 	}
 }
 
-void StuffWorker::AlmostAllYourShit(float dt)
+void StuffWorker::Finall_ThreadPass(float dt)
 {
 	int startIter = 0;
 	// I'M DISABLING 2ND ELEMENTS
@@ -1624,7 +1624,7 @@ void StuffWorker::Operate(float dt)
 	CalculateThings(dt);
 
 	// ---------- main simulation ----------
-	AlmostAllYourShit(dt);
+	Finall_ThreadPass(dt);
 	//Init();          // reset forces to zero	
 	//UpdatePosition(dt); // velocity verlet
 	//Solve();            // calculate forces

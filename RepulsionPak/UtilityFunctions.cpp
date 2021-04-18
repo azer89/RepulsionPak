@@ -1,4 +1,4 @@
-
+﻿
 /* ---------- RepulsionPak  ---------- */
 
 #include "UtilityFUnctions.h"
@@ -84,9 +84,52 @@ float UtilityFunctions::AreaOfPolygon(const std::vector<AVector>& polyline)
 	return area;
 }
 
+
 /*================================================================================
+New Version
 ================================================================================*/
-float UtilityFunctions::DistanceToFiniteLine(AVector v, AVector w, AVector p)
+// Alternative from real-time collision book, page 129
+// Given segment ab and point c, computes closest point d on ab.
+// Also returns t for the parametric position of d, d(t) = a + t*(b - a)
+float UtilityFunctions::DistanceToFiniteLine(AVector a, AVector b, AVector c)
+{
+	AVector ab = b - a;
+	// Project c onto ab, but deferring divide by Dot(ab, ab)
+	//float t = Dot(c - a, ab);
+	float t = (c - a).Dot(ab);
+	if (t <= 0.0f)
+	{
+		// c projects outside the [a,b] interval, on the a side; clamp to a
+		//t = 0.0f;
+		//d = a;
+		return c.Distance(a);
+	}
+	else
+	{
+		//float denom = Dot(ab, ab); // Always nonnegative since denom = ||ab|| ^ 2
+		float denom = ab.Dot(ab);
+		if (t >= denom) 
+		{
+			// c projects outside the [a,b] interval, on the b side; clamp to b
+			//t = 1.0f;
+			//d = b;
+			return c.Distance(b);
+		}
+		else {
+			// c projects inside the [a,b] interval; must do deferred divide now
+			t = t / denom;
+			//d = a + t * ab;
+			AVector d = a + ab * t;
+			return c.Distance(d);
+		}
+	}
+}
+
+
+/*================================================================================
+Old version
+================================================================================*/
+/*float UtilityFunctions::DistanceToFiniteLine(AVector v, AVector w, AVector p)
 {
 	float machine_eps = std::numeric_limits<float>::epsilon();
 
@@ -103,7 +146,7 @@ float UtilityFunctions::DistanceToFiniteLine(AVector v, AVector w, AVector p)
 	else if (t > 1.0) { return  p.Distance(w); }  // Beyond the 'w' end of the segment
 	AVector projection = v + (w - v) * t;         // Projection falls on the segment
 	return p.Distance(projection);
-}
+}*/
 
 float Q_rsqrt(float number)
 {

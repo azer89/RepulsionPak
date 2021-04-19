@@ -72,7 +72,8 @@ Don't use this, this has a bug!
 ================================================================================*/
 float UtilityFunctions::AreaOfPolygon(const std::vector<AVector>& polyline)
 {
-	std::cout << "FUCK FUCKING FUCK! DONT USE THIS\n";
+	std::cerr << "Don't use this, this has a bug!\n";
+
 	float area = 0;
 	/*polyline.push_back(polyline[0]);	
 	for (unsigned int i = 0; i < polyline.size() - 1; i++)

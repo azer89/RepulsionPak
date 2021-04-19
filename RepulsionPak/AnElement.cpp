@@ -42,6 +42,24 @@ AnElement::AnElement()
 	//this->_transition_time = 0.0f;
 }
 
+//AnElement& AnElement::operator=(const AnElement& other)
+//{
+//	if (this != &other) // not a self-assignment
+//	{
+//		/*if (size != other.size) // resource cannot be reused
+//		{
+//			data.reset(new int[other.size]);
+//			size = other.size;
+//		}
+//		std::copy(&other.data[0], &other.data[0] + size, &data[0]);*/
+//
+//
+//
+//	}
+//	return *this;
+//}
+
+
 float AnElement::DistanceToBoundary(AVector pt)
 {
 	return UtilityFunctions::DistanceToClosedCurve(_uniArt, pt);

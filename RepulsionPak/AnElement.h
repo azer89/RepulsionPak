@@ -174,7 +174,7 @@ public:
 
 
 public:
-		// pad debug delete me
+		// pad
 		//std::vector<AVector> _padPoints;
 		//std::vector<ABary>	_padBarys;
 		//std::vector<int>	_padTriIdxs;
@@ -207,7 +207,7 @@ public:
 		int _matchedVertexIdx;
 		AVector _matchedContainerPt;
 
-		// PAD visualization delete me
+		// PAD visualization
 		AVector _matchedPoint;
 		int _triMatchedIdx;
 		ABary _matchedBary;
@@ -230,10 +230,6 @@ public:
 		int   _ori_id;
 
 		std::vector<AMass>   _massList;       // list of the masses
-
-		//std::map<int, AMass> _massMap;      // we're not using MST,  only use this for kruskal
-		//std::vector<AVector> _oriMassPos;   // 
-		//std::vector<AnIndexedLine> _edges;  // we're not using MST
 
 		int   _skinPointNum;  // number of boundary points
 		float _averageEdgeLength; // average of the length of the edges

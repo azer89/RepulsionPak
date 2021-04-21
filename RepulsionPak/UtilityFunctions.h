@@ -29,8 +29,6 @@ public:
 	static float TSign(AVector p1, AVector p2, AVector p3);
 	static bool PointInTriangle(AVector A, AVector B, AVector C, AVector P);
 
-	static float AreaOfPolygon(const std::vector<AVector>& polyline); // Don't use this, this has a bug!
-
 	// Distance to line
 	static float  DistanceToFiniteLine(       AVector v, AVector w, AVector p);
 	static AVector ClosestPtAtFiniteLine2(const AVector&  v, const AVector& w, const AVector& p); // pbourke algorithm

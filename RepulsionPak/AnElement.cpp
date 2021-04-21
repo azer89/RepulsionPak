@@ -36,10 +36,6 @@ AnElement::AnElement()
 	this->_sumVelocity = 0;
 	this->_bigOne = true; // main elements, not small elements
 	this->_isRigid = false;
-
-	//this->_shrinking_state = 1;
-	//this->_transition_time_counter = 0.0f;
-	//this->_transition_time = 0.0f;
 }
 
 //AnElement& AnElement::operator=(const AnElement& other)
@@ -535,7 +531,7 @@ void AnElement::SetMatchedPoint(AVector e_pt, AVector c_pt)
 	_matchedPoint = e_pt;
 	_matchedContainerPt = c_pt;
 
-	float d = 1000000000;
+	float d = INT_MAX;
 	for (unsigned int a = 0; a < _massList.size(); a++)
 	{
 		float dist = _massList[a]._pos.DistanceSquared(_matchedPoint);
@@ -571,7 +567,7 @@ void AnElement::SetMatchedPoint(AVector e_pt, AVector c_pt)
 		//std::cout << "error !!!\n";
 
 		_triMatchedIdx = -1;
-		float dist = 100000000;
+		float dist = INT_MAX;
 		for (unsigned int c = 0; c < actualTriangles.size(); c++)
 		{
 			float d = UtilityFunctions::DistanceToClosedCurve(actualTriangles[c], _matchedPoint);
@@ -720,7 +716,7 @@ void AnElement::SelfIntersectionRelax()
 					float offst = distMin - std::sqrt(d1Sq);
 					// BUG ???
 					if (offst < 10) { _massList[idx1]._pos += dir * offst; }
-					else{ std::cout << "lolwut\n"; }
+					else{ std::cerr << "error\n"; }
 				}
 
 				// 2 to 1
@@ -734,7 +730,7 @@ void AnElement::SelfIntersectionRelax()
 					float offst = distMin - std::sqrt(d2Sq);
 					// BUG ???
 					if (offst < 10) { _massList[idx2]._pos += dir * offst; }
-					else{ std::cout << "lolwut\n"; }
+					else{ std::cerr << "error\n"; }
 				}
 			}
 

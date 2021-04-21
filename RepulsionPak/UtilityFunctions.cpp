@@ -67,24 +67,6 @@ void UtilityFunctions::GetLeftRightDirections(AVector p1, AVector p2, AVector* d
 	*dirB = AVector(dir.y, -dir.x);
 }
 
-/*================================================================================
-Don't use this, this has a bug!
-================================================================================*/
-float UtilityFunctions::AreaOfPolygon(const std::vector<AVector>& polyline)
-{
-	std::cerr << "Don't use this, this has a bug!\n";
-
-	float area = 0;
-	/*polyline.push_back(polyline[0]);	
-	for (unsigned int i = 0; i < polyline.size() - 1; i++)
-	{
-		area += std::abs((polyline[i].x * polyline[i + 1].y) - (polyline[i + 1].x * polyline[i].y));
-	}
-	area /= 2.0f;*/
-
-	return area;
-}
-
 
 /*================================================================================
 New Version

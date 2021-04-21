@@ -38,7 +38,7 @@ AMass::AMass()
 }
 
 // Constructor
-AMass::AMass(float x, float y)
+AMass::AMass(const float& x, const float& y)
 {
 	//this->_m = 0;             // mass is always one
 	this->_pos = AVector(x, y);
@@ -48,7 +48,7 @@ AMass::AMass(float x, float y)
 }
 
 // Constructor
-AMass::AMass(AVector pos)
+AMass::AMass(const AVector& pos)
 {
 	//this->_m     = 0;             // mass is always one
 	this->_pos   = pos;
@@ -86,11 +86,9 @@ void AMass::CallMeFromConstructor()
 	this->_overlapForce   = AVector(0, 0);
 	this->_rotationForce = AVector(0, 0);
 	this->_selfIntersectForce = AVector(0, 0);
-
-	
 }
 
-bool AMass::IsInsideTriangle(AVector pt, const std::vector<AMass>& otherMasses)
+bool AMass::IsInsideTriangle(const AVector& pt, const std::vector<AMass>& otherMasses)
 {
 	for (unsigned a = 0; a < _triangles.size(); a++)
 	{
@@ -129,7 +127,7 @@ bool AMass::TryToAddTriangleEdge(AnIndexedLine anEdge, const std::vector<AMass>&
 	return false;
 }
 
-bool AMass::FindTriEdge(AnIndexedLine anEdge)
+bool AMass::FindTriEdge(const AnIndexedLine& anEdge)
 {
 	for (unsigned int a = 0; a < _triEdges.size(); a++)
 	{
@@ -147,12 +145,10 @@ bool AMass::IsNeighbor(int idx)
 
 
 
-void AMass::GetClosestPoints2(int parentGraphIndex)
+void AMass::GetClosestPoints2(const int& parentGraphIndex)
 {
 	if (parentGraphIndex < 0 || parentGraphIndex >= StuffWorker::_graphs.size()) { return; }
 	if (this->_idx >= StuffWorker::_graphs[parentGraphIndex]._skinPointNum) { return; } // uncomment me
-
-	
 
 	//this->_closestGraphIndices.clear();
 	this->_closestPt_fill_sz = 0;
@@ -375,7 +371,7 @@ void AMass::Simulate(float dt/*, float dampingVal*/)
 
 }
 
-void AMass::Grow(float growth_scale_iter, float dt)
+void AMass::Grow(const float& growth_scale_iter, const float& dt)
 {
 	this->_mass += growth_scale_iter * dt;
 
@@ -443,7 +439,7 @@ void AMass::Draw()
 //std::vector<int> _segmentIndices;
 //std::vector<AVector> _lineSgment;
 
-void AMass::CalculateIndicesOfLineSegment(int numSkin)
+void AMass::CalculateIndicesOfLineSegment(const int& numSkin)
 {
 	_segmentIndices = std::vector<int>(3);
 	_segmentIndices[1] = _idx;

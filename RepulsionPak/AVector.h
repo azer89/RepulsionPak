@@ -22,7 +22,7 @@ radhitya@uwaterloo.ca
 /**
 * Reza Adhitya Saputra
 * radhitya@uwaterloo.ca
-* February 2016
+* 2021
 */
 
 
@@ -43,7 +43,7 @@ public:
 
 	//float radAngle;
 
-	// what is this?
+	// some info
 	float aCertainInfo;
 
 	// Default constructor
@@ -51,7 +51,6 @@ public:
 	{
 		this->x = -1;
 		this->y = -1;
-		//this->radAngle = 0;
 	}
 
 	// Constructor
@@ -59,7 +58,6 @@ public:
 	{
 		this->x = x;
 		this->y = y;
-		//this->radAngle = 0;
 	}
 
 	inline void SetZero()
@@ -85,8 +83,6 @@ public:
 
 	inline bool IsBad()
 	{
-		//if (Length() > 1000000) { std::cout << "huh?\n"; return true; }
-
 		return std::isinf(x) || std::isnan(x) || std::isinf(y) || std::isnan(y);
 	}
 
@@ -105,7 +101,6 @@ public:
 	{
 		float vlength = std::sqrt(x * x + y * y);
 
-		//if (vlength == 0) { std::cout << "div by zero duh\n"; }
 		if (vlength == 0) { return AVector(0, 0); }
 
 		return AVector(this->x / vlength, this->y / vlength);
@@ -151,14 +146,7 @@ public:
 
 	// dot product
 	inline float Dot(const AVector& otherVector) { return x * otherVector.x + y * otherVector.y; }
-
-	// cross product
-	//AVector Cross(const AVector& otherVector)
-	//{
-		//u x v = u.x * v.y - u.y * v.x
-	//	return AVector(x * otherVector.y, y * otherVector.x);
-	//}
-
+	
 	// linear dependency test
 	inline bool IsLinearDependent(const AVector& otherVector)
 	{

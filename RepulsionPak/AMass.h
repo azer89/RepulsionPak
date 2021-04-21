@@ -32,24 +32,22 @@ public:
 	CollissionGrid* _cGrid;
 
 	bool _isGrowing;
-
 	float _distToBoundary;
-
 	bool _isFolded;
 		
 
-	float   _mass;     // 
-	AVector _pos;	  // current
+	float   _mass; 
+	AVector _pos;
 	AVector _velocity;
 
-	AVector GetPos() const
+	inline AVector GetPos() const
 	{
 		return _pos;
 	}
 
 	std::vector<AnIdxTriangle> _triangles;
 	
-	float                _closestDist;
+	float _closestDist;
 	int _n_closest_elems;
 	
 	std::vector<AVector> _closestPoints;
@@ -66,14 +64,14 @@ public:
 	std::vector<AnIndexedLine>  _triEdges; // edges from triangulation
 	std::unordered_map<int, int> _neighbors;
 
-public:
 	std::vector<int> _segmentIndices;
 	std::vector<AVector> _lineSgment;
 
-	void CalculateIndicesOfLineSegment(int numSkin);
+public:
+
+	void CalculateIndicesOfLineSegment(const int& numSkin);
 	void UpdateLineSegment(const std::vector<AMass>& otherMasses);
-
-
+	
 public:
 	
 	AVector _edgeForce;
@@ -82,33 +80,28 @@ public:
 	AVector _overlapForce;	
 	AVector _rotationForce;
 	AVector _selfIntersectForce;
-	//AVector _attractionForce;
-	//AVector _angleForce;
-	//AVector _noiseForce;
-	//AVector _foldingForce;
-	//AVector _prevForce;
 
 	// Constructor
 	AMass();
 
 	// Constructor
-	AMass(float x, float y);
+	AMass(const float& x, const float& y);
 
 	// Constructor
-	AMass(AVector pos);
+	AMass(const AVector& pos);
 
 	void CallMeFromConstructor();
 
 	// true if accepted, false if rejected
 	bool TryToAddTriangleEdge(AnIndexedLine anEdge, const std::vector<AMass>& otherMasses);
 
-	bool FindTriEdge(AnIndexedLine anEdge);
+	bool FindTriEdge(const AnIndexedLine& anEdge);
 
 	bool IsNeighbor(int idx);
 
-	bool IsInsideTriangle(AVector pt, const std::vector<AMass>& otherMasses);	
+	bool IsInsideTriangle(const AVector& pt, const std::vector<AMass>& otherMasses);	
 
-	void Grow(float growth_scale_iter, float dt);
+	void Grow(const float& growth_scale_iter, const float& dt);
 
 	void Draw();
 
@@ -119,68 +112,13 @@ public:
 	void Simulate(float dt);
 
 	void Solve(const int& massNumber,
-		const AnElement& parentGraph,
-		const std::vector<std::vector<AVector>>& boundaries,
-		const std::vector<std::vector<AVector>>& holes,
-		const std::vector<std::vector<AVector>>& focalOffsets);
+				const AnElement& parentGraph,
+				const std::vector<std::vector<AVector>>& boundaries,
+				const std::vector<std::vector<AVector>>& holes,
+				const std::vector<std::vector<AVector>>& focalOffsets);
 
-	void GetClosestPoints2(int parentGraphIndex);
+	void GetClosestPoints2(const int& parentGraphIndex);
 
-private:
-
-	//void AddEdge(   AnIndexedLine anEdge);	
-
-	//void SortEdges(const std::vector<AMass>& otherMasses);
-
-	//void CalculateFoldingForce(const std::vector<AMass>& otherMasses);
-
-	//AVector GetClosestPointOnEdges(std::vector<AMass> otherMasses,
-	//	                           AVector pt, // query point 
-	//						       int ptIdx); // query index, make sure it's not neighbor
-
-	//void CalculateNNEdges(const std::vector<AMass>& otherMasses, int numBoundaryPoint);	
-
-	//void IntersectionRelax(int parentGraphIndex, std::vector<AGraph>& allGraphs);
-
-	//void AngleRelax(std::vector<AMass>& otherMasses);
-
-	//void VerletSyncEdgeLengths(const std::vector<AMass>& otherMasses); // currently not used
-
-	//void CollissionRelax(int parentGraphIndex, std::vector<AnElement>& allGraphs);
-
-	//void VerletRelax(std::vector<AMass>& otherMasses); // move this to AGraph
-
-	//void RecalculateEdgeLengths(const std::vector<AMass>& otherMasses);
-
-	//void GetClosestPoints(int parentGraphIndex,
-	//	                     std::vector<AGraph>& allGraphs,
-	//						 std::vector<AVector> peaks);
-
-private:
-	//bool _selfIntersect;
-	//int _cellIdx;
-	//AVector _prevPos; // previous
-
-	//std::vector<AVector>       _triCenters;
-
-	//AVector _angleVel;  
-	//AVector _edgeVel;
-	//AVector _repulsionVel;
-	//AVector _boundaryVel;
-
-	// closest point from other graph
-	//float   _closestOtherDist;
-	//std::vector<int>     _closestGraphIndices;
-
-	// not used
-	//float _oriDistToMidPoint; // original distance to the midpoint of facing edge
-	//float _distToMidPoint;    // distance to the midpoint of facing edge
-
-	//std::vector<AnIndexedLine>  _moreEdges;
-
-	//std::vector<AnIndexedLine>  _edges;
-	//std::vector<AnIndexedLine>  _nnEdges;         // n nearest neighbors for attaching springs, currently disabled
-	//std::vector<AngleConnector> _angleConnectors;
 
 };
 

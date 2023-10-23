@@ -1,7 +1,9 @@
 **RepulsionPak: Deformation-Driven Element Packing with Repulsion Forces** (Graphics Interface 2018)
+
 Conference paper: https://graphicsinterface.org/proceedings/gi2018/gi2018-3/
 
 **Improved Deformation-Driven Element Packing with RepulsionPak** (IEEE TVCG 2019)
+
 Journal paper: https://doi.org/10.1109/TVCG.2019.2950235
 
 Environment: Windows 10 x64 and Visual Studio 2017 (C++14)
@@ -17,7 +19,7 @@ Dependencies:
 
 
 
-Additional tool:
+Additional tools:
 * Illustrator plugin to convert .ai files to .path files (https://github.com/azer89/IllustratorPathConverter)
 * Adobe_Illustrator_CC_2015.3_SDK to compile the converter tool above
 

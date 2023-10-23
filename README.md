@@ -1,14 +1,12 @@
-# RepulsionPak: Deformation-Driven Element Packing with Repulsion Forces (Graphics Interface 2018)
-
+**RepulsionPak: Deformation-Driven Element Packing with Repulsion Forces** (Graphics Interface 2018)
 Conference paper: https://graphicsinterface.org/proceedings/gi2018/gi2018-3/
 
-# Improved Deformation-Driven Element Packing with RepulsionPak (IEEE TVCG 2019)
-
+**Improved Deformation-Driven Element Packing with RepulsionPak** (IEEE TVCG 2019)
 Journal paper: https://doi.org/10.1109/TVCG.2019.2950235
 
 Environment: Windows 10 x64 and Visual Studio 2017 (C++14)
 
-What you need:
+Dependencies:
 * Lua 5.3.3 (https://cs.uwaterloo.ca/~radhitya/repulsionpak/Lua533.zip)
 * CGAL 4.13.1 (https://github.com/CGAL/cgal/releases/tag/releases%2FCGAL-4.13.1/) You need CMake
 * boost 1.71.0 (https://www.boost.org/users/history/version_1_71_0.html)

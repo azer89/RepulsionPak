@@ -1,11 +1,10 @@
+Publications:
 
-**RepulsionPak: Deformation-Driven Element Packing with Repulsion Forces** (Graphics Interface 2018)
+* [**RepulsionPak: Deformation-Driven Element Packing with Repulsion Forces** (Graphics Interface 2018)](https://graphicsinterface.org/proceedings/gi2018/gi2018-3/)
 
-Conference paper: https://graphicsinterface.org/proceedings/gi2018/gi2018-3/
+* [**Improved Deformation-Driven Element Packing with RepulsionPak** (IEEE TVCG 2019)](https://doi.org/10.1109/TVCG.2019.2950235)
 
-**Improved Deformation-Driven Element Packing with RepulsionPak** (IEEE TVCG 2019)
-
-Journal paper: https://doi.org/10.1109/TVCG.2019.2950235
+* [UW Dissertation](https://uwspace.uwaterloo.ca/handle/10012/16536)
 
 
 

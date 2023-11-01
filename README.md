@@ -41,5 +41,3 @@ Additional tools:
 * [Illustrator plugin to convert .ai files to .path files](https://github.com/azer89/IllustratorPathConverter)
 * Adobe_Illustrator_CC_2015.3_SDK to compile the converter tool above
 
-How to run it:
-* Make sure params.lua is properly set up

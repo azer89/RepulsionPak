@@ -1,3 +1,4 @@
+
 **RepulsionPak: Deformation-Driven Element Packing with Repulsion Forces** (Graphics Interface 2018)
 
 Conference paper: https://graphicsinterface.org/proceedings/gi2018/gi2018-3/
@@ -5,6 +6,24 @@ Conference paper: https://graphicsinterface.org/proceedings/gi2018/gi2018-3/
 **Improved Deformation-Driven Element Packing with RepulsionPak** (IEEE TVCG 2019)
 
 Journal paper: https://doi.org/10.1109/TVCG.2019.2950235
+
+
+
+https://github.com/azer89/RepulsionPak/assets/790432/16484a6d-606a-4d91-83c4-2a8cf039c9f2
+
+
+https://github.com/azer89/RepulsionPak/assets/790432/4b45d67f-c836-4e06-ae03-e6f6fd133103
+
+
+https://github.com/azer89/RepulsionPak/assets/790432/38493370-54f7-42a2-a776-a034e4f08124
+
+
+
+
+
+
+
+
 
 Environment: Windows 10 x64 and Visual Studio 2017 (C++14)
 

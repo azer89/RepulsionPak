@@ -4,7 +4,7 @@ Publications:
 
 * [**Improved Deformation-Driven Element Packing with RepulsionPak** (IEEE TVCG 2019)](https://doi.org/10.1109/TVCG.2019.2950235)
 
-* [UW Dissertation](https://uwspace.uwaterloo.ca/handle/10012/16536)
+* [**UW Dissertation**](https://uwspace.uwaterloo.ca/handle/10012/16536)
 
 
 

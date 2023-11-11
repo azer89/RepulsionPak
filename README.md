@@ -1,3 +1,5 @@
+RepulsionPak is a method to fill a container shape with deformable instances of geometric elements, creating 2D artistic packings/mosaics. Since the elements are pliable, they can deform to achieve a better fit with their neighbours and the container. The simulation starts with an initial random placement of small elements and gradually transform them using repulsion forces that trade off between the evenness of the packing and the deformations of the individual elements.
+
 Publications:
 
 * [**RepulsionPak: Deformation-Driven Element Packing with Repulsion Forces** (Graphics Interface 2018)](https://graphicsinterface.org/proceedings/gi2018/gi2018-3/)

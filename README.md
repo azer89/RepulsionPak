@@ -6,7 +6,7 @@ Publications:
 
 * [**UW Dissertation**](https://uwspace.uwaterloo.ca/handle/10012/16536)
 
-
+<div align="center">
 
 https://github.com/azer89/RepulsionPak/assets/790432/16484a6d-606a-4d91-83c4-2a8cf039c9f2
 
@@ -16,9 +16,11 @@ https://github.com/azer89/RepulsionPak/assets/790432/4b45d67f-c836-4e06-ae03-e6f
 
 https://github.com/azer89/RepulsionPak/assets/790432/38493370-54f7-42a2-a776-a034e4f08124
 
+<img width="900" alt="image" src="https://github.com/azer89/RepulsionPak/assets/790432/80caaf92-4c1b-410b-9fd5-1dcbef9c1f88">
 
+<img width="500" alt="image" src="https://github.com/azer89/RepulsionPak/assets/790432/b6d3cdfa-4566-4afe-8464-5bcce61aa119">
 
-
+</div>
 
 
 

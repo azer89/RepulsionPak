@@ -1,6 +1,6 @@
-RepulsionPak is a method to fill a container shape with deformable instances of geometric elements, creating 2D artistic packings/mosaics. Since the elements are pliable, they can deform to achieve a better fit with their neighbours and the container. The simulation starts with an initial random placement of small elements and gradually transform them using repulsion forces that trade off between the evenness of the packing and the deformations of the individual elements.
+RepulsionPak is a method to fill a container shape with deformable elements, creating 2D artistic packings/mosaics. Since the elements are pliable, they can deform to achieve a better fit with their neighbours and the container. The simulation starts with an initial random placement of small elements and gradually transform them using repulsion forces that trade off between the evenness of the packing and the deformations of the individual elements.
 
-Publications:
+### Publications
 
 * [**RepulsionPak: Deformation-Driven Element Packing with Repulsion Forces** (Graphics Interface 2018)](https://graphicsinterface.org/proceedings/gi2018/gi2018-3/)
 
@@ -8,25 +8,24 @@ Publications:
 
 * [**UW Dissertation**](https://uwspace.uwaterloo.ca/handle/10012/16536)
 
+### Result Examples
 <div align="center">
+<img width="900" alt="image" src="https://github.com/azer89/RepulsionPak/assets/790432/80caaf92-4c1b-410b-9fd5-1dcbef9c1f88">
+<img width="500" alt="image" src="https://github.com/azer89/RepulsionPak/assets/790432/b6d3cdfa-4566-4afe-8464-5bcce61aa119">
+</div>
 
+### Simulation process
+<div align="center">
+  
 https://github.com/azer89/RepulsionPak/assets/790432/16484a6d-606a-4d91-83c4-2a8cf039c9f2
-
 
 https://github.com/azer89/RepulsionPak/assets/790432/4b45d67f-c836-4e06-ae03-e6f6fd133103
 
-
 https://github.com/azer89/RepulsionPak/assets/790432/38493370-54f7-42a2-a776-a034e4f08124
-
-<img width="900" alt="image" src="https://github.com/azer89/RepulsionPak/assets/790432/80caaf92-4c1b-410b-9fd5-1dcbef9c1f88">
-
-<img width="500" alt="image" src="https://github.com/azer89/RepulsionPak/assets/790432/b6d3cdfa-4566-4afe-8464-5bcce61aa119">
 
 </div>
 
-
-
-
+### Source code
 
 Environment: Windows 10 x64 and Visual Studio 2017 (C++14)
 

@@ -102,20 +102,10 @@ void CGALTriangulation2::Triangulate(std::vector<AVector> boundary, std::vector<
 	{
 		polygon1.push_back(Point(boundary[a].x, boundary[a].y));
 	}
-	//polygon1.push_back(Point(0, 0));
-	//polygon1.push_back(Point(2, 0));
-	//polygon1.push_back(Point(2, 2));
-	//polygon1.push_back(Point(0, 2));
-	//Polygon_2 polygon2;
-	//polygon2.push_back(Point(0.5, 0.5));
-	//polygon2.push_back(Point(1.5, 0.5));
-	//polygon2.push_back(Point(1.5, 1.5));
-	//polygon2.push_back(Point(0.5, 1.5));
 
 	//Insert the polygons into a constrained triangulation
 	CDT cdt;
 	cdt.insert_constraint(polygon1.vertices_begin(), polygon1.vertices_end(), true);
-	//cdt.insert_constraint(polygon2.vertices_begin(), polygon2.vertices_end(), true);
 
 	//Mark facets that are inside the domain bounded by the polygon
 	mark_domains(cdt);
@@ -147,6 +137,4 @@ void CGALTriangulation2::Triangulate(std::vector<AVector> boundary, std::vector<
 			triangles.push_back(tri);
 		}
 	}
-
-	//std::cout << "There are " << count << " facets in the domain." << std::endl;
 }

@@ -99,39 +99,3 @@ void SelfIntersectionFixer::FixSelfIntersection1(std::vector<AVector> oldPoly, s
 		newPoly.push_back(pt);
 	}
 }
-
-/*bool SelfIntersectionFixer::FixSelfIntersection1(std::vector<AVector> oldPoly, std::vector<AVector>& newPoly)
-{
-	// Construct the input segments.
-	//Segment_2 segments[] = {Segment_2 (Point_2 (1, 5), Point_2 (8, 5)),
-	//						Segment_2 (Point_2 (1, 1), Point_2 (8, 8)),
-	//						Segment_2 (Point_2 (3, 1), Point_2 (3, 8)),
-	//						Segment_2 (Point_2 (8, 5), Point_2 (8, 8))};
-	std::vector<Segment_2> segments;
-	int sz = oldPoly.size();
-	for (int a = 0; a < sz - 1; a++)
-	{
-		AVector ptA = oldPoly[a];
-		AVector ptB = oldPoly[a + 1];
-		segments.push_back(Segment_2(Point_2(ptA.x, ptA.y), Point_2(ptB.x, ptB.y)));
-	}
-	//segments.push_back(Segment_2(Point_2(oldPoly[sz - 1].x, oldPoly[sz - 1].y), Point_2(oldPoly[0].x, oldPoly[0].y)));
-
-
-	// Compute all intersection points.
-	std::list<Point_2>     pts;
-	CGAL::compute_intersection_points (segments.begin(), segments.end(),
-										std::back_inserter (pts));
-
-	// Print the result.
-	std::cout << "Found " << pts.size() << " intersection points: " << std::endl;
-	std::copy (pts.begin(), pts.end(),
-				std::ostream_iterator<Point_2>(std::cout, "\n"));
-	// Compute the non-intersecting sub-segments induced by the input segments.
-	std::list<Segment_2>   sub_segs;
-	CGAL::compute_subcurves(segments.begin(), segments.end(), std::back_inserter(sub_segs));
-	std::cout << "Found " << sub_segs.size()
-			  << " interior-disjoint sub-segments." << std::endl;
-
-	return false;
-}*/

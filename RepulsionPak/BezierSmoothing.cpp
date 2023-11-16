@@ -1,13 +1,10 @@
 
 # include "BezierSmoothing.h"
-
 #include "UtilityFunctions.h"
-
 #include "CurveFitting.h"
 #include "CurveRDP.h"
 
 // TEST
-
 int   rdp_point_min = 3;
 float rdp_epsilon = 10; // 2.5
 float subdivide_limit = 0.5f;

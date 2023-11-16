@@ -1,7 +1,7 @@
 
 #include "CGALIntersector.h"
 
-// READ THIS !!!
+//read this
 // http://stackoverflow.com/questions/26246381/how-to-calculate-the-intersection-of-a-line-segment-and-circle-with-cgal
 
 // Computing intersection points among curves using the sweep line.

@@ -7,18 +7,13 @@
 #include "CGALTriangulation2.h"
 
 #include "StuffWorker.h"
-
 #include "CSSSmoothing.h"
-
-//#include "OpenCVWrapper.h"
 
 #include <random>
 #include <algorithm>
 
 #define PI 3.14159265359
 #define PI2 6.28318530718
-
-//std::vector<AMass> AGraph::_massList = std::vector<AMass>();
 
 // constructir
 AnElement::AnElement()
@@ -38,24 +33,6 @@ AnElement::AnElement()
 	this->_isRigid = false;
 }
 
-//AnElement& AnElement::operator=(const AnElement& other)
-//{
-//	if (this != &other) // not a self-assignment
-//	{
-//		/*if (size != other.size) // resource cannot be reused
-//		{
-//			data.reset(new int[other.size]);
-//			size = other.size;
-//		}
-//		std::copy(&other.data[0], &other.data[0] + size, &data[0]);*/
-//
-//
-//
-//	}
-//	return *this;
-//}
-
-
 float AnElement::DistanceToBoundary(AVector pt)
 {
 	return UtilityFunctions::DistanceToClosedCurve(_uniArt, pt);
@@ -63,9 +40,6 @@ float AnElement::DistanceToBoundary(AVector pt)
 
 void AnElement::CalculateCentroid()
 {
-	//std::vector<AMass>::const_iterator first_iter = _massList.begin();
-	//std::vector<AMass>::const_iterator last_iter = _massList.begin() + _skinPointNum;
-	//vector<T> newVec(first, last);
 	std::vector<AVector> boundary_test;
 	for (unsigned int a = 0; a < _skinPointNum; a++)
 	{
@@ -76,7 +50,6 @@ void AnElement::CalculateCentroid()
 
 void AnElement::CalculateVecToCentroidArray()
 {
-	//
 	for (unsigned int a = 0; a < _skinPointNum; a++)
 	{
 		_normFromCentroidArray.push_back((_massList[a]._pos - _centroid).Norm());
@@ -333,7 +306,6 @@ void AnElement::ComputeBarycentric()
 		_uniArt2Triangles.push_back(triIdx);
 	}
 
-
 	//  ================================================  
 	// uni uni arts
 	_uniuniArts2Triangles.clear();
@@ -395,10 +367,6 @@ void AnElement::CalculateOriAvgEdgeLength()
 		_oriAvgEdgeLength += _massList[_triEdges[a]._index0]._pos.Distance(_massList[_triEdges[a]._index1]._pos);
 	}
 	_oriAvgEdgeLength /= (float)_triEdges.size();
-
-	/*for (unsigned int a = 0; a < _edges.size(); a++)
-		{ _oriAvgEdgeLength += _massList[_edges[a]._index0]._pos.Distance(_massList[_edges[a]._index1]._pos); }
-	_oriAvgEdgeLength /= (float)_edges.size();*/
 }
 
 void AnElement::RemoveShortNegSpaceEdges()
@@ -463,68 +431,6 @@ void AnElement::CalculatePAD()
 	// ---------- PAD ----------
 	_padCalc._isElement = true;
 	_padCalc.ComputePAD(_smooth_skin, _rdpFlags_skin);
-
-	/*
-	std::vector<ABary>	_padBarys;
-	std::vector<int>	_padTriIdxs;
-	*/
-	// pad debug delete me
-	// calculate triangles
-
-	/*std::vector<std::vector<AVector>> actualTriangles;
-	for (unsigned int c = 0; c < _triangles.size(); c++)
-	{
-		std::vector<AVector> tri(3);
-		tri[0] = _massList[_triangles[c].idx0]._pos;
-		tri[1] = _massList[_triangles[c].idx1]._pos;
-		tri[2] = _massList[_triangles[c].idx2]._pos;
-		actualTriangles.push_back(tri);
-	}
-
-	for (unsigned int a = 0; a < _padCalc._sorted_descriptors.size(); a++)
-	{
-		AVector pt = _padCalc._aShape[_padCalc._sorted_descriptors[a]._start_index ];
-		_padPoints.push_back(pt); //////
-
-		int triIdx = -1;
-		ABary bary;
-		for (unsigned int c = 0; c < actualTriangles.size(); c++)
-		{
-			if (UtilityFunctions::InsidePolygon(actualTriangles[c], pt.x, pt.y))
-			{
-				triIdx = c;
-				break;
-			}
-		}
-
-		if (triIdx == -1)
-		{
-			std::cout << "error !!!\n";
-			triIdx = -1;
-			float dist = 100000000;
-			for (unsigned int c = 0; c < actualTriangles.size(); c++)
-			{
-				float d = UtilityFunctions::DistanceToClosedCurve(actualTriangles[c], pt);
-				if (d < dist)
-				{
-					dist = d;
-					triIdx = c;
-				}
-			}
-		}
-
-		bary = UtilityFunctions::Barycentric(pt,
-			actualTriangles[triIdx][0],
-			actualTriangles[triIdx][1],
-			actualTriangles[triIdx][2]);
-
-		_padBarys.push_back(bary);
-		_padTriIdxs.push_back(triIdx);
-
-	}*/
-
-
-	//std::cout << "PAD element\n";
 }
 
 void AnElement::SetMatchedPoint(AVector e_pt, AVector c_pt)
@@ -642,38 +548,10 @@ AVector AnElement::FindClosestPtOnEdges(int idx, AVector pt)
 
 void AnElement::SelfIntersectionFlagging()
 {
-	/*
-	for (unsigned int a = 0; a < _boundaryPointNum; a++)
-	{
-		//int idx1 = randomIndices[a];
-		int idx1 = a;
-		_massList[idx1]._selfIntersect = false;
-
-		if (_massList[idx1]._isFolded) { continue; }
-
-		for (unsigned int b = 0; b < _massList.size(); b++)
-			//for (unsigned int b = 0; b < _boundaryPointNum; b++)
-		{
-			int idx2 = b;
-
-			if (idx1 == idx2) { continue; }
-
-			if (_massList[idx1].IsNeighbor(idx2)) { continue; }
-
-			if (_massList[idx2].IsInsideTriangle(_massList[idx1]._pos, _massList))
-			{
-				//std::cout << "@";
-				_massList[idx1]._selfIntersect = true;
-				break;
-			}
-		}
-	}*/
 }
 
 void AnElement::SelfIntersectionRelax()
 {
-	//std::vector<int> randomIndices;
-	//for (unsigned int a = 0; a < _massList.size(); a++) { randomIndices.push_back(a); }
 	for (unsigned int a = 0; a < _skinPointNum; a++) { _randommm_indices[a] = a; }
 
 	{
@@ -686,13 +564,10 @@ void AnElement::SelfIntersectionRelax()
 	float distMin = _averageEdgeLength * lThreshold;
 	float distMinSq = distMin * distMin;
 
-	//for (unsigned int a = 0; a < _massList.size() - 1; a++)
 	for (unsigned int a = 0; a < _skinPointNum - 1; a++)
 	{
 		int idx1 = _randommm_indices[a];
 
-		//int iterGap = 3;
-		//for (unsigned int b = a + iterGap; b < _skinPointNum; b++)
 		AVector pt1, pt2, v1, v2, dir;
 		for (unsigned int b = a + 1; b < _skinPointNum; b++)
 		{
@@ -706,14 +581,11 @@ void AnElement::SelfIntersectionRelax()
 			pt2 = _massList[idx2]._pos;
 
 			// ballpark
-			//if (pt1.Distance(pt2) < distMin * 5.0f)
 			if (pt1.DistanceSquared(pt2) < distMinSq * 25.0f)
 			{
 				// 1 to 2
 				v1 = UtilityFunctions::GetClosestPtOnPolyline(_massList[idx2]._lineSgment, pt1);
-				//float d1 = pt1.Distance(v1);
 				float d1Sq = pt1.DistanceSquared(v1);
-				//if (d1 < distMin)
 				if (d1Sq < distMinSq)
 				{
 					dir = v1.DirectionTo(pt1).Norm();
@@ -725,9 +597,7 @@ void AnElement::SelfIntersectionRelax()
 
 				// 2 to 1
 				v2 = UtilityFunctions::GetClosestPtOnPolyline(_massList[idx1]._lineSgment, pt2);
-				//float d2 = pt2.Distance(v2);
 				float d2Sq = pt2.Distance(v2);
-				//if (d2 < distMin)
 				if (d2Sq < distMinSq)
 				{
 					dir = v2.DirectionTo(pt2).Norm();
@@ -1083,10 +953,6 @@ void AnElement::Draw()
 		glVertex2f(_skin[0].x, _skin[0].y);
 		glEnd();
 
-
-
-
-
 		//for (unsigned int b = 0; b < _boundaryPointNum; b++)
 		//{
 		//	_massList[b].Draw(_massList);
@@ -1104,8 +970,6 @@ void AnElement::Draw()
 		}
 		}
 		glEnd();*/
-
-
 	}
 
 	for (unsigned int a = 0; a < _skinPointNum; a++)
@@ -1248,23 +1112,6 @@ void AnElement::Scale(float scaleFactor)
 	}
 }
 
-/*void AssignEdgesToMasses()
-{
-	// add edges
-	for (unsigned int a = 0; a < _edges.size(); a++)
-	{
-		AnIndexedLine anEdge = _edges[a];
-		_massList[anEdge._index0].AddEdge(anEdge);
-		_massList[anEdge._index1].AddEdge(anEdge);
-	}
-
-	// sort neigbours
-	for (unsigned int a = 0; a < _massList.size(); a++)
-	{
-		_massList[a].SortEdges(_massList);
-	}
-}*/
-
 void AnElement::ConvertMassMapToList() // we don't use MST anymore
 {
 	// this one is automatically sorted
@@ -1275,27 +1122,6 @@ void AnElement::ConvertMassMapToList() // we don't use MST anymore
 	}*/
 }
 
-//void AGraph::CalculateNNEdges()
-//{
-//	for (unsigned int a = 0; a < _massList.size(); a++)
-//	{
-//		_massList[a].CalculateNNEdges(_massList, _skinPointNum);
-//	}
-//}
-
-// we don't use MST anymore
-/*bool ContainMass(int massIndex)
-{
-	return _massMap.find(massIndex) != _massMap.end();
-}*/
-
-// we don't use MST anymore
-/*void Concat(AGraph anotherGraph)
-{
-	_massMap.insert(anotherGraph._massMap.begin(), anotherGraph._massMap.end());
-	_edges.insert(_edges.end(), anotherGraph._edges.begin(), anotherGraph._edges.end());
-}*/
-
 bool AnElement::CanGrow()
 {
 	float minDist = std::numeric_limits<float>::max(); // very large
@@ -1303,111 +1129,12 @@ bool AnElement::CanGrow()
 	{
 		if (_massList[a]._isInside) { return false; }
 
-		//if (!_massList[a]._closestOtherPt.IsInvalid())
-		//{
-		//float dist = _massList[a]._pos.Distance(_massList[a]._closestOtherPt);
 		float dist = _massList[a]._closestDist;
 		if (dist < SystemParams::_growth_min_dist) { return false; }
-		//if (dist < minDist)
-		//{
-		//	minDist = dist;
-		//}
-		//}
 	}
 
-	/*if (minDist < SystemParams::_growth_min_dist)
-	{
-		return false;
-	}*/
 	return true;
 }
-
-//void AGraph::Grow2(float growth_scale_iter, std::vector<AGraph>& allGraphs, float dt)
-//{
-//	//if (_averageEdgeLength > _oriAvgEdgeLength * _maxEdgeLengthFactor) { _isGrowing = false; }
-//	if (_currentArea > (_oriArea * SystemParams::_max_growth))
-//	{
-//		_isGrowing = false;
-//	}
-//	else
-//	{
-//		for (unsigned int a = 0; a < _skinPointNum && _isGrowing; a++)
-//		{
-//			if (_massList[a]._closestPoints.size() > 0)
-//			{
-//				if (_massList[a]._isInside)  { _isGrowing = false; break; }
-//				if (_massList[a]._closestDist < SystemParams::_growth_min_dist) { _isGrowing = false; break; }
-//			}
-//		}
-//	}
-//
-//	for (unsigned int a = 0; a < _massList.size(); a++)
-//	{
-//		_massList[a]._isGrowing = false;
-//	}
-//
-//	if (_isGrowing)
-//	{
-//		this->_scale += growth_scale_iter * dt;
-//		for (unsigned int a = 0; a < _massList.size(); a++)
-//		{
-//			if (_massList[a]._mass < this->_scale)
-//			{
-//				_massList[a].Grow(growth_scale_iter, dt);
-//				_massList[a]._isGrowing = true;
-//			}
-//		}
-//		for (unsigned int a = 0; a < _triEdges.size(); a++)
-//		{
-//			if (_triEdges[a].GetScale() < this->_scale)
-//			{
-//				_triEdges[a].MakeLonger(growth_scale_iter, dt);
-//			}
-//		}
-//	}
-//	else
-//	{
-//		for (unsigned int a = 0; a < _triEdges.size(); a++)
-//		{
-//			int idx1 = _triEdges[a]._index0;
-//			int idx2 = _triEdges[a]._index1;
-//
-//			if (idx1 >= _skinPointNum && idx2 >= _skinPointNum) { continue; }
-//
-//			bool nope1 = false;
-//			bool nope2 = false;
-//
-//			if (_massList[idx1]._closestPoints.size() > 0)
-//			{
-//				if (_massList[idx1]._isInside) { nope1 = true; }
-//				if (_massList[idx1]._closestDist < SystemParams::_growth_min_dist) { nope1 = true; }
-//			}
-//			if (_massList[idx2]._closestPoints.size() > 0)
-//			{
-//				if (_massList[idx2]._isInside) { nope2 = true; }
-//				if (_massList[idx2]._closestDist < SystemParams::_growth_min_dist) { nope2 = true; }
-//			}
-//
-//			if (!nope1 && !nope2 && _triEdges[a].GetScale() < (this->_scale * SystemParams::_grow_grow_grow))
-//			{
-//				_massList[idx1]._isGrowing = true;
-//				_massList[idx2]._isGrowing = true;
-//				_triEdges[a].MakeLonger(growth_scale_iter, dt);
-//			}
-//		}
-//
-//		for (unsigned int a = 0; a < _massList.size(); a++)
-//		{
-//			if (_massList[a]._isGrowing) { _massList[a].Grow(growth_scale_iter, dt); }
-//		}
-//	}
-//}
-
-//void AGraph::InitShrinking()
-//{
-//	_transition_time = SystemParams::_shrink_transition_time;
-//	_transition_time_counter = rand() % (int)_transition_time;
-//}
 
 void AnElement::Grow(float growth_scale_iter, std::vector<AnElement>& allGraphs, float dt)
 {
@@ -1455,12 +1182,10 @@ void AnElement::Grow(float growth_scale_iter, std::vector<AnElement>& allGraphs,
 void AnElement::ComputeFoldingForces()
 {
 	std::vector<bool> massFlags;
-	//for (unsigned int a = 0; a < _boundaryPointNum; a++)
 	for (unsigned int a = 0; a < _massList.size(); a++)
 	{
 		_massList[a]._isFolded = false;
 	}
-	//{ massFlags.push_back(false); }
 
 	for (unsigned int a = 0; a < _triangles.size(); a++)
 	{
@@ -1490,68 +1215,7 @@ void AnElement::ComputeFoldingForces()
 			//massFlags[tri.idx2] = true;
 		}
 	}
-
-	//for (unsigned int a = 0; a < _boundaryPointNum; a++)
-	//for (unsigned int a = 0; a < _massList.size(); a++)
-	//{
-	//	//if (massFlags[a])
-	//	if (_massList[a]._isFolded)
-	//	{
-	//		_massList[a].CalculateFoldingForce(_massList);
-	//	}
-	//}
 }
-
-/*void TriangleRelax()
-{
-	std::vector<int> randomIndices;
-	for (unsigned int a = 0; a < _triangles.size(); a++) { randomIndices.push_back(a); }
-	std::random_shuffle(randomIndices.begin(), randomIndices.end());
-
-	for (unsigned int a = 0; a < _triangles.size(); a++)
-	{
-		AnIdxTriangle tri = _triangles[randomIndices[a]];
-		AVector pt1 = _massList[tri.idx0]._pos;
-		AVector pt2 = _massList[tri.idx1]._pos;
-		AVector pt3 = _massList[tri.idx2]._pos;
-
-		// 1 - 23
-		if (!UtilityFunctions::IsLeft(pt2, pt3, pt1) &&
-		!_massList[tri.idx0]._isInside)// &&
-		//!_massList[tri.idx0]._idx < _boundaryPointNum)
-		{
-			//std::cout << "1\n";
-			_massList[tri.idx0]._pos = FlipVertex(pt2, pt3, pt1);
-			_massList[tri.idx0]._velocity = AVector(0, 0);
-			//_massList[tri.idx0]._prevPos = _massList[tri.idx0]._pos; // delete
-
-		}
-
-		// 2 - 31
-		if (!UtilityFunctions::IsLeft(pt3, pt1, pt2) &&
-		!_massList[tri.idx1]._isInside)// &&
-		//!_massList[tri.idx1]._idx < _boundaryPointNum)
-		{
-			//std::cout << "2\n";
-			_massList[tri.idx1]._pos = FlipVertex(pt3, pt1, pt2);
-			_massList[tri.idx1]._velocity = AVector(0, 0);
-			//_massList[tri.idx1]._prevPos = _massList[tri.idx1]._pos; // delete
-
-		}
-
-		// 3 - 12
-		if (!UtilityFunctions::IsLeft(pt1, pt2, pt3) &&
-		!_massList[tri.idx2]._isInside)// &&
-		//!_massList[tri.idx2]._idx < _boundaryPointNum)
-		{
-			//std::cout << "3\n";
-			_massList[tri.idx2]._pos = FlipVertex(pt1, pt2, pt3);
-			_massList[tri.idx2]._velocity = AVector(0, 0);
-			//_massList[tri.idx2]._prevPos = _massList[tri.idx2]._pos; // delete
-
-		}
-	}
-}*/
 
 AVector AnElement::FlipVertex(AVector l1, AVector l2, AVector pt)
 {
@@ -1566,75 +1230,11 @@ AVector AnElement::FlipVertex(AVector l1, AVector l2, AVector pt)
 
 void AnElement::MSTEdgeRelax()
 {
-	/*std::vector<int> randomIndices;
-	for (unsigned int a = 0; a < _edges.size(); a++) { randomIndices.push_back(a); }
-	std::random_shuffle(randomIndices.begin(), randomIndices.end());
-
-	// recalculate edges
-	for (unsigned int a = 0; a < _edges.size(); a++)
-	{
-	int idx = randomIndices[a];
-
-	AVector pt1 = _massList[_edges[idx]._index0]._pos;
-	AVector pt2 = _massList[_edges[idx]._index1]._pos;
-	float dist = pt1.Distance(pt2);
-	float distDiffHalf = (dist - _edges[idx]._dist) * 0.5f;
-
-	AVector dir = pt1.DirectionTo(pt2).Norm();
-
-	bool isInside1 = _massList[_edges[idx]._index0]._isInside;
-	bool isInside2 = _massList[_edges[idx]._index1]._isInside;
-
-	if (isInside1 && !isInside2)
-	{
-	_massList[_edges[idx]._index1]._pos -= dir * distDiffHalf * 2.0f;
-	_massList[_edges[idx]._index1]._prevPos = _massList[_edges[idx]._index1]._pos;
-	}
-	else if (!isInside1 && isInside2)
-	{
-	_massList[_edges[idx]._index0]._pos += dir * distDiffHalf * 2.0f;
-	_massList[_edges[idx]._index0]._prevPos = _massList[_edges[idx]._index0]._pos;
-	}
-	else
-	{
-	_massList[_edges[idx]._index0]._pos += dir * distDiffHalf;
-	_massList[_edges[idx]._index1]._pos -= dir * distDiffHalf;
-
-	_massList[_edges[idx]._index0]._prevPos = _massList[_edges[idx]._index0]._pos;
-	_massList[_edges[idx]._index1]._prevPos = _massList[_edges[idx]._index1]._pos;
-	}
-
-
-	}
-
-	// sync edges
-	//for (int a = 0; a < _massList.size(); a++)
-	//{
-	//	_massList[a].VerletSyncEdgeLengths(_massList);
-	//}
-
-	// recalculate angle connectors
-	for (int a = 0; a < _massList.size(); a++)
-	{ _massList[a].VerletRelax(_massList); }*/
 }
 
 // NN EDGES
 void AnElement::RecalculateEdgeLengths()
 {
-	// mass list
-	//for (unsigned int a = 0; a < _massList.size(); a++)
-	//{
-	//	_massList[a].RecalculateEdgeLengths(_massList);
-	//}
-
-	// edges
-	/*for (unsigned int a = 0; a < _triEdges.size(); a++)
-	{
-	float dist = _massList[_triEdges[a]._index0]._pos.Distance(_massList[_triEdges[a]._index1]._pos);
-	_triEdges[a].SetDist(dist);
-	}*/
-
-	// boundary edges needs no update
 }
 
 // need to call RecalculateArts
@@ -1749,19 +1349,6 @@ void AnElement::RecalculateArts()
 			_massList[tri.idx1]._pos * bary._v +
 			_massList[tri.idx2]._pos * bary._w;
 	}
-
-	/*for (unsigned int a = 0; a < _padPoints.size(); a++)
-	{
-		//int idx = _uniArt2Triangles[a];
-		tri = _triangles[_padTriIdxs[a]];
-		//AVector pt1 = _massList[tri.idx0]._pos;
-		//AVector pt2 = _massList[tri.idx1]._pos;
-		//AVector pt3 = _massList[tri.idx2]._pos;
-		bary = _padBarys[a];
-		_padPoints[a] = _massList[tri.idx0]._pos * bary._u +
-			_massList[tri.idx1]._pos * bary._v +
-			_massList[tri.idx2]._pos * bary._w;
-	}*/
 
 	if (_isMatched)
 	{
@@ -2209,39 +1796,4 @@ void AnElement::SolveForTriangleSprings()
 			_massList[a]._rotationForce += rForce;	// _massList[idx0]._distToBoundary;
 		}
 	}
-	/*float eps_rot = 3.14 * 0.01;
-	AVector curNorm;
-	AVector rForce;
-	for (unsigned int a = 0; a < _skinPointNum; a++)
-	{
-		curNorm = (_massList[a]._pos - _centroid).Norm();
-		float angleVal = UtilityFunctions::Angle2D(curNorm.x, curNorm.y, _normFromCentroidArray[a].x, _normFromCentroidArray[a].y);
-
-		if (std::abs( angleVal ) > eps_rot)
-		{
-			if (angleVal > 0)
-			{
-				// anticlockwise
-
-				AVector dRIght(-curNorm.y, curNorm.x); // this is left
-				_rotateArray[a] = dRIght;
-			}
-			else
-			{
-				AVector dLeft(curNorm.y, -curNorm.x);  // this is right
-				_rotateArray[a] = dLeft;
-			}
-		}
-		else
-		{
-			_rotateArray[a] = AVector(0, 0);
-			angleVal = 0;
-		}
-
-		rForce =  _rotateArray[a] * std::abs(angleVal) * SystemParams::_k_rotate;
-		if (!rForce.IsBad())
-		{
-			_massList[a]._rotationForce += rForce;	// _massList[idx0]._distToBoundary;
-		}
-	}*/
 }

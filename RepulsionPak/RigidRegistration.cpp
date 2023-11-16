@@ -2,9 +2,7 @@
 #include "RigidRegistration.h"
 #include "ARectangle.h"
 #include "MySVGRenderer.h"
-
 #include "OpenCVWrapper.h"
-
 #include "ColorPalette.h"
 
 #include <Eigen/Dense>
@@ -68,14 +66,14 @@ void RigidRegistration::SaveOriGraph(AnElement g2, int numGraph2)
 		}
 	}
 
-	// SAVE!!!
+	// SAVE
 	_oriArts.push_back(arts2);
 	_artFColors.push_back(g2._fColors);
 	_artBColors.push_back(g2._bColors);
 	_deformedArts.push_back(std::vector<GraphArt>());
 
 	// ===== drawing =====
-	// DON't DELETE
+	// DON'T DELETE
 	/*std::stringstream ss1;
 	ss1 << "element_" << numGraph2;
 	_pngImg.SetColorImageToWhite();
@@ -120,7 +118,7 @@ float RigidRegistration::CalculateDistance(AnElement g1_deformed,  // deformed
 		points1_deformed.push_back(g1_deformed._massList[a]._pos);
 	}// deformed
 
-// get points
+	// get points
 	std::vector<AVector> points2_ori;
 	for (unsigned a = 0; a < g2_ori._massList.size(); a++)
 		//for (unsigned a = 0; a < g2._boundaryPointNum; a++)
@@ -270,63 +268,6 @@ float RigidRegistration::CalculateDistance(std::vector<AVector> points1,  // def
 	// numGraph2 is the index of the original
 	_deformedArts[numGraph2].push_back(arts);
 
-	/*std::stringstream ss1;
-	ss1 << "element_" << numGraph1;
-	_pngImg.SetColorImageToWhite();
-	float imgScale = 1.0f;
-	float lineThickness = 2.0f;
-	std::vector<AVector> points1_skin(points1.begin(), points1.begin() + boundaryPointNum);
-	std::vector<AVector> points2_skin(points2.begin(), points2.begin() + boundaryPointNum);
-
-	float halfVal = imgScale * SystemParams::_upscaleFactor / 2.0f;
-	float polyScale = 400;
-
-	for (unsigned int a = 0; a < points1_skin.size(); a++)
-	{
-		points1_skin[a] *= polyScale;
-		points2_skin[a] *= polyScale;
-		points1_skin[a] += AVector(halfVal, halfVal);
-		points2_skin[a] += AVector(halfVal, halfVal);
-	}
-	for (unsigned int a = 0; a < arts.size(); a++)
-	{
-		for (unsigned int b = 0; b < arts[a].size(); b++)
-		{
-			arts[a][b] *= polyScale;
-			arts[a][b] += AVector(halfVal, halfVal);
-		}
-	}
-	//_cvWrapper.DrawPolyOnCVImage(_pngImg._img, bbPoly,       MyColor(200, 200, 200), true, 1);
-
-
-	//_cvWrapper.DrawPolyOnCVImage(_pngImg._img, points1_skin, MyColor(200, 200, 200), true, lineThickness * 4.0f);
-	//_cvWrapper.DrawPolyOnCVImage(_pngImg._img, points2_skin, MyColor(242, 128, 170), true, lineThickness);
-	//for (unsigned int a = 0; a < arts.size(); a++)
-	for (int a = arts.size() - 1; a >= 0; a--)
-	{
-		int fIdx = fColors[a];
-		int bIdx = bColors[a];
-
-		//background
-		if (bIdx >= 0)
-		{
-			_cvWrapper.DrawFilledPoly(_pngImg, arts[a], ColorPalette::_palette_01[bIdx], imgScale);
-		}
-
-		// foreground
-		if (fIdx >= 0)
-		{
-			_cvWrapper.DrawPolyOnCVImage(_pngImg._img, arts[a], ColorPalette::_palette_01[fIdx], true, lineThickness, imgScale);
-		}
-
-		//_cvWrapper.DrawPolyOnCVImage(_pngImg._img, arts[a], MyColor(0, 0, 170), true, lineThickness);
-	}
-	_pngImg.SaveImage(SystemParams::_save_folder + "DEFORMED_ELEMENTS\\" + ss1.str() + ".png");
-	MySVGRenderer::SaveArts(SystemParams::_save_folder + "DEFORMED_ELEMENTS\\" + ss1.str() + ".svg", arts, fColors, bColors);
-	// debug drawing (END)
-	// ----------------------------------------
-	*/
-	// distance
 	return dist;
 }
 

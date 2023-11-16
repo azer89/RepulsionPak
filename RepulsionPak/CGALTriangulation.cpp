@@ -75,36 +75,10 @@ void CGALTriangulation::Triangulate(std::vector<AVector> boundary, std::vector<A
 
 	for (CDT::Finite_faces_iterator fit = cdt.finite_faces_begin(); fit != cdt.finite_faces_end(); ++fit) ////
 	{
-		if (fit->is_in_domain())////
+		if (fit->is_in_domain())
 		{
-			//std::cout << "yeahhh\n";
-			// debug
-			/*int x1 = (*(fit->vertex(0))).point().x();
-			  int y1 = (*(fit->vertex(0))).point().y();
-			  int x2 = (*(fit->vertex(1))).point().x();
-			  int y2 = (*(fit->vertex(1))).point().y();
-			  int x3 = (*(fit->vertex(2))).point().x();
-			  int y3 = (*(fit->vertex(2))).point().y();*/
-
-			  //std::cout << (*(fit->vertex(0))).info() << " " << (*(fit->vertex(1))).info() << " " << (*(fit->vertex(2))).info() << "\n";
-
 			AnIdxTriangle tri((*(fit->vertex(0))).info(), (*(fit->vertex(1))).info(), (*(fit->vertex(2))).info());
 			triangles.push_back(tri);
-
-			//std::cout << ".";
-
-			// debug
-			//ALine l1(x1, y1, x2, y2);
-			//ALine l2(x2, y2, x3, y3);
-			//ALine l3(x3, y3, x1, y1);
-
-			//lines.push_back(l1);
-			//lines.push_back(l2);
-			//lines.push_back(l3);
-
 		}
 	}
-
-	//std::cout << "vertices size : " << vertices.size() << "; ";
-	//std::cout << "triangles size : " << triangles.size() << "\n";
 }

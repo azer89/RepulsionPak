@@ -6,18 +6,12 @@
 
 #include "PixelTracer.h"
 
-//CmCurveEx
-//#include "CmCurveEx.h"
-
-
-
-ADistanceTransform::ADistanceTransform(//const std::vector<AGraph>& graphs, 
+ADistanceTransform::ADistanceTransform(
 	const std::vector<std::vector<AVector>>& containers,
 	const std::vector<std::vector<AVector>>& holes,
 	const std::vector<std::vector<AVector>>& focals,
-	float scale) //B
+	float scale)
 {
-	//_avgSkinThickness = 0;
 	_maxDist = 0;
 
 	// copy
@@ -52,16 +46,13 @@ ADistanceTransform::ADistanceTransform(//const std::vector<AGraph>& graphs,
 		cvHoles.push_back(_cvWrapper.ConvertList<AVector, cv::Point2f>(holes[a]));
 	}
 	_container_size = 0;
-	//for (int y = 0; y < _containerDistImage.rows; y++)
 	for (int xIter = 0; xIter < _sz; xIter++)
 	{
-		//for (int x = 0; x < _containerDistImage.cols; x++)
 		for (int yIter = 0; yIter < _sz; yIter++)
 		{
 			float xActual = ((float)xIter) / _scale;
 			float yActual = ((float)yIter) / _scale;
 
-			//float d = cv::pointPolygonTest(cvContainer, cv::Point2f(xActual, yActual), true);
 			float d = -1;
 			for (unsigned int a = 0; a < containers.size(); a++)
 			{
@@ -119,10 +110,6 @@ ADistanceTransform::ADistanceTransform(//const std::vector<AGraph>& graphs,
 	{
 		for (unsigned int y = 0; y < _sz; y++)
 		{
-			//float x = ((float)xIter) / ((float)SystemParams::_upscaleFactor);
-			//float y = ((float)yIter) / ((float)SystemParams::_upscaleFactor);
-
-			//if (_containerDistImage.at<float>(y, x) >= 0)  
 			if (_containerDistArray[x + y * _sz] >= 0)
 			{
 				_fill_img_template.SetIntegerPixel(x, y, 1);
@@ -133,95 +120,9 @@ ADistanceTransform::ADistanceTransform(//const std::vector<AGraph>& graphs,
 	}
 }
 
-//ADistanceTransform::ADistanceTransform(//const std::vector<std::vector<AVector>> graphs,
-//									   const std::vector<std::vector<AVector>>& containers,
-//									   const std::vector<std::vector<AVector>>& focals,
-//									   float scale)
-//{
-//	// copy
-//	_containers = containers;
-//
-//	_scale = scale;
-//	_sz = SystemParams::_upscaleFactor * _scale;
-//
-//	_containerDistArray = std::vector<float>(_sz * _sz);
-//	_distArray = std::vector<float>(_sz * _sz);
-//
-//	//_distImage = cv::Mat::zeros(sz, sz, CV_32FC1);
-//	//_containerDistImage = cv::Mat::zeros(sz, sz, CV_32FC1);
-//
-//	// graph boundaries
-//	/*for (int a = 0; a < graphs.size(); a++)
-//	{
-//		_graphBoundaries.push_back(_cvWrapper.ConvertList<AVector, cv::Point2f>(graphs[a]));
-//		_voronoiColors.push_back(MyColor(rand() % 254 + 1, rand() % 254 + 1, rand() % 254 + 1));// voronoi
-//		
-//		CVImg img; // voronoi
-//		img.CreateGrayscaleImage(_sz);  // voronoi
-//		img.SetGrayscaleImageToBlack(); // voronoi
-//		_voronoiBWImages.push_back(img);  // voronoi
-//	}*/
-//	//{ _graphBoundaries.push_back(_cvWrapper.ConvertList<AVector, cv::Point2f>(graphs[a]._boundary)); }
-//
-//	// container 
-//	// currently only support one container
-//	std::vector<cv::Point2f> cvContainer = _cvWrapper.ConvertList<AVector, cv::Point2f>(containers[0]);//B
-//	std::vector<std::vector<cv::Point2f>> cvHoles;
-//	for (int a = 0; a < focals.size(); a++)
-//	{
-//		cvHoles.push_back(_cvWrapper.ConvertList<AVector, cv::Point2f>(focals[a]));
-//	}
-//	_container_size = 0;
-//	//for (int y = 0; y < _containerDistImage.rows; y++)
-//	for (int xIter = 0; xIter < _sz; xIter++)
-//	{
-//		//for (int x = 0; x < _containerDistImage.cols; x++)
-//		for (int yIter = 0; yIter < _sz; yIter++)
-//		{
-//			float xActual = ((float)xIter) / _scale;
-//			float yActual = ((float)yIter) / _scale;
-//
-//			float d = cv::pointPolygonTest(cvContainer, cv::Point2f(xActual, yActual), true);
-//
-//			bool isInsideHole = false;
-//			for (int a = 0; a < cvHoles.size(); a++)
-//			{
-//				float d2 = cv::pointPolygonTest(cvHoles[a], cv::Point2f(xActual, yActual), true);
-//				if (d2 > 0){ isInsideHole = true; break; }
-//			}
-//
-//			if (d >= 0 && !isInsideHole)  { _container_size++; }
-//
-//			_containerDistArray[xIter + yIter * _sz] = d;
-//			if (isInsideHole) { _containerDistArray[xIter + yIter * _sz] = -1; }
-//		}
-//	}
-//
-//	//_fill_img_template
-//	_fill_img_template.CreateIntegerImage(_sz);
-//	for (unsigned int x = 0; x < _sz; x++)
-//	{
-//		for (unsigned int y = 0; y < _sz; y++)
-//		{
-//			//float x = ((float)xIter) / ((float)SystemParams::_upscaleFactor);
-//			//float y = ((float)yIter) / ((float)SystemParams::_upscaleFactor);
-//
-//			//if (_containerDistImage.at<float>(y, x) >= 0)  
-//			if (_containerDistArray[x + y * _sz] >= 0)
-//			{
-//				_fill_img_template.SetIntegerPixel(x, y, 1);
-//			} // inside boundary
-//			else { _fill_img_template.SetIntegerPixel(x, y, 0); }
-//
-//		}
-//	}
-//}
-
-
 ADistanceTransform::~ADistanceTransform()
 {
 }
-
 
 void ADistanceTransform::AddGraph(const std::vector<AVector>& graphs)
 {
@@ -421,8 +322,6 @@ void ADistanceTransform::CalculateSDF2(const std::vector<AnElement>& graphs, Col
 		PathIO pathIO;
 		pathIO.SaveSDF2CSV(dummyARray, SystemParams::_output_folder + ss666.str());
 	}
-
-
 }
 
 // THIS is called by CreateManualPacking()
@@ -461,7 +360,6 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 			////// include container
 			float minDist = containerDistVal;
 
-
 			bool isInside = false;
 			for (unsigned int a = 0; a < graphIndices.size(); a++)
 			{
@@ -498,10 +396,6 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 				overlapMask[xIter + yIter * _sz] = -1;  // (Overlap Mask) outside element outside container
 				minDist = 0; // (SDF)
 			}
-			//else if (!isInside && containerDistVal > 0)
-			//{
-			//	minDist = containerDistVal;
-			//}
 
 			// no closest element AND inside container
 			else if (graphIndices.size() == 0 && containerDistVal > 0)
@@ -529,12 +423,10 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 		pathIO.SaveSDF2CSV(_containerDistArray, SystemParams::_output_folder + "dist_mask.csv");
 	}
 
-
 	/*CVImg thinningImage;
 	std::stringstream ss3;
 	ss3 << "thin_" << numIter;
 	thinningImage = SkeletonDistance(overlapMask, ss3.str());*/
-
 
 	// create new elements !!!!
 	CalculatePeaks();
@@ -557,8 +449,6 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 	}
 
 	std::cout << "_maxDist = " << _maxDist << "\n";
-
-
 }
 
 CVImg ADistanceTransform::SkeletonDraw(std::string imageName)
@@ -829,9 +719,6 @@ void ADistanceTransform::DebugOverlapMask(std::vector<int> overlapMask, CVImg th
 			if (thinningImage.GetGrayValue(x, y) > 0)
 			{
 				cv::circle(drawing, cv::Point(x, y), _scale, cv::Scalar(32, 124, 244), -1, 8);
-				//drawing.at<cv::Vec3b>(y, x)[0] = 0;
-				//drawing.at<cv::Vec3b>(y, x)[1] = 255;
-				//drawing.at<cv::Vec3b>(y, x)[2] = 0;
 			}
 		}
 	}
@@ -976,22 +863,6 @@ void  ADistanceTransform::DebugDistanceImage(CVImg thinningImage, std::string im
 	cv::imwrite(SystemParams::_output_folder + "SDF\\" + imageName + ".png", drawing);
 }
 
-/*cv::Mat ADistanceTransform::CalculateDistanceTransform(const std::vector<AVector> boundary, cv::Mat& dImage)
-{
-	//cv::Mat dImage = cv::Mat::zeros(SystemParams::_upscaleFactor, SystemParams::_upscaleFactor, CV_32FC1); // should be zeros
-
-	// ---------- calculate grid ----------
-	for (int y = 0; y < dImage.rows; y++)
-	{
-		for (int x = 0; x < dImage.cols; x++)
-		{
-			float d = cv::pointPolygonTest(cvContour, cv::Point2f(x, y), true);
-			dImage.at<float>(y, x) = -d; // because I want positive (outside) and negative (inside)
-		}
-	}
-
-}*/
-
 void ADistanceTransform::CalculatePeaks()
 {
 	if (SystemParams::_peak_dist_stop > 100)
@@ -1068,112 +939,3 @@ void ADistanceTransform::CalculatePeaks()
 
 	//std::cout << "===== _peaks size " << _peaks.size() << " =====\n\n";
 }
-
-// soon to be deprecated
-/*void ADistanceTransform::CalculateDistanceTransform2(CollissionGrid* cGrid,
-													 AVector& peakPos,
-													 float& maxDist,
-													 float& fill_percentage,
-													 std::vector<AVector>& peaks,
-													 int numIter)
-{
-	peakPos = AVector();
-	maxDist = std::numeric_limits<float>::min();
-	for (int y = 0; y < _distImage.rows; y++)
-	{
-		for (int x = 0; x < _distImage.cols; x++)
-		{
-			if (_containerDistImage.at<float>(y, x) < 0) { continue; }
-
-			std::vector<int> graphIndices;
-
-			// ---------- neighbouring graph ----------
-			std::vector<AnObject*> qtObjects = cGrid->GetObjects(x, y);
-			for (unsigned int a = 0; a < qtObjects.size(); a++)
-			{
-				if (UtilityFunctions::GetIndexFromIntList(graphIndices, qtObjects[a]->_info1) == -1)
-					{ graphIndices.push_back(qtObjects[a]->_info1); }
-			}
-
-			// ---------- distance ----------
-			float minDist = std::numeric_limits<float>::max();
-			for (unsigned int a = 0; a < graphIndices.size(); a++)
-			{
-				float d = -cv::pointPolygonTest(_graphBoundaries[graphIndices[a]], cv::Point2f(x, y), true);
-				if (d <= 0) // inside
-					{ minDist = 0; break; }
-
-				if (d < minDist) // outside
-					{ minDist = d; }
-			}
-
-			if (graphIndices.size() == 0) { minDist = _containerDistImage.at<float>(y, x); }
-
-			_distImage.at<float>(y, x) = minDist;
-
-			// ---------- peak ----------
-			if (minDist > maxDist)
-			{
-				maxDist = minDist;
-				peakPos = AVector(x, y);
-			}
-		}
-	}
-
-	// ---------- save to image ----------
-	std::stringstream ss;
-	ss << "dist_" << numIter;
-	DebugDistanceImage(_distImage, ss.str());
-
-	// ---------- fill ratio ----------
-	fill_percentage = 0;
-	for (int y = 0; y < _distImage.rows; y++)
-	{
-		for (int x = 0; x < _distImage.cols; x++)
-		{
-			if (_containerDistImage.at<float>(y, x) < 0) { continue; }
-
-			if (_distImage.at<float>(y, x) <= 0) { fill_percentage += 1.0f; }
-		}
-	}
-	fill_percentage /= (float)_container_size;
-
-
-
-	////////////////////
-	if (!SystemParams::_activate_attraction_force) { return; }
-
-	peaks.clear();
-
-	std::vector<std::pair<float, AVector>> distPeaks;
-	for (int j = 0; j < _distImage.rows; j++)
-	{
-		for (int i = 0; i < _distImage.cols; i++)
-		{
-			float d = _distImage.at<float>(j, i);
-			if (d > SystemParams::_peak_dist_stop * 1.0) { distPeaks.push_back(std::pair<float, AVector>(d, AVector(i, j))); }
-		}
-	}
-
-	if (!peakPos.IsInvalid()) { distPeaks.push_back(std::pair<float, AVector>(_maxDist, peakPos)); }
-
-	std::cout << "distPeaks size " << distPeaks.size() << "\n";
-
-	if (distPeaks.size() < SystemParams::_num_peak_threshold)
-	{
-		std::random_shuffle(distPeaks.begin(), distPeaks.end());
-
-		std::sort(distPeaks.begin(), distPeaks.end(), [](const std::pair<float, AVector> &x,
-			const std::pair<float, AVector> &y)
-		{ return x.first > y.first; });
-
-		for (int a = 0; a < distPeaks.size(); a++)
-		{
-			AVector pt = distPeaks[a].second;
-			if (peaks.size() == 0) { peaks.push_back(pt); }
-			else  if (UtilityFunctions::DistanceToBunchOfPoints(peaks, pt) > SystemParams::_peak_gap) { peaks.push_back(pt); }
-		}
-	}
-
-
-}*/

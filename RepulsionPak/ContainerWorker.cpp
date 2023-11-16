@@ -1,6 +1,5 @@
 
 #include "ContainerWorker.h"
-
 #include "SystemParams.h"
 #include "AVector.h"
 #include "UtilityFunctions.h"

@@ -2421,9 +2421,6 @@ AVector StuffWorker::GetPerlinVector(int x, int y)
 	FastNoise myNoise2(2222); // Create a FastNoise object
 	myNoise2.SetNoiseType(FastNoise::Perlin); // Set the desired noise type
 
-	//FastNoise myNoise3(3333); // Create a FastNoise object
-	//myNoise3.SetNoiseType(FastNoise::Perlin); // Set the desired noise type
-
 	AVector noiseVector;
 	noiseVector.x = myNoise1.GetNoise(x, y);
 	noiseVector.y = myNoise2.GetNoise(x, y);
@@ -2437,38 +2434,4 @@ AVector StuffWorker::GetPerlinVector(int x, int y)
 
 void StuffWorker::ComputePerlinMap(int t)
 {
-	/*
-	//StuffWorker::_perlinMap.clear();
-
-	//FastNoise myNoise1(rand()); // Create a FastNoise object
-	//myNoise1.SetNoiseType(FastNoise::Perlin); // Set the desired noise type
-
-	//FastNoise myNoise2(rand()); // Create a FastNoise object
-	//myNoise2.SetNoiseType(FastNoise::Perlin); // Set the desired noise type
-
-	float scaleFactor = SystemParams::_noise_factor;
-	for (unsigned int a = 0; a < SystemParams::_upscaleFactor; a++)
-	{
-		//std::vector<AVector> pMap;
-		for (unsigned int b = 0; b < SystemParams::_upscaleFactor; b++)
-		{
-
-
-			//AVector tangentVector = AVector(a, b).DirectionTo(AVector(250.0, 250)).Norm();
-			//AVector circleVector = AVector(-tangentVector.y, tangentVector.x);
-
-			float val = myNoise1.GetNoise(a * scaleFactor, b * scaleFactor, t * scaleFactor);
-
-			AVector noiseVector = AVector(std::sin(2.0 * 3.14159 * val), std::cos(2.0 * 3.14159 * val));
-			//AVector noiseVector;
-			//noiseVector.x = myNoise1.GetNoise(a * scaleFactor, b * scaleFactor, t);
-			//noiseVector.y = myNoise2.GetNoise(a * scaleFactor, b * scaleFactor, t);
-
-			//noiseVector = (noiseVector * 3.0f + circleVector * 1.0f) / 4.0f;
-
-			StuffWorker::_perlinMap[a][b] = noiseVector;
-		}
-		//StuffWorker::_perlinMap.push_back(pMap);
-	}
-	*/
 }

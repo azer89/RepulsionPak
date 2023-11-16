@@ -50,27 +50,27 @@ public:
 
 	// initializing static variables
 	//static void InitStatic();
-		
+
 	std::vector<std::string> LoadFiles(std::string directoryPath); // read directory
 	void LoadOrnaments(); // ornaments
 
 	//void LoadContainer(); // container boundary
 	/*void CreatePoints(std::vector<AVector>  ornamentBoundary, // container boundary
 					  float img_length,
-		              std::vector<AVector>& randomPoints,
+					  std::vector<AVector>& randomPoints,
 					  int& boundaryPointNum);*/
 
-	// pyramid of arclength descriptor
-	//void CalculatePAD();
-		
+					  // pyramid of arclength descriptor
+					  //void CalculatePAD();
+
 	void ProcessOrnaments(); 	          // skin and triangulate. Create copies
 	void SkinAndTriangulateOrnaments();   // is called from ProcessOrnaments()  	
 	void ProcessSmallOrnaments1();        // is called from ProcessOrnaments()	
 	void ProcessFocalOrnaments();
 	void AddNewSmallElements();
-	
+
 	AnElement ProcessAnOrnament(AnElement oriGraph, AVector pos, float scale, int graphID/*, float maxEdgeLengthFactor*/);
-		
+
 	void FindClickedMass(float x, float y);
 	void DragClickedMass(float x, float y);
 	void DragClickedGraph(float x, float y);
@@ -96,11 +96,11 @@ public:
 	void Solve();             // not used anymore	
 	void Simulate(float dt);  // not used anymore
 	// --------------------------------------------
-	
+
 
 	void UpdatePosition(float dt); // verlet
 	void UpdateVelocity(float dt); // verlet
-	
+
 	//void SaveGraphToPNG(AGraph oriGraph, std::string saveFolder, int numGraph, float initScale = 1.0f);
 
 	// IO
@@ -120,16 +120,16 @@ public:
 
 	//int _num_vertex;
 
-	
+
 	//float _man_neg_ratio;
 
 	//AVector start_ln;
 	//AVector end_ln;
 	//AVector rand_pt;
 	//AVector pt_on_line;
-	ContainerWorker*    _containerWorker;
+	ContainerWorker* _containerWorker;
 	ADistanceTransform* _aDTransform;
-	RigidRegistration*  _rr;	
+	RigidRegistration* _rr;
 	CVImg               _pngImg;
 	OpenCVWrapper       _cvWrapper;
 
@@ -142,7 +142,7 @@ public:
 	std::vector<AnElement>         _smallOriGraph1;  // elements
 
 	//std::vector<AVector> _randomPositions;  // for elements
-	
+
 	float _deformationValue;
 	float _avgSkinThickness;
 
@@ -150,10 +150,10 @@ public:
 	static CollissionGrid* _cGrid;
 
 	/*PADCalculator      _padCalc; // boundary
-	
+
 	std::vector<std::vector<std::vector<AVector>>> _focals;   // container
 	std::vector<std::vector<AVector>> _offsetFocalBoundaries; // container
-	
+
 	// this is old code with VF
 	std::vector<VFRegion> _container_vf_region;              // container
 	std::vector<std::vector<AVector>> _container_boundaries; // container
@@ -182,12 +182,12 @@ public:
 	//float _totalAttractionF;
 	//float _totalFoldingF;	
 	std::vector<std::vector<float>> _stuffData; // data for csv
-		
+
 	//AVector _peakPos;
 	//float _maxDist;	
 	//std::vector<float> _max_dist_array;	
 	//float _peak_rms;
-	
+
 	std::vector<float> _fill_ratio_array;
 	float _fill_diff;
 	float _fill_ratio;
@@ -255,13 +255,13 @@ public:
 	void CalculateMetrics2();
 	void CalculateMetrics3();
 	void AddToAccumulationBuffer(std::vector<std::vector<AVector>> elem, CVImg& accumulationBuffer, int startVal, int numIter);
-	void DrawAccumulationBuffer(CVImg accumulationBuffer, float startColor, float offsetVal,float overlapArea, int numIter);
+	void DrawAccumulationBuffer(CVImg accumulationBuffer, float startColor, float offsetVal, float overlapArea, int numIter);
 
 	void AnalyzeFinishedPacking();
 	void CreateManualPacking();
 	void CreateManualPacking2();
 	void AnalyzeManualPacking();
-	
+
 	// ====================================================
 	CollissionGrid* _sqCGrid;
 	std::vector<std::vector<AVector>> _squares;

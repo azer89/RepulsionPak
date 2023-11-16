@@ -46,9 +46,13 @@ void CGALTriangulation::Triangulate(std::vector<AVector> boundary, std::vector<A
 
 	// add constraints which are the boundary itself
 	for (int a = 0; a < sz - 1; a++)
-		{ cdt.insert_constraint(vHandles[a], vHandles[a + 1]); }
+	{
+		cdt.insert_constraint(vHandles[a], vHandles[a + 1]);
+	}
 	if (boundary[0].Distance(boundary[sz - 1]) > std::numeric_limits<float>::epsilon())
-		{ cdt.insert_constraint(vHandles[vHandles.size() - 1], vHandles[0]); }
+	{
+		cdt.insert_constraint(vHandles[vHandles.size() - 1], vHandles[0]);
+	}
 
 	std::list<CDTPoint> seeds;
 	seeds.push_back(CDTPoint(0, 0));
@@ -57,9 +61,9 @@ void CGALTriangulation::Triangulate(std::vector<AVector> boundary, std::vector<A
 
 	// make indices and save the vertices
 	int a = 0;
-	for (CDT::Finite_vertices_iterator vit = cdt.finite_vertices_begin(); 
-		 vit != cdt.finite_vertices_end(); 
-		 vit++)
+	for (CDT::Finite_vertices_iterator vit = cdt.finite_vertices_begin();
+		vit != cdt.finite_vertices_end();
+		vit++)
 	{
 		vit->info() = a;
 
@@ -71,10 +75,10 @@ void CGALTriangulation::Triangulate(std::vector<AVector> boundary, std::vector<A
 
 	for (CDT::Finite_faces_iterator fit = cdt.finite_faces_begin(); fit != cdt.finite_faces_end(); ++fit) ////
 	{
-		if(fit->is_in_domain())////
+		if (fit->is_in_domain())////
 		{
 			//std::cout << "yeahhh\n";
-		    // debug
+			// debug
 			/*int x1 = (*(fit->vertex(0))).point().x();
 			  int y1 = (*(fit->vertex(0))).point().y();
 			  int x2 = (*(fit->vertex(1))).point().x();
@@ -82,7 +86,7 @@ void CGALTriangulation::Triangulate(std::vector<AVector> boundary, std::vector<A
 			  int x3 = (*(fit->vertex(2))).point().x();
 			  int y3 = (*(fit->vertex(2))).point().y();*/
 
-			//std::cout << (*(fit->vertex(0))).info() << " " << (*(fit->vertex(1))).info() << " " << (*(fit->vertex(2))).info() << "\n";
+			  //std::cout << (*(fit->vertex(0))).info() << " " << (*(fit->vertex(1))).info() << " " << (*(fit->vertex(2))).info() << "\n";
 
 			AnIdxTriangle tri((*(fit->vertex(0))).info(), (*(fit->vertex(1))).info(), (*(fit->vertex(2))).info());
 			triangles.push_back(tri);

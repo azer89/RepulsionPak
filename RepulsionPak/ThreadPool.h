@@ -49,7 +49,7 @@ public:
 			t.join();
 	}
 
-	
+
 	// https_//github.com/mtrebi/thread-pool
 	template<typename F, typename...Args>
 	void submit(F&& f, Args&&... args)
@@ -65,9 +65,9 @@ public:
 		/*std::function<void()> wrapper_func = [task_ptr]() {
 			(*task_ptr)();
 		};*/
-		
+
 		//enqueue(wrapper_func); 
-		enqueue(std::bind(f, args...)); 
+		enqueue(std::bind(f, args...));
 	}
 
 	// generic function push

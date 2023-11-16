@@ -3,19 +3,15 @@
 
 #include "glew.h"
 #include "freeglut.h"
-
 #include "imgui.h"
 #include "imgui_impl_glut.h"
 
 #include "SystemParams.h"
-
 #include "ColorPalette.h"
 
 #include <iostream>
 #include <sstream>
-
 #include <thread>
-
 #include <cstdlib>
 
 
@@ -24,7 +20,7 @@
 
 std::shared_ptr<Display> Display::_static_instance = nullptr;
 
-float Display::_initScreenWidth  = 1800;
+float Display::_initScreenWidth = 1800;
 float Display::_initScreenHeight = 1000;
 
 //char sceneNameBuf[512] = "";
@@ -38,7 +34,7 @@ float Display::_initScreenHeight = 1000;
 //}
 
 Display::Display() :
-    _xDragOffset(0),
+	_xDragOffset(0),
 	_yDragOffset(0),
 	_zoomFactor(1.0f),
 	_screenWidth(0.0f),
@@ -52,20 +48,20 @@ Display::Display() :
 	//_prev_draw_time3 = 0;
 
 	_svg_time_counter = 0.0f;
-	_svg_int_counter  = 0;
+	_svg_int_counter = 0;
 	_png_time_counter = 0.0f;
-	_png_int_counter  = 0;
+	_png_int_counter = 0;
 	_sdf_time_counter = 0.0f;
-	_sdf_int_counter  = 0;
+	_sdf_int_counter = 0;
 	_rms_time_counter = 0.0f;
-	_rms_int_counter  = 0;
+	_rms_int_counter = 0;
 
 	_prev_snapshot_time = 0;
 	_prev_opengl_draw = 0;
 
-	
+
 	//_time            = 0;
-	_previous_time   = 0;
+	_previous_time = 0;
 	_simulation_time = 0;
 	//_timeprev        = 0;
 
@@ -105,14 +101,14 @@ Display::~Display()
 // static
 std::shared_ptr<Display> Display::GetInstance()
 {
-	
+
 
 	if (_static_instance == nullptr)
-	{ 
+	{
 		_initScreenWidth = SystemParams::_screen_width;
 		_initScreenHeight = SystemParams::_screen_height;
 
-		_static_instance = std::shared_ptr<Display>(new Display()); 
+		_static_instance = std::shared_ptr<Display>(new Display());
 		_static_instance->_screenWidth = _initScreenWidth;
 		_static_instance->_screenHeight = _initScreenHeight;
 	}
@@ -174,8 +170,8 @@ void Display::DrawPNGSnapshot(float time_delta)
 
 	}
 
-	
-	
+
+
 }
 
 void Display::CalculateSDF(float time_delta)
@@ -196,7 +192,7 @@ void Display::CalculateSDF(float time_delta)
 
 void Display::CalculateFillRMS(float time_delta)
 {
-	
+
 	_rms_time_counter += time_delta;
 
 	// time period
@@ -225,7 +221,7 @@ void Display::Draw()
 	// ---------- calculate time ----------
 	int current_time = glutGet(GLUT_ELAPSED_TIME); // current time
 	int time_delta = current_time - _previous_time - _prev_snapshot_time - _prev_opengl_draw;
-	_previous_time = current_time; 
+	_previous_time = current_time;
 
 	_prev_snapshot_time = 0; // reset 
 
@@ -240,7 +236,7 @@ void Display::Draw()
 	}
 
 	if (shouldSimulate && _simulation_time < 0.0001)
-	{		
+	{
 		// ---------- update boundary  ----------
 		for (unsigned int a = 0; a < _sWorker._graphs.size(); a++)
 		{
@@ -288,8 +284,8 @@ void Display::Draw()
 
 		// _simulation_time
 		// ---------- STOP ----------
-		if(_sWorker._fill_ratio >= SystemParams::_target_fill_ratio)
-		{			
+		if (_sWorker._fill_ratio >= SystemParams::_target_fill_ratio)
+		{
 			SystemParams::_simulate_1 = false; // flags
 			SystemParams::_simulate_2 = false; // flags			
 
@@ -302,7 +298,7 @@ void Display::Draw()
 			/*_sWorker.SaveSVG(_svg_int_counter++); // can be REMOVED
 			_sWorker.SavePNG(_png_int_counter++); // can be REMOVED
 			_sWorker.SaveGraphs(); // can be REMOVED */
-			
+
 			//std::cout << "stop\n";
 
 			// add new small elements
@@ -312,11 +308,11 @@ void Display::Draw()
 
 				_sWorker.SaveSVG(_svg_int_counter++);
 				_sWorker.SavePNG(_png_int_counter++);
-				
+
 				//_sWorker.RecreateDistanceTransform(1.0f);
 				int time_a = glutGet(GLUT_ELAPSED_TIME);
 				std::cout << "1\n";
-				for (AnElement& aGraph : _sWorker._graphs)  { aGraph.RecalculateArts(); }
+				for (AnElement& aGraph : _sWorker._graphs) { aGraph.RecalculateArts(); }
 				std::cout << "2\n";
 				_sWorker.CalculateSDF(_sdf_int_counter++, false);
 				std::cout << "3\n";
@@ -344,7 +340,7 @@ void Display::Draw()
 						_sWorker._numTriangles,    // 11
 						SystemParams::_seed);
 				}
-				
+
 				_sWorker._fill_ratio_array.clear(); // clearing the fill record to buy some time
 
 				int time_b = glutGet(GLUT_ELAPSED_TIME);
@@ -361,7 +357,7 @@ void Display::Draw()
 			}
 			else
 			{
-				for (AnElement& aGraph : _sWorker._graphs)  { aGraph.RecalculateArts(); } // can be REMOVED				
+				for (AnElement& aGraph : _sWorker._graphs) { aGraph.RecalculateArts(); } // can be REMOVED				
 				_sWorker.SaveSVG(_svg_int_counter++);
 
 				if (SystemParams::_output_files)
@@ -376,18 +372,18 @@ void Display::Draw()
 					if (_sWorker._hasSmallElements) { infoFile = "2nd_simulation_statistics.txt"; }
 					PathIO pIO;
 					pIO.SaveInfo(SystemParams::_output_folder + infoFile,
-								_simulation_time,           // 1
-								_sWorker._fill_ratio,       // 2
-								_sWorker._fill_rms,         // 3
-								_sWorker._deformationValue, // 4
-								_sWorker._avgSkinThickness, // 5
-								_sWorker._graphs.size(),    // 6
-								_frameCounter,              // 7
-								_sWorker._numTriEdges,      // 8
-								_sWorker._numAuxEdges,      // 9
-								_sWorker._numPoints,        // 10
-								_sWorker._numTriangles,    // 11
-								SystemParams::_seed);
+						_simulation_time,           // 1
+						_sWorker._fill_ratio,       // 2
+						_sWorker._fill_rms,         // 3
+						_sWorker._deformationValue, // 4
+						_sWorker._avgSkinThickness, // 5
+						_sWorker._graphs.size(),    // 6
+						_frameCounter,              // 7
+						_sWorker._numTriEdges,      // 8
+						_sWorker._numAuxEdges,      // 9
+						_sWorker._numPoints,        // 10
+						_sWorker._numTriangles,    // 11
+						SystemParams::_seed);
 				}
 
 
@@ -408,7 +404,7 @@ void Display::Draw()
 
 	// ---------- OpenGL Draw ----------
 	_prev_opengl_draw = 0; // reset
-	int timeA = glutGet(GLUT_ELAPSED_TIME); 
+	int timeA = glutGet(GLUT_ELAPSED_TIME);
 
 	_sWorker.Draw();
 
@@ -419,26 +415,26 @@ void Display::Draw()
 	ImGui_ImplGLUT_NewFrame(this->_screenWidth, this->_screenHeight, 1.0f / 30.0f);
 	ImGui::SetNextWindowPos(ImVec2(5, 15), ImGuiSetCond_FirstUseEver);  // set position
 
-	bool show_another_window = false;	
+	bool show_another_window = false;
 	ImGui::Begin("PhysicsPak", &show_another_window, ImVec2(280, 700));
 
 	//if (_rms_time_counter > 0)
 	//{
-		if (SystemParams::_simulate_1)
-		{
-			ImGui::Text("SIMULATION #1");
-			ImGui::Text("Processing regular elements");
-		}
-		else if (SystemParams::_simulate_2)
-		{
-			ImGui::Text("SIMULATION #2");
-			ImGui::Text("Proccessing filling elements");
-		}
-		else
-		{
-			ImGui::Text("SIMULATION HAS DONE");
-			ImGui::Text("");
-		}
+	if (SystemParams::_simulate_1)
+	{
+		ImGui::Text("SIMULATION #1");
+		ImGui::Text("Processing regular elements");
+	}
+	else if (SystemParams::_simulate_2)
+	{
+		ImGui::Text("SIMULATION #2");
+		ImGui::Text("Proccessing filling elements");
+	}
+	else
+	{
+		ImGui::Text("SIMULATION HAS DONE");
+		ImGui::Text("");
+	}
 	//}
 	//else
 	//{
@@ -452,19 +448,19 @@ void Display::Draw()
 	ImGui::Text(("Runtime: " + std::to_string((int)(_simulation_time / 1000.0f)) + " s").c_str());
 
 	ImGui::Text(("Target fill ratio: " + std::to_string(SystemParams::_target_fill_ratio)).c_str());
-	ImGui::Text(("Fill ratio: "   + std::to_string(_sWorker._fill_ratio)).c_str());
+	ImGui::Text(("Fill ratio: " + std::to_string(_sWorker._fill_ratio)).c_str());
 
-	ImGui::Text(("Num vertices: "     + std::to_string(_sWorker._numPoints)).c_str());
+	ImGui::Text(("Num vertices: " + std::to_string(_sWorker._numPoints)).c_str());
 
 	//ImGui::Text(("Deformation: " + std::to_string(_sWorker._deformationValue)).c_str());
 
 	ImGui::Text(("Average skin offset: " + std::to_string(_sWorker._avgSkinThickness)).c_str());
 	ImGui::Text(("# Growing elements: " + std::to_string(_sWorker._numGrowingElement) + " / " + std::to_string(_sWorker._graphs.size())).c_str());
 
-	
+
 	//ImGui::Text(("_springs_thread_t = " + std::to_string(_sWorker._springs_thread_t)).c_str());
 	ImGui::Separator();
-	ImGui::Text("Multithreading average time\n(microseconds)");	
+	ImGui::Text("Multithreading average time\n(microseconds)");
 	ImGui::Text(("1st pass (Collision grid)  = " + std::to_string((int)_sWorker._c_grid_thread_time.Avg())).c_str());
 	//ImGui::Text(("Collision grid update (1) = " + std::to_string((int)_sWorker._c_grid_cpu_time.Avg())).c_str());
 	ImGui::Text(("2nd pass (Everything else) = " + std::to_string((int)_sWorker._closest_pt_thread_time.Avg())).c_str());
@@ -474,8 +470,8 @@ void Display::Draw()
 	ImGui::Separator();
 	//ImGui::Text(("_cg_thread_t      = " + std::to_string(_sWorker._cg_thread_t)).c_str());
 	//ImGui::Text(("_cg_cpu_t         = " + std::to_string(_sWorker._cg_cpu_t)).c_str());
-	
-		
+
+
 	//ImGui::Text(("# Points: "    + std::to_string(_sWorker._numPoints)).c_str());
 	//ImGui::Text(("# Triangles: " + std::to_string(_sWorker._numTriangles)).c_str());
 
@@ -487,8 +483,8 @@ void Display::Draw()
 
 	if (ImGui::Button("Simulate")) { SystemParams::_simulate_1 = true; }
 	ImGui::Separator();
-	ImGui::Checkbox("Show container",  &SystemParams::_show_boundary);	
-	ImGui::Checkbox("Render elements",   &SystemParams::_show_elements);
+	ImGui::Checkbox("Show container", &SystemParams::_show_boundary);
+	ImGui::Checkbox("Render elements", &SystemParams::_show_elements);
 	ImGui::Checkbox("Show skins", &SystemParams::_show_element_boundary);
 
 
@@ -501,15 +497,15 @@ void Display::Draw()
 
 	ImGui::Separator();
 
-	if (ImGui::Button("Save to SVG"))       
-	{ 
+	if (ImGui::Button("Save to SVG"))
+	{
 		//_sWorker.SaveGraphs(); 
 		_sWorker.SaveSVG(_svg_int_counter++);
 		_sWorker.CalculateSDF(_sdf_int_counter++, true);
 	}
 
 
-	if (ImGui::Button("Reload parameters")) { SystemParams::LoadParameters();  }
+	if (ImGui::Button("Reload parameters")) { SystemParams::LoadParameters(); }
 
 
 	if (ImGui::Button("Delete files"))
@@ -517,12 +513,12 @@ void Display::Draw()
 		DeleteFiles();
 	}
 
-	
+
 	ImGui::End();
 	ImGui::Render();
 
 	//ImGui::GetIO().RenderDrawListsFn = ImGui::GetDrawData();
-	
+
 	int timeB = glutGet(GLUT_ELAPSED_TIME);
 	_prev_opengl_draw = timeB - timeA;
 
@@ -565,7 +561,7 @@ void Display::DeleteFolders()
 void Display::DeleteFiles()
 {
 	DeleteFolders();
-	
+
 	{ std::stringstream ss;
 	ss << "del " << SystemParams::_output_folder << "data.csv";
 	std::system(ss.str().c_str()); }
@@ -620,7 +616,7 @@ void Display::Update(int nScreenWidth, int nScreenHeight)
 		(_screenWidth - xOffset + xZOffset - _xDragOffset), // right
 		(_screenHeight - yOffset + yZOffset - _yDragOffset), //bottom
 		(0 - yOffset - yZOffset - _yDragOffset));	// flip the y axis // top
-	
+
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glScalef(scaleVal, scaleVal, scaleVal);*/
@@ -631,11 +627,11 @@ void Display::Update(int nScreenWidth, int nScreenHeight)
 
 	float sz = 0.0f;
 
-	if (_screenWidth > _screenHeight) { sz = _screenHeight * _zoomFactor;	 } // wide
-	else  { sz = _screenWidth * _zoomFactor; } // tall
+	if (_screenWidth > _screenHeight) { sz = _screenHeight * _zoomFactor; } // wide
+	else { sz = _screenWidth * _zoomFactor; } // tall
 
-	float xOffset = (_screenWidth - sz + _xDragOffset)* 0.5f;
-	float yOffset = (_screenHeight - sz + _yDragOffset)* 0.5f;
+	float xOffset = (_screenWidth - sz + _xDragOffset) * 0.5f;
+	float yOffset = (_screenHeight - sz + _yDragOffset) * 0.5f;
 	float scaleVal = sz / SystemParams::_upscaleFactor;
 
 	//float xZOffset = (1.0f - _zoomFactor) * _screenWidth * 0.5f;
@@ -706,15 +702,15 @@ bool Display::KeyboardEvent(unsigned char nChar, int nX, int nY)
 	io.KeyMap[ImGuiKey_DownArrow]  = GLUT_KEY_DOWN
 	*/
 
-	
+
 
 	return true;
 }
 
 // static
-void Display::ShowGL(int argc, char **argv)
+void Display::ShowGL(int argc, char** argv)
 {
-	
+
 
 	glutInit(&argc, argv);
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
@@ -723,19 +719,19 @@ void Display::ShowGL(int argc, char **argv)
 
 	glutInitWindowSize(_initScreenWidth, _initScreenHeight);
 	glutInitWindowPosition(0, 0);
-	glutCreateWindow( Display::GetInstance()->_window_title.c_str());
+	glutCreateWindow(Display::GetInstance()->_window_title.c_str());
 
 	// callback
-	glutDisplayFunc(      ShowCallback);
-	glutIdleFunc(         ShowCallback);  // so we can animate !
-	glutReshapeFunc(      ResizeCallback);	
-	glutKeyboardFunc(     KeyboardCallback);
-	glutSpecialFunc(      SpecialKeyboardCallback);
-	glutMouseFunc(        MouseCallback);
-	glutMouseWheelFunc(   MouseWheel);
-	glutMotionFunc(       MouseDragCallback);
+	glutDisplayFunc(ShowCallback);
+	glutIdleFunc(ShowCallback);  // so we can animate !
+	glutReshapeFunc(ResizeCallback);
+	glutKeyboardFunc(KeyboardCallback);
+	glutSpecialFunc(SpecialKeyboardCallback);
+	glutMouseFunc(MouseCallback);
+	glutMouseWheelFunc(MouseWheel);
+	glutMotionFunc(MouseDragCallback);
 	glutPassiveMotionFunc(MouseMoveCallback);
-	
+
 	glEnable(GL_MULTISAMPLE);
 	MyColor back_color = ColorPalette::_back_color;
 	glClearColor((float)back_color._r / 255.0f, (float)back_color._g / 255.0f, (float)back_color._b / 255.0f, 1.0);
@@ -777,7 +773,7 @@ void Display::MouseWheel(int button, int dir, int x, int y)
 		Display::GetInstance()->Update(Display::GetInstance()->_screenWidth, Display::GetInstance()->_screenHeight);
 		glutPostRedisplay();
 	}
-	
+
 }
 
 // static
@@ -887,14 +883,14 @@ void Display::MouseMoveCallback(int x, int y)
 	ImGuiIO& io = ImGui::GetIO();
 	io.MousePos = ImVec2((float)x + SystemParams::_mouse_offset_x, (float)y + SystemParams::_mouse_offset_y);
 
-	
+
 
 	glutPostRedisplay();
 }
 
 // this is because the display space isn't the same with the field space
 AVector Display::MapScreenToFieldSpace(float xScreen, float yScreen)
-{	
+{
 	float fX, fY;
 	float sz;
 
@@ -906,7 +902,7 @@ AVector Display::MapScreenToFieldSpace(float xScreen, float yScreen)
 		fY = (yScreen) / (_screenHeight);
 		*/
 		sz = _screenHeight * _zoomFactor;
-		
+
 	}
 	else // tall
 	{
@@ -916,7 +912,7 @@ AVector Display::MapScreenToFieldSpace(float xScreen, float yScreen)
 		//fY = ( (yScreen - (_screenHeight * 0.5f) ) / _screenWidth) + 0.5f;
 	}
 
-	
+
 	float offValX = (_screenWidth - sz + _xDragOffset) * 0.5f;
 	float offValY = (_screenHeight - sz + _yDragOffset) * 0.5f;
 	fX = (xScreen - offValX) / sz;

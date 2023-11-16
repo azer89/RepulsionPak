@@ -33,33 +33,33 @@ public:
 	//std::vector<GraphArt> oArts;
 	//std::vector<std::vector<GraphArt>> dArts;
 	static void LineUpArts(std::string filename,
-		                   std::vector<GraphArt> oArts,
-						   std::vector<std::vector<GraphArt>> dArts,
-						   std::vector<ArtColors> fColors,
-						   std::vector<ArtColors> bColors);
+		std::vector<GraphArt> oArts,
+		std::vector<std::vector<GraphArt>> dArts,
+		std::vector<ArtColors> fColors,
+		std::vector<ArtColors> bColors);
 
-	static void SaveArts(std::string filename, 
-		                 std::vector<std::vector<AVector>> arts, 
-						 std::vector<int> fColors, 
-						 std::vector<int> bColors);
+	static void SaveArts(std::string filename,
+		std::vector<std::vector<AVector>> arts,
+		std::vector<int> fColors,
+		std::vector<int> bColors);
 
-	static void SaveElementsAndSkins(std::string filename, 
-		                             std::vector<AnElement> graphs,
-									 const std::vector<std::vector<std::vector<AVector>>>& focals,
-									 const std::vector<std::vector<AVector>>& offsetFocalBoundaries,
-									 std::vector<std::vector<AVector>> boundaries);
+	static void SaveElementsAndSkins(std::string filename,
+		std::vector<AnElement> graphs,
+		const std::vector<std::vector<std::vector<AVector>>>& focals,
+		const std::vector<std::vector<AVector>>& offsetFocalBoundaries,
+		std::vector<std::vector<AVector>> boundaries);
 
 	static void SaveTriangles(std::string filename, std::vector<AnElement> graphs);
 
 	// physics pak
 	static void SaveGraphElements(std::string filename, std::vector<AnElement> graphs);
-	 
+
 	//std::vector<std::vector<std::vector<AVector>>> _focals;
 	//std::vector<std::vector<AVector>> _offsetFocalBoundaries;
-	static void SaveOrnamentsToSVG(std::string filename, 
-		                           const std::vector<ArtData>& ornaments, 
-								   std::vector<VFRegion> regions,
-								   bool saveSimple = false);
+	static void SaveOrnamentsToSVG(std::string filename,
+		const std::vector<ArtData>& ornaments,
+		std::vector<VFRegion> regions,
+		bool saveSimple = false);
 
 	//static void SaveSimpleBoundariesToSVG(std::string filename, std::vector<ArtData> ornaments);
 
@@ -75,15 +75,15 @@ public:
 	// general debugging
 	static void SaveShapesToSVG(std::string filename, std::vector<std::vector<AVector>> shapes);
 
-	static void SaveDijkstraDebugImageLOL(std::string filename, 
-		                                  std::vector<std::vector<AVector>> myGraph, 
-										  std::vector<AVector> blobBoundary, 
-										  std::vector<AVector> regionBoundary,
-										  std::vector<AVector> cubicCurve,
-										  std::vector<AVector> shortestPath,
-										  std::vector<AVector> oldStreamline,
-										  AVector startPt,
-										  AVector endPt);
+	static void SaveDijkstraDebugImageLOL(std::string filename,
+		std::vector<std::vector<AVector>> myGraph,
+		std::vector<AVector> blobBoundary,
+		std::vector<AVector> regionBoundary,
+		std::vector<AVector> cubicCurve,
+		std::vector<AVector> shortestPath,
+		std::vector<AVector> oldStreamline,
+		AVector startPt,
+		AVector endPt);
 	//static void SaveLRFunctions(std::string filename, LRFunctions func);
 	static void SaveLRFunctions(std::string filename, std::vector<ALine> intersectList);
 };

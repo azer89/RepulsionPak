@@ -9,31 +9,34 @@
 using namespace std;
 
 Quadtree::Quadtree(float _x, float _y, float _width, float _height, int _level, int _maxLevel, Quadtree* _parent) :
-	x		(_x),
-	y		(_y),
-	width	(_width),
-	height	(_height),
-	level	(_level),
+	x(_x),
+	y(_y),
+	width(_width),
+	height(_height),
+	level(_level),
 	maxLevel(_maxLevel),
 	parent(_parent)
 {
 
 
-	if (level == maxLevel) {
+	if (level == maxLevel)
+	{
 		return;
 	}
 
 	const float halfWidth = width * 0.5f;
 	const float halfHeight = height * 0.5f;
 
-	NW = new Quadtree(x, y, halfWidth, halfHeight, level+1, maxLevel, this);
+	NW = new Quadtree(x, y, halfWidth, halfHeight, level + 1, maxLevel, this);
 	NE = new Quadtree(x + halfWidth, y, halfWidth, halfHeight, level + 1, maxLevel, this);
 	SW = new Quadtree(x, y + halfHeight, halfWidth, halfHeight, level + 1, maxLevel, this);
 	SE = new Quadtree(x + halfWidth, y + halfHeight, halfWidth, halfHeight, level + 1, maxLevel, this);
 }
 
-Quadtree::~Quadtree() {
-	if (level == maxLevel) {
+Quadtree::~Quadtree()
+{
+	if (level == maxLevel)
+	{
 		return;
 	}
 
@@ -43,7 +46,7 @@ Quadtree::~Quadtree() {
 	delete SE;
 }
 
-void Quadtree::AddOrThrowObject(QTObject *object)
+void Quadtree::AddOrThrowObject(QTObject* object)
 {
 	if (contains(this, object))
 	{
@@ -57,19 +60,28 @@ void Quadtree::AddOrThrowObject(QTObject *object)
 	}
 }
 
-void Quadtree::AddObject(QTObject *object) {
-	if (level == maxLevel) {
+void Quadtree::AddObject(QTObject* object)
+{
+	if (level == maxLevel)
+	{
 		objects.push_back(object);
 		return;
 	}
 
-	if (contains(NW, object)) {
+	if (contains(NW, object))
+	{
 		NW->AddObject(object); return;
-	} else if (contains(NE, object)) {
+	}
+	else if (contains(NE, object))
+	{
 		NE->AddObject(object); return;
-	} else if (contains(SW, object)) {
+	}
+	else if (contains(SW, object))
+	{
 		SW->AddObject(object); return;
-	} else if (contains(SE, object)) {
+	}
+	else if (contains(SE, object))
+	{
 		SE->AddObject(object); return;
 	}
 
@@ -91,7 +103,7 @@ void Quadtree::ThrowPointsFromLeaves()
 	{
 		if (!contains(this, objects[a]))
 		{
-			parent->AddOrThrowObject( objects[a] ) ;
+			parent->AddOrThrowObject(objects[a]);
 			objects.erase(objects.begin() + a);
 		}
 	}
@@ -163,7 +175,7 @@ vector<QTObject*> Quadtree::GetInvalidNodesAndReassign()
 void Quadtree::RebuildTree()
 {
 	//std::cout << ".";
-	
+
 	//vector<QTObject*> invalidObjects;
 	{
 		vector<QTObject*> childReturnObjects = NW->GetInvalidNodesAndReassign();
@@ -219,11 +231,11 @@ vector<QTObject*>	Quadtree::GetObjects()
 {
 	//return objects;
 
-	if (level == maxLevel) 
+	if (level == maxLevel)
 	{
 		return objects;
 	}
-	
+
 	vector<QTObject*> returnObjects;
 	{
 		vector<QTObject*> childReturnObjects = NW->GetObjects();
@@ -244,11 +256,13 @@ vector<QTObject*>	Quadtree::GetObjects()
 	return returnObjects;
 }
 
-vector<QTObject*> Quadtree::GetObjectsAt(float _x, float _y) {
-	if (level == maxLevel) {
+vector<QTObject*> Quadtree::GetObjectsAt(float _x, float _y)
+{
+	if (level == maxLevel)
+	{
 		return objects;
 	}
-	
+
 	vector<QTObject*> returnObjects, childReturnObjects;
 
 	// objects only exist in leaf nodes
@@ -259,22 +273,31 @@ vector<QTObject*> Quadtree::GetObjectsAt(float _x, float _y) {
 	const float halfWidth = height * 0.5f;
 	const float halfHeight = height * 0.5f;
 
-	if (_x > x + halfWidth && _x < x + width) {
-		if (_y > y + halfHeight && _y < y + height) {
+	if (_x > x + halfWidth && _x < x + width)
+	{
+		if (_y > y + halfHeight && _y < y + height)
+		{
 			childReturnObjects = SE->GetObjectsAt(_x, _y);
 			returnObjects.insert(returnObjects.end(), childReturnObjects.begin(), childReturnObjects.end());
 			return returnObjects;
-		} else if (_y > y && _y <= y + halfHeight) {
+		}
+		else if (_y > y && _y <= y + halfHeight)
+		{
 			childReturnObjects = NE->GetObjectsAt(_x, _y);
 			returnObjects.insert(returnObjects.end(), childReturnObjects.begin(), childReturnObjects.end());
 			return returnObjects;
 		}
-	} else if (_x > x && _x <= x + halfWidth) {
-		if (_y > y + halfHeight && _y < y + height) {
+	}
+	else if (_x > x && _x <= x + halfWidth)
+	{
+		if (_y > y + halfHeight && _y < y + height)
+		{
 			childReturnObjects = SW->GetObjectsAt(_x, _y);
 			returnObjects.insert(returnObjects.end(), childReturnObjects.begin(), childReturnObjects.end());
 			return returnObjects;
-		} else if (_y > y && _y <= y + halfHeight) {
+		}
+		else if (_y > y && _y <= y + halfHeight)
+		{
 			childReturnObjects = NW->GetObjectsAt(_x, _y);
 			returnObjects.insert(returnObjects.end(), childReturnObjects.begin(), childReturnObjects.end());
 			return returnObjects;
@@ -284,18 +307,22 @@ vector<QTObject*> Quadtree::GetObjectsAt(float _x, float _y) {
 	return returnObjects;
 }
 
-void Quadtree::Clear() {
-	if (level == maxLevel) {
+void Quadtree::Clear()
+{
+	if (level == maxLevel)
+	{
 		objects.clear();
 		return;
-	} else {
+	}
+	else
+	{
 		NW->Clear();
 		NE->Clear();
 		SW->Clear();
 		SE->Clear();
 	}
 
-	if (!objects.empty()) 
+	if (!objects.empty())
 	{
 		objects.clear();
 	}
@@ -304,7 +331,7 @@ void Quadtree::Clear() {
 void Quadtree::Draw()
 {
 	// draw here
-	if(!objects.empty())
+	if (!objects.empty())
 	{
 		glColor3f(0, 1, 0);
 		glLineWidth(0.5f);
@@ -336,10 +363,10 @@ void Quadtree::Draw()
 			glVertex2f(objects[a]->x, objects[a]->y);
 		}
 		glEnd();
-		
+
 	}
 
-	if (level != maxLevel) 
+	if (level != maxLevel)
 	{
 		NW->Draw();
 		NE->Draw();
@@ -348,14 +375,14 @@ void Quadtree::Draw()
 	}
 }
 
-bool Quadtree::contains(Quadtree *child, QTObject *object) 
+bool Quadtree::contains(Quadtree* child, QTObject* object)
 {
 	return !(object->x < child->x ||
-             object->y < child->y ||
-		     object->x > child->x + child->width  ||
-		     object->y > child->y + child->height);// ||
-		     //object->x + object->width  < child->x ||
-		     //object->y + object->height < child->y ||
-		     //object->x + object->width  > child->x + child->width ||
-		     //object->y + object->height > child->y + child->height);
+		object->y < child->y ||
+		object->x > child->x + child->width ||
+		object->y > child->y + child->height);// ||
+		//object->x + object->width  < child->x ||
+		//object->y + object->height < child->y ||
+		//object->x + object->width  > child->x + child->width ||
+		//object->y + object->height > child->y + child->height);
 }

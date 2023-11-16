@@ -41,7 +41,7 @@ OpenCVWrapper::~OpenCVWrapper()
 /*================================================================================
 ================================================================================*/
 MyColor OpenCVWrapper::GetRandomColor()
-{	
+{
 	return MyColor(_rng.uniform(0, 255), _rng.uniform(0, 255), _rng.uniform(0, 255));
 }
 
@@ -266,7 +266,9 @@ float OpenCVWrapper::PointPolygonTest(std::vector<T> shape_contours, T pt)
 {
 	std::vector<cv::Point2f> new_contours;
 	for (size_t a = 0; a < shape_contours.size(); a++)
-		{ new_contours.push_back(cv::Point2f((shape_contours[a].x), (shape_contours[a].y))); }
+	{
+		new_contours.push_back(cv::Point2f((shape_contours[a].x), (shape_contours[a].y)));
+	}
 
 	return cv::pointPolygonTest(new_contours, cv::Point2f(pt.x, pt.y), true);
 }
@@ -377,23 +379,25 @@ void OpenCVWrapper::DrawPolysOnCVImage(cv::Mat img,
 	MyColor color,
 	bool isClosed,
 	float thickness,
-	float scale ,
+	float scale,
 	float xOffset,
-	float yOffset )
+	float yOffset)
 {
 	for (unsigned int a = 0; a < shape_contours.size(); a++)
-		{ DrawPolyOnCVImage(img, shape_contours[a], color, isClosed, thickness, scale, xOffset, yOffset); }
+	{
+		DrawPolyOnCVImage(img, shape_contours[a], color, isClosed, thickness, scale, xOffset, yOffset);
+	}
 }
 
 template
 void OpenCVWrapper::DrawPolysOnCVImage(cv::Mat img,
-									const std::vector<std::vector<AVector>>& shape_contours,
-									MyColor color,
-									bool isClosed,
-									float thickness,
-									float scale,
-									float xOffset,
-									float yOffset);
+	const std::vector<std::vector<AVector>>& shape_contours,
+	MyColor color,
+	bool isClosed,
+	float thickness,
+	float scale,
+	float xOffset,
+	float yOffset);
 
 /*================================================================================
 ================================================================================*/
@@ -409,106 +413,118 @@ void OpenCVWrapper::DrawPolyOnCVImage(cv::Mat img,
 {
 	std::vector<cv::Point2f> new_contours;
 	for (size_t b = 0; b < shape_contours.size(); b++)
-		{ new_contours.push_back(cv::Point2f((shape_contours[b].x * scale + xOffset), (shape_contours[b].y * scale + yOffset))); }
+	{
+		new_contours.push_back(cv::Point2f((shape_contours[b].x * scale + xOffset), (shape_contours[b].y * scale + yOffset)));
+	}
 	for (size_t b = 0; b < new_contours.size() - 1; b++)
-		{ cv::line(img, new_contours[b], new_contours[b + 1], cv::Scalar(color._b, color._g, color._r) , thickness); }
+	{
+		cv::line(img, new_contours[b], new_contours[b + 1], cv::Scalar(color._b, color._g, color._r), thickness);
+	}
 	if (isClosed)
-		{ cv::line(img, new_contours[new_contours.size() - 1], new_contours[0], cv::Scalar(color._b, color._g, color._r), thickness); }
+	{
+		cv::line(img, new_contours[new_contours.size() - 1], new_contours[0], cv::Scalar(color._b, color._g, color._r), thickness);
+	}
 }
 
 template
 void OpenCVWrapper::DrawPolyOnCVImage(cv::Mat img,
-									const std::vector<AVector>& shape_contours,
-									MyColor color,
-									bool isClosed,
-									float thickness,
-									float scale,
-									float xOffset,
-									float yOffset);
+	const std::vector<AVector>& shape_contours,
+	MyColor color,
+	bool isClosed,
+	float thickness,
+	float scale,
+	float xOffset,
+	float yOffset);
 
 template
 void OpenCVWrapper::DrawPolyOnCVImage(cv::Mat img,
-									const std::vector<cv::Point2f>& shape_contours,
-									MyColor color,
-									bool isClosed,
-									float thickness,
-									float scale,
-									float xOffset,
-									float yOffset);
+	const std::vector<cv::Point2f>& shape_contours,
+	MyColor color,
+	bool isClosed,
+	float thickness,
+	float scale,
+	float xOffset,
+	float yOffset);
 
 
 /*================================================================================
 ================================================================================*/
 template <typename T>
 void OpenCVWrapper::DrawPoly(std::string imageName,
-						     const std::vector<T>& shape_contours, 
-							 MyColor color,
-						     bool isClosed, 
-							 float thickness,
-							 float scale,
-						     float xOffset, 
-						     float yOffset)
-{  
+	const std::vector<T>& shape_contours,
+	MyColor color,
+	bool isClosed,
+	float thickness,
+	float scale,
+	float xOffset,
+	float yOffset)
+{
 	cv::Mat drawing = _images[imageName];
 
 	std::vector<cv::Point2f> new_contours;
 	for (size_t b = 0; b < shape_contours.size(); b++)
-		{ new_contours.push_back(cv::Point2f((shape_contours[b].x * scale + xOffset), (shape_contours[b].y * scale + yOffset))); }
+	{
+		new_contours.push_back(cv::Point2f((shape_contours[b].x * scale + xOffset), (shape_contours[b].y * scale + yOffset)));
+	}
 	for (size_t b = 0; b < new_contours.size() - 1; b++)
-		{ cv::line(drawing, new_contours[b], new_contours[b + 1], cv::Scalar(color._b, color._g, color._r) , thickness); }
+	{
+		cv::line(drawing, new_contours[b], new_contours[b + 1], cv::Scalar(color._b, color._g, color._r), thickness);
+	}
 	if (isClosed)
-		{ cv::line(drawing, new_contours[new_contours.size() - 1], new_contours[0], cv::Scalar(color._b, color._g, color._r), thickness); }
+	{
+		cv::line(drawing, new_contours[new_contours.size() - 1], new_contours[0], cv::Scalar(color._b, color._g, color._r), thickness);
+	}
 }
 
 template
 void OpenCVWrapper::DrawPoly(std::string imageName,
-						     const std::vector<AVector>& shape_contours, 
-							 MyColor color,
-						     bool isClosed, 
-							 float thickness,
-							 float scale,
-						     float xOffset, 
-						     float yOffset);
+	const std::vector<AVector>& shape_contours,
+	MyColor color,
+	bool isClosed,
+	float thickness,
+	float scale,
+	float xOffset,
+	float yOffset);
 
 /*================================================================================
 ================================================================================*/
 template <typename T>
 void OpenCVWrapper::DrawPolys(std::string imageName,
-	                          const std::vector<std::vector<T>>& shape_contours,
-	                          MyColor color,
-	                          bool isClosed,
-	                          float thickness,
-	                          float scale,
-	                          float xOffset,
-	                          float yOffset)
+	const std::vector<std::vector<T>>& shape_contours,
+	MyColor color,
+	bool isClosed,
+	float thickness,
+	float scale,
+	float xOffset,
+	float yOffset)
 {
 	for (int a = 0; a < shape_contours.size(); a++)
 	{
 		DrawPoly(imageName,
-			     shape_contours[a],
-			     color,
-			     isClosed,
-			     thickness,
-			     scale,
-			     xOffset,
-			     yOffset);
+			shape_contours[a],
+			color,
+			isClosed,
+			thickness,
+			scale,
+			xOffset,
+			yOffset);
 	}
 }
 
 template
 void OpenCVWrapper::DrawPolys(std::string imageName,
-	                          const std::vector<std::vector<AVector>>& shape_contours,
-	                          MyColor color,
-	                          bool isClosed,
-	                          float thickness,
-	                          float scale,
-	                          float xOffset,
-	                          float yOffset);
+	const std::vector<std::vector<AVector>>& shape_contours,
+	MyColor color,
+	bool isClosed,
+	float thickness,
+	float scale,
+	float xOffset,
+	float yOffset);
 
 /*template <typename T>
 void OpenCVWrapper::DrawRetranslatedPoly(std::string imageName,
-							             std::vector<T> shape_contours, 
-							             std::vector<T> medial_axis, 
+										 std::vector<T> shape_contours,
+										 std::vector<T> medial_axis,
 										 MyColor color,
 										 float thickness,
 										 float scale)
@@ -523,7 +539,7 @@ void OpenCVWrapper::DrawRetranslatedPoly(std::string imageName,
 		{ new_contours1.push_back(cv::Point2f((shape_contours[b].x - bb.topleft.x) * scale, (shape_contours[b].y - bb.topleft.y) * scale)); }
 	for (size_t b = 0; b < medial_axis.size(); b++)
 		{ new_contours2.push_back(cv::Point2f((medial_axis[b].x - bb.topleft.x) * scale, (medial_axis[b].y - bb.topleft.y) * scale)); }
-	
+
 	for (size_t b = 0; b < new_contours1.size() - 1; b++)
 		{ cv::line(drawing, new_contours1[b], new_contours1[b + 1], cv::Scalar(color._b, color._g, color._r), thickness); }
 	cv::line(drawing, new_contours1[new_contours1.size() - 1], new_contours1[0], cv::Scalar(color._b, color._g, color._r), thickness);
@@ -534,7 +550,7 @@ void OpenCVWrapper::DrawRetranslatedPoly(std::string imageName,
 
 template
 void OpenCVWrapper::DrawRetranslatedPoly(std::string imageName,
-							             std::vector<AVector> shape_contours, 
+										 std::vector<AVector> shape_contours,
 										 std::vector<AVector> medial_axis,
 										 MyColor color,
 										 float thickness,
@@ -542,15 +558,15 @@ void OpenCVWrapper::DrawRetranslatedPoly(std::string imageName,
 
 
 
-/*================================================================================
-================================================================================*/
+										 /*================================================================================
+										 ================================================================================*/
 template <typename T>
 void OpenCVWrapper::DrawFilledPoly(std::string imageName,
-								   const std::vector<T>& shape_contours, 
-								   MyColor color,
-								   float scale,
-								   float xOffset, 
-								   float yOffset)
+	const std::vector<T>& shape_contours,
+	MyColor color,
+	float scale,
+	float xOffset,
+	float yOffset)
 {
 	cv::Mat drawing = _images[imageName];
 
@@ -566,21 +582,21 @@ void OpenCVWrapper::DrawFilledPoly(std::string imageName,
 
 template
 void OpenCVWrapper::DrawFilledPoly(std::string imageName,
-								   const std::vector<AVector>& shape_contours, 
-								   MyColor color,
-								   float scale,
-							       float xOffset, 
-								   float yOffset);
+	const std::vector<AVector>& shape_contours,
+	MyColor color,
+	float scale,
+	float xOffset,
+	float yOffset);
 
 /*================================================================================
 ================================================================================*/
 template <typename T>
 void OpenCVWrapper::DrawFilledPoly(CVImg img,
-	                               const std::vector<T>& shape_contours,
-	                               MyColor color,
-	                               float scale,
-	                               float xOffset,
-	                               float yOffset)
+	const std::vector<T>& shape_contours,
+	MyColor color,
+	float scale,
+	float xOffset,
+	float yOffset)
 {
 	std::vector<cv::Point> new_contours;
 	for (size_t b = 0; b < shape_contours.size(); b++)
@@ -594,11 +610,11 @@ void OpenCVWrapper::DrawFilledPoly(CVImg img,
 
 template
 void OpenCVWrapper::DrawFilledPoly(CVImg img,
-	                               const std::vector<AVector>& shape_contours,
-	                               MyColor color,
-	                               float scale,
-	                               float xOffset,
-	                               float yOffset);
+	const std::vector<AVector>& shape_contours,
+	MyColor color,
+	float scale,
+	float xOffset,
+	float yOffset);
 
 
 
@@ -606,15 +622,17 @@ void OpenCVWrapper::DrawFilledPoly(CVImg img,
 ================================================================================*/
 template <typename T>
 void OpenCVWrapper::DrawFilledPolyInt(CVImg& img,
-	                                  const std::vector<T>& shape_contours,
-									  int val,
-	                                  float scale,
-	                                  float xOffset,
-	                                  float yOffset)
+	const std::vector<T>& shape_contours,
+	int val,
+	float scale,
+	float xOffset,
+	float yOffset)
 {
 	std::vector<cv::Point> new_contours;
 	for (size_t b = 0; b < shape_contours.size(); b++)
-		{ new_contours.push_back(cv::Point((int)(shape_contours[b].x * scale + xOffset), int(shape_contours[b].y * scale + yOffset))); }
+	{
+		new_contours.push_back(cv::Point((int)(shape_contours[b].x * scale + xOffset), int(shape_contours[b].y * scale + yOffset)));
+	}
 	std::vector<std::vector<cv::Point>> contours;
 	contours.push_back(new_contours);
 	cv::fillPoly(img._img, contours, val);
@@ -622,50 +640,56 @@ void OpenCVWrapper::DrawFilledPolyInt(CVImg& img,
 
 template
 void OpenCVWrapper::DrawFilledPolyInt(CVImg& img,
-	                                  const std::vector<AVector>& shape_contours,
-									  int val,
-	                                  float scale,
-	                                  float xOffset,
-	                                  float yOffset);
+	const std::vector<AVector>& shape_contours,
+	int val,
+	float scale,
+	float xOffset,
+	float yOffset);
 
 template
 void OpenCVWrapper::DrawFilledPolyInt(CVImg& img,
-	                                  const std::vector<cv::Point2f>& shape_contours,
-									  int val,
-	                                  float scale,
-	                                  float xOffset,
-	                                  float yOffset);
+	const std::vector<cv::Point2f>& shape_contours,
+	int val,
+	float scale,
+	float xOffset,
+	float yOffset);
 
 /*================================================================================
 ================================================================================*/
 template <typename T>
 void OpenCVWrapper::DrawPolyInt(CVImg& img,
-	                            const std::vector<T>& shape_contours,
-								int val,
-	                            bool isClosed,
-	                            float thickness,
-	                            float scale,
-	                            float xOffset,
-	                            float yOffset)
+	const std::vector<T>& shape_contours,
+	int val,
+	bool isClosed,
+	float thickness,
+	float scale,
+	float xOffset,
+	float yOffset)
 {
 	std::vector<cv::Point2f> new_contours;
 	for (size_t b = 0; b < shape_contours.size(); b++)
-		{ new_contours.push_back(cv::Point2f((shape_contours[b].x * scale + xOffset), (shape_contours[b].y * scale + yOffset))); }
+	{
+		new_contours.push_back(cv::Point2f((shape_contours[b].x * scale + xOffset), (shape_contours[b].y * scale + yOffset)));
+	}
 	for (size_t b = 0; b < new_contours.size() - 1; b++)
-		{ cv::line(img._img, new_contours[b], new_contours[b + 1], val , thickness); }
+	{
+		cv::line(img._img, new_contours[b], new_contours[b + 1], val, thickness);
+	}
 	if (isClosed)
-		{ cv::line(img._img, new_contours[new_contours.size() - 1], new_contours[0], val, thickness); }
+	{
+		cv::line(img._img, new_contours[new_contours.size() - 1], new_contours[0], val, thickness);
+	}
 }
 
 template
 void OpenCVWrapper::DrawPolyInt(CVImg& img,
-	                            const std::vector<AVector>& shape_contours,
-								int val,
-	                            bool isClosed,
-	                            float thickness,
-	                            float scale,
-	                            float xOffset,
-	                            float yOffset);
+	const std::vector<AVector>& shape_contours,
+	int val,
+	bool isClosed,
+	float thickness,
+	float scale,
+	float xOffset,
+	float yOffset);
 
 /*================================================================================
 ================================================================================*/
@@ -677,7 +701,7 @@ void OpenCVWrapper::DrawLineInt(CVImg& img, T pt1, T pt2, int val, int thickness
 	cv::line(img._img, cv::Point(pt1.x, pt1.y) * scale, cv::Point(pt2.x, pt2.y) * scale, val, thickness);
 }
 
-template 
+template
 void OpenCVWrapper::DrawLineInt(CVImg& img, AVector pt1, AVector pt2, int val, int thickness, float scale);
 
 /*================================================================================
@@ -734,8 +758,8 @@ void OpenCVWrapper::PutText(cv::Mat img, std::string text, AVector pos, MyColor 
 ================================================================================*/
 // I'm trying to be fast
 CVImg OpenCVWrapper::GetDistanceMapFast(int numRegion,
-										      const std::vector<ArtData>& artDataArray, 
-											  CVImg artDataMask)
+	const std::vector<ArtData>& artDataArray,
+	CVImg artDataMask)
 {
 	//clock_t begin_time = clock();
 	std::cout << "OpenCVWrapper::GetDistanceMapFast: function not implemented!!!\n";
@@ -803,10 +827,10 @@ CVImg OpenCVWrapper::GetDistanceMapFast(int numRegion,
 ================================================================================*/
 // bottlenect, this function is really slow
 CVImg OpenCVWrapper::GetDistanceMapSlow(int numRegion,
-										  VFRegion* aRegion, 
-										  const std::vector<ArtData>& artDataArray, 
-										  const std::vector<AVector>& boundary,
-										  const std::vector<std::vector<AVector>>& focalBoundaries)
+	VFRegion* aRegion,
+	const std::vector<ArtData>& artDataArray,
+	const std::vector<AVector>& boundary,
+	const std::vector<std::vector<AVector>>& focalBoundaries)
 {
 	//clock_t begin_time = clock();
 
@@ -870,11 +894,11 @@ std::vector<std::vector<cv::Point>> OpenCVWrapper::GetCVContours(const std::vect
 
 
 CVImg OpenCVWrapper::CreateDijkstraMask(int blobNumber,
-		                                std::vector<AVector> combinedBoundary,
-		                                std::vector<ArtData> artDataArray)
+	std::vector<AVector> combinedBoundary,
+	std::vector<ArtData> artDataArray)
 {
 	//float lineWidth = 1;
-	
+
 	CVImg bwImg;
 	bwImg.CreateIntegerImage(SystemParams::_upscaleFactor);
 
@@ -902,11 +926,11 @@ CVImg OpenCVWrapper::CreateDijkstraMask(int blobNumber,
 }
 
 void OpenCVWrapper::Triangulate(std::vector<AnIdxTriangle>& myTriangles,
-								std::vector<AnIndexedLine>& negSpaceEdges,
-								const std::vector<AVector>& randomPoints,
-	                            const std::vector<AVector>& boundary,
-								float img_length,
-								const std::vector<std::vector<AVector>>& arts)
+	std::vector<AnIndexedLine>& negSpaceEdges,
+	const std::vector<AVector>& randomPoints,
+	const std::vector<AVector>& boundary,
+	float img_length,
+	const std::vector<std::vector<AVector>>& arts)
 {
 	std::vector<cv::Point2f> cvBoundary = ConvertList<AVector, cv::Point2f>(boundary);
 
@@ -948,7 +972,9 @@ void OpenCVWrapper::Triangulate(std::vector<AnIdxTriangle>& myTriangles,
 	cv::Subdiv2D subdiv(rect);
 
 	for (int a = 0; a < randomPoints.size(); a++)
-		{ subdiv.insert(cv::Point2f(randomPoints[a].x, randomPoints[a].y)); }
+	{
+		subdiv.insert(cv::Point2f(randomPoints[a].x, randomPoints[a].y));
+	}
 
 	/*subdiv.insert(cv::Point2f(0, 0));
 	subdiv.insert(cv::Point2f(0, SystemParams::_upscaleFactor));
@@ -980,7 +1006,7 @@ void OpenCVWrapper::Triangulate(std::vector<AnIdxTriangle>& myTriangles,
 
 		AVector centerPt = (pt1 + pt2 + pt3) / 3.0f;
 		if (cv::pointPolygonTest(cvBoundary, cv::Point2f(centerPt.x, centerPt.y), true) < 0)
-		{ 
+		{
 			AVector cPt;
 			float d;
 
@@ -988,7 +1014,7 @@ void OpenCVWrapper::Triangulate(std::vector<AnIdxTriangle>& myTriangles,
 			//cPt = (pt1 + pt2) / 2.0f;
 			//d = UtilityFunctions::DistanceToClosedCurve(boundary, cPt);
 			//if (d < eps)
-			if(std::abs(idx1 - idx2) > 2)
+			if (std::abs(idx1 - idx2) > 2)
 			{
 				negSpaceEdges.push_back(AnIndexedLine(idx1, idx2));
 			}
@@ -1010,14 +1036,14 @@ void OpenCVWrapper::Triangulate(std::vector<AnIdxTriangle>& myTriangles,
 			{
 				negSpaceEdges.push_back(AnIndexedLine(idx3, idx1));
 			}
-			
-			continue; 
+
+			continue;
 		}
 
 
 
-		
-		std::vector<AVector> triPts = {pt1, pt2, pt3};
+
+		std::vector<AVector> triPts = { pt1, pt2, pt3 };
 		if (ClipperWrapper::IsClockwise(triPts))
 		{
 			AnIdxTriangle tri(idx1, idx2, idx3);
@@ -1030,7 +1056,7 @@ void OpenCVWrapper::Triangulate(std::vector<AnIdxTriangle>& myTriangles,
 			myTriangles.push_back(tri);
 		}
 
-		
+
 	}
 
 	delete knn;

@@ -50,11 +50,11 @@ void MySVGRenderer::SaveTriangles(std::string filename, std::vector<AnElement> g
 	doc2.save();
 }
 
-void MySVGRenderer::SaveElementsAndSkins(std::string filename, 
-	                                     std::vector<AnElement> graphs,
-										 const std::vector<std::vector<std::vector<AVector>>>& focals,
-										 const std::vector<std::vector<AVector>>& offsetFocalBoundaries,
-										 std::vector<std::vector<AVector>> boundaries)
+void MySVGRenderer::SaveElementsAndSkins(std::string filename,
+	std::vector<AnElement> graphs,
+	const std::vector<std::vector<std::vector<AVector>>>& focals,
+	const std::vector<std::vector<AVector>>& offsetFocalBoundaries,
+	std::vector<std::vector<AVector>> boundaries)
 {
 	svg::Dimensions dimensions(SystemParams::_upscaleFactor, SystemParams::_upscaleFactor);
 
@@ -81,9 +81,9 @@ void MySVGRenderer::SaveElementsAndSkins(std::string filename,
 
 			// arts
 			svg::Polygon artElem(svg::Fill(svg::Color::Transparent), svg::Stroke(0.5f, svg::Color(58, 162, 219)));
-			
+
 			//if (bIdx >= 0 && fIdx >= 0)
-			if(bCol.IsValid() && fCol.IsValid())
+			if (bCol.IsValid() && fCol.IsValid())
 			{
 				//MyColor bCol = ColorPalette::_palette_01[bIdx];
 				//MyColor fCol = ColorPalette::_palette_01[fIdx];
@@ -95,7 +95,7 @@ void MySVGRenderer::SaveElementsAndSkins(std::string filename,
 			//else if (bIdx >= 0)
 			else if (bCol.IsValid())
 			{
-			//	MyColor bCol = ColorPalette::_palette_01[bIdx];
+				//	MyColor bCol = ColorPalette::_palette_01[bIdx];
 				artElem = artElem = svg::Polygon(svg::Fill(svg::Color(bCol._r, bCol._g, bCol._b)), svg::Stroke(0.5f, svg::Color::Transparent));
 			}
 
@@ -103,7 +103,7 @@ void MySVGRenderer::SaveElementsAndSkins(std::string filename,
 			//else if (fIdx >= 0)
 			else if (fCol.IsValid())
 			{
-			//	MyColor fCol = ColorPalette::_palette_01[fIdx];
+				//	MyColor fCol = ColorPalette::_palette_01[fIdx];
 				artElem = svg::Polygon(svg::Fill(svg::Color::Transparent), svg::Stroke(0.5f, svg::Color(fCol._r, fCol._g, fCol._b)));
 			}
 
@@ -175,12 +175,12 @@ void MySVGRenderer::SaveElementsAndSkins(std::string filename,
 		svg::Polygon elem(svg::Fill(svg::Color::Transparent), svg::Stroke(0.5f, svg::Color(157, 156, 158)));
 		for (unsigned int c = 0; c < boundaries[i].size(); c++)
 		{
-			AVector pt = boundaries[i][c]; 
+			AVector pt = boundaries[i][c];
 			elem << svg::Point(pt.x, pt.y);
 		}
 		doc2 << elem;
 	}
-	
+
 
 	// clipper
 	std::vector<std::vector<AVector>> skins;
@@ -191,13 +191,13 @@ void MySVGRenderer::SaveElementsAndSkins(std::string filename,
 		{
 			skins.push_back(graphs[a]._arts[b]);
 		}
-		
+
 	}
 
 	std::vector<std::vector<AVector>> intersectPolys;
 	std::vector<bool> orientationFlags;
 	ClipperWrapper::ClippingContainer(boundaries[0], skins, intersectPolys, orientationFlags);
-	
+
 	// containers	
 	for (unsigned int i = 0; i < intersectPolys.size(); i++) //B
 	{
@@ -243,14 +243,14 @@ void MySVGRenderer::SaveGraphElements(std::string filename, std::vector<AnElemen
 	doc.save();
 
 
-	
+
 }
 
 
-void MySVGRenderer::SaveOrnamentsToSVG(std::string filename, 
-		                               const std::vector<ArtData>& ornaments, 
-								       std::vector<VFRegion> regions,
-								       bool saveSimple)
+void MySVGRenderer::SaveOrnamentsToSVG(std::string filename,
+	const std::vector<ArtData>& ornaments,
+	std::vector<VFRegion> regions,
+	bool saveSimple)
 {
 	svg::Dimensions dimensions(SystemParams::_upscaleFactor, SystemParams::_upscaleFactor);
 	svg::Document doc(filename, svg::Layout(dimensions, svg::Layout::TopLeft));
@@ -281,7 +281,7 @@ void MySVGRenderer::SaveOrnamentsToSVG(std::string filename,
 		std::vector<std::vector<AVector>> boundaries;
 		std::vector<int> bwFlags = ornaments[iter]._boundaryBWFlags;
 
-		
+
 
 		if (saveSimple) { boundaries = ornaments[iter]._simpleBoundaries; }
 		else { boundaries = ornaments[iter]._boundaries; }
@@ -397,7 +397,7 @@ void MySVGRenderer::SaveLRFunctions(std::string filename, std::vector<ALine> int
 		AVector pt2 = intersectList[a].GetPointB();
 
 		svg::Polyline sline(svg::Fill(svg::Color::Transparent), svg::Stroke(0.1f, svg::Color::Red));
-		
+
 		sline << svg::Point(pt1.x, pt1.y);
 		sline << svg::Point(pt2.x, pt2.y);
 
@@ -407,15 +407,15 @@ void MySVGRenderer::SaveLRFunctions(std::string filename, std::vector<ALine> int
 	doc.save();
 }
 
-void MySVGRenderer::SaveDijkstraDebugImageLOL(std::string filename, 
-	                                          std::vector<std::vector<AVector>> myGraph, 
-											  std::vector<AVector> blobBoundary, 
-											  std::vector<AVector> regionBoundary,
-											  std::vector<AVector> cubicCurve,
-											  std::vector<AVector> shortestPath,
-											  std::vector<AVector> oldStreamline,
-											  AVector startPt,
-											  AVector endPt)
+void MySVGRenderer::SaveDijkstraDebugImageLOL(std::string filename,
+	std::vector<std::vector<AVector>> myGraph,
+	std::vector<AVector> blobBoundary,
+	std::vector<AVector> regionBoundary,
+	std::vector<AVector> cubicCurve,
+	std::vector<AVector> shortestPath,
+	std::vector<AVector> oldStreamline,
+	AVector startPt,
+	AVector endPt)
 {
 	svg::Dimensions dimensions(SystemParams::_upscaleFactor, SystemParams::_upscaleFactor);
 	svg::Document doc(filename, svg::Layout(dimensions, svg::Layout::TopLeft));
@@ -423,13 +423,17 @@ void MySVGRenderer::SaveDijkstraDebugImageLOL(std::string filename,
 	// blob boundary
 	svg::Polygon border1(svg::Fill(svg::Color::Transparent), svg::Stroke(0.1f, svg::Color::Black));
 	for (unsigned int a = 0; a < blobBoundary.size(); a++)
-		{ border1 << svg::Point(blobBoundary[a].x, blobBoundary[a].y); }
+	{
+		border1 << svg::Point(blobBoundary[a].x, blobBoundary[a].y);
+	}
 	doc << border1;
-	
+
 	// region boundary
 	svg::Polygon border2(svg::Fill(svg::Color::Transparent), svg::Stroke(0.1f, svg::Color::Black));
 	for (unsigned int a = 0; a < regionBoundary.size(); a++)
-		{ border2 << svg::Point(regionBoundary[a].x, regionBoundary[a].y); }
+	{
+		border2 << svg::Point(regionBoundary[a].x, regionBoundary[a].y);
+	}
 	doc << border2;
 
 	// graphs
@@ -448,24 +452,30 @@ void MySVGRenderer::SaveDijkstraDebugImageLOL(std::string filename,
 		}
 	}
 
-	
+
 
 	// old streamline
 	svg::Polyline oline(svg::Fill(svg::Color::Transparent), svg::Stroke(0.2f, svg::Color::Green));
 	for (unsigned int a = 0; a < oldStreamline.size(); a++)
-		{ oline << svg::Point(oldStreamline[a].x, oldStreamline[a].y); }
+	{
+		oline << svg::Point(oldStreamline[a].x, oldStreamline[a].y);
+	}
 	doc << oline;
 
 	// shrtest path
 	svg::Polyline sline(svg::Fill(svg::Color::Transparent), svg::Stroke(0.2f, svg::Color::Yellow));
 	for (unsigned int a = 0; a < shortestPath.size(); a++)
-		{ sline << svg::Point(shortestPath[a].x, shortestPath[a].y); }
+	{
+		sline << svg::Point(shortestPath[a].x, shortestPath[a].y);
+	}
 	doc << sline;
 
 	// cubic curve
 	svg::Polyline cline(svg::Fill(svg::Color::Transparent), svg::Stroke(0.2f, svg::Color::Red));
 	for (unsigned int a = 0; a < cubicCurve.size(); a++)
-	{ cline << svg::Point(cubicCurve[a].x, cubicCurve[a].y); }
+	{
+		cline << svg::Point(cubicCurve[a].x, cubicCurve[a].y);
+	}
 	doc << cline;
 
 
@@ -480,10 +490,10 @@ void MySVGRenderer::SaveDijkstraDebugImageLOL(std::string filename,
 }
 
 void MySVGRenderer::LineUpArts(std::string filename,
-		                       std::vector<GraphArt> oArts_array,
-						       std::vector<std::vector<GraphArt>> dArts_array,
-						       std::vector<ArtColors> fColors_array,
-							   std::vector<ArtColors> bColors_array)
+	std::vector<GraphArt> oArts_array,
+	std::vector<std::vector<GraphArt>> dArts_array,
+	std::vector<ArtColors> fColors_array,
+	std::vector<ArtColors> bColors_array)
 {
 	svg::Dimensions dimensions(SystemParams::_upscaleFactor, SystemParams::_upscaleFactor);
 	svg::Document doc(filename, svg::Layout(dimensions, svg::Layout::TopLeft));
@@ -504,7 +514,7 @@ void MySVGRenderer::LineUpArts(std::string filename,
 			MyColor bCol = bColors[a];
 			svg::Polygon artElem = (svg::Fill(svg::Color::Transparent), svg::Stroke(0.5f, svg::Color(58, 162, 219))); // arts
 			//if (bIdx >= 0 && fIdx >= 0)
-			
+
 			if (fCol.IsValid() && bCol.IsValid())
 			{
 				//MyColor bCol = ColorPalette::_palette_01[bIdx];
@@ -515,14 +525,14 @@ void MySVGRenderer::LineUpArts(std::string filename,
 			//else if (bIdx >= 0)
 			else if (bCol.IsValid())
 			{
-			//	MyColor bCol = ColorPalette::_palette_01[bIdx];
+				//	MyColor bCol = ColorPalette::_palette_01[bIdx];
 				artElem = artElem = svg::Polygon(svg::Fill(svg::Color(bCol._r, bCol._g, bCol._b)), svg::Stroke(0.5f, svg::Color::Transparent));
 			}
 			// foreground
 			//else if (fIdx >= 0)
 			else if (fCol.IsValid())
 			{
-			//	MyColor fCol = ColorPalette::_palette_01[fIdx];
+				//	MyColor fCol = ColorPalette::_palette_01[fIdx];
 				artElem = svg::Polygon(svg::Fill(svg::Color::Transparent), svg::Stroke(0.5f, svg::Color(fCol._r, fCol._g, fCol._b)));
 			}
 			for (unsigned int b = 0; b < arts[a].size(); b++)
@@ -561,14 +571,14 @@ void MySVGRenderer::LineUpArts(std::string filename,
 				//else if (bIdx >= 0)
 				else if (bCol.IsValid())
 				{
-				//	MyColor bCol = ColorPalette::_palette_01[bIdx];
+					//	MyColor bCol = ColorPalette::_palette_01[bIdx];
 					artElem = artElem = svg::Polygon(svg::Fill(svg::Color(bCol._r, bCol._g, bCol._b)), svg::Stroke(0.5f, svg::Color::Transparent));
 				}
 				// foreground
 				//else if (fIdx >= 0)
 				else if (fCol.IsValid())
 				{
-				//	MyColor fCol = ColorPalette::_palette_01[fIdx];
+					//	MyColor fCol = ColorPalette::_palette_01[fIdx];
 					artElem = svg::Polygon(svg::Fill(svg::Color::Transparent), svg::Stroke(0.5f, svg::Color(fCol._r, fCol._g, fCol._b)));
 				}
 				for (unsigned int b = 0; b < arts[a].size(); b++)
@@ -585,9 +595,9 @@ void MySVGRenderer::LineUpArts(std::string filename,
 }
 
 void MySVGRenderer::SaveArts(std::string filename,
-							 std::vector<std::vector<AVector>> arts,
-							 std::vector<int> fColors,
-							 std::vector<int> bColors)
+	std::vector<std::vector<AVector>> arts,
+	std::vector<int> fColors,
+	std::vector<int> bColors)
 {
 	svg::Dimensions dimensions(SystemParams::_upscaleFactor, SystemParams::_upscaleFactor);
 	svg::Document doc(filename, svg::Layout(dimensions, svg::Layout::TopLeft));
@@ -622,7 +632,7 @@ void MySVGRenderer::SaveArts(std::string filename,
 			artElem = svg::Polygon(svg::Fill(svg::Color::Transparent), svg::Stroke(0.5f, svg::Color(fCol._r, fCol._g, fCol._b)));
 		}
 
-		
+
 		for (unsigned int b = 0; b < arts[a].size(); b++)
 		{
 			AVector pt = arts[a][b];

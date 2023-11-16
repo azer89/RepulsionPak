@@ -39,8 +39,8 @@ AVector CGALIntersector::FindTheClosestIntersection(ALine line, std::vector<AVec
 	AVector intersectPt;
 	for (int a = 0; a < pts.size(); a++)
 	{
-		float x = CGAL::to_double( pts[a].x() );
-		float y = CGAL::to_double( pts[a].y() );
+		float x = CGAL::to_double(pts[a].x());
+		float y = CGAL::to_double(pts[a].y());
 		AVector pt(x, y);
 		float d = line.GetPointA().Distance(pt);
 		if (d < dist)

@@ -14,7 +14,7 @@
 
 bool UtilityFunctions::IsLeft(AVector a, AVector b, AVector c)
 {
-	return ((b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x)) > 0;
+	return ((b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x)) > 0;
 }
 
 
@@ -91,14 +91,15 @@ float UtilityFunctions::DistanceToFiniteLine(AVector a, AVector b, AVector c)
 	{
 		//float denom = Dot(ab, ab); // Always nonnegative since denom = ||ab|| ^ 2
 		float denom = ab.Dot(ab);
-		if (t >= denom) 
+		if (t >= denom)
 		{
 			// c projects outside the [a,b] interval, on the b side; clamp to b
 			//t = 1.0f;
 			//d = b;
 			return c.Distance(b);
 		}
-		else {
+		else
+		{
 			// c projects inside the [a,b] interval; must do deferred divide now
 			t = t / denom;
 			//d = a + t * ab;
@@ -121,7 +122,7 @@ Old version
 	if (l2 > -machine_eps && l2 < machine_eps) return p.Distance(v);   // v == w case
 
 	// Consider the line extending the segment, parameterized as v + t (w - v).
-	// We find projection of point p onto the line. 
+	// We find projection of point p onto the line.
 	// It falls where t = [(p-v) . (w-v)] / |w-v|^2
 	float t = (p - v).Dot(w - v) / l2;
 
@@ -139,9 +140,9 @@ float Q_rsqrt(float number)
 
 	x2 = number * 0.5F;
 	y = number;
-	i = *(long *)&y;                       // evil floating point bit level hacking
+	i = *(long*)&y;                       // evil floating point bit level hacking
 	i = 0x5f3759df - (i >> 1);               // what the fuck? 
-	y = *(float *)&i;
+	y = *(float*)&i;
 	y = y * (threehalfs - (x2 * y * y));   // 1st iteration
 										   //	y  = y * ( threehalfs - ( x2 * y * y ) );   // 2nd iteration, this can be removed
 
@@ -156,17 +157,17 @@ AVector UtilityFunctions::ClosestPtAtFiniteLine(AVector v, AVector w, AVector p)
 {
 	//float machine_eps = std::numeric_limits<float>::epsilon();
 	float machine_eps = 0.0001;
-	float l2 = v.Distance(w);	
-	if (l2 > -machine_eps && l2 < machine_eps) { return v; } 
+	float l2 = v.Distance(w);
+	if (l2 > -machine_eps && l2 < machine_eps) { return v; }
 	float t = (p - v).Dot(w - v) / l2;
-	
+
 	//float inv_l2 = Q_rsqrt(v.DistanceSquared(w));
 	//if (inv_l2 > 100000) { return v; }
 	//float t = (p - v).Dot(w - v) * inv_l2;
 
 
-	if (t < 0.0)	  { return  v; }
-	else if (t > 1.0) { return  w; } 
+	if (t < 0.0) { return  v; }
+	else if (t > 1.0) { return  w; }
 	return v + (w - v) * t;  // projection
 }
 
@@ -506,9 +507,9 @@ AVector UtilityFunctions::GetClosestPtOnPolyline(const std::vector<AVector>& pol
 		//float d = DistanceToFiniteLine(polyline[a - 1], polyline[a], p);
 		AVector pt = ClosestPtAtFiniteLine(polyline[a - 1], polyline[a], p);
 		float d = p.DistanceSquared(pt); // squared
-		if (d < dist) 
-		{ 
-			dist = d; 
+		if (d < dist)
+		{
+			dist = d;
 			closestPt = pt;
 		}
 	}
@@ -741,7 +742,7 @@ bool UtilityFunctions::InsidePolygon(const std::vector<AVector>& polygon, float 
 {
 	// http_:_//alienryderflex_._com/polygon/
 	int poly_sz = polygon.size();
-	
+
 	bool  oddNodes = false;
 
 	unsigned int   i;
@@ -816,20 +817,22 @@ float UtilityFunctions::Angle2D(float x1, float y1, float x2, float y2)
 	return dtheta;
 }
 
-void UtilityFunctions::UniformResampleWithConvexHull(std::vector<AVector> oriCurve, 
-	                                                 std::vector<AVector> convexHull, 
-													 std::vector<AVector>& resampleCurve, 
-													 float resampleGap)
+void UtilityFunctions::UniformResampleWithConvexHull(std::vector<AVector> oriCurve,
+	std::vector<AVector> convexHull,
+	std::vector<AVector>& resampleCurve,
+	float resampleGap)
 {
 	float eps = 1e-5;
 	std::vector<int> hullIndices;
 	for (int a = 0; a < oriCurve.size(); a++)
 	{
 		if (UtilityFunctions::DistanceToBunchOfPoints(convexHull, oriCurve[a]) < eps)
-			{ hullIndices.push_back(a); }
+		{
+			hullIndices.push_back(a);
+		}
 	}
 
-	
+
 	for (int a = 0; a < hullIndices.size(); a++)
 	{
 		// make loop
@@ -861,7 +864,7 @@ void UtilityFunctions::UniformResampleWithConvexHull(std::vector<AVector> oriCur
 		{
 			subsetCurve.insert(subsetCurve.end(), oriCurve.begin() + pairA, oriCurve.begin() + pairB);
 		}
-		
+
 		//std::cout << "\n\npair A B " << pairA << " " << pairB << "\n";
 		//std::cout << "dist " << dist << "\n";
 		//std::cout << "gap  " << resampleGap << "\n";
@@ -874,9 +877,9 @@ void UtilityFunctions::UniformResampleWithConvexHull(std::vector<AVector> oriCur
 	}
 }
 
-void UtilityFunctions::UniformResampleNoFirstPoint(std::vector<AVector> oriCurve, 
-	                                               std::vector<AVector>& resampleCurve, 
-												   float resampleGap)
+void UtilityFunctions::UniformResampleNoFirstPoint(std::vector<AVector> oriCurve,
+	std::vector<AVector>& resampleCurve,
+	float resampleGap)
 {
 	resampleCurve.clear();
 	//std::cout << "oriCurve size " << oriCurve.size() << "\n";
@@ -936,9 +939,9 @@ void UtilityFunctions::UniformResampleNoFirstPoint(std::vector<AVector> oriCurve
 ================================================================================
 */
 // only for open curve
-void UtilityFunctions::UniformResample(std::vector<AVector> oriCurve, 
-	                                   std::vector<AVector>& resampleCurve, 
-									   float resampleGap)
+void UtilityFunctions::UniformResample(std::vector<AVector> oriCurve,
+	std::vector<AVector>& resampleCurve,
+	float resampleGap)
 {
 	resampleCurve.clear();
 	float curveLength = CurveLength(oriCurve);
@@ -978,7 +981,7 @@ void UtilityFunctions::UniformResample(std::vector<AVector> oriCurve,
 
 	}
 
-	
+
 
 	float eps = std::numeric_limits<float>::epsilon();
 	AVector lastPt = oriCurve[oriCurve.size() - 1];
@@ -1065,7 +1068,7 @@ void UtilityFunctions::UniformResampleClosed(std::vector<AVector> oriCurve, std:
 	{
 		oriCurve.push_back(oriCurve[0]);
 	}
-	
+
 	return UtilityFunctions::UniformResample(oriCurve, resampleCurve, N);
 }
 
@@ -1080,7 +1083,9 @@ std::vector<AVector> UtilityFunctions::UniformResampleALine(AVector pt1, AVector
 	std::vector<AVector> resampledLine;
 	float floatDelta = skelLength / (float)N;
 	for (float a = 0; a < skelLength; a += floatDelta)
-		{ resampledLine.push_back(pt1 + skelDir * a); }
+	{
+		resampledLine.push_back(pt1 + skelDir * a);
+	}
 
 	// todo : fix this
 	if (resampledLine.size() > N)
@@ -1104,7 +1109,7 @@ std::vector<AVector> UtilityFunctions::Trim(std::vector<AVector> curve, float tr
 ================================================================================
 ================================================================================
 */
-bool UtilityFunctions::HasEnding(std::string const &fullString, std::string const &ending)
+bool UtilityFunctions::HasEnding(std::string const& fullString, std::string const& ending)
 {
 	if (fullString.length() >= ending.length())
 	{
@@ -1121,7 +1126,7 @@ bool UtilityFunctions::HasEnding(std::string const &fullString, std::string cons
 ================================================================================
 */
 // split string
-std::vector<std::string>& UtilityFunctions::Split(const std::string &s, char delim, std::vector<std::string> &elems)
+std::vector<std::string>& UtilityFunctions::Split(const std::string& s, char delim, std::vector<std::string>& elems)
 {
 	std::stringstream ss(s);
 	std::string item;
@@ -1137,7 +1142,7 @@ std::vector<std::string>& UtilityFunctions::Split(const std::string &s, char del
 ================================================================================
 */
 // split string
-std::vector<std::string> UtilityFunctions::Split(const std::string &s, char delim)
+std::vector<std::string> UtilityFunctions::Split(const std::string& s, char delim)
 {
 	std::vector<std::string> elems;
 	UtilityFunctions::Split(s, delim, elems);
@@ -1243,7 +1248,9 @@ std::vector<std::vector<AVector>> UtilityFunctions::PathsToVectorAVector(std::ve
 {
 	std::vector<std::vector<AVector>> boundaries;
 	for (unsigned int a = 0; a < paths.size(); a++)
-		{ boundaries.push_back(paths[a].points); }
+	{
+		boundaries.push_back(paths[a].points);
+	}
 	return boundaries;
 }
 
@@ -1299,15 +1306,15 @@ ABary UtilityFunctions::Barycentric(AVector p, AVector A, AVector B, AVector C)
 	AVector v0 = B - A;
 	AVector v1 = C - A;
 	AVector v2 = p - A;
-	float d00   = v0.Dot(v0);
-	float d01   = v0.Dot(v1);
-	float d11   = v1.Dot(v1);
-	float d20   = v2.Dot(v0);
-	float d21   = v2.Dot(v1);
+	float d00 = v0.Dot(v0);
+	float d01 = v0.Dot(v1);
+	float d11 = v1.Dot(v1);
+	float d20 = v2.Dot(v0);
+	float d21 = v2.Dot(v1);
 	float denom = d00 * d11 - d01 * d01;
-	bary._v     = (d11 * d20 - d01 * d21) / denom;
-	bary._w     = (d00 * d21 - d01 * d20) / denom;
-	bary._u     = 1.0 - bary._v - bary._w;
+	bary._v = (d11 * d20 - d01 * d21) / denom;
+	bary._w = (d00 * d21 - d01 * d20) / denom;
+	bary._u = 1.0 - bary._v - bary._w;
 
 	//if (bary._v < 0 || bary._v > 1.0) { std::cout << "bary._v : " << bary._v << "\n"; }
 	//if (bary._w < 0 || bary._w > 1.0) { std::cout << "bary._w : " << bary._w << "\n"; }

@@ -31,19 +31,19 @@ public:
 
 	float CalculateDistance(AnElement g1, AnElement g2, int numGraph1, int numGraph2);
 
-	float CalculateDistance(std::vector<AVector> points1, 
-		                    std::vector<AVector> points2, 
-							std::vector<std::vector<AVector>> arts,
-							std::vector<MyColor> fColors,
-							std::vector<MyColor> bColors,
-							int boundaryPointNum, 
-							int numGraph1,
-							int numGraph2);
+	float CalculateDistance(std::vector<AVector> points1,
+		std::vector<AVector> points2,
+		std::vector<std::vector<AVector>> arts,
+		std::vector<MyColor> fColors,
+		std::vector<MyColor> bColors,
+		int boundaryPointNum,
+		int numGraph1,
+		int numGraph2);
 
-	void SaveArtToSVG(std::vector<AVector> rot, 
-					  AVector trans, 
-					  std::vector<std::vector<AVector>> arts, 
-					  int numGraph);
+	void SaveArtToSVG(std::vector<AVector> rot,
+		AVector trans,
+		std::vector<std::vector<AVector>> arts,
+		int numGraph);
 
 	AVector GetCentroid(const std::vector<AVector>& points);
 

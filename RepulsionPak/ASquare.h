@@ -14,7 +14,7 @@
 class ASquare
 {
 public:
-	ASquare(float x, float y, float length):
+	ASquare(float x, float y, float length) :
 		_x(x),
 		_y(y),
 		_length(length)
@@ -67,9 +67,9 @@ public:
 	inline bool Contains(AnObject* obj)
 	{
 		return !(obj->_x < _x ||
-				 obj->_y < _y ||
-				 obj->_x > _x + _length ||
-				 obj->_y > _y + _length);
+			obj->_y < _y ||
+			obj->_x > _x + _length ||
+			obj->_y > _y + _length);
 	}
 
 	void Clear()
@@ -82,9 +82,9 @@ public:
 		//if (!_objects.empty())
 		{
 			if (_containerFlag == 0)
-			{ 
+			{
 				//std::cout << "gg\n";
-				glColor3f(1.0, 0.0, 0.0); 
+				glColor3f(1.0, 0.0, 0.0);
 				glPointSize(3.0f);
 				glBegin(GL_POINTS);
 				glVertex2f(_xCenter, _yCenter);

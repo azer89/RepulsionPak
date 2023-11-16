@@ -30,7 +30,7 @@ radhitya@uwaterloo.ca
 
 /*================================================================================
 ================================================================================*/
-/*struct MyColor 
+/*struct MyColor
 {
 public:
 	int _r;
@@ -117,19 +117,19 @@ public:
 	}*/
 
 	// ===== create =====
-	void CreateGrayscaleImage(int height, int width) { _img = cv::Mat::zeros(height,     width,      CV_8UC1);  _isColor = true;  }
-	void CreateGrayscaleImage(int squareSize)		 { _img = cv::Mat::zeros(squareSize, squareSize, CV_8UC1);  _isColor = true;  }
-	void CreateColorImage(int height, int width)     { _img = cv::Mat::zeros(height,     width,      CV_8UC3);  _isColor = true;  }
-	void CreateColorImage(int squareSize)		     { _img = cv::Mat::zeros(squareSize, squareSize, CV_8UC3);  _isColor = true;  }
-	void CreateFloatImage(int height, int width)     { _img = cv::Mat::zeros(height,     width,      CV_32FC1); _isColor = false; }
-	void CreateFloatImage(int squareSize)		     { _img = cv::Mat::zeros(squareSize, squareSize, CV_32FC1); _isColor = false; }
-	void CreateIntegerImage(int height, int width)   { _img = cv::Mat::zeros(height,     width,      CV_32SC1); _isColor = false; }
-	void CreateIntegerImage(int squareSize)		     { _img = cv::Mat::zeros(squareSize, squareSize, CV_32SC1); _isColor = false; }
+	void CreateGrayscaleImage(int height, int width) { _img = cv::Mat::zeros(height, width, CV_8UC1);  _isColor = true; }
+	void CreateGrayscaleImage(int squareSize) { _img = cv::Mat::zeros(squareSize, squareSize, CV_8UC1);  _isColor = true; }
+	void CreateColorImage(int height, int width) { _img = cv::Mat::zeros(height, width, CV_8UC3);  _isColor = true; }
+	void CreateColorImage(int squareSize) { _img = cv::Mat::zeros(squareSize, squareSize, CV_8UC3);  _isColor = true; }
+	void CreateFloatImage(int height, int width) { _img = cv::Mat::zeros(height, width, CV_32FC1); _isColor = false; }
+	void CreateFloatImage(int squareSize) { _img = cv::Mat::zeros(squareSize, squareSize, CV_32FC1); _isColor = false; }
+	void CreateIntegerImage(int height, int width) { _img = cv::Mat::zeros(height, width, CV_32SC1); _isColor = false; }
+	void CreateIntegerImage(int squareSize) { _img = cv::Mat::zeros(squareSize, squareSize, CV_32SC1); _isColor = false; }
 
 	// ===== set =====
-	void SetFloatPixel(int x, int y, float val)  { _img.at<float>(y, x) = val; }
+	void SetFloatPixel(int x, int y, float val) { _img.at<float>(y, x) = val; }
 
-	void SetIntegerPixel(int x, int y, int val)  { _img.at<int>(y, x) = val; }
+	void SetIntegerPixel(int x, int y, int val) { _img.at<int>(y, x) = val; }
 
 	void SetColorImageToWhite()
 	{
@@ -250,7 +250,7 @@ public:
 		}
 		// save image
 		imwrite(filename, drawing);
-	}	
+	}
 
 	CVImg ThinningFromInteger()
 	{
@@ -313,20 +313,20 @@ public:
 	void CreateImage(std::string imageName, int width, int height, int imgType);
 
 	// ---------- show ----------
-	void ShowImage(  std::string imageName);
+	void ShowImage(std::string imageName);
 
 	// ---------- save to an image file ----------
-	void SaveImage(  std::string imageName, std::string filePath);
+	void SaveImage(std::string imageName, std::string filePath);
 
 	// ---------- set color of a pixel ----------
-	void SetPixel(   std::string imageName, int x, int y, MyColor col);
+	void SetPixel(std::string imageName, int x, int y, MyColor col);
 
 	// ---------- weight of an image ----------
 	int  GetNumColumns(std::string imageName);
 
 	// ---------- height of an image ----------
-	int  GetNumRows(   std::string imageName);
-	
+	int  GetNumRows(std::string imageName);
+
 	// ---------- OpenCV waitKey ----------
 	void WaitKey();
 
@@ -388,7 +388,7 @@ public:
 		return cv::contourArea(cvPoly, true);
 
 	}
-	
+
 	// ---------- get longest contour ----------
 	template <typename T>
 	int GetLongestContourIndex(std::vector<std::vector<T>> contours);
@@ -422,84 +422,84 @@ public:
 	// ---------- draw ----------
 	template <typename T>
 	void DrawPolyOnCVImage(cv::Mat img,
-						   const std::vector<T>& shape_contours,
-						   MyColor color,
-						   bool isClosed,
-						   float thickness = 1.0f,
-						   float scale = 1.0f,
-						   float xOffset = 0,
-						   float yOffset = 0);
+		const std::vector<T>& shape_contours,
+		MyColor color,
+		bool isClosed,
+		float thickness = 1.0f,
+		float scale = 1.0f,
+		float xOffset = 0,
+		float yOffset = 0);
 
 	// ---------- draw ----------
 	template <typename T>
 	void DrawPolysOnCVImage(cv::Mat img,
-						   const std::vector<std::vector<T>>& shape_contours,
-						   MyColor color,
-						   bool isClosed,
-						   float thickness = 1.0f,
-						   float scale = 1.0f,
-						   float xOffset = 0,
-						   float yOffset = 0);
+		const std::vector<std::vector<T>>& shape_contours,
+		MyColor color,
+		bool isClosed,
+		float thickness = 1.0f,
+		float scale = 1.0f,
+		float xOffset = 0,
+		float yOffset = 0);
 
 	// ---------- draw ----------
 	template <typename T>
 	void DrawPoly(std::string imageName,
-				  const std::vector<T>& shape_contours, 
-				  MyColor color,
-				  bool isClosed, 
-				  float thickness = 1.0f,
-				  float scale     = 1.0f,
-				  float xOffset   = 0, 
-				  float yOffset   = 0);
+		const std::vector<T>& shape_contours,
+		MyColor color,
+		bool isClosed,
+		float thickness = 1.0f,
+		float scale = 1.0f,
+		float xOffset = 0,
+		float yOffset = 0);
 
 	// ---------- draw ----------
 	template <typename T>
 	void DrawPolys(std::string imageName,
-				  const std::vector<std::vector<T>>& shape_contours, 
-				  MyColor color,
-				  bool isClosed, 
-				  float thickness = 1.0f,
-				  float scale     = 1.0f,
-				  float xOffset   = 0, 
-				  float yOffset   = 0);
+		const std::vector<std::vector<T>>& shape_contours,
+		MyColor color,
+		bool isClosed,
+		float thickness = 1.0f,
+		float scale = 1.0f,
+		float xOffset = 0,
+		float yOffset = 0);
 
 	// ---------- draw ----------
 	template <typename T>
 	void DrawFilledPoly(std::string imageName,
-						const std::vector<T>& shape_contours, 
-						MyColor color,
-						float scale = 1.0f,
-						float xOffset = 0, 
-						float yOffset = 0);
+		const std::vector<T>& shape_contours,
+		MyColor color,
+		float scale = 1.0f,
+		float xOffset = 0,
+		float yOffset = 0);
 
 	// ---------- draw ----------
 	template <typename T>
 	void DrawFilledPoly(CVImg img,
-						const std::vector<T>& shape_contours, 
-						MyColor color,
-						float scale = 1.0f,
-						float xOffset = 0, 
-						float yOffset = 0);
+		const std::vector<T>& shape_contours,
+		MyColor color,
+		float scale = 1.0f,
+		float xOffset = 0,
+		float yOffset = 0);
 
 	// ---------- draw ----------
 	template <typename T>
 	void DrawFilledPolyInt(CVImg& img,
-		                   const std::vector<T>& shape_contours,
-		                   int val,
-		                   float scale = 1.0f,
-		                   float xOffset = 0,
-		                   float yOffset = 0);
+		const std::vector<T>& shape_contours,
+		int val,
+		float scale = 1.0f,
+		float xOffset = 0,
+		float yOffset = 0);
 
 	// ---------- draw ----------
 	template <typename T>
 	void DrawPolyInt(CVImg& img,
-				     const std::vector<T>& shape_contours, 
-					 int val,
-				     bool isClosed, 
-				     float thickness = 1.0f,
-				     float scale     = 1.0f,
-				     float xOffset   = 0, 
-				     float yOffset   = 0);
+		const std::vector<T>& shape_contours,
+		int val,
+		bool isClosed,
+		float thickness = 1.0f,
+		float scale = 1.0f,
+		float xOffset = 0,
+		float yOffset = 0);
 
 	// ---------- draw ----------
 	template <typename T>
@@ -507,15 +507,15 @@ public:
 
 	// ---------- from ShapeRadiusMatching ----------
 	CVImg GetDistanceMapFast(int numRegion,
-							 const std::vector<ArtData>& artDataArray,
-							 CVImg artDataMask);
+		const std::vector<ArtData>& artDataArray,
+		CVImg artDataMask);
 
 	// ---------- from ShapeRadiusMatching ----------
 	CVImg GetDistanceMapSlow(int numRegion,
-				             VFRegion* aRegion,
-							 const std::vector<ArtData>&              artDataArray,
-							 const std::vector<AVector>&              boundary,
-							 const std::vector<std::vector<AVector>>& focalBoundaries);
+		VFRegion* aRegion,
+		const std::vector<ArtData>& artDataArray,
+		const std::vector<AVector>& boundary,
+		const std::vector<std::vector<AVector>>& focalBoundaries);
 
 	// ---------- from ShapeRadiusMatching ----------
 	std::vector<std::vector<cv::Point>> GetCVContours(const std::vector<std::vector<AVector>>& contours);
@@ -528,8 +528,8 @@ public:
 
 	// ---------- for Dijkstra ----------
 	CVImg CreateDijkstraMask(int blobNumber,
-		                     std::vector<AVector> combinedBoundary,
-		                     std::vector<ArtData> artDataArray);
+		std::vector<AVector> combinedBoundary,
+		std::vector<ArtData> artDataArray);
 
 	// ----------  ----------
 	void Triangulate(std::vector<AnIdxTriangle>& myTriangles,

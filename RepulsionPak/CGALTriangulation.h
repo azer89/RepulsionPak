@@ -16,7 +16,7 @@ public:
 	CGALTriangulation();
 	~CGALTriangulation();
 
-	/*std::vector<ALine>*/ 
+	/*std::vector<ALine>*/
 	void Triangulate(std::vector<AVector> boundary, std::vector<AVector>& vertices, std::vector<AnIdxTriangle>& triangles);
 };
 

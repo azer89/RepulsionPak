@@ -1,7 +1,8 @@
 #ifndef __An_Object__
 #define __An_Object__
 
-class AnObject {
+class AnObject
+{
 public:
 	float _x;
 	float _y;
@@ -21,7 +22,7 @@ public:
 	{
 	}*/
 
-	AnObject(float x, float y, int info1, int info2):
+	AnObject(float x, float y, int info1, int info2) :
 		_x(x),
 		_y(y),
 		_info1(info1),

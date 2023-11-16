@@ -24,7 +24,7 @@ public:
 	{
 		this->_index0 = index0;
 		this->_index1 = index1;
-		this->_angle  = angle;
+		this->_angle = angle;
 		this->_dist = dist;
 		this->_maxDist = 0;
 	}

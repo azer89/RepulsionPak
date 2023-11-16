@@ -15,27 +15,29 @@ void ImageThinning::ZhangSuenThinningIteration(cv::Mat& img, int iter)
 	int nRows = img.rows;
 	int nCols = img.cols;
 
-	if (img.isContinuous()) {
+	if (img.isContinuous())
+	{
 		nCols *= nRows;
 		nRows = 1;
 	}
 
 	int x, y;
-	uchar *pAbove;
-	uchar *pCurr;
-	uchar *pBelow;
-	uchar *nw, *no, *ne;    // north (pAbove)
-	uchar *we, *me, *ea;
-	uchar *sw, *so, *se;    // south (pBelow)
+	uchar* pAbove;
+	uchar* pCurr;
+	uchar* pBelow;
+	uchar* nw, * no, * ne;    // north (pAbove)
+	uchar* we, * me, * ea;
+	uchar* sw, * so, * se;    // south (pBelow)
 
-	uchar *pDst;
+	uchar* pDst;
 
 	// initialize row pointers
 	pAbove = NULL;
 	pCurr = img.ptr<uchar>(0);
 	pBelow = img.ptr<uchar>(1);
 
-	for (y = 1; y < img.rows - 1; ++y) {
+	for (y = 1; y < img.rows - 1; ++y)
+	{
 		// shift the rows up by one
 		pAbove = pCurr;
 		pCurr = pBelow;
@@ -51,7 +53,8 @@ void ImageThinning::ZhangSuenThinningIteration(cv::Mat& img, int iter)
 		so = &(pBelow[0]);
 		se = &(pBelow[1]);
 
-		for (x = 1; x < img.cols - 1; ++x) {
+		for (x = 1; x < img.cols - 1; ++x)
+		{
 			// shift col pointers left by one (scan left to right)
 			nw = no;
 			no = ne;
@@ -87,7 +90,8 @@ void ImageThinning::ZhanSuenThinning(const cv::Mat& src, cv::Mat& dst)
 	cv::Mat prev = cv::Mat::zeros(dst.size(), CV_8UC1);
 	cv::Mat diff;
 
-	do {
+	do
+	{
 		ZhangSuenThinningIteration(dst, 0);
 		ZhangSuenThinningIteration(dst, 1);
 		cv::absdiff(dst, prev, diff);

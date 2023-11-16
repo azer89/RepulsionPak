@@ -24,7 +24,9 @@ AVector RigidRegistration::GetCentroid(const std::vector<AVector>& points)
 {
 	AVector centroidPt(0, 0);
 	for (unsigned int a = 0; a < points.size(); a++)
-		{ centroidPt += points[a]; }
+	{
+		centroidPt += points[a];
+	}
 	centroidPt /= ((float)points.size());
 	return centroidPt;
 }
@@ -34,7 +36,9 @@ void RigidRegistration::SaveOriGraph(AnElement g2, int numGraph2)
 	// ===== get points =====
 	std::vector<AVector> points2;
 	for (unsigned a = 0; a < g2._massList.size(); a++)
-		{ points2.push_back(g2._massList[a]._pos); }
+	{
+		points2.push_back(g2._massList[a]._pos);
+	}
 
 	// ===== calculate centroid =====
 	AVector centroid2 = GetCentroid(points2);
@@ -97,28 +101,32 @@ void RigidRegistration::SaveOriGraph(AnElement g2, int numGraph2)
 
 		// foreground
 		if (fIdx >= 0) { _cvWrapper.DrawPolyOnCVImage(_pngImg._img, arts2[a], ColorPalette::_palette_01[fIdx], true, lineThickness, imgScale); }
-	
+
 	}
 	_pngImg.SaveImage(SystemParams::_save_folder + "ORI_ELEMENTS\\" + ss1.str() + ".png");
 	MySVGRenderer::SaveArts(SystemParams::_save_folder + "ORI_ELEMENTS\\" + ss1.str() + ".svg", arts2, g2._fColors, g2._bColors);*/
 }
 
 float RigidRegistration::CalculateDistance(AnElement g1_deformed,  // deformed
-	                                       AnElement g2_ori,  // original
-										   int numGraph1,
-										   int numGraph2)
+	AnElement g2_ori,  // original
+	int numGraph1,
+	int numGraph2)
 {
 	// get points
 	std::vector<AVector> points1_deformed;// deformed
 	for (unsigned a = 0; a < g1_deformed._massList.size(); a++)
-	//for (unsigned a = 0; a < g1._boundaryPointNum; a++)
-		{ points1_deformed.push_back(g1_deformed._massList[a]._pos); }// deformed
+		//for (unsigned a = 0; a < g1._boundaryPointNum; a++)
+	{
+		points1_deformed.push_back(g1_deformed._massList[a]._pos);
+	}// deformed
 
-	// get points
+// get points
 	std::vector<AVector> points2_ori;
 	for (unsigned a = 0; a < g2_ori._massList.size(); a++)
-	//for (unsigned a = 0; a < g2._boundaryPointNum; a++)
-		{ points2_ori.push_back(g2_ori._massList[a]._pos); }
+		//for (unsigned a = 0; a < g2._boundaryPointNum; a++)
+	{
+		points2_ori.push_back(g2_ori._massList[a]._pos);
+	}
 
 	// move to center
 	AVector centroid1 = GetCentroid(points1_deformed);
@@ -131,7 +139,7 @@ float RigidRegistration::CalculateDistance(AnElement g1_deformed,  // deformed
 	float scaleVal = 1.0f / l_ori;
 
 	for (unsigned a = 0; a < points1_deformed.size(); a++)
-	{ 
+	{
 		points1_deformed[a] -= centroid1;// deformed
 		points2_ori[a] -= centroid2;
 
@@ -152,37 +160,37 @@ float RigidRegistration::CalculateDistance(AnElement g1_deformed,  // deformed
 	}
 
 	return CalculateDistance(points1_deformed, // deformed
-		                     points2_ori, 
-							 arts1, 
-							 g1_deformed._fColors,      // deformed
-							 g1_deformed._bColors,      // deformed
-							 g1_deformed._skinPointNum, // deformed
-							 numGraph1,
-							 numGraph2);
+		points2_ori,
+		arts1,
+		g1_deformed._fColors,      // deformed
+		g1_deformed._bColors,      // deformed
+		g1_deformed._skinPointNum, // deformed
+		numGraph1,
+		numGraph2);
 }
 
 void RigidRegistration::SaveArtToSVG(std::vector<AVector> rot,
-					                 AVector trans, 
-					                 std::vector<std::vector<AVector>> arts, 
-					                 int numGraph)
+	AVector trans,
+	std::vector<std::vector<AVector>> arts,
+	int numGraph)
 {
 
 }
 
 float RigidRegistration::CalculateDistance(std::vector<AVector> points1,  // deformed
-	                                       std::vector<AVector> points2,  // original
-										   std::vector<std::vector<AVector>> arts, // deformed
-										   std::vector<MyColor> fColors,
-										   std::vector<MyColor> bColors,
-										   int boundaryPointNum,  // deformed
-										   int numGraph1,
-										   int numGraph2)
+	std::vector<AVector> points2,  // original
+	std::vector<std::vector<AVector>> arts, // deformed
+	std::vector<MyColor> fColors,
+	std::vector<MyColor> bColors,
+	int boundaryPointNum,  // deformed
+	int numGraph1,
+	int numGraph2)
 {
 	// step 1 
 	// compute centroids
 	AVector centroid1 = GetCentroid(points1);
 	AVector centroid2 = GetCentroid(points2);
-	
+
 	// step 2
 	// compute centered vectors
 	std::vector<AVector> ct_points1;
@@ -191,7 +199,7 @@ float RigidRegistration::CalculateDistance(std::vector<AVector> points1,  // def
 	{
 		ct_points1.push_back(points1[a] - centroid1);
 		ct_points2.push_back(points2[a] - centroid2);
-	}	
+	}
 
 	// step 3
 	// 3a) create X and Y matrices
@@ -227,23 +235,25 @@ float RigidRegistration::CalculateDistance(std::vector<AVector> points1,  // def
 	Eigen::MatrixXf R = V * M * U.transpose(); // this is the rotation matrix
 
 	// step 5 translation
-	AVector t = centroid2 - AVector(R(0, 0) * centroid1.x + R(0, 1) * centroid1.y, 
-		                            R(1, 0) * centroid1.x + R(1, 1) * centroid1.y);
+	AVector t = centroid2 - AVector(R(0, 0) * centroid1.x + R(0, 1) * centroid1.y,
+		R(1, 0) * centroid1.x + R(1, 1) * centroid1.y);
 
 	// lets register points1
 	for (unsigned a = 0; a < points1.size(); a++)
 	{
 		// rotate
-		points1[a]  = AVector(R(0, 0) * points1[a].x + R(0, 1) * points1[a].y,
-			                  R(1, 0) * points1[a].x + R(1, 1) * points1[a].y);
+		points1[a] = AVector(R(0, 0) * points1[a].x + R(0, 1) * points1[a].y,
+			R(1, 0) * points1[a].x + R(1, 1) * points1[a].y);
 		// translate
 		points1[a] += t;
 	}
 
 	float dist = 0;
 	for (unsigned a = 0; a < points1.size(); a++)
-		{ dist += points1[a].Distance(points2[a]); }
-	
+	{
+		dist += points1[a].Distance(points2[a]);
+	}
+
 	// ----------------------------------------
 	// debug drawing (START)
 	for (unsigned int a = 0; a < arts.size(); a++)
@@ -251,7 +261,7 @@ float RigidRegistration::CalculateDistance(std::vector<AVector> points1,  // def
 		for (unsigned int b = 0; b < arts[a].size(); b++)
 		{
 			arts[a][b] = AVector(R(0, 0) * arts[a][b].x + R(0, 1) * arts[a][b].y,
-			                     R(1, 0) * arts[a][b].x + R(1, 1) * arts[a][b].y);
+				R(1, 0) * arts[a][b].x + R(1, 1) * arts[a][b].y);
 			arts[a][b] += t;
 		}
 	}
@@ -287,8 +297,8 @@ float RigidRegistration::CalculateDistance(std::vector<AVector> points1,  // def
 		}
 	}
 	//_cvWrapper.DrawPolyOnCVImage(_pngImg._img, bbPoly,       MyColor(200, 200, 200), true, 1);
-	
-	
+
+
 	//_cvWrapper.DrawPolyOnCVImage(_pngImg._img, points1_skin, MyColor(200, 200, 200), true, lineThickness * 4.0f);
 	//_cvWrapper.DrawPolyOnCVImage(_pngImg._img, points2_skin, MyColor(242, 128, 170), true, lineThickness);
 	//for (unsigned int a = 0; a < arts.size(); a++)
@@ -370,8 +380,8 @@ void RigidRegistration::LineUpArts()
 
 	// save svg
 	MySVGRenderer::LineUpArts(SystemParams::_output_folder + "DEFORMED_ELEMENTS\\line_up.svg",
-							  oArts,
-							  dArts,
-							  _artFColors,
-							  _artBColors);
+		oArts,
+		dArts,
+		_artFColors,
+		_artBColors);
 }

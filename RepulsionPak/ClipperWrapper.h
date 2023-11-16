@@ -47,23 +47,23 @@ public:
 	static std::vector<AVector> MakeClockwise(std::vector<AVector> shape);
 
 	// element offsetting without deleting smaller polygons
-	static std::vector<std::vector<AVector>> OffsetAll(std::vector<std::vector<AVector >> polygons, float offsetVal); 
+	static std::vector<std::vector<AVector>> OffsetAll(std::vector<std::vector<AVector >> polygons, float offsetVal);
 	static std::vector<std::vector<AVector>> ClipElementsWithContainer(std::vector<std::vector<AVector >> elements, std::vector<AVector > container, float& area);
 	static std::vector<std::vector<AVector>> DiffContainerWithElements(std::vector<std::vector<AVector >> elements, std::vector<AVector > container, float& area);
 	static std::vector<std::vector<AVector>> ClipElementsWithElements(std::vector<std::vector<AVector >> elements1, std::vector<std::vector<AVector >> elements2, float& area);
 	//static std::vector<std::vector<AVector>> UnionAll(std::vector<std::vector<AVector>> polys);
 
 	// offsetting 
-	static std::vector<std::vector<AVector>> RoundOffsettingP(  std::vector<AVector> polygon,                float offsetVal);  // closed poly	
-	static std::vector<std::vector<AVector>> RoundOffsettingPP( std::vector<std::vector<AVector >> polygons, float offsetVal);  // closed polys
-	static std::vector<std::vector<AVector>> MiterOffsettingP(  std::vector<AVector> polygon,                float offsetVal, float miterLimit);  // closed poly	
-	static std::vector<std::vector<AVector>> MiterOffsettingPP( std::vector<std::vector<AVector >> polygons, float offsetVal, float miterLimit);  // closed polys
+	static std::vector<std::vector<AVector>> RoundOffsettingP(std::vector<AVector> polygon, float offsetVal);  // closed poly	
+	static std::vector<std::vector<AVector>> RoundOffsettingPP(std::vector<std::vector<AVector >> polygons, float offsetVal);  // closed polys
+	static std::vector<std::vector<AVector>> MiterOffsettingP(std::vector<AVector> polygon, float offsetVal, float miterLimit);  // closed poly	
+	static std::vector<std::vector<AVector>> MiterOffsettingPP(std::vector<std::vector<AVector >> polygons, float offsetVal, float miterLimit);  // closed polys
 
 	// experiment 
-	static void ClippingContainer(const std::vector<AVector>& container, 
-		                          const std::vector<std::vector<AVector >>& skins,
-								  std::vector<std::vector<AVector>>& outPolys,
-								  std::vector<bool>& orientationFlags);
+	static void ClippingContainer(const std::vector<AVector>& container,
+		const std::vector<std::vector<AVector >>& skins,
+		std::vector<std::vector<AVector>>& outPolys,
+		std::vector<bool>& orientationFlags);
 
 	static std::vector<std::vector<AVector>> GetUniPolys(std::vector<std::vector<AVector >> polygons);  // closed poly	
 	static std::vector<std::vector<AVector>> GetUniPolys(std::vector<std::vector<AVector >> polygons, float& area);
@@ -74,7 +74,7 @@ public:
 	static void CalculateSCP(const std::vector<AVector>& container, const std::vector<AnElement>& graphs);
 
 	// offsetting
-	static std::vector<std::vector<AVector>> OffsettingL(std::vector<AVector> someLine, float offsetVal); 
+	static std::vector<std::vector<AVector>> OffsettingL(std::vector<AVector> someLine, float offsetVal);
 
 	// positive and negative offsetting
 	static std::vector<std::vector<AVector>> MiterPNOffsettingP(std::vector<AVector> polygon, float offsetVal, float miterLimit);                 // closed poly	

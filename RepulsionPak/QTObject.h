@@ -4,7 +4,8 @@
 #ifndef __QT_OBJECT_H__
 #define __QT_OBJECT_H__
 
-class QTObject {
+class QTObject
+{
 public:
 	float x;
 	float y;

@@ -46,7 +46,7 @@ bool SelfIntersectionFixer::IsSimple(std::vector<AVector> poly)
 	{
 		points.push_back(Point(poly[a].x, poly[a].y));
 	}
-	
+
 	Polygon_2 pgn(points.begin(), points.end());
 	// check if the polygon is simple.
 	bool isSimple = pgn.is_simple();
@@ -63,11 +63,13 @@ void SelfIntersectionFixer::FixSelfIntersection1(std::vector<AVector> oldPoly, s
 	float cScaling = 1e10; // because clipper only uses integer
 	ClipperLib::Path oldCPoly;
 	for (int a = 0; a < oldPoly.size(); a++)
-		{ oldCPoly << ClipperLib::IntPoint(oldPoly[a].x * cScaling, oldPoly[a].y * cScaling); }
+	{
+		oldCPoly << ClipperLib::IntPoint(oldPoly[a].x * cScaling, oldPoly[a].y * cScaling);
+	}
 
 	ClipperLib::Paths newCPolys;
 	ClipperLib::SimplifyPolygon(oldCPoly, newCPolys);
-	
+
 	/*std::vector<std::vector<AVector>> newPolys;
 	for (int a = 0; a < newCPolys.size(); a++)
 	{
@@ -83,14 +85,14 @@ void SelfIntersectionFixer::FixSelfIntersection1(std::vector<AVector> oldPoly, s
 	ClipperLib::Path newCPoly;
 	for (int a = 0; a < newCPolys.size(); a++)
 	{
-		float polyArea = std::abs( ClipperLib::Area(newCPolys[a]) );
+		float polyArea = std::abs(ClipperLib::Area(newCPolys[a]));
 		if (polyArea > maxArea)
 		{
 			newCPoly = newCPolys[a];
-			maxArea  = polyArea;
+			maxArea = polyArea;
 		}
 	}
-	
+
 	for (int b = 0; b < newCPoly.size(); b++)
 	{
 		AVector pt(newCPoly[b].X / cScaling, newCPoly[b].Y / cScaling);
@@ -115,14 +117,14 @@ void SelfIntersectionFixer::FixSelfIntersection1(std::vector<AVector> oldPoly, s
 	}
 	//segments.push_back(Segment_2(Point_2(oldPoly[sz - 1].x, oldPoly[sz - 1].y), Point_2(oldPoly[0].x, oldPoly[0].y)));
 
-  
+
 	// Compute all intersection points.
 	std::list<Point_2>     pts;
 	CGAL::compute_intersection_points (segments.begin(), segments.end(),
 										std::back_inserter (pts));
-  
+
 	// Print the result.
-	std::cout << "Found " << pts.size() << " intersection points: " << std::endl; 
+	std::cout << "Found " << pts.size() << " intersection points: " << std::endl;
 	std::copy (pts.begin(), pts.end(),
 				std::ostream_iterator<Point_2>(std::cout, "\n"));
 	// Compute the non-intersecting sub-segments induced by the input segments.

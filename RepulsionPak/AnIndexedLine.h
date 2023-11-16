@@ -17,9 +17,9 @@
 //{
 struct AnIndexedLine
 {
-public:	
+public:
 	int _index0; // start index
-	
+
 	int _index1; // end index
 
 	//float _maxDist; // limiting the growth
@@ -36,9 +36,9 @@ private:
 	float _oriDist;
 
 public:
-	void SetDist(float d){ _dist = d; _oriDist = _dist; }
+	void SetDist(float d) { _dist = d; _oriDist = _dist; }
 	float GetDist() const { return _dist; }
-	float GetScale() const{ return _scale; }
+	float GetScale() const { return _scale; }
 
 public:
 

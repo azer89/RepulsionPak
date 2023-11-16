@@ -40,7 +40,7 @@ public:
 	// non intersecting boundaries are simple boundaries
 	// the original _boundaries can have self-intersection
 	// Warning: these boundaries may be scaled down !
-	std::vector<std::vector<AVector>> _simpleBoundaries; 
+	std::vector<std::vector<AVector>> _simpleBoundaries;
 	std::vector<std::vector<AVector>> _boundaries;	// boundaries of ornaments
 	std::vector<int>  _boundaryBWFlags;
 
@@ -53,7 +53,7 @@ public:
 
 	//LRFunctions _notNormFunctions;
 
-	/* triangulation data 
+	/* triangulation data
 	   these are vector of vector because they support multiple boundaries
 
 	// example code :
@@ -76,7 +76,7 @@ public:
 
 	/* for triangulation, see function Triangulate() */
 	CGALTriangulation _triangulator;
-	
+
 
 public:
 	// constructor #1
@@ -89,9 +89,9 @@ public:
 	// constructor #2
 	ArtData(std::vector<std::vector<AVector>> boundaries, int regionNumber, bool isFocalElement)
 	{
-		this->_boundaries        = boundaries;
-		this->_regionNumber      = regionNumber;
-		this->_isFocalElement    = isFocalElement;
+		this->_boundaries = boundaries;
+		this->_regionNumber = regionNumber;
+		this->_isFocalElement = isFocalElement;
 
 		this->_isNegativeElement = false;
 	}
@@ -140,7 +140,7 @@ public:
 	void Triangulate()
 	{
 		// clean data
-		_triPoints.clear(); 
+		_triPoints.clear();
 		_triangles.clear();
 
 		for (unsigned int a = 0; a < _simpleBoundaries.size(); a++)
@@ -163,20 +163,20 @@ public:
 	// calculate the boundingbox of the triangles
 	void TriangleBoundingBox()
 	{
-		_triLeft   = std::numeric_limits<float>::max();
-		_triTop    = std::numeric_limits<float>::max();
+		_triLeft = std::numeric_limits<float>::max();
+		_triTop = std::numeric_limits<float>::max();
 		_triBottom = std::numeric_limits<float>::min();
-		_triRight  = std::numeric_limits<float>::min();
+		_triRight = std::numeric_limits<float>::min();
 
 		for (int a = 0; a < _triPoints.size(); a++)
 		{
 			for (int b = 0; b < _triPoints[a].size(); b++)
 			{
 				AVector pt = _triPoints[a][b];
-				if (pt.x < _triLeft)   { _triLeft  = pt.x; }
-				if (pt.y < _triTop)    { _triTop   = pt.y; }
+				if (pt.x < _triLeft) { _triLeft = pt.x; }
+				if (pt.y < _triTop) { _triTop = pt.y; }
 				if (pt.y > _triBottom) { _triBottom = pt.y; }
-				if (pt.x > _triRight)  { _triRight  = pt.x; }
+				if (pt.x > _triRight) { _triRight = pt.x; }
 			}
 		}
 	}
@@ -236,7 +236,9 @@ public:
 		for (unsigned int a = 0; a < _simpleBoundaries.size(); a++)
 		{
 			for (unsigned int b = 0; b < _simpleBoundaries[a].size(); b++)
-				{ _simpleBoundaries[a][b] *= scaleFactor; }
+			{
+				_simpleBoundaries[a][b] *= scaleFactor;
+			}
 		}
 	}
 };

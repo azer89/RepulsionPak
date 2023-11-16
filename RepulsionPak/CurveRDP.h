@@ -20,8 +20,8 @@ public:
 	// RDP flags
 	// don't use this...
 	static void RDPFlags(std::vector<bool>& pointFlags, std::vector<AVector> points, double epsilon, int startIndex, int endIndex, double rdp_point_min);
-	
-	
+
+
 	static void SimplifyRDPFlags(std::vector<AVector>& oldCurves, std::vector<bool>& curves_flags, float epsilon);
 	static void SimplifyRDPFlagsRecursive(std::vector<AVector>& oldCurves, std::vector<bool>& curves_flags, float epsilon, int startIndex, int endIndex);
 

@@ -10,9 +10,9 @@
 
 enum CellType
 {
-	NO_GO     = 0,
+	NO_GO = 0,
 	UNVISITED = 1,
-	VISITED   = 2,
+	VISITED = 2,
 };
 
 /*struct AnIntVector

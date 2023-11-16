@@ -18,14 +18,14 @@
 
 enum PathType
 {
-	BOUNDARY_PATH       = 0, // boundary of the target regions
-	DETAIL_PATH         = 1, // salient details of the target regions
-	FOCAL_PATH          = 2, // focal points of the target region, pretty much similar to DETAIL_PATH
-	FIELD_PATH          = 3, // paths that influence the vector field
-	SEED_PATH           = 4, // (not used anymore) if you want to specify the starting lines of the streamlines
-	STREAM_LINE         = 5, // streamline
-	SKELETON_LINE       = 6,
-	HOLE = 7, 
+	BOUNDARY_PATH = 0, // boundary of the target regions
+	DETAIL_PATH = 1, // salient details of the target regions
+	FOCAL_PATH = 2, // focal points of the target region, pretty much similar to DETAIL_PATH
+	FIELD_PATH = 3, // paths that influence the vector field
+	SEED_PATH = 4, // (not used anymore) if you want to specify the starting lines of the streamlines
+	STREAM_LINE = 5, // streamline
+	SKELETON_LINE = 6,
+	HOLE = 7,
 	//BOUNDARY_MST_PATH   = 8,    // for physics-pack
 };
 
@@ -50,7 +50,7 @@ public:
 
 	// don't delete :(
 	void FlipOrder()
-	{		
+	{
 		std::reverse(points.begin(), points.end());
 	}
 
@@ -61,7 +61,9 @@ public:
 		newPath.pathType = pathType;
 
 		for (int a = 0; a < this->points.size(); a++)
-			{ newPath.points.push_back(this->points[a] * scaleFactor); }
+		{
+			newPath.points.push_back(this->points[a] * scaleFactor);
+		}
 
 		return newPath;
 	}
@@ -75,8 +77,8 @@ public:
 		for (int a = 0; a < this->points.size(); a++)
 		{
 			AVector pt = this->points[a];
-			AVector newPt(pt.x * std::cos(radAngle) - pt.y * std::sin(radAngle), 
-				          pt.x * std::sin(radAngle) + pt.y * std::cos(radAngle));
+			AVector newPt(pt.x * std::cos(radAngle) - pt.y * std::sin(radAngle),
+				pt.x * std::sin(radAngle) + pt.y * std::cos(radAngle));
 			newPath.points.push_back(newPt);
 		}
 
@@ -84,13 +86,15 @@ public:
 	}
 
 	APath Translate(AVector transVec)
-	{		
+	{
 		APath newPath;
 		newPath.isClosed = this->isClosed;
 		newPath.pathType = pathType;
 
 		for (int a = 0; a < this->points.size(); a++)
-			{ newPath.points.push_back(this->points[a] + transVec); }
+		{
+			newPath.points.push_back(this->points[a] + transVec);
+		}
 
 		return newPath;
 	}

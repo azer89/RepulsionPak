@@ -34,9 +34,9 @@ public:
 	bool _isGrowing;
 	float _distToBoundary;
 	bool _isFolded;
-		
 
-	float   _mass; 
+
+	float   _mass;
 	AVector _pos;
 	AVector _velocity;
 
@@ -46,10 +46,10 @@ public:
 	}
 
 	std::vector<AnIdxTriangle> _triangles;
-	
+
 	float _closestDist;
 	int _n_closest_elems;
-	
+
 	std::vector<AVector> _closestPoints;
 	int _closestPt_actual_sz; // reserve for avoiding push_back
 	int _closestPt_fill_sz;   // reserve for avoiding push_back
@@ -60,7 +60,7 @@ public:
 	float _avgEdgeLength;
 	bool  _isInside;
 	int   _idx;
-	
+
 	std::vector<AnIndexedLine>  _triEdges; // edges from triangulation
 	std::unordered_map<int, int> _neighbors;
 
@@ -71,13 +71,13 @@ public:
 
 	void CalculateIndicesOfLineSegment(const int& numSkin);
 	void UpdateLineSegment(const std::vector<AMass>& otherMasses);
-	
+
 public:
-	
+
 	AVector _edgeForce;
 	AVector _repulsionForce;
 	AVector _boundaryForce;
-	AVector _overlapForce;	
+	AVector _overlapForce;
 	AVector _rotationForce;
 	AVector _selfIntersectForce;
 
@@ -99,7 +99,7 @@ public:
 
 	bool IsNeighbor(int idx);
 
-	bool IsInsideTriangle(const AVector& pt, const std::vector<AMass>& otherMasses);	
+	bool IsInsideTriangle(const AVector& pt, const std::vector<AMass>& otherMasses);
 
 	void Grow(const float& growth_scale_iter, const float& dt);
 
@@ -112,10 +112,10 @@ public:
 	void Simulate(float dt);
 
 	void Solve(const int& massNumber,
-				const AnElement& parentGraph,
-				const std::vector<std::vector<AVector>>& boundaries,
-				const std::vector<std::vector<AVector>>& holes,
-				const std::vector<std::vector<AVector>>& focalOffsets);
+		const AnElement& parentGraph,
+		const std::vector<std::vector<AVector>>& boundaries,
+		const std::vector<std::vector<AVector>>& holes,
+		const std::vector<std::vector<AVector>>& focalOffsets);
 
 	void GetClosestPoints2(const int& parentGraphIndex);
 

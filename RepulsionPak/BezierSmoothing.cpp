@@ -50,7 +50,7 @@ std::vector<AVector> BezierSmoothing::SmoothingRDPB(std::vector<AVector> poly)
 void BezierSmoothing::RDPSimplification(std::vector<AVector> poly, std::vector<AVector>& rdpPoly, std::vector<bool>& bFlag)
 {
 	bFlag = std::vector<bool>(poly.size());
-	for (size_t a = 0; a < poly.size(); a++)  { bFlag[a] = false; }
+	for (size_t a = 0; a < poly.size(); a++) { bFlag[a] = false; }
 	bFlag[0] = true;
 	bFlag[poly.size() - 1] = true;
 

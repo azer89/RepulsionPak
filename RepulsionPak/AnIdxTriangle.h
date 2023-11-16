@@ -20,28 +20,28 @@
 //namespace CVSystem
 //{
 
-	struct AnIdxTriangle
+struct AnIdxTriangle
+{
+public:
+	// first index
+	int idx0;
+
+	// second index
+	int idx1;
+
+	// third index
+	int idx2;
+
+	// type of the triangle (black, white, and screentone)
+	//TriangleType tri_type;
+
+	// Constructor
+	AnIdxTriangle(int idx0, int idx1, int idx2)
 	{
-	public:
-		// first index
-		int idx0;
-
-		// second index
-		int idx1;
-
-		// third index
-		int idx2;
-
-		// type of the triangle (black, white, and screentone)
-		//TriangleType tri_type;
-
-		// Constructor
-		AnIdxTriangle(int idx0, int idx1, int idx2)
-		{
-			this->idx0 = idx0;
-			this->idx1 = idx1;
-			this->idx2 = idx2;
-		}
-	};
+		this->idx0 = idx0;
+		this->idx1 = idx1;
+		this->idx2 = idx2;
+	}
+};
 //}
 #endif

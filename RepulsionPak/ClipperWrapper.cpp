@@ -43,21 +43,25 @@ std::vector<std::vector<AVector>> ClipperWrapper::XORIntersectionOperations(std:
 
 	// the clipped shape
 	for (int a = 0; a < targetShape.size(); a++)
-		{ cTargetShape << ClipperLib::IntPoint(targetShape[a].x * cScaling, targetShape[a].y * cScaling); }
+	{
+		cTargetShape << ClipperLib::IntPoint(targetShape[a].x * cScaling, targetShape[a].y * cScaling);
+	}
 
 	// shapes that clip another shape
 	for (int a = 0; a < clippingShapes.size(); a++)
 	{
 		for (int b = 0; b < clippingShapes[a].size(); b++)
-		{ cClippingShapes[a] << ClipperLib::IntPoint(clippingShapes[a][b].x * cScaling, clippingShapes[a][b].y * cScaling); }
+		{
+			cClippingShapes[a] << ClipperLib::IntPoint(clippingShapes[a][b].x * cScaling, clippingShapes[a][b].y * cScaling);
+		}
 	}
-	
+
 	ClipperLib::Clipper myClipper1;
-	myClipper1.AddPath( cTargetShape,    ClipperLib::ptClip,    true); // the clipped shape
+	myClipper1.AddPath(cTargetShape, ClipperLib::ptClip, true); // the clipped shape
 	myClipper1.AddPaths(cClippingShapes, ClipperLib::ptSubject, true); // shapes that clip another shape
 
 	// XOR 
-	myClipper1.Execute( ClipperLib::ctXor, sol1, ClipperLib::pftNonZero, ClipperLib::pftNonZero);
+	myClipper1.Execute(ClipperLib::ctXor, sol1, ClipperLib::pftNonZero, ClipperLib::pftNonZero);
 
 	ClipperLib::Paths pSol1;
 	ClipperLib::PolyTreeToPaths(sol1, pSol1);
@@ -101,18 +105,18 @@ std::vector<AVector> ClipperWrapper::UnionOperation(std::vector<AVector> poly1, 
 	for (int a = 0; a < poly1.size(); a++)
 	{
 		cTargetShape << ClipperLib::IntPoint(poly1[a].x * cScaling,
-			                                 poly1[a].y * cScaling);
+			poly1[a].y * cScaling);
 	}
 
 	// shape that clips another shape
 	for (int a = 0; a < poly2.size(); a++)
 	{
 		cClippingShape << ClipperLib::IntPoint(poly2[a].x * cScaling,
-			                                   poly2[a].y * cScaling);
+			poly2[a].y * cScaling);
 	}
 
 	ClipperLib::Clipper myClipper1;
-	myClipper1.AddPath(cTargetShape,   ClipperLib::ptClip, true); // the clipped shape
+	myClipper1.AddPath(cTargetShape, ClipperLib::ptClip, true); // the clipped shape
 	myClipper1.AddPath(cClippingShape, ClipperLib::ptSubject, true); // shape that clip another shape
 
 	// Union 
@@ -152,14 +156,16 @@ std::vector<AVector> ClipperWrapper::UnionOperation(std::vector<std::vector<AVec
 
 	// the clipped shape
 	for (int a = 0; a < polys[0].size(); a++)
-		{ cTargetShape << ClipperLib::IntPoint(polys[0][a].x * cScaling, 
-		                                       polys[0][a].y * cScaling); }
+	{
+		cTargetShape << ClipperLib::IntPoint(polys[0][a].x * cScaling,
+			polys[0][a].y * cScaling);
+	}
 
 	// shapes that clip another shape
 	for (int a = 1; a < polys.size(); a++)
 	{
 		for (int b = 0; b < polys[a].size(); b++)
-		{ 
+		{
 			int x = polys[a][b].x * cScaling;
 			int y = polys[a][b].y * cScaling;
 			int idx = a - 1; // because total shape minus one
@@ -203,11 +209,15 @@ std::vector<AVector> ClipperWrapper::UnionOperation(std::vector<std::vector<AVec
 std::vector<AVector> ClipperWrapper::UnionOperationWithGrowing(std::vector<std::vector<AVector>>& polys)
 {
 	for (int a = 0; a < polys.size(); a++)
-	{ polys[a] = GetLargestPoly( MiterOffsettingP(polys[a], 2, 2) ); }
+	{
+		polys[a] = GetLargestPoly(MiterOffsettingP(polys[a], 2, 2));
+	}
 
 	std::vector<AVector> P1;
 	for (int a = 0; a < polys[0].size(); a++)
-		{ P1.push_back(AVector(polys[0][a].x, polys[0][a].y)); }
+	{
+		P1.push_back(AVector(polys[0][a].x, polys[0][a].y));
+	}
 
 	//for (int a = 1; a < 4; a++)
 	for (int a = 1; a < polys.size(); a++)
@@ -239,7 +249,9 @@ AVector ClipperWrapper::FindTheFarthestIntersection(ALine line, std::vector<AVec
 	//if (reverseShape) { std::reverse(shape.begin(), shape.end()); }
 
 	for (int a = 0; a < shape.size(); a++)
-		{ cShape << ClipperLib::IntPoint(shape[a].x * cScaling, shape[a].y * cScaling); }
+	{
+		cShape << ClipperLib::IntPoint(shape[a].x * cScaling, shape[a].y * cScaling);
+	}
 
 	cLine << ClipperLib::IntPoint(line.XA * cScaling, line.YA * cScaling) << ClipperLib::IntPoint(line.XB * cScaling, line.YB * cScaling);
 
@@ -294,7 +306,9 @@ AVector ClipperWrapper::FindTheFarthestIntersection(ALine line, std::vector<std:
 	{
 		std::vector<AVector> shape = boundaries[a];
 		for (int i = 0; i < shape.size(); i++)
-			{ cShapes[a] << ClipperLib::IntPoint(shape[i].x * cScaling, shape[i].y * cScaling); }
+		{
+			cShapes[a] << ClipperLib::IntPoint(shape[i].x * cScaling, shape[i].y * cScaling);
+		}
 	}
 
 	cLine << ClipperLib::IntPoint(line.XA * cScaling, line.YA * cScaling) << ClipperLib::IntPoint(line.XB * cScaling, line.YB * cScaling);
@@ -348,7 +362,9 @@ AVector ClipperWrapper::FindTheClosestIntersection(ALine line, std::vector<std::
 	for (int a = 0; a < shapes.size(); a++)
 	{
 		for (int i = 0; i < shapes[a].size(); i++)
-		{ cShapes[a] << ClipperLib::IntPoint(shapes[a][i].x * cScaling, shapes[a][i].y * cScaling); }
+		{
+			cShapes[a] << ClipperLib::IntPoint(shapes[a][i].x * cScaling, shapes[a][i].y * cScaling);
+		}
 	}
 
 	cLine << ClipperLib::IntPoint(line.XA * cScaling, line.YA * cScaling) << ClipperLib::IntPoint(line.XB * cScaling, line.YB * cScaling);
@@ -450,13 +466,13 @@ AVector ClipperWrapper::FindTheClosestIntersection2(ALine line, std::vector<AVec
 		std::cerr << "FindTheClosestIntersection2: don't get two offset polys\n";
 	}
 
-	std::vector<AVector> bigPoly    = offsetPolys[0];
-	std::vector<AVector> smallPoly  = offsetPolys[1];
+	std::vector<AVector> bigPoly = offsetPolys[0];
+	std::vector<AVector> smallPoly = offsetPolys[1];
 
 	OpenCVWrapper cvWrapper;
 	if (cvWrapper.GetArea(bigPoly) < cvWrapper.GetArea(smallPoly))
 	{
-		bigPoly   = offsetPolys[1];
+		bigPoly = offsetPolys[1];
 		smallPoly = offsetPolys[0];
 	}
 
@@ -520,7 +536,9 @@ std::vector<std::vector<AVector>> ClipperWrapper::BlobBoundaryOffsetting(std::ve
 	ClipperLib::Path subj;
 	ClipperLib::Paths pSol;
 	for (int i = 0; i < blobBoundary.size(); i++)
-		{ subj << ClipperLib::IntPoint(blobBoundary[i].x * cScaling, blobBoundary[i].y * cScaling); }
+	{
+		subj << ClipperLib::IntPoint(blobBoundary[i].x * cScaling, blobBoundary[i].y * cScaling);
+	}
 
 	cOffset.AddPath(subj, ClipperLib::jtRound, ClipperLib::etClosedLine);
 	cOffset.Execute(pSol, offsetVal * cScaling);
@@ -549,7 +567,7 @@ this function is unstable
 */
 AVector ClipperWrapper::FindTheClosestIntersection(ALine line, std::vector<AVector> shape) // from start
 {
-	AVector endPt   = line.GetPointB(); // the endpoint, because clipper thinks a closed path is also a *filled* path
+	AVector endPt = line.GetPointB(); // the endpoint, because clipper thinks a closed path is also a *filled* path
 	AVector startPt = line.GetPointA();
 	AVector intersectPt;
 
@@ -560,7 +578,9 @@ AVector ClipperWrapper::FindTheClosestIntersection(ALine line, std::vector<AVect
 	ClipperLib::PolyTree sol;
 
 	for (int i = 0; i < shape.size(); i++)
-		{ cShape << ClipperLib::IntPoint(shape[i].x * cScaling, shape[i].y * cScaling); }
+	{
+		cShape << ClipperLib::IntPoint(shape[i].x * cScaling, shape[i].y * cScaling);
+	}
 
 	cLine << ClipperLib::IntPoint(line.XA * cScaling, line.YA * cScaling) << ClipperLib::IntPoint(line.XB * cScaling, line.YB * cScaling);
 
@@ -627,7 +647,7 @@ std::vector<std::vector<AVector>> ClipperWrapper::GetUniPolys(std::vector<std::v
 	cOffset.Execute(pSol, 0);
 
 	area = 0;
-	std::vector<std::vector<AVector>>  offPolys;	
+	std::vector<std::vector<AVector>>  offPolys;
 	for (int a = 0; a < pSol.size(); a++)
 	{
 		std::vector<AVector> offPoly;
@@ -719,13 +739,13 @@ std::vector<std::vector<AVector>> ClipperWrapper::GetUniPolys(std::vector<std::v
 	//myClipper1.AddPath(cTargetShape, ClipperLib::ptClip, true); // the clipped shape
 	myClipper1.AddPaths(cClippingShapes, ClipperLib::ptSubject, true); // shapes that clip another shape
 
-	// Union 
+	// Union
 	myClipper1.Execute(ClipperLib::ctUnion, sol1, ClipperLib::pftNonZero, ClipperLib::pftNonZero);
 
 	ClipperLib::Paths pSol1;
 	ClipperLib::PolyTreeToPaths(sol1, pSol1);
 
-	std::vector<std::vector<AVector>> outPolys; // return list	
+	std::vector<std::vector<AVector>> outPolys; // return list
 
 	for (int a = 0; a < pSol1.size(); a++)
 	{
@@ -741,9 +761,9 @@ std::vector<std::vector<AVector>> ClipperWrapper::GetUniPolys(std::vector<std::v
 	return outPolys;
 }*/
 
-std::vector<std::vector<AVector>> ClipperWrapper::ClipElementsWithElements(std::vector<std::vector<AVector >> elements1, 
-	                                                                       std::vector<std::vector<AVector >> elements2, 
-	                                                                       float& area)
+std::vector<std::vector<AVector>> ClipperWrapper::ClipElementsWithElements(std::vector<std::vector<AVector >> elements1,
+	std::vector<std::vector<AVector >> elements2,
+	float& area)
 {
 	float cScaling = ClipperWrapper::_cScaling;
 
@@ -809,7 +829,7 @@ std::vector<std::vector<AVector>> ClipperWrapper::DiffContainerWithElements(std:
 	ClipperLib::Paths  cClippingShapes(elements.size());
 	ClipperLib::PolyTree sol1;
 
-	
+
 
 	// shapes that are clipped
 	for (int a = 0; a < container.size(); a++)
@@ -829,7 +849,7 @@ std::vector<std::vector<AVector>> ClipperWrapper::DiffContainerWithElements(std:
 	ClipperLib::Clipper myClipper1;
 	myClipper1.AddPath(cTargetShape, ClipperLib::ptSubject, true); // the clipped shape
 	myClipper1.AddPaths(cClippingShapes, ClipperLib::ptClip, true); // shapes that clip another shape (clipper)
-	
+
 	myClipper1.Execute(ClipperLib::ctDifference, sol1, ClipperLib::pftNonZero, ClipperLib::pftNonZero);
 
 	ClipperLib::Paths pSol1;
@@ -856,9 +876,9 @@ std::vector<std::vector<AVector>> ClipperWrapper::DiffContainerWithElements(std:
 	return outPolys;
 }
 
-std::vector<std::vector<AVector>> ClipperWrapper::ClipElementsWithContainer(std::vector<std::vector<AVector >> elements, 
-	                                                                        std::vector<AVector > container, 
-																			float& area)
+std::vector<std::vector<AVector>> ClipperWrapper::ClipElementsWithContainer(std::vector<std::vector<AVector >> elements,
+	std::vector<AVector > container,
+	float& area)
 {
 	float cScaling = ClipperWrapper::_cScaling;
 
@@ -912,8 +932,8 @@ std::vector<std::vector<AVector>> ClipperWrapper::ClipElementsWithContainer(std:
 	return outPolys;
 }
 
-std::vector<std::vector<AVector>> ClipperWrapper::OffsetAll(std::vector<std::vector<AVector >> polygons, 
-	                                                        float offsetVal)
+std::vector<std::vector<AVector>> ClipperWrapper::OffsetAll(std::vector<std::vector<AVector >> polygons,
+	float offsetVal)
 {
 	float cScaling = ClipperWrapper::_cScaling;
 	ClipperLib::ClipperOffset cOffset;
@@ -955,14 +975,14 @@ std::vector<std::vector<AVector>> ClipperWrapper::OffsetAll(std::vector<std::vec
 			largestArea = pArea;
 		}*/
 	}
-	
+
 
 	return offPolys;
 }
 
 // ROUND
-std::vector<std::vector<AVector>> ClipperWrapper::RoundOffsettingPP(std::vector<std::vector<AVector >> polygons, 
-	                                                                float offsetVal)
+std::vector<std::vector<AVector>> ClipperWrapper::RoundOffsettingPP(std::vector<std::vector<AVector >> polygons,
+	float offsetVal)
 {
 	float cScaling = ClipperWrapper::_cScaling;
 	ClipperLib::ClipperOffset cOffset;
@@ -973,7 +993,9 @@ std::vector<std::vector<AVector>> ClipperWrapper::RoundOffsettingPP(std::vector<
 	for (int i = 0; i < polygons.size(); i++)
 	{
 		for (int a = 0; a < polygons[i].size(); a++)
-			{ subjs[i] << ClipperLib::IntPoint(polygons[i][a].x * cScaling, polygons[i][a].y * cScaling); }
+		{
+			subjs[i] << ClipperLib::IntPoint(polygons[i][a].x * cScaling, polygons[i][a].y * cScaling);
+		}
 	}
 
 	cOffset.AddPaths(subjs, ClipperLib::jtRound, ClipperLib::etClosedPolygon);
@@ -1093,23 +1115,25 @@ void ClipperWrapper::CalculateSCP(const std::vector<AVector>& container, const s
 
 float ClipperWrapper::CalculateFill(const std::vector<AVector>& container, const std::vector<AnElement>& graphs)
 {
-	 float cScaling = ClipperWrapper::_cScaling;
+	float cScaling = ClipperWrapper::_cScaling;
 
-	 // calculate how many arts
-	 int numArt = 0;
-	 for (int a = 0; a < graphs.size(); a++)
-	 {
-		 // _uniuniArts
-		 numArt += graphs[a]._uniuniArts.size();
-	 }
+	// calculate how many arts
+	int numArt = 0;
+	for (int a = 0; a < graphs.size(); a++)
+	{
+		// _uniuniArts
+		numArt += graphs[a]._uniuniArts.size();
+	}
 
-	 ClipperLib::Path cTargetShape;
-	 ClipperLib::Paths cClippingShapes(numArt);
-	 ClipperLib::PolyTree sol1;
+	ClipperLib::Path cTargetShape;
+	ClipperLib::Paths cClippingShapes(numArt);
+	ClipperLib::PolyTree sol1;
 
-	 // the clipped shape
+	// the clipped shape
 	for (int a = 0; a < container.size(); a++)
-		{ cTargetShape << ClipperLib::IntPoint(container[a].x * cScaling, container[a].y * cScaling); }
+	{
+		cTargetShape << ClipperLib::IntPoint(container[a].x * cScaling, container[a].y * cScaling);
+	}
 
 
 	// shapes that clip another shape
@@ -1146,7 +1170,7 @@ float ClipperWrapper::CalculateFill(const std::vector<AVector>& container, const
 
 	for (int a = 0; a < pSol1.size(); a++)
 	{
-		elementArea += ClipperLib::Area(pSol1[a]);		
+		elementArea += ClipperLib::Area(pSol1[a]);
 	}
 
 	return elementArea / containerArea;
@@ -1154,27 +1178,31 @@ float ClipperWrapper::CalculateFill(const std::vector<AVector>& container, const
 
 
 
-void ClipperWrapper::ClippingContainer(const std::vector<AVector>& container, 
-	                                   const std::vector<std::vector<AVector >>& skins,
-	                                   std::vector<std::vector<AVector>>& outPolys,
-								       std::vector<bool>& orientationFlags)
+void ClipperWrapper::ClippingContainer(const std::vector<AVector>& container,
+	const std::vector<std::vector<AVector >>& skins,
+	std::vector<std::vector<AVector>>& outPolys,
+	std::vector<bool>& orientationFlags)
 {
-	 float cScaling = ClipperWrapper::_cScaling;
+	float cScaling = ClipperWrapper::_cScaling;
 
-	 ClipperLib::Path cTargetShape;
-	 ClipperLib::Paths cClippingShapes(skins.size());
-	 ClipperLib::PolyTree sol1;
+	ClipperLib::Path cTargetShape;
+	ClipperLib::Paths cClippingShapes(skins.size());
+	ClipperLib::PolyTree sol1;
 
-	 // the clipped shape
+	// the clipped shape
 	for (int a = 0; a < container.size(); a++)
-		{ cTargetShape << ClipperLib::IntPoint(container[a].x * cScaling, container[a].y * cScaling); }
+	{
+		cTargetShape << ClipperLib::IntPoint(container[a].x * cScaling, container[a].y * cScaling);
+	}
 
 
 	// shapes that clip another shape
 	for (int a = 0; a < skins.size(); a++)
 	{
 		for (int b = 0; b < skins[a].size(); b++)
-		{ cClippingShapes[a] << ClipperLib::IntPoint(skins[a][b].x * cScaling, skins[a][b].y * cScaling); }
+		{
+			cClippingShapes[a] << ClipperLib::IntPoint(skins[a][b].x * cScaling, skins[a][b].y * cScaling);
+		}
 	}
 
 	ClipperLib::Clipper myClipper1;
@@ -1211,11 +1239,11 @@ void ClipperWrapper::ClippingContainer(const std::vector<AVector>& container,
 	}
 	std::cout << "polys.size " << outPolys.size() << "\n";
 	//return outPolys;
- }
+}
 
 // ROUND
-std::vector<std::vector<AVector>>  ClipperWrapper::RoundOffsettingP(std::vector<AVector> polygon, 															
-	                                                                float offsetVal)
+std::vector<std::vector<AVector>>  ClipperWrapper::RoundOffsettingP(std::vector<AVector> polygon,
+	float offsetVal)
 {
 	float cScaling = ClipperWrapper::_cScaling;
 	ClipperLib::ClipperOffset cOffset;
@@ -1224,7 +1252,9 @@ std::vector<std::vector<AVector>>  ClipperWrapper::RoundOffsettingP(std::vector<
 	ClipperLib::Path subj;
 	ClipperLib::Paths pSol;
 	for (int i = 0; i < polygon.size(); i++)
-		{ subj << ClipperLib::IntPoint(polygon[i].x * cScaling, polygon[i].y * cScaling); }
+	{
+		subj << ClipperLib::IntPoint(polygon[i].x * cScaling, polygon[i].y * cScaling);
+	}
 
 	cOffset.AddPath(subj, ClipperLib::jtRound, ClipperLib::etClosedPolygon);
 	cOffset.Execute(pSol, offsetVal * cScaling);
@@ -1247,9 +1277,9 @@ std::vector<std::vector<AVector>>  ClipperWrapper::RoundOffsettingP(std::vector<
 }
 
 // MITER
-std::vector<std::vector<AVector>> ClipperWrapper::MiterOffsettingPP(std::vector<std::vector<AVector >> polygons, 
-	                                                           float offsetVal, 
-															   float miterLimit)
+std::vector<std::vector<AVector>> ClipperWrapper::MiterOffsettingPP(std::vector<std::vector<AVector >> polygons,
+	float offsetVal,
+	float miterLimit)
 {
 	float cScaling = ClipperWrapper::_cScaling;
 	ClipperLib::ClipperOffset cOffset;
@@ -1260,7 +1290,9 @@ std::vector<std::vector<AVector>> ClipperWrapper::MiterOffsettingPP(std::vector<
 	for (int i = 0; i < polygons.size(); i++)
 	{
 		for (int a = 0; a < polygons[i].size(); a++)
-			{ subjs[i] << ClipperLib::IntPoint(polygons[i][a].x * cScaling, polygons[i][a].y * cScaling); }
+		{
+			subjs[i] << ClipperLib::IntPoint(polygons[i][a].x * cScaling, polygons[i][a].y * cScaling);
+		}
 	}
 
 	cOffset.AddPaths(subjs, ClipperLib::jtMiter, ClipperLib::etClosedPolygon);
@@ -1294,9 +1326,9 @@ std::vector<std::vector<AVector>> ClipperWrapper::MiterOffsettingPP(std::vector<
 }
 
 // MITER
-std::vector<std::vector<AVector>>  ClipperWrapper::MiterOffsettingP(std::vector<AVector> polygon, 
-	                                                                float offsetVal, 
-															        float miterLimit)
+std::vector<std::vector<AVector>>  ClipperWrapper::MiterOffsettingP(std::vector<AVector> polygon,
+	float offsetVal,
+	float miterLimit)
 {
 	float cScaling = ClipperWrapper::_cScaling;
 	ClipperLib::ClipperOffset cOffset;
@@ -1305,7 +1337,9 @@ std::vector<std::vector<AVector>>  ClipperWrapper::MiterOffsettingP(std::vector<
 	ClipperLib::Path subj;
 	ClipperLib::Paths pSol;
 	for (int i = 0; i < polygon.size(); i++)
-		{ subj << ClipperLib::IntPoint(polygon[i].x * cScaling, polygon[i].y * cScaling); }
+	{
+		subj << ClipperLib::IntPoint(polygon[i].x * cScaling, polygon[i].y * cScaling);
+	}
 
 	cOffset.AddPath(subj, ClipperLib::jtMiter, ClipperLib::etClosedPolygon);
 	cOffset.Execute(pSol, offsetVal * cScaling);
@@ -1327,9 +1361,9 @@ std::vector<std::vector<AVector>>  ClipperWrapper::MiterOffsettingP(std::vector<
 	return offPolys;
 }
 
-std::vector<std::vector<AVector>> ClipperWrapper::MiterPNOffsettingP(std::vector<AVector> polygon, 
-	                                                                 float offsetVal, 
-																	 float miterLimit)
+std::vector<std::vector<AVector>> ClipperWrapper::MiterPNOffsettingP(std::vector<AVector> polygon,
+	float offsetVal,
+	float miterLimit)
 {
 	float cScaling = ClipperWrapper::_cScaling;
 	ClipperLib::ClipperOffset cOffset;
@@ -1343,9 +1377,9 @@ std::vector<std::vector<AVector>> ClipperWrapper::MiterPNOffsettingP(std::vector
 	return MiterOffsettingP(newPolygon, -offsetVal * 2.0, miterLimit);
 }
 
-std::vector<std::vector<AVector>> ClipperWrapper::MiterPNOffsettingPP(std::vector<std::vector<AVector >> polygons, 
-	                                                                  float offsetVal, 
-																	  float miterLimit)
+std::vector<std::vector<AVector>> ClipperWrapper::MiterPNOffsettingPP(std::vector<std::vector<AVector >> polygons,
+	float offsetVal,
+	float miterLimit)
 {
 	float cScaling = ClipperWrapper::_cScaling;
 	ClipperLib::ClipperOffset cOffset;
@@ -1388,7 +1422,9 @@ std::vector<std::vector<AVector>> ClipperWrapper::OffsettingL(std::vector<AVecto
 	ClipperLib::Path subj;
 	ClipperLib::Paths pSol;
 	for (int i = 0; i < someLine.size(); i++)
-		{ subj << ClipperLib::IntPoint(someLine[i].x * cScaling, someLine[i].y * cScaling); }
+	{
+		subj << ClipperLib::IntPoint(someLine[i].x * cScaling, someLine[i].y * cScaling);
+	}
 
 	// http_://www.angusj.com/delphi/clipper/documentation/Docs/Units/ClipperLib/Types/EndType.htm
 	cOffset.AddPath(subj, ClipperLib::jtSquare, ClipperLib::etOpenButt);

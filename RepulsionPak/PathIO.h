@@ -70,18 +70,18 @@ public:
 	bool DoesFileExist(std::string filename);
 
 	void SaveInfo(std::string filename,
-		          float simulation_time,
-				  float fill_ratio,
-				  float fill_rms,
-				  float deformation_value,
-				  float avg_skin_offset,
-				  int num_elements,
-				  int num_frame,
-				  int num_triangle_edge,
-				  int num_aux_edge,
-				  int num_points,
-				  int num_triangles,
-				  int seed);
+		float simulation_time,
+		float fill_ratio,
+		float fill_rms,
+		float deformation_value,
+		float avg_skin_offset,
+		int num_elements,
+		int num_frame,
+		int num_triangle_edge,
+		int num_aux_edge,
+		int num_points,
+		int num_triangles,
+		int seed);
 
 };
 

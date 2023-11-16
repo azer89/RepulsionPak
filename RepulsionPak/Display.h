@@ -30,23 +30,23 @@ public:
 	void DoStuff();
 
 	void Draw();
-	void Update(       int nScreenWidth = 0,  int nScreenHeight = 0);
-	bool KeyboardEvent(unsigned char nChar,   int x, int y);
-	bool MouseEvent(   int button, int state, int x,  int y);
+	void Update(int nScreenWidth = 0, int nScreenHeight = 0);
+	bool KeyboardEvent(unsigned char nChar, int x, int y);
+	bool MouseEvent(int button, int state, int x, int y);
 
 public:
 
 	static std::shared_ptr<Display> GetInstance();
 
-	static void ShowGL(int argc, char **argv);
-	static void ResizeCallback(int w, int h);	
+	static void ShowGL(int argc, char** argv);
+	static void ResizeCallback(int w, int h);
 	static void ShowCallback();
-	
+
 
 
 	static void SpecialKeyboardCallback(int key, int x, int y);
-	static void KeyboardCallback( unsigned char nChar, int x, int y);
-	static void MouseCallback(    int button, int state, int x, int y);
+	static void KeyboardCallback(unsigned char nChar, int x, int y);
+	static void MouseCallback(int button, int state, int x, int y);
 	static void MouseWheel(int button, int dir, int x, int y);
 	static void MouseDragCallback(int x, int y);
 	static void MouseMoveCallback(int x, int y);
@@ -87,7 +87,7 @@ public:
 	float _screenWidth;
 	float _screenHeight;
 
-	std::string _window_title;	
+	std::string _window_title;
 
 	// limiting drawing frame-rate
 	//int _frame_rate_time;
@@ -104,7 +104,7 @@ public:
 	int _simulation_time;
 	//int   _timeprev;          // 0
 
-	
+
 
 	int  _frameCounter;
 	//MotionUnderGravitation* _motionUnderGravitation; // new MotionUnderGravitation(AVector(0.0f, -9.81f));

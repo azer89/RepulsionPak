@@ -11,13 +11,14 @@ using namespace std;
 class Quadtree;
 class QTObject;
 
-class Quadtree {
+class Quadtree
+{
 public:
 	Quadtree(float x, float y, float width, float height, int level, int maxLevel, Quadtree* parent);
 	~Quadtree();
 
-	void AddOrThrowObject(QTObject *object);
-	void			AddObject(QTObject *object);
+	void AddOrThrowObject(QTObject* object);
+	void			AddObject(QTObject* object);
 	vector<QTObject*>	GetObjectsAt(float x, float y);
 
 	vector<QTObject*>	GetObjects();
@@ -42,13 +43,13 @@ private:
 	int             maxLevel;
 	vector<QTObject*>	objects;
 
-	Quadtree *      parent;
-	Quadtree *      NW;
-	Quadtree *      NE;
-	Quadtree *      SW;
-	Quadtree *      SE;
+	Quadtree* parent;
+	Quadtree* NW;
+	Quadtree* NE;
+	Quadtree* SW;
+	Quadtree* SE;
 
-	bool            contains(Quadtree *child, QTObject *object);
+	bool            contains(Quadtree* child, QTObject* object);
 };
 
 #endif

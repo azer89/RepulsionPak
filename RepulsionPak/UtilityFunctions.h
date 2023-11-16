@@ -30,8 +30,8 @@ public:
 	static bool PointInTriangle(AVector A, AVector B, AVector C, AVector P);
 
 	// Distance to line
-	static float  DistanceToFiniteLine(       AVector v, AVector w, AVector p);
-	static AVector ClosestPtAtFiniteLine2(const AVector&  v, const AVector& w, const AVector& p); // pbourke algorithm
+	static float  DistanceToFiniteLine(AVector v, AVector w, AVector p);
+	static AVector ClosestPtAtFiniteLine2(const AVector& v, const AVector& w, const AVector& p); // pbourke algorithm
 	static AVector ClosestPtAtFiniteLine(AVector v, AVector w, AVector p);
 
 	// Distance to points
@@ -42,20 +42,20 @@ public:
 	static AVector ClosestPoint(const std::vector<AVector>& points, AVector p);
 
 	// Distance to polylines
-	static float   DistanceToPolyline(         const std::vector<AVector>& polyline,               AVector p);
-	static float   DistanceToPolylines(        const std::vector<std::vector<AVector>>& polylines, AVector p);
-	static AVector GetClosestPtOnPolyline(     const std::vector<AVector>& polyline,               AVector p);
+	static float   DistanceToPolyline(const std::vector<AVector>& polyline, AVector p);
+	static float   DistanceToPolylines(const std::vector<std::vector<AVector>>& polylines, AVector p);
+	static AVector GetClosestPtOnPolyline(const std::vector<AVector>& polyline, AVector p);
 	//static AVector GetClosestPtOnClosedPolyline(std::vector<AVector> polyline, AVector p);
-	static float   DistanceToClosedCurve(      std::vector<AVector> polyline,               AVector p);
-	static float   DistanceToClosedCurves(	   const std::vector<std::vector<AVector>>& polylines, AVector p);
-	static AVector GetClosestPtOnClosedCurve(  const std::vector<AVector>& polyline,               const AVector& p);
+	static float   DistanceToClosedCurve(std::vector<AVector> polyline, AVector p);
+	static float   DistanceToClosedCurves(const std::vector<std::vector<AVector>>& polylines, AVector p);
+	static AVector GetClosestPtOnClosedCurve(const std::vector<AVector>& polyline, const AVector& p);
 
 	// Left Right
-	static void GetLeftRightPoints(    AVector p1,   AVector p2,  float offset,  AVector* pA, AVector* pB);
-	static void GetLeftRightDirections(AVector p1,   AVector p2,  AVector* dirA, AVector* dirB);
-	static void GetLeftRightNormals(   AVector prev, AVector cur, AVector next,  AVector* leftNormal, AVector* rightNormal);
-	static void GetLeftNormals(        AVector prev, AVector cur, AVector next,  AVector* leftNormal);
-	static void GetRightNormals(       AVector prev, AVector cur, AVector next,  AVector* rightNormal);
+	static void GetLeftRightPoints(AVector p1, AVector p2, float offset, AVector* pA, AVector* pB);
+	static void GetLeftRightDirections(AVector p1, AVector p2, AVector* dirA, AVector* dirB);
+	static void GetLeftRightNormals(AVector prev, AVector cur, AVector next, AVector* leftNormal, AVector* rightNormal);
+	static void GetLeftNormals(AVector prev, AVector cur, AVector next, AVector* leftNormal);
+	static void GetRightNormals(AVector prev, AVector cur, AVector next, AVector* rightNormal);
 	static void GetListsOfLeftRightNormals(const std::vector<AVector>& curve, std::vector<AVector>& lDirs, std::vector<AVector>& rDirs);
 	static std::vector<AVector> GetInterPolatedLRDirs(float normDist, std::vector<AVector> lDirs, std::vector<AVector> rDirs, int functionLength);
 
@@ -73,13 +73,13 @@ public:
 	static bool IsClockwise(std::vector<AVector> polygon);
 
 	// this only resample open curve
-	static void                 UniformResampleWithConvexHull(std::vector<AVector> oriCurve, 
-															  std::vector<AVector> convexHull,
-		                                                      std::vector<AVector>& resampleCurve, 
-															  float resampleGap);
-	static void                 UniformResampleNoFirstPoint(std::vector<AVector> oriCurve, 
-		                                                    std::vector<AVector>& resampleCurve, 
-															float resampleGap);
+	static void                 UniformResampleWithConvexHull(std::vector<AVector> oriCurve,
+		std::vector<AVector> convexHull,
+		std::vector<AVector>& resampleCurve,
+		float resampleGap);
+	static void                 UniformResampleNoFirstPoint(std::vector<AVector> oriCurve,
+		std::vector<AVector>& resampleCurve,
+		float resampleGap);
 
 
 	static void                 UniformResample(std::vector<AVector> oriCurve, std::vector<AVector>& resampleCurve, float resampleGap);
@@ -88,14 +88,14 @@ public:
 	static void                 UniformResampleClosed(std::vector<AVector> oriCurve, std::vector<AVector>& resampleCurve, float resampleGap);
 	static std::vector<AVector> UniformResampleALine(AVector pt1, AVector pt2, int N);
 	static AVector              GetPointInterpolationFromStart(std::vector<AVector> curve, float val); // val should be 0..1
-	static void                 GetIndicesInBetween(           std::vector<AVector> curve, float val, int& index1, int& index2);
+	static void                 GetIndicesInBetween(std::vector<AVector> curve, float val, int& index1, int& index2);
 	static std::vector<AVector> GetCurveSubset(std::vector<AVector> curve, int N, float startVal, float endVal);
 	//static std::vector<AVector> Trim(std::vector<AVector> curve, float trimValue);
 
 	// string
-	static bool HasEnding(std::string const &fullString, std::string const &ending);
-	static std::vector<std::string>& Split(const std::string &s, char delim, std::vector<std::string> &elems);
-	static std::vector<std::string> Split(const std::string &s, char delim);
+	static bool HasEnding(std::string const& fullString, std::string const& ending);
+	static std::vector<std::string>& Split(const std::string& s, char delim, std::vector<std::string>& elems);
+	static std::vector<std::string> Split(const std::string& s, char delim);
 
 	// bounding box
 	static ARectangle GetBoundingBox(std::vector<AVector> boundary);

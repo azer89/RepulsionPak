@@ -61,7 +61,7 @@ void PADCalculator::ComputePAD(std::vector<AVector> aShape, std::vector<bool> rd
 	{
 		curve_x.push_back(_aShape[a].x);
 		curve_y.push_back(_aShape[a].y);
-	} 
+	}
 
 	GetFirstDeriv(curve_x, dx);
 	GetFirstDeriv(curve_y, dy);
@@ -70,10 +70,10 @@ void PADCalculator::ComputePAD(std::vector<AVector> aShape, std::vector<bool> rd
 	GetSecondDeriv(curve_y, ddy);
 
 	GetCurvature(dx,
-				dy,
-				ddx,
-				ddy,
-				ks);
+		dy,
+		ddx,
+		ddy,
+		ks);
 
 	//for (unsigned int a = 0; a < sampledShape.size(); a++)
 	//{
@@ -81,7 +81,7 @@ void PADCalculator::ComputePAD(std::vector<AVector> aShape, std::vector<bool> rd
 	//}
 	//std::cout << "PAD done\n";
 	_max_curvature = -1000000000000;
-	_min_curvature =  1000000000000;
+	_min_curvature = 1000000000000;
 	for (unsigned int a = 0; a < sampled_sz; a++)
 	{
 		if (ks[a] > _max_curvature) { _max_curvature = ks[a]; }
@@ -121,7 +121,7 @@ void PADCalculator::ComputePAD(std::vector<AVector> aShape, std::vector<bool> rd
 	//float param_gap = 1.0f / (float)SystemParams::_pad_step_int;
 	//float param_gap = 1.0f / (float)SystemParams::_resample_num;;
 	//float param_gap = 1.0f;
-	
+
 	//
 	/*int ctr = 0;
 	float sumk = 0.0f;
@@ -130,7 +130,7 @@ void PADCalculator::ComputePAD(std::vector<AVector> aShape, std::vector<bool> rd
 	{
 		if (ctr == SystemParams::_pad_level) { break; }
 
-		
+
 		int b = a + 1;
 		if (b == sampled_sz) { b == 0; }
 		// integral of absolute curvature
@@ -189,12 +189,12 @@ bool PADCalculator::IsGoodAngle(const PADDescriptor& desc)
 bool PADCalculator::IsConvex(const PADDescriptor& desc)
 {
 	int prevIdx = desc._start_index - 1;
-	int curIdx  = desc._start_index;
+	int curIdx = desc._start_index;
 	int nextIdx = desc._start_index + 1;
 
 	if (prevIdx < 0) { prevIdx = _aShape.size() - 1; }
 	if (nextIdx >= _aShape.size()) { nextIdx = 0; }
-	
+
 	AVector vec1 = (_aShape[curIdx] - _aShape[prevIdx]).Norm();
 	AVector vec2 = (_aShape[nextIdx] - _aShape[curIdx]).Norm();
 
@@ -216,11 +216,13 @@ void PADCalculator::DetectSalientParts()
 	std::vector<PADDescriptor> temp_descriptors = _descriptors;
 
 	// sort
-	std::sort(temp_descriptors.begin(), temp_descriptors.end(), [](const PADDescriptor &x,
-		const PADDescriptor &y)
-	{ return x._total_length < y._total_length; });
+	std::sort(temp_descriptors.begin(), temp_descriptors.end(), [](const PADDescriptor& x,
+		const PADDescriptor& y)
+		{
+			return x._total_length < y._total_length;
+		});
 
-	float salient_gap = SystemParams::_container_salient_gap; 
+	float salient_gap = SystemParams::_container_salient_gap;
 
 	// ---------- element ----------
 	if (_isElement)
@@ -234,7 +236,7 @@ void PADCalculator::DetectSalientParts()
 			//if (temp_descriptors[a]._length_ratio > SystemParams::_desc_max_length_ratio) { continue; }
 
 			AVector pt = _aShape[temp_descriptors[a]._start_index];
-			if (/*DistToDescriptors(_sorted_descriptors, pt) > salient_gap &&*/ IsGoodAngle(temp_descriptors[a]) )
+			if (/*DistToDescriptors(_sorted_descriptors, pt) > salient_gap &&*/ IsGoodAngle(temp_descriptors[a]))
 			{
 				_sorted_descriptors.push_back(temp_descriptors[a]);
 			}
@@ -253,7 +255,7 @@ void PADCalculator::DetectSalientParts()
 
 		AVector pt = _aShape[temp_descriptors[a]._start_index];
 		if (DistToDescriptors(_sorted_descriptors, pt) > salient_gap &&
-			IsGoodAngle(temp_descriptors[a] ))
+			IsGoodAngle(temp_descriptors[a]))
 		{
 			_sorted_descriptors.push_back(temp_descriptors[a]);
 		}
@@ -268,7 +270,7 @@ float PADCalculator::DistToDescriptors(std::vector<PADDescriptor> descs, AVector
 	{
 		AVector pt2 = _aShape[descs[a]._start_index];
 		float dist = pt2.DistanceSquared(pt);
-		if (dist < d) 
+		if (dist < d)
 		{
 			d = dist;
 		}
@@ -285,11 +287,11 @@ PADDescriptor PADCalculator::ComputePADatPoint3(int idx)
 	int sz = _aShape.size(); // num of sampled points of container boundary
 	float param_gap = 1.0f; // arclength gap between two sampled points
 
-	float total_abs_k  = 0;    // total of absolute curvature
+	float total_abs_k = 0;    // total of absolute curvature
 	float total_length = 0;    // length of curve
-	int   level_ctr    = 0;    // iter for pad level
-	int   prev_idx     = idx;  // previous point index
-	float goal_length  = (level_ctr + 1) * SystemParams::_pad_delta;
+	int   level_ctr = 0;    // iter for pad level
+	int   prev_idx = idx;  // previous point index
+	float goal_length = (level_ctr + 1) * SystemParams::_pad_delta;
 
 	float total_k = 0; // curvature
 	total_k += _curvature[prev_idx]; // curvature
@@ -317,11 +319,11 @@ PADDescriptor PADCalculator::ComputePADatPoint3(int idx)
 	}
 
 	// right
-	total_abs_k  = 0;  // reset
+	total_abs_k = 0;  // reset
 	total_length = 0;  // reset
-	level_ctr    = 0;  // reset
-	goal_length  = (level_ctr + 1) * SystemParams::_pad_delta; // reset
-	prev_idx     = idx;
+	level_ctr = 0;  // reset
+	goal_length = (level_ctr + 1) * SystemParams::_pad_delta; // reset
+	prev_idx = idx;
 	for (int cur_idx = idx + 1; cur_idx != idx; cur_idx++)
 	{
 		if (level_ctr == SystemParams::_pad_level) { break; } // stop
@@ -359,25 +361,25 @@ PADDescriptor PADCalculator::ComputePADatPoint2(int idx)
 
 	int sz = _aShape.size(); // num of sampled points of container boundary
 	float param_gap = 1.0f; // arclength gap between two sampled points
-	
-	float total_abs_k  = 0;    // total of absolute curvature
+
+	float total_abs_k = 0;    // total of absolute curvature
 	float total_length = 0;    // length of curve
-	int   level_ctr    = 0;    // iter for pad level
-	int   prev_idx     = idx;  // previous point index
-	float goal_length  = (level_ctr + 1) * SystemParams::_pad_delta;
+	int   level_ctr = 0;    // iter for pad level
+	int   prev_idx = idx;  // previous point index
+	float goal_length = (level_ctr + 1) * SystemParams::_pad_delta;
 
 	float total_k = 0; // curvature
-	total_k      += _curvature[prev_idx]; // curvature
-	
+	total_k += _curvature[prev_idx]; // curvature
+
 	// left	
 	for (int cur_idx = idx - 1; cur_idx != idx; cur_idx--) // this will stop if goes back to where we start
 	{
 		if (level_ctr == SystemParams::_pad_level) { break; } // stop if reach highest pad level
-		if (cur_idx < 0)    { cur_idx = sz - 1; }
+		if (cur_idx < 0) { cur_idx = sz - 1; }
 		if (cur_idx == idx) { std::cout << " ~~~ "; break; }
 
-		total_k      += _curvature[cur_idx]; // curvature
-		total_abs_k  += (std::abs(_curvature[cur_idx]) + std::abs(_curvature[prev_idx])) * 0.5 * param_gap; // trapezium area
+		total_k += _curvature[cur_idx]; // curvature
+		total_abs_k += (std::abs(_curvature[cur_idx]) + std::abs(_curvature[prev_idx])) * 0.5 * param_gap; // trapezium area
 		total_length += _aShape[cur_idx].Distance(_aShape[prev_idx]);
 		if (total_abs_k >= goal_length)
 		{
@@ -392,19 +394,19 @@ PADDescriptor PADCalculator::ComputePADatPoint2(int idx)
 	}
 
 	// right
-	total_abs_k  = 0;  // reset
+	total_abs_k = 0;  // reset
 	total_length = 0;  // reset
-	level_ctr    = 0;  // reset
-	goal_length  = (level_ctr + 1) * SystemParams::_pad_delta; // reset
-	prev_idx     = idx;
+	level_ctr = 0;  // reset
+	goal_length = (level_ctr + 1) * SystemParams::_pad_delta; // reset
+	prev_idx = idx;
 	for (int cur_idx = idx + 1; cur_idx != idx; cur_idx++)
 	{
 		if (level_ctr == SystemParams::_pad_level) { break; } // stop
-		if (cur_idx == sz)  { cur_idx = 0; } // move
+		if (cur_idx == sz) { cur_idx = 0; } // move
 		if (cur_idx == idx) { std::cout << " ~~~ "; break; }
 
-		total_k      += _curvature[cur_idx]; // curvature
-		total_abs_k  += (std::abs(_curvature[cur_idx]) + std::abs(_curvature[prev_idx])) * 0.5 * param_gap; // trapezium area
+		total_k += _curvature[cur_idx]; // curvature
+		total_abs_k += (std::abs(_curvature[cur_idx]) + std::abs(_curvature[prev_idx])) * 0.5 * param_gap; // trapezium area
 		total_length += _aShape[cur_idx].Distance(_aShape[prev_idx]);
 		if (total_abs_k >= goal_length)
 		{
@@ -435,10 +437,10 @@ PADDescriptor PADCalculator::ComputePADatPoint(int idx)
 	int sz = _aShape.size(); // num of sampled points of container boundary
 	float param_gap = 1.0f; // arclength gap between two sampled points
 
-	float total_abs_k  = 0;    // total of absolute curvature
+	float total_abs_k = 0;    // total of absolute curvature
 	float total_length = 0;    // length of curve
-	int   level_ctr    = 0;    // iter for pad level
-	int   prev_idx     = idx;  // previous point index
+	int   level_ctr = 0;    // iter for pad level
+	int   prev_idx = idx;  // previous point index
 	//float goal_length  = (level_ctr + 1) * SystemParams::_pad_delta;
 	float goal_length = std::pow(2.0f, level_ctr) * SystemParams::_pad_delta;
 
@@ -468,12 +470,12 @@ PADDescriptor PADCalculator::ComputePADatPoint(int idx)
 	}
 
 	// right
-	total_abs_k  = 0;  // reset
+	total_abs_k = 0;  // reset
 	total_length = 0;  // reset
-	level_ctr    = 0;  // reset
-	goal_length  = (level_ctr + 1) * SystemParams::_pad_delta; // reset
-	goal_length  = goal_length = std::pow(2.0f, level_ctr) * SystemParams::_pad_delta;
-	prev_idx     = idx;
+	level_ctr = 0;  // reset
+	goal_length = (level_ctr + 1) * SystemParams::_pad_delta; // reset
+	goal_length = goal_length = std::pow(2.0f, level_ctr) * SystemParams::_pad_delta;
+	prev_idx = idx;
 	for (int cur_idx = idx + 1; cur_idx != idx; cur_idx++)
 	{
 		if (level_ctr == SystemParams::_pad_level) { break; } // stop
@@ -591,7 +593,7 @@ void PADCalculator::Draw2()
 		//glVertex2f(_aShape[b].x, _aShape[b].y);
 	}
 	glEnd();
-	
+
 
 	if (_matchedIdx >= 0)
 	{
@@ -605,13 +607,13 @@ void PADCalculator::Draw2()
 		// left
 		glLineWidth(1.0f);
 		glBegin(GL_LINES);
-	
+
 		int prev_idx = startIdx;
 		for (int cur_idx = startIdx - 1; ; cur_idx--)
 		{
 			if (level_ctr == SystemParams::_pad_level) { break; }
 			if (cur_idx < 0) { cur_idx = sz - 1; }
-			if(cur_idx == startIdx) { break; }
+			if (cur_idx == startIdx) { break; }
 
 
 			//float otherCol = 1.0f - (float)level_ctr / (float)SystemParams::_pad_level;
@@ -702,7 +704,7 @@ void PADCalculator::Draw()
 		for (int cur_idx = _clickedIdx - 1; ; cur_idx--)
 		{
 			if (level_ctr == SystemParams::_pad_level) { break; }
-			if (cur_idx < 0) { cur_idx = sz - 1; }			
+			if (cur_idx < 0) { cur_idx = sz - 1; }
 
 			float otherCol = 1.0f - (float)level_ctr / (float)SystemParams::_pad_level;
 			if (otherCol > 0.999) { otherCol = 0.9; }
@@ -711,7 +713,9 @@ void PADCalculator::Draw()
 			glVertex2f(_aShape[cur_idx].x, _aShape[cur_idx].y);
 
 			if (cur_idx == desc._left_indices[level_ctr])
-				{ level_ctr++; }
+			{
+				level_ctr++;
+			}
 
 			prev_idx = cur_idx;
 		}
@@ -732,10 +736,12 @@ void PADCalculator::Draw()
 			if (otherCol > 0.999) { otherCol = 0.9; }
 			glColor3f(otherCol, otherCol, 1.0f);
 			glVertex2f(_aShape[prev_idx].x, _aShape[prev_idx].y);
-			glVertex2f(_aShape[cur_idx].x,  _aShape[cur_idx].y);
+			glVertex2f(_aShape[cur_idx].x, _aShape[cur_idx].y);
 
 			if (cur_idx == desc._right_indices[level_ctr])
-				{ level_ctr++; }
+			{
+				level_ctr++;
+			}
 
 			prev_idx = cur_idx;
 		}
@@ -748,7 +754,7 @@ void PADCalculator::Draw()
 		glBegin(GL_POINTS);
 		glVertex2f(_aShape[_clickedIdx].x, _aShape[_clickedIdx].y);
 		glEnd();
-		
+
 		// ---------- clicked points on left and right ----------
 		glColor3f(0.1, 0.4, 0.1);
 		glPointSize(3.0);
@@ -774,7 +780,7 @@ void PADCalculator::Draw()
 		glVertex2f(_aShape[_idx].x, _aShape[_idx].y);
 	}
 	glEnd();
-	
+
 	/*glLineWidth(3.0f);
 	glColor3f(0.0, 0.0, 0);
 	glBegin(GL_LINES);
@@ -817,7 +823,7 @@ void PADCalculator::GetFirstDeriv(std::vector<float> inputCurve, std::vector<flo
 	{
 		// current 
 		float i = inputCurve[a];
-		
+
 		// next
 		float i_1 = inputCurve[0];
 		if (a != sz - 1) { i_1 = inputCurve[a + 1]; }
@@ -827,10 +833,10 @@ void PADCalculator::GetFirstDeriv(std::vector<float> inputCurve, std::vector<flo
 }
 
 void PADCalculator::GetCurvature(std::vector<float> dx,
-								std::vector<float> dy,
-								std::vector<float> ddx,
-								std::vector<float> ddy,
-								std::vector<float>& ks)
+	std::vector<float> dy,
+	std::vector<float> ddx,
+	std::vector<float> ddy,
+	std::vector<float>& ks)
 {
 	// en.wikipedia.org/wiki/Curvature#Local_expressions
 
@@ -838,7 +844,7 @@ void PADCalculator::GetCurvature(std::vector<float> dx,
 	for (unsigned int a = 0; a < sz; a++)
 	{
 		float nom = dx[a] * ddy[a] - dy[a] * ddx[a];
-		
+
 		float denom = dx[a] * dx[a] + dy[a] * dy[a];
 		denom = std::pow(denom, 1.5f);
 
@@ -852,7 +858,7 @@ void PADCalculator::GetSecondDeriv(std::vector<float> inputCurve, std::vector<fl
 	int sz = inputCurve.size();
 	for (unsigned int a = 0; a < sz; a++)
 	{
-		float i   = inputCurve[a];
+		float i = inputCurve[a];
 		float i_1 = i; // next
 		float i_2 = i; // next next
 
@@ -874,6 +880,6 @@ void PADCalculator::GetSecondDeriv(std::vector<float> inputCurve, std::vector<fl
 
 		// en.wikipedia.org/wiki/Finite_difference#Higher-order_differences
 		// 2nd order forward
-		ddCurve.push_back(i_2 - (2.0f * i_1) + i ); // second derivative
+		ddCurve.push_back(i_2 - (2.0f * i_1) + i); // second derivative
 	}
 }

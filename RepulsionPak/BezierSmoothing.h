@@ -19,7 +19,6 @@ public:
 
 	static void RDPSimplification(std::vector<AVector> poly, std::vector<AVector>& rdpPoly, std::vector<bool>& bFlag);
 
-
 	static std::vector<AQuad> GetBezierQuadLS(std::vector<AVector> poly, std::vector<bool> rdpFlags);
 
 	static void DeCasteljau(std::vector<AVector>& poly, AVector p0, AVector p1, AVector p2, AVector p3, double subdivide_limit);

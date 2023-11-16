@@ -6,14 +6,14 @@
 PixelTracer::PixelTracer()
 {
 	_dirs.push_back(std::pair<int, int>(-1, -1)); // top left
-	_dirs.push_back(std::pair<int, int>( 0, -1)); // top
- 	_dirs.push_back(std::pair<int, int>( 1, -1)); // top right
-	_dirs.push_back(std::pair<int, int>(-1,  0)); // left
+	_dirs.push_back(std::pair<int, int>(0, -1)); // top
+	_dirs.push_back(std::pair<int, int>(1, -1)); // top right
+	_dirs.push_back(std::pair<int, int>(-1, 0)); // left
 
-	_dirs.push_back(std::pair<int, int>( 1, 0)); // right
+	_dirs.push_back(std::pair<int, int>(1, 0)); // right
 	_dirs.push_back(std::pair<int, int>(-1, 1)); // bottom left
-	_dirs.push_back(std::pair<int, int>( 0, 1)); // bottom
-	_dirs.push_back(std::pair<int, int>( 1, 1)); // bottom right
+	_dirs.push_back(std::pair<int, int>(0, 1)); // bottom
+	_dirs.push_back(std::pair<int, int>(1, 1)); // bottom right
 }
 
 PixelTracer::~PixelTracer()
@@ -47,7 +47,7 @@ int PixelTracer::NumNeighbors(int x, int y)
 		float idx = (x + _dirs[curIdx].first) + (y + _dirs[curIdx].second) * _sz;
 		if (idx < 0) { continue; }
 		if (_cell_flags[idx] != CellType::NO_GO)
-		{ 
+		{
 			numNeighbor++;
 			a++; // skip
 		}
@@ -104,7 +104,7 @@ void PixelTracer::InitImage(CVImg input_img)
 			testImage.SetColorPixel(x, y, MyColor(255, 255, 255));
 
 			nn = NumNeighbors(x, y);
-		}		
+		}
 
 		if (nn > 3)
 		{
@@ -112,5 +112,5 @@ void PixelTracer::InitImage(CVImg input_img)
 			//testImage.SetColorPixel(x, y, MyColor(0, 255, 0));
 		}
 	}
-	cv:imwrite(SystemParams::_output_folder + "SDF\\" + "debug.png", testImage._img);
+cv:imwrite(SystemParams::_output_folder + "SDF\\" + "debug.png", testImage._img);
 }

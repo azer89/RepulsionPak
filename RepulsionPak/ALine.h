@@ -126,7 +126,7 @@ public:
 		AVector dir2 = otherLine.Direction();
 
 		float a_dot_b = dir1.Dot(dir2);
-		float a_b_mag = mag1 *  mag2;
+		float a_b_mag = mag1 * mag2;
 
 		float addValue = a_dot_b + a_b_mag;
 		if (addValue > -std::numeric_limits<float>::epsilon() && addValue < std::numeric_limits<float>::epsilon()) { return -1; }

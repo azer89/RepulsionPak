@@ -94,12 +94,14 @@ namespace PoissonGenerator
 			: x(0)
 			, y(0)
 			, m_Valid(false)
-		{}
+		{
+		}
 		sPoint(float X, float Y)
 			: x(X)
 			, y(Y)
 			, m_Valid(true)
-		{}
+		{
+		}
 		float x;
 		float y;
 		bool m_Valid;
@@ -113,7 +115,7 @@ namespace PoissonGenerator
 		{
 			float fx = x - 0.5f;
 			float fy = y - 0.5f;
-			return (fx*fx + fy*fy) <= 0.25f;
+			return (fx * fx + fy * fy) <= 0.25f;
 		}
 	};
 
@@ -122,7 +124,8 @@ namespace PoissonGenerator
 		sGridPoint(int X, int Y)
 			: x(X)
 			, y(Y)
-		{}
+		{
+		}
 		int x;
 		int y;
 	};
@@ -229,7 +232,7 @@ namespace PoissonGenerator
 		int NewPointsCount = 30,
 		bool Circle = true,
 		float MinDist = -1.0f
-		)
+	)
 	{
 		if (MinDist < 0.0f)
 		{
@@ -248,7 +251,8 @@ namespace PoissonGenerator
 		sGrid Grid(GridW, GridH, CellSize);
 
 		sPoint FirstPoint;
-		do {
+		do
+		{
 			FirstPoint = sPoint(Generator.RandomFloat(), Generator.RandomFloat());
 		} while (!(Circle ? FirstPoint.IsInCircle() : FirstPoint.IsInRectangle()));
 

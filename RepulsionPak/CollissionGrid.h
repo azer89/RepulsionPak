@@ -53,9 +53,9 @@ public:
 
 	void Draw();
 
-	void AnalyzeContainer(const std::vector<std::vector<AVector>>&  boundaries, 
-		const std::vector<std::vector<AVector>>&  holes,
-		                  const std::vector<std::vector<AVector>>& offsetFocalBoundaries);
+	void AnalyzeContainer(const std::vector<std::vector<AVector>>& boundaries,
+		const std::vector<std::vector<AVector>>& holes,
+		const std::vector<std::vector<AVector>>& offsetFocalBoundaries);
 
 	void PrecomputeGraphIndices();
 	//void PrecomputeGraphIndices2();
@@ -65,7 +65,7 @@ public:
 
 	bool NearBoundary(float x, float y);
 
-	
+
 	//void PrecomputeData_Thread(int startIdx, int endIdx);
 
 public:

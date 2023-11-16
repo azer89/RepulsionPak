@@ -9,8 +9,6 @@
 #include "CurveRDP.h"
 #include "CSSSmoothing.h"
 
-
-
 #include "glew.h"
 #include "freeglut.h"
 
@@ -63,8 +61,8 @@ void ContainerWorker::LoadContainer(CollissionGrid* cGrid)
 
 	OpenCVWrapper cvWRap;
 	std::cout << "____container area = " << cvWRap.GetAreaOriented(_container_boundaries[0]) << "\n";
-	
-	
+
+
 	// ---------- resampled ----------
 	//SystemParams::_resample_gap_float = _container_length / (float)SystemParams::_resample_num;
 	//UtilityFunctions::UniformResampleClosed(_container_boundaries[0], _resampled_container, SystemParams::_resample_gap_float); // 1
@@ -85,7 +83,7 @@ void ContainerWorker::LoadContainer(CollissionGrid* cGrid)
 
 	// ---------- PAD ----------
 	_padCalc.ComputePAD(_smooth_container, _rdpFlags);
-		
+
 	// ---------- holes ----------
 	for (unsigned int a = 0; a < _container_vf_region.size(); a++)
 	{
@@ -94,7 +92,7 @@ void ContainerWorker::LoadContainer(CollissionGrid* cGrid)
 	}
 
 	std::cout << "number of boundaries: " << _container_boundaries.size() << "\n";
-	std::cout << "number of holes: "      << _holes.size() << "\n";
+	std::cout << "number of holes: " << _holes.size() << "\n";
 
 	for (unsigned int a = 0; a < _container_vf_region.size(); a++)
 	{
@@ -136,15 +134,19 @@ void ContainerWorker::LoadContainer(CollissionGrid* cGrid)
 		// ===== MULTIPLE CONTAINERS =====
 		// 1  UNCOMMENT THESE FOR HOLES
 		for (int bb = 0; bb < _holes.size() && isInside; bb++)
-			{ isInside = !UtilityFunctions::InsidePolygon(_holes[bb], pt.x, pt.y); }
+		{
+			isInside = !UtilityFunctions::InsidePolygon(_holes[bb], pt.x, pt.y);
+		}
 
 		//for (int bb = 0; bb < _offsetFocalBoundaries.size() && isInside; bb++)
 		//{ isInside = !UtilityFunctions::InsidePolygon(_offsetFocalBoundaries[bb], pt); }
 
 		float d = UtilityFunctions::DistanceToBunchOfPoints(_randomPositions, pt);
 
-		if (isInside && d > 10) 
-			{ _randomPositions.push_back(pt); }
+		if (isInside && d > 10)
+		{
+			_randomPositions.push_back(pt);
+		}
 	}
 
 	if (!SystemParams::_do_shape_matching && SystemParams::_num_element_pos_limit < _randomPositions.size())
@@ -180,7 +182,7 @@ bool ContainerWorker::IsGraphInside(const AnElement& g)
 void ContainerWorker::PlacementWithMatching3(std::vector<AnElement>& oriGraphs, std::vector<AnElement>& matchedGraphs, std::vector<bool>& oriGraphsFlags)
 {
 	//std::vector<AGraph> matchedGraphs;
-	
+
 
 	// KNN
 	PrepareKNN(oriGraphs);
@@ -191,7 +193,7 @@ void ContainerWorker::PlacementWithMatching3(std::vector<AnElement>& oriGraphs, 
 	{
 		// init
 		float d = -100000000000;
-		
+
 		int best_b_idx = -1;
 		int best_c_idx = -1;
 
@@ -220,7 +222,7 @@ void ContainerWorker::PlacementWithMatching3(std::vector<AnElement>& oriGraphs, 
 
 		my_vector_of_info_t indices = GetNN(_padCalc._sorted_descriptors[i].GetDescriptor());
 		std::cout << "indices size = " << indices.size() << "\n";
-		for(unsigned int ii = 0; ii < indices.size(); ii++)
+		for (unsigned int ii = 0; ii < indices.size(); ii++)
 		{
 			int idx1 = indices[ii].first;
 			int idx2 = indices[ii].second;
@@ -267,7 +269,7 @@ void ContainerWorker::PlacementWithMatching3(std::vector<AnElement>& oriGraphs, 
 			std::vector<AVector> r_poly;
 			GetLRSegments(candidate_g._padCalc._sorted_descriptors[idx2], candidate_g._padCalc._aShape, l_poly, r_poly);
 
-			
+
 
 			float dist = GetScore(candidate_g._uniArt, l_poly, r_poly, c_pt, l_poly_container, r_poly_container);
 			if (dist > d)
@@ -289,7 +291,7 @@ void ContainerWorker::PlacementWithMatching3(std::vector<AnElement>& oriGraphs, 
 		yay_g.Scale(SystemParams::_element_initial_scale);
 		yay_g.Move(c_pt);
 		yay_g.Translate(c_pt - yay_g._massList[yay_g._matchedVertexIdx]._pos);
-		
+
 		yay_g.RecalculateEdgeLengths();
 		yay_g.RecalculateTriangleEdgeLengths();
 		yay_g.UpdateBoundaryAndAvgEdgeLength();
@@ -357,7 +359,7 @@ my_vector_of_info_t ContainerWorker::GetNN(std::vector<float> queryPt)
 	for (size_t i = 0; i < num_results; i++)
 	{
 		//std::cout << "ret_index[" << i << "]=" << ret_indexes[i] << " out_dist_sqr=" << out_dists_sqr[i] << std::endl;
-		returnArray.push_back(_descriptor_info[ret_indexes[i]] );
+		returnArray.push_back(_descriptor_info[ret_indexes[i]]);
 	}
 
 	return returnArray;
@@ -380,7 +382,7 @@ void ContainerWorker::PrepareKNN(std::vector<AnElement>& oriGraphs)
 		int g_d_sz = oriGraphs[a]._padCalc._sorted_descriptors.size();
 		for (unsigned int b = 0; b < g_d_sz; b++) // loop a graph's descriptors
 		{
-			_descriptors.push_back(oriGraphs[a]._padCalc._sorted_descriptors[b].GetDescriptor() );
+			_descriptors.push_back(oriGraphs[a]._padCalc._sorted_descriptors[b].GetDescriptor());
 			_descriptor_info.push_back(std::pair<int, int>(a, b));
 		}
 	}
@@ -398,18 +400,18 @@ std::vector<AnElement> ContainerWorker::PlacementWithMatching2(std::vector<AnEle
 	for (unsigned int a = 0; a < desc_sz; a++) // loop container descriptors
 	{
 		// init
-		float d        = -100000000000;
+		float d = -100000000000;
 		int best_b_idx = -1;
 		int best_c_idx = -1;
-		int g_sz       = oriGraphs.size();
-		
+		int g_sz = oriGraphs.size();
+
 		// point on container
 		AVector c_pt = _smooth_container[_padCalc._sorted_descriptors[a]._start_index]; // docking
 
 		// rotation
-		int c_l_idx     = _padCalc._sorted_descriptors[a].GetMostLeftIndex();
-		int c_r_idx     = _padCalc._sorted_descriptors[a].GetMostRightIndex();
-		AVector cA      = _smooth_container[c_l_idx]; AVector cB = _smooth_container[c_r_idx];
+		int c_l_idx = _padCalc._sorted_descriptors[a].GetMostLeftIndex();
+		int c_r_idx = _padCalc._sorted_descriptors[a].GetMostRightIndex();
+		AVector cA = _smooth_container[c_l_idx]; AVector cB = _smooth_container[c_r_idx];
 		AVector cVector = (cB - cA).Norm();
 
 		AnElement yay_g; // the choice !
@@ -429,23 +431,23 @@ std::vector<AnElement> ContainerWorker::PlacementWithMatching2(std::vector<AnEle
 
 					// docking
 					int e_start_idx = candidate_g._padCalc._sorted_descriptors[c]._start_index;
-					AVector e_pt    = candidate_g._smooth_skin[e_start_idx];
-					candidate_g.SetMatchedPoint(e_pt, c_pt); 
+					AVector e_pt = candidate_g._smooth_skin[e_start_idx];
+					candidate_g.SetMatchedPoint(e_pt, c_pt);
 
 					// scaling
-					candidate_g.Scale(SystemParams::_element_initial_scale); 
+					candidate_g.Scale(SystemParams::_element_initial_scale);
 
 					// rotation
 					int e_l_idx = candidate_g._padCalc._sorted_descriptors[c].GetMostLeftIndex();
 					int e_r_idx = candidate_g._padCalc._sorted_descriptors[c].GetMostRightIndex();
-					AVector eA  = candidate_g._smooth_skin[e_l_idx];
-					AVector eB  = candidate_g._smooth_skin[e_r_idx];
+					AVector eA = candidate_g._smooth_skin[e_l_idx];
+					AVector eB = candidate_g._smooth_skin[e_r_idx];
 					AVector eVector = (eB - eA).Norm();
 					float rotation_value = UtilityFunctions::Angle2D(eVector.x, eVector.y, cVector.x, cVector.y);
 					candidate_g.Rotate(rotation_value); // rotation
 
 					// move to a point (not identical to translation)
-					candidate_g.Move(c_pt);             
+					candidate_g.Move(c_pt);
 
 					// translation 
 					candidate_g.RecalculateArts(); // before translate
@@ -457,7 +459,7 @@ std::vector<AnElement> ContainerWorker::PlacementWithMatching2(std::vector<AnEle
 					//{
 					//float dist = GetScore(candidate_g._uniArt, c_pt);
 					float dist = 1234567879;
-					if(dist > d)
+					if (dist > d)
 					{
 						best_b_idx = b;
 						best_c_idx = c;
@@ -469,7 +471,7 @@ std::vector<AnElement> ContainerWorker::PlacementWithMatching2(std::vector<AnEle
 		}// loop graphs
 
 		if (best_b_idx == -1 || best_c_idx == -1) { continue; }
-				
+
 		float c_ratio = _padCalc._sorted_descriptors[a]._length_ratio;
 		float e_ratio = oriGraphs[best_b_idx]._padCalc._sorted_descriptors[best_c_idx]._length_ratio;
 		std::cout << "c_ratio = " << c_ratio << " , e_ratio = " << e_ratio << "\n";
@@ -480,7 +482,7 @@ std::vector<AnElement> ContainerWorker::PlacementWithMatching2(std::vector<AnEle
 		yay_g._ori_id = best_b_idx; // keep track the original graph
 		yay_g._bigOne = true;
 		yay_g._padCalc._matchedIdx = best_c_idx;
-		
+
 		matchedGraphs.push_back(yay_g);
 
 		//std::vector<AVector> resampleArt;
@@ -510,15 +512,15 @@ std::vector<AnElement> ContainerWorker::PlacementWithMatching2(std::vector<AnEle
 }
 
 void ContainerWorker::DrawDebug(const std::vector<AVector>& uniArt,
-								const std::vector<AVector>& l_poly,
-								const std::vector<AVector>& r_poly,
-								AVector dockPoint,
-							const std::vector<AVector>& l_poly_container,
-							const std::vector<AVector>& r_poly_container,
-								float scoreVal,
-								float insideScoreVal,
-							    float onScoreVal,
-								float outsideScoreVal,
+	const std::vector<AVector>& l_poly,
+	const std::vector<AVector>& r_poly,
+	AVector dockPoint,
+	const std::vector<AVector>& l_poly_container,
+	const std::vector<AVector>& r_poly_container,
+	float scoreVal,
+	float insideScoreVal,
+	float onScoreVal,
+	float outsideScoreVal,
 	const std::vector<AVector>& insidePoints,
 	const std::vector<AVector>& outsidePoints,
 	const std::vector<AVector>& onPoints)
@@ -560,7 +562,7 @@ void ContainerWorker::DrawDebug(const std::vector<AVector>& uniArt,
 	_cvWrapper.PutText(_debugImg._img, ss2.str(), AVector(10, 30), MyColor(0, 150, 0));
 
 	ss2.str("");
-	ss2 << "Inside score: " << insideScoreVal ;
+	ss2 << "Inside score: " << insideScoreVal;
 	_cvWrapper.PutText(_debugImg._img, ss2.str(), AVector(10, 50), MyColor(0, 150, 0));
 
 	ss2.str("");
@@ -571,18 +573,18 @@ void ContainerWorker::DrawDebug(const std::vector<AVector>& uniArt,
 	ss2 << "Outside score: " << outsideScoreVal;
 	_cvWrapper.PutText(_debugImg._img, ss2.str(), AVector(10, 90), MyColor(0, 150, 0));
 
-	
+
 
 	_debugImg.SaveImage(SystemParams::_output_folder + "DEBUG\\" + ss1.str() + ".png");
-	
+
 }
 
 float ContainerWorker::GetScore(const std::vector<AVector>& uniArt,
-						const std::vector<AVector>& l_poly,
-						const std::vector<AVector>& r_poly,
-						AVector dockPoint,
-						const std::vector<AVector>& l_poly_container,
-						const std::vector<AVector>& r_poly_container)
+	const std::vector<AVector>& l_poly,
+	const std::vector<AVector>& r_poly,
+	AVector dockPoint,
+	const std::vector<AVector>& l_poly_container,
+	const std::vector<AVector>& r_poly_container)
 {
 	std::vector<AVector> resampleArt;
 	UtilityFunctions::UniformResampleClosed(uniArt, resampleArt, SystemParams::_resample_gap_float);
@@ -597,7 +599,7 @@ float ContainerWorker::GetScore(const std::vector<AVector>& uniArt,
 		float d = UtilityFunctions::DistanceToClosedCurve(cBoundary, resampleArt[a]);
 		if (UtilityFunctions::InsidePolygon(cBoundary, resampleArt[a].x, resampleArt[a].y))
 		{
-			d = -d; 
+			d = -d;
 			// negative is inside
 		}
 		dists.push_back(d);
@@ -639,7 +641,7 @@ float ContainerWorker::GetScore(const std::vector<AVector>& uniArt,
 			insideScore += val;
 			insidePoints.push_back(resampleArt[a]);
 		}
-		
+
 		else
 		{
 			float val = -SystemParams::_alpha_outside * dists[a];
@@ -699,8 +701,8 @@ std::vector<AnElement> ContainerWorker::PlacementWithMatching(std::vector<AnElem
 		//ALine eLine;
 		int e_l_idx = oriGraphs[best_b_idx]._padCalc._sorted_descriptors[best_c_idx].GetMostLeftIndex();
 		int e_r_idx = oriGraphs[best_b_idx]._padCalc._sorted_descriptors[best_c_idx].GetMostRightIndex();
-		AVector eA =  oriGraphs[best_b_idx]._smooth_skin[e_l_idx];
-		AVector eB =  oriGraphs[best_b_idx]._smooth_skin[e_r_idx];
+		AVector eA = oriGraphs[best_b_idx]._smooth_skin[e_l_idx];
+		AVector eB = oriGraphs[best_b_idx]._smooth_skin[e_r_idx];
 		AVector eVector = (eB - eA).Norm();
 		float rotation_value = UtilityFunctions::Angle2D(eVector.x, eVector.y, cVector.x, cVector.y);
 
@@ -721,10 +723,10 @@ std::vector<AnElement> ContainerWorker::PlacementWithMatching(std::vector<AnElem
 
 		g.Rotate(rotation_value); // during
 		g.Move(c_pt);             // during
-		
+
 		g.RecalculateArts(); // before translate
 		g.Translate(c_pt - g._matchedPoint);
-		
+
 		g.RecalculateEdgeLengths();
 		g.RecalculateTriangleEdgeLengths();
 		g.UpdateBoundaryAndAvgEdgeLength();
@@ -740,9 +742,9 @@ std::vector<AnElement> ContainerWorker::PlacementWithMatching(std::vector<AnElem
 }
 
 void ContainerWorker::CreatePoints(std::vector<AVector> ornamentBoundary,
-									float img_length,
-									std::vector<AVector>& randomPoints,
-									int& boundaryPointNum)
+	float img_length,
+	std::vector<AVector>& randomPoints,
+	int& boundaryPointNum)
 {
 	// how many points
 	float fVal = img_length / SystemParams::_upscaleFactor;
@@ -819,7 +821,7 @@ void ContainerWorker::GetLRSegments(PADDescriptor desc, std::vector<AVector> pol
 	{
 		if (level_ctr == SystemParams::_pad_level) { break; }
 		if (cur_idx < 0) { cur_idx = sz - 1; }
-		
+
 		l_poly.push_back(poly[cur_idx]);
 
 		if (cur_idx == desc._left_indices[level_ctr])
@@ -836,7 +838,7 @@ void ContainerWorker::GetLRSegments(PADDescriptor desc, std::vector<AVector> pol
 	{
 		if (level_ctr == SystemParams::_pad_level) { break; }
 		if (cur_idx == sz) { cur_idx = 0; }
-		
+
 		r_poly.push_back(poly[cur_idx]);
 
 		if (cur_idx == desc._right_indices[level_ctr])
@@ -861,7 +863,7 @@ void ContainerWorker::Draw()
 			for (unsigned int a = 0; a < con_sz; a++)
 			{
 				glVertex2f(_container_boundaries[i][b].x, _container_boundaries[i][b].y);
-				glVertex2f(_container_boundaries[i][a].x, _container_boundaries[i][a].y);				
+				glVertex2f(_container_boundaries[i][a].x, _container_boundaries[i][a].y);
 
 				b = a;
 			}
@@ -877,7 +879,7 @@ void ContainerWorker::Draw()
 			for (unsigned int a = 0; a < h_size; a++)
 			{
 				glVertex2f(_holes[i][b].x, _holes[i][b].y);
-				glVertex2f(_holes[i][a].x, _holes[i][a].y);				
+				glVertex2f(_holes[i][a].x, _holes[i][a].y);
 
 				b = a;
 			}
@@ -899,7 +901,7 @@ void ContainerWorker::Draw()
 				glVertex2f(_squareContainer[i][b].x, _squareContainer[i][b].y);
 			}
 			glEnd();
-		}*/		
+		}*/
 	}
 
 	// ---------- draw simplified boundary ----------
@@ -943,7 +945,7 @@ void ContainerWorker::Draw()
 		glVertex2f(_smooth_container[b].x, _smooth_container[b].y);
 	}
 	glEnd();*/
-	
+
 
 	// ---------- draw resampled points ----------
 	if (SystemParams::_show_shape_matching)

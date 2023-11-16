@@ -133,7 +133,7 @@ public:
 	//static float _num_peak_threshold;
 	static float _peak_dist_stop;
 	static float _peak_gap;
-	
+
 	//static int _new_elem_time_gap;
 
 	// imgui
@@ -144,7 +144,7 @@ public:
 	//static bool _show_mst;
 	static bool _simulate_1;
 	static bool _simulate_2;
-	static bool _show_triangles;	
+	static bool _show_triangles;
 	static bool _show_elements;
 	static bool _show_bending_springs;
 	static bool _show_shape_matching;
@@ -162,7 +162,7 @@ public:
 	//static int _capture_time;
 	static float _rms_window;
 	static float _rms_threshold;
-	
+
 	// focal
 	//static bool _focal_as_elements;
 	static float _skin_thickness;
@@ -177,7 +177,7 @@ public:
 	static bool _output_files;
 	static int  _screen_width;
 	static int  _screen_height;
-	static int  _sleep_time; 
+	static int  _sleep_time;
 
 	static bool _should_rotate;
 	static int  _num_element_pos_limit;
@@ -189,7 +189,7 @@ public:
 
 	static float _pad_level;
 	static float _pad_delta;
-	
+
 	//static float _rdp_epsilon;
 	static float _alpha_outside;       // score function
 	static float _beta_inside;

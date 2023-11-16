@@ -51,8 +51,8 @@ public:
 	//void AppendLineData(std::vector<ALine>   myData);
 
 	// query
-	std::vector<AVector> GetClosestPoints(  AVector pt, int num_query);
-	std::vector<int>     GetClosestIndices( AVector pt, int num_query);
+	std::vector<AVector> GetClosestPoints(AVector pt, int num_query);
+	std::vector<int>     GetClosestIndices(AVector pt, int num_query);
 
 	std::vector<std::pair<int, int>> GetClosestPairIndices(AVector pt, int num_query);
 
@@ -78,7 +78,7 @@ public:
 
 	//std::vector<ALine>   _lineData;
 
-	PointKDTree* 	  _pointKDTree;
+	PointKDTree* _pointKDTree;
 	PointCloud<float> _pointCloud;
 
 	int _leaf_max_size;

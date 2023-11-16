@@ -146,7 +146,7 @@ public:
 
 	// dot product
 	inline float Dot(const AVector& otherVector) { return x * otherVector.x + y * otherVector.y; }
-	
+
 	// linear dependency test
 	inline bool IsLinearDependent(const AVector& otherVector)
 	{
@@ -226,7 +226,7 @@ public:
 		return *this;
 	}
 
-	
+
 };
 
 typedef std::vector<std::vector<AVector>> GraphArt;

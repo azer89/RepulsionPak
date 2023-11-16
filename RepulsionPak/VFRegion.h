@@ -50,7 +50,7 @@ public:
 
 	std::vector<std::vector<AVector>> _holes;
 
-	/* triangulation data 
+	/* triangulation data
 	   these are vector of vector because they support multiple boundaries
 
 	// example code :
@@ -107,7 +107,9 @@ public:
 				isSimple = siFixer.IsSimple(newPoly);
 				//_simpleBoundaries.push_back(newPoly);
 				if (isSimple)
-				{ std::cout << "FIXED\n"; }
+				{
+					std::cout << "FIXED\n";
+				}
 				else { std::cerr << "self intersection NOT FIXED\n"; }
 
 				polyPoundaries[a] = newPoly;
@@ -166,7 +168,9 @@ public:
 		{
 			std::vector<AVector> streamline;
 			for (int b = 0; b < _streamLines[a].size(); b++)
-			    { streamline.push_back(_streamLines[a][b] * scaleFactor); }
+			{
+				streamline.push_back(_streamLines[a][b] * scaleFactor);
+			}
 			streamLines.push_back(streamline);
 		}
 
@@ -174,25 +178,33 @@ public:
 		{
 			std::vector<AVector> skeletonline;
 			for (int b = 0; b < _skeletonLines[a].size(); b++)
-			    { skeletonline.push_back(_skeletonLines[a][b] * scaleFactor); }
+			{
+				skeletonline.push_back(_skeletonLines[a][b] * scaleFactor);
+			}
 			skeletonLines.push_back(skeletonline);
 		}
-		
+
 		for (int a = 0; a < _boundaryPaths.size(); a++)
-		    { boundaryPaths.push_back(_boundaryPaths[a].Scale(scaleFactor)); }
+		{
+			boundaryPaths.push_back(_boundaryPaths[a].Scale(scaleFactor));
+		}
 
 		for (int a = 0; a < _focalPaths.size(); a++)
-		    { focalPaths.push_back(_focalPaths[a].Scale(scaleFactor)); }
+		{
+			focalPaths.push_back(_focalPaths[a].Scale(scaleFactor));
+		}
 
 		for (int a = 0; a < _fieldPaths.size(); a++)
-		    { fieldPaths.push_back(_fieldPaths[a].Scale(scaleFactor)); }
+		{
+			fieldPaths.push_back(_fieldPaths[a].Scale(scaleFactor));
+		}
 
-		scaledRegion._streamLines   = streamLines;
+		scaledRegion._streamLines = streamLines;
 		scaledRegion._skeletonLines = skeletonLines;
 
 		scaledRegion._boundaryPaths = boundaryPaths;
-		scaledRegion._focalPaths    = focalPaths;
-		scaledRegion._fieldPaths    = fieldPaths;		
+		scaledRegion._focalPaths = focalPaths;
+		scaledRegion._fieldPaths = fieldPaths;
 
 		return scaledRegion;
 	}
@@ -246,7 +258,9 @@ public:
 	{
 		std::vector<std::vector<AVector>> myBoundaries;
 		for (int a = 0; a < this->_boundaryPaths.size(); a++)
-			{ myBoundaries.push_back(this->_boundaryPaths[a].points); }
+		{
+			myBoundaries.push_back(this->_boundaryPaths[a].points);
+		}
 		return myBoundaries;
 	}
 

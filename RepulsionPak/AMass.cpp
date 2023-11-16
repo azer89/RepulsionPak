@@ -30,8 +30,8 @@
 AMass::AMass()
 {
 	//this->_m     = 0;             // mass is always one
-	this->_pos   = AVector(0, 0);
-	this->_idx   = -1;
+	this->_pos = AVector(0, 0);
+	this->_idx = -1;
 	//this->_cellIdx = -1;
 
 	CallMeFromConstructor();
@@ -51,8 +51,8 @@ AMass::AMass(const float& x, const float& y)
 AMass::AMass(const AVector& pos)
 {
 	//this->_m     = 0;             // mass is always one
-	this->_pos   = pos;
-	this->_idx   = -1;
+	this->_pos = pos;
+	this->_idx = -1;
 
 	CallMeFromConstructor();
 }
@@ -80,10 +80,10 @@ void AMass::CallMeFromConstructor()
 	this->_avgEdgeLength = 0.0f;
 	this->_isInside = false;
 
-	this->_edgeForce      = AVector(0, 0);
+	this->_edgeForce = AVector(0, 0);
 	this->_repulsionForce = AVector(0, 0);
-	this->_boundaryForce  = AVector(0, 0);
-	this->_overlapForce   = AVector(0, 0);
+	this->_boundaryForce = AVector(0, 0);
+	this->_overlapForce = AVector(0, 0);
 	this->_rotationForce = AVector(0, 0);
 	this->_selfIntersectForce = AVector(0, 0);
 }
@@ -115,7 +115,7 @@ bool AMass::TryToAddTriangleEdge(AnIndexedLine anEdge, const std::vector<AMass>&
 		// calculate distance
 		AVector pt1 = otherMasses[anEdge._index0]._pos;
 		AVector pt2 = otherMasses[anEdge._index1]._pos;
-		anEdge.SetDist( pt1.Distance(pt2) ); 
+		anEdge.SetDist(pt1.Distance(pt2));
 
 		// add triangle edge
 		if (anEdge._index0 != _idx) { anEdge.Swap(); }
@@ -154,13 +154,13 @@ void AMass::GetClosestPoints2(const int& parentGraphIndex)
 	this->_closestPt_fill_sz = 0;
 	this->_isInside = false;           // "inside" flag
 	this->_n_closest_elems = 0;
-	
+
 	//StuffWorker::_cGrid->GetGraphIndices2B(_pos.x, _pos.y, parentGraphIndex, _closestGraphIndices);
 	GraphIndices* _closestGraphIndices;
 	_closestGraphIndices = StuffWorker::_cGrid->GetGraphIndicesPtr(_pos.x, _pos.y, parentGraphIndex);
 
 	this->_n_closest_elems = _closestGraphIndices->size();
-	
+
 	if (_closestGraphIndices->size() > 0)
 	{
 		std::vector<bool> insideGraphFlags;
@@ -211,10 +211,10 @@ void AMass::GetClosestPoints2(const int& parentGraphIndex)
 
 
 void AMass::Solve(const int& massNumber,
-	              const AnElement& parentGraph,
-				  const std::vector<std::vector<AVector>>& boundaries,
-				  const std::vector<std::vector<AVector>>& holes,
-				  const std::vector<std::vector<AVector>>& focalOffsets)
+	const AnElement& parentGraph,
+	const std::vector<std::vector<AVector>>& boundaries,
+	const std::vector<std::vector<AVector>>& holes,
+	const std::vector<std::vector<AVector>>& focalOffsets)
 {
 
 	if (massNumber < parentGraph._skinPointNum)
@@ -230,8 +230,8 @@ void AMass::Solve(const int& massNumber,
 				for (unsigned int a = 0; a < _triangles.size(); a++)
 				{
 					ctrPt = (parentGraph._massList[_triangles[a].idx0].GetPos() +        // triangle vertex
-						               parentGraph._massList[_triangles[a].idx1].GetPos() +        // triangle vertex
-									   parentGraph._massList[_triangles[a].idx2].GetPos()) / 3.0f; // triangle vertex
+						parentGraph._massList[_triangles[a].idx1].GetPos() +        // triangle vertex
+						parentGraph._massList[_triangles[a].idx2].GetPos()) / 3.0f; // triangle vertex
 
 					dir = _pos.DirectionTo(ctrPt);
 					sumO += dir;
@@ -265,7 +265,7 @@ void AMass::Solve(const int& massNumber,
 		float k_boundary = SystemParams::_k_boundary;
 		// ===== MULTIPLE CONTAINERS =====
 		if (!UtilityFunctions::InsidePolygons(boundaries, _pos.x, _pos.y))
-		//if (!UtilityFunctions::InsidePolygon(boundaries[0], _pos)) // only consider when it is outside
+			//if (!UtilityFunctions::InsidePolygon(boundaries[0], _pos)) // only consider when it is outside
 		{
 			AVector cPt;
 			float ddd = std::numeric_limits<float>::max();
@@ -282,10 +282,10 @@ void AMass::Solve(const int& massNumber,
 			}
 			//UtilityFunctions::GetClosestPtOnClosedCurve(boundaries, _pos); // expensive 
 			AVector dirDist = _pos.DirectionTo(cPt); // not normalized
-			AVector bForce  = dirDist * k_boundary;
+			AVector bForce = dirDist * k_boundary;
 			if (!bForce.IsBad()) { this->_boundaryForce += bForce; }  // apply
 		}
-	
+
 		// ===== MULTIPLE CONTAINERS =====
 		// focal
 		/*for (int a = 0; a < focalOffsets.size(); a++)
@@ -349,19 +349,18 @@ Oiler method
 */
 void AMass::Simulate(float dt/*, float dampingVal*/)
 {
-	
 	// oiler
-	_velocity += ((/*_attractionForce + */ _edgeForce      + 
-		                                   _repulsionForce + 
-		                                   _boundaryForce  + 
-		                                   _overlapForce   + 
-		                                   //_noiseForce     + 
-		                                   _rotationForce  + 
-		                                   _selfIntersectForce) * dt);
+	_velocity += ((/*_attractionForce + */ _edgeForce +
+		_repulsionForce +
+		_boundaryForce +
+		_overlapForce +
+		//_noiseForce     + 
+		_rotationForce +
+		_selfIntersectForce) * dt);
 	float len = _velocity.Length();
 
-	float capVal = SystemParams::_velocity_cap * dt; 
-	
+	float capVal = SystemParams::_velocity_cap * dt;
+
 	if (len > capVal)
 	{
 		_velocity = _velocity.Norm() * capVal;
@@ -401,16 +400,16 @@ void AMass::DrawForce()
 	glVertex2f(_pos.x + (allForces.x * forceScale), _pos.y + (allForces.y * forceScale));
 	//glVertex2f(_pos.x + (_angleVel.x * forceScale), _pos.y + (_angleVel.y * forceScale));
 	glEnd();*/
-	
+
 }
 
 void AMass::Draw()
-{	
+{
 	/*
 	glLineWidth(0.5f);
 	glColor3f(1.0, 0.0, 0.0);
 	glBegin(GL_LINES);
-	
+
 	glVertex2f(_pos.x, _pos.y);
 	glVertex2f(_lineSgment[0].x, _lineSgment[0].y);
 

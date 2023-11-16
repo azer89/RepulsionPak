@@ -110,12 +110,12 @@ void CurveRDP::SimplifyRDPRecursive(std::vector<AVector>& oldCurves, std::vector
 	}
 }
 
-void CurveRDP::RDPFlags(std::vector<bool>& flags, 
-						std::vector<AVector> points, 
-						double epsilon, 
-						int startIndex, 
-						int endIndex, 
-						double rdp_point_min)
+void CurveRDP::RDPFlags(std::vector<bool>& flags,
+	std::vector<AVector> points,
+	double epsilon,
+	int startIndex,
+	int endIndex,
+	double rdp_point_min)
 {
 	//if (endIndex - startIndex < rdp_point_min)
 	//	{ return; }

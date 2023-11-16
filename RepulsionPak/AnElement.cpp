@@ -120,7 +120,7 @@ void AnElement::TesselateArts()
 
 void AnElement::ComputeTesselateBarycentric()
 {
-	
+
 }
 
 void AnElement::CalculatePADBary()
@@ -391,7 +391,9 @@ void AnElement::CalculateOriAvgEdgeLength()
 {
 	_oriAvgEdgeLength = 0;
 	for (unsigned int a = 0; a < _triEdges.size(); a++)
-		{ _oriAvgEdgeLength += _massList[_triEdges[a]._index0]._pos.Distance(_massList[_triEdges[a]._index1]._pos); }
+	{
+		_oriAvgEdgeLength += _massList[_triEdges[a]._index0]._pos.Distance(_massList[_triEdges[a]._index1]._pos);
+	}
 	_oriAvgEdgeLength /= (float)_triEdges.size();
 
 	/*for (unsigned int a = 0; a < _edges.size(); a++)
@@ -411,7 +413,7 @@ void AnElement::RemoveShortNegSpaceEdges()
 	//std::cout << "  avg edge length : " << _averageEdgeLength << "\n";
 	for (int a = _negSpaceEdges.size() - 1; a >= 0; a--)
 	{
-		AVector pt1 = _massList[ _negSpaceEdges[a]._index0]._pos;
+		AVector pt1 = _massList[_negSpaceEdges[a]._index0]._pos;
 		AVector pt2 = _massList[_negSpaceEdges[a]._index1]._pos;
 
 		//std::cout << avgEdgeLength << "  " << pt1.Distance(pt2) << "\n";
@@ -468,7 +470,7 @@ void AnElement::CalculatePAD()
 	*/
 	// pad debug delete me
 	// calculate triangles
-	
+
 	/*std::vector<std::vector<AVector>> actualTriangles;
 	for (unsigned int c = 0; c < _triangles.size(); c++)
 	{
@@ -515,10 +517,10 @@ void AnElement::CalculatePAD()
 			actualTriangles[triIdx][0],
 			actualTriangles[triIdx][1],
 			actualTriangles[triIdx][2]);
-		
+
 		_padBarys.push_back(bary);
 		_padTriIdxs.push_back(triIdx);
-	
+
 	}*/
 
 
@@ -583,7 +585,7 @@ void AnElement::SetMatchedPoint(AVector e_pt, AVector c_pt)
 		actualTriangles[_triMatchedIdx][0],
 		actualTriangles[_triMatchedIdx][1],
 		actualTriangles[_triMatchedIdx][2]);
-	
+
 }
 
 void AnElement::UpdateBoundaryAndAvgEdgeLength()
@@ -595,7 +597,9 @@ void AnElement::UpdateBoundaryAndAvgEdgeLength()
 	{
 		// this is needed for Inside/Outside calculation
 		for (unsigned int a = 0; a < _skinPointNum; a++)
-			{ _skin.push_back(_massList[a]._pos); }
+		{
+			_skin.push_back(_massList[a]._pos);
+		}
 	}
 
 	for (unsigned int a = 0; a < _skinPointNum; a++)
@@ -692,12 +696,12 @@ void AnElement::SelfIntersectionRelax()
 		AVector pt1, pt2, v1, v2, dir;
 		for (unsigned int b = a + 1; b < _skinPointNum; b++)
 		{
-			
+
 			int idx2 = _randommm_indices[b];
 
 			if (_massList[idx1].IsNeighbor(idx2)) { continue; }
 
-			
+
 			pt1 = _massList[idx1]._pos;
 			pt2 = _massList[idx2]._pos;
 
@@ -706,7 +710,7 @@ void AnElement::SelfIntersectionRelax()
 			if (pt1.DistanceSquared(pt2) < distMinSq * 25.0f)
 			{
 				// 1 to 2
-				v1 = UtilityFunctions::GetClosestPtOnPolyline(_massList[idx2]._lineSgment, pt1); 
+				v1 = UtilityFunctions::GetClosestPtOnPolyline(_massList[idx2]._lineSgment, pt1);
 				//float d1 = pt1.Distance(v1);
 				float d1Sq = pt1.DistanceSquared(v1);
 				//if (d1 < distMin)
@@ -716,11 +720,11 @@ void AnElement::SelfIntersectionRelax()
 					float offst = distMin - std::sqrt(d1Sq);
 					// BUG ???
 					if (offst < 10) { _massList[idx1]._pos += dir * offst; }
-					else{ std::cerr << "error\n"; }
+					else { std::cerr << "error\n"; }
 				}
 
 				// 2 to 1
-				v2 = UtilityFunctions::GetClosestPtOnPolyline(_massList[idx1]._lineSgment, pt2); 			
+				v2 = UtilityFunctions::GetClosestPtOnPolyline(_massList[idx1]._lineSgment, pt2);
 				//float d2 = pt2.Distance(v2);
 				float d2Sq = pt2.Distance(v2);
 				//if (d2 < distMin)
@@ -730,7 +734,7 @@ void AnElement::SelfIntersectionRelax()
 					float offst = distMin - std::sqrt(d2Sq);
 					// BUG ???
 					if (offst < 10) { _massList[idx2]._pos += dir * offst; }
-					else{ std::cerr << "error\n"; }
+					else { std::cerr << "error\n"; }
 				}
 			}
 
@@ -757,7 +761,7 @@ void AnElement::CalculateBoundaryEdges()
 
 void AnElement::DrawAsSelected()
 {
-	if (_isGrowing){ glColor3f(0, 0, 1); }
+	if (_isGrowing) { glColor3f(0, 0, 1); }
 	else { glColor3f(0, 0, 0); }
 	glLineWidth(2.0f);
 	glBegin(GL_LINES);
@@ -816,7 +820,7 @@ void AnElement::Draw()
 		}
 	}
 	glEnd();*/
-	
+
 	//for (int a = 0; a < _graphs.size(); a++)
 	//{
 	// show inside
@@ -831,7 +835,7 @@ void AnElement::Draw()
 			glEnd();
 		}
 	}*/
-	
+
 
 	// MST
 	//if (SystemParams::_show_mst)
@@ -894,7 +898,7 @@ void AnElement::Draw()
 			}
 		}
 		glEnd();*/
-			
+
 
 		// background		
 		glBegin(GL_TRIANGLES);
@@ -921,7 +925,7 @@ void AnElement::Draw()
 					glVertex2f(v2.x, v2.y);
 					glVertex2f(v3.x, v3.y);
 				}
-			}			
+			}
 		}
 		glEnd();
 
@@ -1018,7 +1022,7 @@ void AnElement::Draw()
 		}
 		glEnd();
 	}
-	
+
 	if (SystemParams::_show_uni_art)
 	{
 		// UNIART!!!!
@@ -1064,9 +1068,9 @@ void AnElement::Draw()
 		// draw boundary
 		glLineWidth(1.0f);
 
-		if (_isGrowing){ glColor3f(0.949019608, 0.501960784, 0.666666667); }		
+		if (_isGrowing) { glColor3f(0.949019608, 0.501960784, 0.666666667); }
 		else { glColor3f(0, 0, 0); }
-		
+
 		if (_isMatched) { glColor3f(0, 0, 1); }
 
 		glBegin(GL_LINES);
@@ -1079,9 +1083,9 @@ void AnElement::Draw()
 		glVertex2f(_skin[0].x, _skin[0].y);
 		glEnd();
 
-		
 
-		
+
+
 
 		//for (unsigned int b = 0; b < _boundaryPointNum; b++)
 		//{
@@ -1101,7 +1105,7 @@ void AnElement::Draw()
 		}
 		glEnd();*/
 
-		
+
 	}
 
 	for (unsigned int a = 0; a < _skinPointNum; a++)
@@ -1140,7 +1144,7 @@ void AnElement::Draw()
 	/*glColor3f(1.0, 0.0, 0.0);
 	glPointSize(5.0f);
 	glBegin(GL_POINTS);
-	
+
 	glVertex2f(_centroid.x, _centroid.y);
 
 	glEnd();*/
@@ -1158,7 +1162,7 @@ void AnElement::Draw()
 		glVertex2f(p2.x, p2.y);
 	}
 	glEnd();*/
-	
+
 }
 
 void AnElement::Move(AVector vec)
@@ -1166,11 +1170,15 @@ void AnElement::Move(AVector vec)
 	UpdateBoundaryAndAvgEdgeLength();
 	ARectangle bb = UtilityFunctions::GetBoundingBox(_skin);
 	for (unsigned int a = 0; a < _massList.size(); a++)
-		{ _massList[a]._pos -= bb.topleft; }
+	{
+		_massList[a]._pos -= bb.topleft;
+	}
 
 	AVector centerMass(0, 0);
 	for (unsigned int a = 0; a < _massList.size(); a++)
-		{ centerMass += _massList[a]._pos; }
+	{
+		centerMass += _massList[a]._pos;
+	}
 	centerMass /= (float)_massList.size();
 
 	//std::cout << "centermass x: " << centerMass.x << ", y: " << centerMass.y << "\n";
@@ -1235,7 +1243,9 @@ void AnElement::Rotate(float radValue)
 void AnElement::Scale(float scaleFactor)
 {
 	for (unsigned int a = 0; a < _massList.size(); a++)
-		{ _massList[a]._pos *= scaleFactor; }
+	{
+		_massList[a]._pos *= scaleFactor;
+	}
 }
 
 /*void AssignEdgesToMasses()
@@ -1400,7 +1410,7 @@ bool AnElement::CanGrow()
 //}
 
 void AnElement::Grow(float growth_scale_iter, std::vector<AnElement>& allGraphs, float dt)
-{ 
+{
 	for (unsigned int a = 0; a < _skinPointNum && _isGrowing; a++)
 	{
 		if (_massList[a]._closestPoints.size() > 0)
@@ -1413,27 +1423,33 @@ void AnElement::Grow(float growth_scale_iter, std::vector<AnElement>& allGraphs,
 				break;
 			}
 		}
-	} 
+	}
 
 	if (!_bigOne)
 	{
 		growth_scale_iter *= 2;
 	}
-	 
 
-	if (!_isGrowing/* && _shrinking_state > 0*/)  { return; }
+
+	if (!_isGrowing/* && _shrinking_state > 0*/) { return; }
 
 	this->_scale += /*_shrinking_state */ growth_scale_iter * dt; // scaling factor
-	
-	
+
+
 	for (unsigned int a = 0; a < _massList.size(); a++)
-		{ _massList[a].Grow(/* _shrinking_state * */growth_scale_iter, dt); }
+	{
+		_massList[a].Grow(/* _shrinking_state * */growth_scale_iter, dt);
+	}
 
 	for (unsigned int a = 0; a < _triEdges.size(); a++)
-		{ _triEdges[a].MakeLonger(/* _shrinking_state * */ growth_scale_iter, dt); }
+	{
+		_triEdges[a].MakeLonger(/* _shrinking_state * */ growth_scale_iter, dt);
+	}
 
 	for (unsigned int a = 0; a < _auxiliaryEdges.size(); a++)
-		{ _auxiliaryEdges[a].MakeLonger(/* _shrinking_state * */ growth_scale_iter, dt); }
+	{
+		_auxiliaryEdges[a].MakeLonger(/* _shrinking_state * */ growth_scale_iter, dt);
+	}
 }
 
 void AnElement::ComputeFoldingForces()
@@ -1666,8 +1682,8 @@ void AnElement::RecalculateArts()
 	// centroid
 	tri = _triangles[_centroidTriIdx];
 	_centroid = _massList[tri.idx0]._pos * _centroidBary._u +
-				_massList[tri.idx1]._pos * _centroidBary._v +
-				_massList[tri.idx2]._pos * _centroidBary._w;
+		_massList[tri.idx1]._pos * _centroidBary._v +
+		_massList[tri.idx2]._pos * _centroidBary._w;
 
 
 	int art_sz = _arts.size();
@@ -1682,9 +1698,9 @@ void AnElement::RecalculateArts()
 			//AVector pt2 = _massList[tri.idx1]._pos;
 			//AVector pt3 = _massList[tri.idx2]._pos;
 			bary = _baryCoords[a][b];
-			_arts[a][b] = _massList[tri.idx0]._pos * bary._u + 
-				          _massList[tri.idx1]._pos * bary._v + 
-						  _massList[tri.idx2]._pos * bary._w;
+			_arts[a][b] = _massList[tri.idx0]._pos * bary._u +
+				_massList[tri.idx1]._pos * bary._v +
+				_massList[tri.idx2]._pos * bary._w;
 		}
 	}
 
@@ -1719,8 +1735,8 @@ void AnElement::RecalculateArts()
 			//AVector pt3 = _massList[tri.idx2]._pos;
 			bary = _tesselateBaryCoords[a][b];
 			_tesselateArts[a][b] = _massList[tri.idx0]._pos * bary._u +
-				                   _massList[tri.idx1]._pos * bary._v +
-				                   _massList[tri.idx2]._pos * bary._w;
+				_massList[tri.idx1]._pos * bary._v +
+				_massList[tri.idx2]._pos * bary._w;
 		}
 	}
 
@@ -1730,8 +1746,8 @@ void AnElement::RecalculateArts()
 		tri = _triangles[_uniArt2Triangles[a]];
 		bary = _uniBaryCoords[a];
 		_uniArt[a] = _massList[tri.idx0]._pos * bary._u +
-			         _massList[tri.idx1]._pos * bary._v + 
-					 _massList[tri.idx2]._pos * bary._w;
+			_massList[tri.idx1]._pos * bary._v +
+			_massList[tri.idx2]._pos * bary._w;
 	}
 
 	/*for (unsigned int a = 0; a < _padPoints.size(); a++)
@@ -1754,12 +1770,12 @@ void AnElement::RecalculateArts()
 		_matchedPoint = _massList[tri.idx0]._pos * bary._u +
 			_massList[tri.idx1]._pos * bary._v +
 			_massList[tri.idx2]._pos * bary._w;
-		
+
 
 		int aShape_sz = _padCalc._aShape.size();
 		for (unsigned int a = 0; a < aShape_sz; a++)
 		{
-			tri = _triangles[ _padCalc._aShapeTriIdxs[a]];
+			tri = _triangles[_padCalc._aShapeTriIdxs[a]];
 			bary = _padCalc._aShapeBarys[a];
 			_padCalc._aShape[a] = _massList[tri.idx0]._pos * bary._u +
 				_massList[tri.idx1]._pos * bary._v +
@@ -1877,19 +1893,19 @@ void AnElement::CalculateTriangleEdges()
 		int idx0 = _triangles[a].idx0;
 		int idx1 = _triangles[a].idx1;
 		int idx2 = _triangles[a].idx2;
-		
+
 		_massList[idx0]._triangles.push_back(_triangles[a]);
 		_massList[idx1]._triangles.push_back(_triangles[a]);
 		_massList[idx2]._triangles.push_back(_triangles[a]);
 
-		/*AVector ctrPt = ( _massList[_triangles[a].idx0]._pos + 
-						  _massList[_triangles[a].idx1]._pos + 
+		/*AVector ctrPt = ( _massList[_triangles[a].idx0]._pos +
+						  _massList[_triangles[a].idx1]._pos +
 						  _massList[_triangles[a].idx2]._pos) / 3.0f;
 		_massList[idx0]._triCenters.push_back(ctrPt);
 		_massList[idx1]._triCenters.push_back(ctrPt);
 		_massList[idx2]._triCenters.push_back(ctrPt);*/
 	}
-	
+
 	// add to masses
 	for (unsigned int a = 0; a < _triEdges.size(); a++)
 	{
@@ -1933,7 +1949,7 @@ bool AnElement::TryToAddTriangleEdge(AnIndexedLine anEdge, int triIndex)
 		anEdge.SetDist(d);
 
 		// push to edge list
-		_triEdges.push_back(anEdge); 
+		_triEdges.push_back(anEdge);
 
 		// push to edge-to-triangle list
 		std::vector<int> indices;
@@ -1956,13 +1972,17 @@ int AnElement::FindTriangleEdge(AnIndexedLine anEdge)
 	for (unsigned int a = 0; a < _triEdges.size(); a++)
 	{
 		if (_triEdges[a]._index0 == anEdge._index0 &&
-			_triEdges[a]._index1 == anEdge._index1) 
-			{ return a; }
-		
+			_triEdges[a]._index1 == anEdge._index1)
+		{
+			return a;
+		}
+
 		if (_triEdges[a]._index1 == anEdge._index0 &&
-			_triEdges[a]._index0 == anEdge._index1) 
-			{ return a; }
-	
+			_triEdges[a]._index0 == anEdge._index1)
+		{
+			return a;
+		}
+
 	}
 
 	return -1;
@@ -1985,7 +2005,7 @@ int AnElement::FindTriangleEdge(AnIndexedLine anEdge)
 	return false;
 }*/
 
-float clip(int n, int lower, int upper) 
+float clip(int n, int lower, int upper)
 {
 	return std::max(lower, std::min(n, upper));
 }
@@ -2005,7 +2025,7 @@ void  AnElement::SolveForNoise(/*std::vector<std::vector<AVector>> perlinMap*/)
 	//	}
 	//}
 
-	
+
 }
 
 void AnElement::SolveForNegativeSPaceSprings()
@@ -2016,7 +2036,7 @@ void AnElement::SolveForNegativeSPaceSprings()
 	AVector pt1;
 	AVector dir;
 	AVector eForce;
-	for(unsigned int a = 0; a < _negSpaceEdges.size(); a++)
+	for (unsigned int a = 0; a < _negSpaceEdges.size(); a++)
 	{
 		int idx0 = _negSpaceEdges[a]._index0;
 		int idx1 = _negSpaceEdges[a]._index1;
@@ -2032,7 +2052,7 @@ void AnElement::SolveForNegativeSPaceSprings()
 			// assume we need to make the dist longer
 			dir = pt1.DirectionTo(pt0).Norm();
 			float diff = threshold - dist;
-			eForce = (dir * k_edge *  diff);
+			eForce = (dir * k_edge * diff);
 
 			if (!eForce.IsBad())
 			{
@@ -2040,7 +2060,7 @@ void AnElement::SolveForNegativeSPaceSprings()
 				_massList[idx1]._selfIntersectForce -= eForce;	// _massList[idx1]._distToBoundary;
 			}
 		}
-		
+
 	}
 }
 
@@ -2081,10 +2101,10 @@ void AnElement::SolveForTriangleSprings()
 		float   oriDist = _triEdges[a].GetDist();
 		float signVal = 1;
 		float diff = dist - oriDist;
-		
+
 		if (diff < 0) { signVal = -1; }
 
-		eForce = (dir * k_edge *  signVal * diff * diff);
+		eForce = (dir * k_edge * signVal * diff * diff);
 		//eForce = (dir * k_edge *  diff);
 		// ORI
 		//AVector eForce = (dir * k_edge *  (dist - oriDist));
@@ -2115,9 +2135,9 @@ void AnElement::SolveForTriangleSprings()
 		float   oriDist = _auxiliaryEdges[a].GetDist();
 		float diff = dist - oriDist;
 		if (diff < 0) { signVal = -1; }
-		eForce = (dir * k_edge *  signVal * diff * diff);
+		eForce = (dir * k_edge * signVal * diff * diff);
 		// ORI
-		/*// assume we need to make the dist shorter		
+		/*// assume we need to make the dist shorter
 		AVector eForce = (dir * k_edge *  (dist - oriDist));*/
 
 		//std::cout << (dist - oriDist) << " ";
@@ -2132,7 +2152,7 @@ void AnElement::SolveForTriangleSprings()
 	// dock
 	if (_isMatched)
 	{
-		
+
 		AVector dir = _massList[_matchedVertexIdx]._pos.DirectionTo(_matchedContainerPt);
 		float dist = dir.Length();
 		dir = dir.Norm();
@@ -2146,7 +2166,7 @@ void AnElement::SolveForTriangleSprings()
 
 	// rotation
 	float eps_rot = 3.14 * 0.001;
-	
+
 	float xPosNorm = PI * -_centroid.x / SystemParams::_upscaleFactor;
 	float angleValAvg = 0;
 	for (unsigned int a = 0; a < _skinPointNum; a++)
@@ -2202,7 +2222,7 @@ void AnElement::SolveForTriangleSprings()
 			if (angleVal > 0)
 			{
 				// anticlockwise
-				
+
 				AVector dRIght(-curNorm.y, curNorm.x); // this is left
 				_rotateArray[a] = dRIght;
 			}

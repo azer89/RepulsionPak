@@ -67,19 +67,19 @@ StuffWorker::StuffWorker()
 	_deformationValue = 0;
 
 	// ---------- mouse click ----------
-	_clickedIndices.first  = -1;
+	_clickedIndices.first = -1;
 	_clickedIndices.second = -1;
 
 	// ----------  ----------
 	_avgSkinThickness = 0;
 
 	_numGrowingElement = 0;
-	_numPoints         = 0;
-	_sumVelocity       = 0.0f;
-	_totalRepulsionF   = 0.0f;
-	_totalEdgeF        = 0.0f;
-	_totalBoundaryF    = 0.0f;
-	_totalOverlapF     = 0.0f;
+	_numPoints = 0;
+	_sumVelocity = 0.0f;
+	_totalRepulsionF = 0.0f;
+	_totalEdgeF = 0.0f;
+	_totalBoundaryF = 0.0f;
+	_totalOverlapF = 0.0f;
 	_avgScaleFactor = 0.0f;
 
 	_aDTransform = 0;
@@ -121,7 +121,9 @@ StuffWorker::StuffWorker()
 	{
 		std::vector<AVector> pMap;
 		for (unsigned int b = 0; b < SystemParams::_upscaleFactor; b++)
-		{ pMap.push_back(AVector()); }
+		{
+			pMap.push_back(AVector());
+		}
 		StuffWorker::_perlinMap.push_back(pMap);
 	}
 	ComputePerlinMap(0);
@@ -130,7 +132,7 @@ StuffWorker::StuffWorker()
 	AVector start_ln;
 	AVector end_ln;
 	AVector rand_pt;
-	AVector pt_on_line;	
+	AVector pt_on_line;
 	*/
 
 	//start_ln = AVector(200, 100);
@@ -147,11 +149,11 @@ StuffWorker::~StuffWorker()
 {
 	//if (_cGrid)   { delete _cGrid; }
 	if (_containerWorker) { delete _containerWorker; }
-	if (_sqCGrid)         { delete _sqCGrid; }
-	if (_manualGrid)      { delete _manualGrid; }
-	if (_rr)              { delete _rr; }
-	if (_aDTransform)     { delete _aDTransform; }
-	if (_my_threadpool)   { delete _my_threadpool; }
+	if (_sqCGrid) { delete _sqCGrid; }
+	if (_manualGrid) { delete _manualGrid; }
+	if (_rr) { delete _rr; }
+	if (_aDTransform) { delete _aDTransform; }
+	if (_my_threadpool) { delete _my_threadpool; }
 	//if (_my_threadpool_solve_springs) { delete _my_threadpool_solve_springs; }
 }
 
@@ -164,15 +166,16 @@ std::vector<std::string> StuffWorker::LoadFiles(std::string directoryPath)
 {
 	std::vector<std::string> fileStr;
 	/*----------  dirent ----------*/
-	DIR *dp;
-	struct dirent *ep;
+	DIR* dp;
+	struct dirent* ep;
 	/*---------- open directory ----------*/
 	dp = opendir(directoryPath.c_str());
 	if (dp != NULL)
 	{
 		while (ep = readdir(dp)) { fileStr.push_back(ep->d_name); }
 		(void)closedir(dp);
-	}	else { perror("Couldn't open the directory"); }
+	}
+	else { perror("Couldn't open the directory"); }
 
 	return fileStr;
 }
@@ -260,7 +263,9 @@ void StuffWorker::SkinAndTriangulateOrnaments()
 	_oriGraphs.clear(); ////// _oriGraph
 	int numSz = _ornamentRegions.size();
 	if (SystemParams::_create_bad_packing > 0)
-		{ numSz *= 2; }
+	{
+		numSz *= 2;
+	}
 	//for (unsigned int a = 0; a < _ornamentRegions.size(); a++) ////// _ornamentRegions
 	for (unsigned int iter = 0; iter < numSz; iter++)
 	{
@@ -275,7 +280,7 @@ void StuffWorker::SkinAndTriangulateOrnaments()
 			std::cout << "has braces\n";
 			arts_for_offset.insert(arts_for_offset.end(), focals.begin(), focals.end());
 		}
-				
+
 		AnElement oriGraph; // yohooo	
 
 		// BAD PACKING? GOOD PACKING?????????? BACKPACKING?
@@ -283,7 +288,7 @@ void StuffWorker::SkinAndTriangulateOrnaments()
 		int isBadOffset = 0;
 		if (SystemParams::_create_bad_packing > 0)
 		{
-			int randVal = rand() % 10;			
+			int randVal = rand() % 10;
 			if (randVal > 8) { addOffset = 50; isBadOffset = 2; }
 			else if (randVal > 6) { addOffset = 25; isBadOffset = 1; }
 		}
@@ -298,7 +303,7 @@ void StuffWorker::SkinAndTriangulateOrnaments()
 		//unionBoundary = ClipperWrapper::RoundOffsettingPP(arts, 1)[0]; // hack
 		//unionBoundary = ClipperWrapper::RoundOffsettingPP(arts, 0)[0]; // hack
 		unionBoundary = ClipperWrapper::RoundOffsettingP(myOffsetBoundary, -skinOffset)[0]; // hack
-		ARectangle bb    = UtilityFunctions::GetBoundingBox(myOffsetBoundary);
+		ARectangle bb = UtilityFunctions::GetBoundingBox(myOffsetBoundary);
 		img_length = bb.witdh;
 		if (bb.height > bb.witdh) { img_length = bb.height; }
 		AVector centerPt = bb.GetCenter();
@@ -314,9 +319,11 @@ void StuffWorker::SkinAndTriangulateOrnaments()
 		myOffsetBoundary = UtilityFunctions::MovePoly(myOffsetBoundary, centerPt, newCenter);          // moveee
 		unionBoundary = UtilityFunctions::MovePoly(unionBoundary, centerPt, newCenter + centerOffset); // moveee
 		for (int a = 0; a < arts.size(); a++)                                                          // moveee
-			{ arts[a] = UtilityFunctions::MovePoly(arts[a], centerPt, newCenter + centerOffset); }     // moveee
-		
-		// random points
+		{
+			arts[a] = UtilityFunctions::MovePoly(arts[a], centerPt, newCenter + centerOffset);
+		}     // moveee
+
+// random points
 		int boundaryPointNum = 0;
 		std::vector<AVector> randomPoints;
 		_containerWorker->CreatePoints(myOffsetBoundary, img_length, randomPoints, boundaryPointNum);
@@ -341,14 +348,14 @@ void StuffWorker::SkinAndTriangulateOrnaments()
 
 		// ---------- triangulation ----------
 		//oriGraph._triangles = cvWrapper.Triangulate(randomPoints, myOffsetBoundary, img_length, arts);
-		cvWrapper.Triangulate(oriGraph._triangles, 
-			                  oriGraph._negSpaceEdges, 
-			                  randomPoints, 
-			                  myOffsetBoundary, 
-			                  img_length, 
-			                  arts);
+		cvWrapper.Triangulate(oriGraph._triangles,
+			oriGraph._negSpaceEdges,
+			randomPoints,
+			myOffsetBoundary,
+			img_length,
+			arts);
 
-		
+
 
 		// ---------- triangle edge  ----------
 		oriGraph.CalculateTriangleEdges();
@@ -365,7 +372,7 @@ void StuffWorker::SkinAndTriangulateOrnaments()
 		oriGraph.CalculateCentroid();
 		oriGraph.CalculateVecToCentroidArray();
 		oriGraph.ComputeBarycentric();
-		
+
 
 		// rigid or not rigid
 		if (anOrnament._skeletonLines.size() > 0)
@@ -397,13 +404,17 @@ void StuffWorker::SkinAndTriangulateOrnaments()
 			{
 				MyColor col;
 				if (anOrnament._boundaryFColors[a] >= 0)
-					{ col = ColorPalette::_palette_01[anOrnament._boundaryFColors[a]]; }
+				{
+					col = ColorPalette::_palette_01[anOrnament._boundaryFColors[a]];
+				}
 				fRGBColors.push_back(col);
 			}
 			oriGraph._fColors = fRGBColors;
 		}
 		else
-			{ oriGraph._fColors = anOrnament._boundaryFColorsRGB; }
+		{
+			oriGraph._fColors = anOrnament._boundaryFColorsRGB;
+		}
 
 		// background
 		if (anOrnament._boundaryBColorsRGB.size() == 0)
@@ -414,22 +425,30 @@ void StuffWorker::SkinAndTriangulateOrnaments()
 			{
 				MyColor col;
 				if (anOrnament._boundaryBColors[a])
-					{ col = ColorPalette::_palette_01[anOrnament._boundaryBColors[a]]; }
+				{
+					col = ColorPalette::_palette_01[anOrnament._boundaryBColors[a]];
+				}
 				bRGBColors.push_back(col);
 			}
 			oriGraph._bColors = bRGBColors;
 		}
 		else
-			{ oriGraph._bColors = anOrnament._boundaryBColorsRGB; }
+		{
+			oriGraph._bColors = anOrnament._boundaryBColorsRGB;
+		}
 
 		//std::cout << "art size = " << oriGraph._arts.size() << "\n";
 		//std::cout << "f size = " << oriGraph._fColors.size() << "\n";
 		//std::cout << "b size = " << oriGraph._bColors.size() << "\n\n";
 
 		if (a >= _numBigOnes)  // small element
-			{  _smallOriGraph1.push_back(oriGraph); }
+		{
+			_smallOriGraph1.push_back(oriGraph);
+		}
 		else // big element
-			{ _oriGraphs.push_back(oriGraph); }
+		{
+			_oriGraphs.push_back(oriGraph);
+		}
 
 	} // for (unsigned int iter = 0; iter < numSz; iter++)
 
@@ -466,15 +485,17 @@ void StuffWorker::ProcessOrnaments()
 
 	////////////////////////////////////////
 	for (unsigned int a = 0; a < _oriGraphs.size(); a++)
-		{ _oriGraphs[a].CalculatePAD(); }
+	{
+		_oriGraphs[a].CalculatePAD();
+	}
 
 	////////////////////////////////////////
 
 	///// distance transform
-	_aDTransform = new ADistanceTransform(_containerWorker->_container_boundaries, 
-		                                  _containerWorker->_holes, 
-		                                  _containerWorker->_offsetFocalBoundaries);
-	
+	_aDTransform = new ADistanceTransform(_containerWorker->_container_boundaries,
+		_containerWorker->_holes,
+		_containerWorker->_offsetFocalBoundaries);
+
 	////////////////////////////////////////
 
 	///// ori graphs (save to PNG files)
@@ -488,7 +509,7 @@ void StuffWorker::ProcessOrnaments()
 
 	// initial placement with shape matching here
 	// delete random points
-	
+
 	// disable shape matching
 	std::vector<AnElement> matchGraphs;
 	std::vector<bool>   oriGraphFlags;
@@ -500,20 +521,20 @@ void StuffWorker::ProcessOrnaments()
 	}
 
 	// shape matching
-	if(SystemParams::_do_shape_matching)
+	if (SystemParams::_do_shape_matching)
 	{
 		//matchGraphs = _containerWorker->PlacementWithMatching3(_oriGraphs);	
 
-		int time1 = glutGet(GLUT_ELAPSED_TIME);		
+		int time1 = glutGet(GLUT_ELAPSED_TIME);
 
 		_containerWorker->PlacementWithMatching3(_oriGraphs, matchGraphs, oriGraphFlags);
-		_graphs.insert(_graphs.end(), matchGraphs.begin(), matchGraphs.end());	
+		_graphs.insert(_graphs.end(), matchGraphs.begin(), matchGraphs.end());
 
 		int time2 = glutGet(GLUT_ELAPSED_TIME);
 
 		std::cout << "shape matching time = " << time2 - time1 << "\n";
-	
-	
+
+
 	}
 	int match_sz = matchGraphs.size();
 
@@ -530,21 +551,21 @@ void StuffWorker::ProcessOrnaments()
 		if (oriGraphFlags[idx]) { continue; }
 
 		AnElement g = ProcessAnOrnament(_oriGraphs[idx],
-			                         _containerWorker->_randomPositions[a],
-			                         SystemParams::_element_initial_scale,
-									 a + match_sz/*,
-						             SystemParams::_max_growth*/);
+			_containerWorker->_randomPositions[a],
+			SystemParams::_element_initial_scale,
+			a + match_sz/*,
+			SystemParams::_max_growth*/);
 		g.UpdateBoundaryAndAvgEdgeLength();
 		g._ori_id = idx; // keep track the original graph
 		g._bigOne = true;
 		_graphs.push_back(g);
-	}	
+	}
 
 	////////////////////////////////////////
 
 	///// collision grid
 	for (unsigned int a = 0; a < _graphs.size(); a++)
-	{	
+	{
 		for (unsigned int b = 0; b < _graphs[a]._skinPointNum; b++) // boundary
 		{
 			AVector p1 = _graphs[a]._massList[b]._pos;
@@ -554,10 +575,12 @@ void StuffWorker::ProcessOrnaments()
 
 	///// distance transform
 	for (int a = 0; a < _graphs.size(); a++)
-		{ _aDTransform->AddGraph(_graphs[a]); }
-	
+	{
+		_aDTransform->AddGraph(_graphs[a]);
+	}
+
 	for (AnElement& aGraph : _graphs)
-	{ 
+	{
 		aGraph.CalculateOriAvgEdgeLength();  ///// ori avg adge length
 		aGraph.RecalculateArts();            ///// recalculate arts
 	}
@@ -566,27 +589,29 @@ void StuffWorker::ProcessOrnaments()
 	for (unsigned int a = 0; a < _graphs.size(); a++)
 	{
 		for (unsigned int b = 0; b < _graphs[a]._massList.size(); b++)
-			{ _graphs[a]._massList[b]._cGrid = _cGrid; }
+		{
+			_graphs[a]._massList[b]._cGrid = _cGrid;
+		}
 	}
-	
-	_numPoints    = 0;  ///// num points
+
+	_numPoints = 0;  ///// num points
 	_numTriangles = 0;  ///// num triangles
-	_numTriEdges  = 0;  ///// num triangle edges
-	_numAuxEdges  = 0;  ///// num auxiliary edges
+	_numTriEdges = 0;  ///// num triangle edges
+	_numAuxEdges = 0;  ///// num auxiliary edges
 	for (unsigned int a = 0; a < _graphs.size(); a++)
-	{ 
-		_numPoints    += _graphs[a]._massList.size();       ///// num points
+	{
+		_numPoints += _graphs[a]._massList.size();       ///// num points
 		_numTriangles += _graphs[a]._triangles.size();      ///// num triangles
-		_numTriEdges  += _graphs[a]._triEdges.size();       ///// num triangle edges
-		_numAuxEdges  += _graphs[a]._auxiliaryEdges.size(); ///// num auxiliary edges
+		_numTriEdges += _graphs[a]._triEdges.size();       ///// num triangle edges
+		_numAuxEdges += _graphs[a]._auxiliaryEdges.size(); ///// num auxiliary edges
 	}
 
 	// GROWTH DISABLED
 	/*
-	///// Area 
+	///// Area
 	float sumGraphArea = 0;
 	for (unsigned int a = 0; a < _graphs.size(); a++)
-	{ 
+	{
 		_graphs[a].UpdateBoundaryAndAvgEdgeLength();
 		_graphs[a]._oriArea = _cvWrapper.GetArea(_graphs[a]._skin);
 		sumGraphArea += _graphs[a]._oriArea;
@@ -621,10 +646,10 @@ void StuffWorker::AddNewSmallElements()
 	{
 		int idx = a % _smallOriGraph1.size();
 		AnElement g = ProcessAnOrnament(_smallOriGraph1[idx],
-			                         _aDTransform->_peaks[a],
-									 scaleVal,
-									 _graphs.size() + a/*,
-						             SystemParams::_max_growth*/);
+			_aDTransform->_peaks[a],
+			scaleVal,
+			_graphs.size() + a/*,
+			SystemParams::_max_growth*/);
 		g._ori_id = idx; // keep track the original graph
 		g._bigOne = false;
 		newGraphs.push_back(g);
@@ -632,7 +657,7 @@ void StuffWorker::AddNewSmallElements()
 
 	///// collision grid
 	for (unsigned int a = 0; a < newGraphs.size(); a++)
-	{	
+	{
 		for (unsigned int b = 0; b < newGraphs[a]._skinPointNum; b++) // boundary
 		{
 			AVector p1 = newGraphs[a]._massList[b]._pos;
@@ -645,9 +670,9 @@ void StuffWorker::AddNewSmallElements()
 	// ARE NOT CONSIDERED FOR EVALUATION
 	//for (int a = 0; a < newGraphs.size(); a++)
 	//	{ _aDTransform->AddGraph(newGraphs[a]); }
-	
+
 	for (AnElement& aGraph : newGraphs)
-	{ 
+	{
 		aGraph.CalculateOriAvgEdgeLength();  ///// ori avg adge length
 		aGraph.RecalculateArts();            ///// recalculate arts
 	}
@@ -656,7 +681,9 @@ void StuffWorker::AddNewSmallElements()
 	for (unsigned int a = 0; a < newGraphs.size(); a++)
 	{
 		for (unsigned int b = 0; b < newGraphs[a]._massList.size(); b++)
-			{ newGraphs[a]._massList[b]._cGrid = _cGrid; }
+		{
+			newGraphs[a]._massList[b]._cGrid = _cGrid;
+		}
 	}
 
 	//_numPoints    = 0;    ///// num points
@@ -664,11 +691,11 @@ void StuffWorker::AddNewSmallElements()
 	//_numTriEdges  = 0;  ///// num triangle edges
 	//_numAuxEdges  = 0;  ///// num auxiliary edges
 	for (unsigned int a = 0; a < newGraphs.size(); a++)
-	{ 
-		_numPoints    += newGraphs[a]._massList.size();       ///// num points
+	{
+		_numPoints += newGraphs[a]._massList.size();       ///// num points
 		_numTriangles += newGraphs[a]._triangles.size();      ///// num triangles
-		_numTriEdges  += newGraphs[a]._triEdges.size();       ///// num triangle edges
-		_numAuxEdges  += newGraphs[a]._auxiliaryEdges.size(); ///// num auxiliary edges
+		_numTriEdges += newGraphs[a]._triEdges.size();       ///// num triangle edges
+		_numAuxEdges += newGraphs[a]._auxiliaryEdges.size(); ///// num auxiliary edges
 	}
 
 	std::cout << "newGraphs size = " << newGraphs.size() << "\n";
@@ -710,7 +737,7 @@ void StuffWorker::SaveGraphs()
 {
 	AGraph g1 = oriGraph;
 	g1.Scale(initScale * 1.0f / g1._scale);
-	
+
 	if (g1._ori_id != -1)
 	{
 		AGraph g2 = _oriGraphs[g1._ori_id];
@@ -750,8 +777,8 @@ void StuffWorker::DragClickedMass(float x, float y)
 {
 	// clicking is disabled
 	/*if (_clickedIndices.first != -1 && _clickedIndices.second != -1)
-	{ 
-		_graphs[_clickedIndices.first]._massList[_clickedIndices.second]._pos = AVector(x, y); 
+	{
+		_graphs[_clickedIndices.first]._massList[_clickedIndices.second]._pos = AVector(x, y);
 		// _graphs[_clickedIndices.first]._massList[_clickedIndices.second]._prevPos = AVector(x, y); // delete
 	}*/
 }
@@ -888,9 +915,9 @@ void StuffWorker::Draw()
 				//if (b >= _containerWorker->_offsetFocalBoundaries[i].size()) { b = 0; }
 				glVertex2f(_containerWorker->_offsetFocalBoundaries[i][b].x, _containerWorker->_offsetFocalBoundaries[i][b].y);
 				glVertex2f(_containerWorker->_offsetFocalBoundaries[i][a].x, _containerWorker->_offsetFocalBoundaries[i][a].y);
-				
+
 				b = a;
-			}			
+			}
 		}
 		glEnd();
 	}
@@ -923,7 +950,7 @@ void StuffWorker::Draw()
 
 		glEnd();
 	}
-	
+
 
 	// ---------- draw container ----------
 	_containerWorker->Draw();
@@ -970,7 +997,7 @@ void StuffWorker::Draw()
 void StuffWorker::SaveDataToCSV()
 {
 	/*std::vector<float> fData = { _totalRepulsionF,  // 1
-		                         _totalEdgeF,       // 2
+								 _totalEdgeF,       // 2
 								 _totalBoundaryF,   // 3
 								 _totalFoldingF,    // 4
 								 _totalAttractionF, // 5
@@ -980,13 +1007,13 @@ void StuffWorker::SaveDataToCSV()
 								 _fill_rms,         // 9
 								 _sumVelocity };   // 10*/
 	std::vector<float> fData = { _totalRepulsionF,  // 1
-		                         _totalEdgeF,       // 2
+								 _totalEdgeF,       // 2
 								 _totalBoundaryF,   // 3
 								 _totalOverlapF,    // 4
 								 _sumVelocity,      // 5
 								 _fill_ratio,       // 6
 								 _fill_rms          // 7
-								 };
+	};
 	_stuffData.push_back(fData);
 
 	std::stringstream ss;
@@ -1004,11 +1031,11 @@ void StuffWorker::SaveSVG(int frameCounter)
 	// Elements, Skins, and Container
 	std::stringstream ss5;
 	ss5 << SystemParams::_output_folder << "SVG\\" << "result_" << frameCounter << ".svg";
-	MySVGRenderer::SaveElementsAndSkins(ss5.str(), 
-		                                _graphs, 
-		                                _containerWorker->_focals, 
-		                                _containerWorker->_offsetFocalBoundaries, 
-		                                _containerWorker->_container_boundaries); //B
+	MySVGRenderer::SaveElementsAndSkins(ss5.str(),
+		_graphs,
+		_containerWorker->_focals,
+		_containerWorker->_offsetFocalBoundaries,
+		_containerWorker->_container_boundaries); //B
 }
 
 void StuffWorker::SavePNG(int frameCounter)
@@ -1017,8 +1044,10 @@ void StuffWorker::SavePNG(int frameCounter)
 
 	// make sure
 	if (!SystemParams::_show_elements)
-		{ for (AnElement& aGraph : _graphs)  { aGraph.RecalculateArts(); } }
-	
+	{
+		for (AnElement& aGraph : _graphs) { aGraph.RecalculateArts(); }
+	}
+
 	float imgScale = 4.0f;
 	float lineThickness = 2.0f;
 
@@ -1031,9 +1060,9 @@ void StuffWorker::SavePNG(int frameCounter)
 	_pngImg.SetColorImageToWhite();
 	// container boundary
 	for (unsigned int i = 0; i < _containerWorker->_container_boundaries.size(); i++)
-	{ 
+	{
 		_cvWrapper.DrawPolyOnCVImage(_pngImg._img, _containerWorker->_container_boundaries[i], MyColor(237, 28, 36), true, 1, imgScale);
-	}	
+	}
 
 	for (unsigned int i = 0; i < _containerWorker->_holes.size(); i++)
 	{
@@ -1045,14 +1074,14 @@ void StuffWorker::SavePNG(int frameCounter)
 		// element
 		//for (int a = 0; a < aGraph._arts.size(); a++)
 		for (int a = aGraph._arts.size() - 1; a >= 0; a--) // backward
-		{ 
+		{
 			//int fIdx = aGraph._fColors[a];
 			//int bIdx = aGraph._bColors[a];
 
 			//background
 			//if (bIdx >= 0)
 			if (aGraph._bColors[a].IsValid())
-			{ 
+			{
 				//_cvWrapper.DrawFilledPoly(_pngImg, aGraph._arts[a], ColorPalette::_palette_01[bIdx], imgScale); 
 				_cvWrapper.DrawFilledPoly(_pngImg, aGraph._arts[a], aGraph._bColors[a], imgScale);
 			}
@@ -1096,16 +1125,18 @@ void StuffWorker::RecreateDistanceTransform(float scale)
 	if (_aDTransform) { delete _aDTransform; }
 	//_aDTransform = new ADistanceTransform(_graphs, _boundaries, _offsetFocalBoundaries, scale);
 	_aDTransform = new ADistanceTransform(_containerWorker->_container_boundaries,
-		                                  _containerWorker->_holes, 
-		                                  _containerWorker->_offsetFocalBoundaries, 
-		                                  scale);
+		_containerWorker->_holes,
+		_containerWorker->_offsetFocalBoundaries,
+		scale);
 	for (int a = 0; a < _graphs.size(); a++)
-		{ _aDTransform->AddGraph(_graphs[a]); }
+	{
+		_aDTransform->AddGraph(_graphs[a]);
+	}
 
 }
 
 void StuffWorker::CalculateSDF(int numIter, bool saveImage)
-{	
+{
 	for (int a = 0; a < _graphs.size(); a++)
 	{
 		//_graphs[a].RecalculateArts();
@@ -1222,10 +1253,10 @@ void StuffWorker::Final_ThreadTask(float dt, int startIdx, int endIdx)
 		for (unsigned int b = 0; b < _graphs[iter]._massList.size(); b++)
 		{
 			this->_graphs[iter]._massList[b].Solve(b,
-												_graphs[iter],
-												_containerWorker->_container_boundaries,
-												_containerWorker->_holes,
-												_containerWorker->_offsetFocalBoundaries);
+				_graphs[iter],
+				_containerWorker->_container_boundaries,
+				_containerWorker->_holes,
+				_containerWorker->_offsetFocalBoundaries);
 		}
 
 		// ---------- integration ----------
@@ -1270,10 +1301,10 @@ void StuffWorker::Finall_ThreadPass(float dt)
 		// ---------- get closest point ----------
 		for (int b = 0; b < _graphs[a]._massList.size(); b++)
 		{
-			
+
 			this->_graphs[a]._massList[b].GetClosestPoints2(a);
 		}
-		
+
 		// ---------- solve spring forces ----------
 		_graphs[a].SolveForTriangleSprings();
 		_graphs[a].SolveForNegativeSPaceSprings();
@@ -1435,9 +1466,9 @@ void StuffWorker::CalculateThings(float dt)
 {
 	int startIter = 0;
 	// I'M DISABLING 2ND ELEMENTS
-	if (SystemParams::_simulate_2)  { startIter = _numReplicatedBigOnes; } 
+	if (SystemParams::_simulate_2) { startIter = _numReplicatedBigOnes; }
 
-	
+
 	// ---------- collission grid ----------
 	// Currently not multithreads
 	int qtIter = 0;
@@ -1470,15 +1501,17 @@ void StuffWorker::CalculateThings(float dt)
 
 	// ---------- reset growing ----------
 	for (unsigned int a = startIter; a < _graphs.size(); a++)
-	{ 
-		_graphs[a]._isGrowing = true; 
+	{
+		_graphs[a]._isGrowing = true;
 	}
 
 	// for primary elem in 2nd simulation
 	if (startIter > 0)
 	{
 		for (unsigned int a = 0; a < startIter; a++)
-			{ _graphs[a]._isGrowing = false; }
+		{
+			_graphs[a]._isGrowing = false;
+		}
 	}
 
 	// growing // no multithreading
@@ -1512,7 +1545,7 @@ void StuffWorker::CalculateThings(float dt)
 	{
 		_graphs[a].UpdateBoundaryAndAvgEdgeLength();
 	}
-	
+
 	// CODE BELOW IS MOVED TO AlmostAllYourShit()
 	// ---------- get closest point ----------
 	/*auto start2 = std::chrono::steady_clock::now(); // timing
@@ -1563,7 +1596,7 @@ void StuffWorker::Solve()
 	}
 	auto elapsed2 = std::chrono::system_clock::now() - start2; // timing
 	_solve_s_cpu_time.AddTime(std::chrono::duration_cast<std::chrono::microseconds>(elapsed2).count()); // timing
-	
+
 	auto start1 = std::chrono::system_clock::now();
 	SolveSprings_Prepare_Threads();
 	auto elapsed1 = std::chrono::system_clock::now() - start1; // timing
@@ -1632,22 +1665,24 @@ void StuffWorker::Operate(float dt)
 	//Simulate(dt);     // (non-velocity verlet) iterate the masses by the change in time	
 
 	int startIter = 0;
-	if (SystemParams::_simulate_2)  { startIter = _numReplicatedBigOnes; }
+	if (SystemParams::_simulate_2) { startIter = _numReplicatedBigOnes; }
 
 	// ---------- barycentric ----------
 	if (SystemParams::_show_elements)
 	{
 		for (unsigned int a = startIter; a < _graphs.size(); a++)
-			{ this->_graphs[a].RecalculateArts(); }
+		{
+			this->_graphs[a].RecalculateArts();
+		}
 	}
 
 	// ---------- position delta ----------
 	_sumVelocity = 0;
-	_totalRepulsionF   = 0.0f;
-	_totalEdgeF        = 0.0f;
-	_totalBoundaryF    = 0.0f;
-	_totalOverlapF     = 0.0f;
-	_avgScaleFactor    = 0.0f;
+	_totalRepulsionF = 0.0f;
+	_totalEdgeF = 0.0f;
+	_totalBoundaryF = 0.0f;
+	_totalOverlapF = 0.0f;
+	_avgScaleFactor = 0.0f;
 	//_totalFoldingF     = 0.0f;
 	//_totalAttractionF  = 0.0f;
 
@@ -1658,7 +1693,7 @@ void StuffWorker::Operate(float dt)
 		_graphs[a].CalculateSumVelocity();
 		_sumVelocity += _graphs[a]._sumVelocity;
 		for (unsigned int b = 0; b < _graphs[a]._massList.size(); b++)
-		{ 
+		{
 			//_positionDelta += _graphs[a]._massList[b]._prevPos.Distance(_graphs[a]._massList[b]._pos); 
 			//_positionDelta += _graphs[a]._massList[b]._velocity.Length();			
 
@@ -1666,12 +1701,12 @@ void StuffWorker::Operate(float dt)
 			float eF = _graphs[a]._massList[b]._edgeForce.Length();
 			float bF = _graphs[a]._massList[b]._boundaryForce.Length();
 			float oF = _graphs[a]._massList[b]._overlapForce.Length();
-						
+
 			//float aF = _graphs[a]._massList[b]._attractionForce.Length();
-			_totalRepulsionF  += rF;
-			_totalEdgeF       += eF;
-			_totalBoundaryF   += bF;
-			_totalOverlapF    += oF;
+			_totalRepulsionF += rF;
+			_totalEdgeF += eF;
+			_totalBoundaryF += bF;
+			_totalOverlapF += oF;
 			//_totalFoldingF    += fF;
 			//_totalAttractionF += aF;
 		}
@@ -1817,7 +1852,7 @@ void StuffWorker::AddToAccumulationBuffer(std::vector<std::vector<AVector>> elem
 	shapeImage.CreateGrayscaleImage(img_sz);
 
 	for (unsigned int a = 0; a < elem.size(); a++)
-	{		
+	{
 		shapeImage.SetGrayscaleImageToBlack();
 
 		_cvWrapper.DrawFilledPolyInt(shapeImage, elem[a], 1, scale);
@@ -1874,7 +1909,7 @@ void StuffWorker::AddToAccumulationBuffer(std::vector<std::vector<AVector>> elem
 void StuffWorker::CalculateMetrics()
 {
 	// parameter
-	double maxOffVal  = 15.05;
+	double maxOffVal = 15.05;
 	double offValIter = 0.05;
 
 	bool saveSVGA = false; // elements without offset
@@ -1883,13 +1918,13 @@ void StuffWorker::CalculateMetrics()
 	bool saveSVGD = false; // positive space clipped by offset container
 
 	// displaying overlap
-	int saveIter     = 0;
-	int saveIter2    = 0; // delete me debug
+	int saveIter = 0;
+	int saveIter2 = 0; // delete me debug
 	float startColor = 100;
-	int img_sz       = SystemParams::_upscaleFactor * 2.0f;
+	int img_sz = SystemParams::_upscaleFactor * 2.0f;
 	CVImg accumulationBuffer;
 	accumulationBuffer.CreateGrayscaleImage(img_sz);
-	
+
 	//accumulationBuffer.SetGrayscaleImageToBlack();
 
 	OpenCVWrapper cvWRap;
@@ -1900,7 +1935,7 @@ void StuffWorker::CalculateMetrics()
 	//std::vector< std::vector<AVector>> offsetElements1 = ClipperWrapper::OffsetAll(ClipperWrapper::OffsetAll(_manualElements, preOffset), -preOffset);
 	std::vector< std::vector<AVector>> offsetElements1 = _manualElements;
 	// debug (comment me)
-	if(saveSVGA)
+	if (saveSVGA)
 	{
 		std::stringstream ss1;
 		ss1 << SystemParams::_output_folder << "SVG\\" << "debugA.svg";
@@ -1925,11 +1960,11 @@ void StuffWorker::CalculateMetrics()
 			/* clockwise = element
 			   counterclockwise = hole */
 
-			// float offVal = offVal2;
-			//if (!UtilityFunctions::IsClockwise(_manualElementsss[a][b])) { offVal = -offVal2; }
+			   // float offVal = offVal2;
+			   //if (!UtilityFunctions::IsClockwise(_manualElementsss[a][b])) { offVal = -offVal2; }
 
 			std::vector<std::vector<AVector>> outputPolys1 = ClipperWrapper::OffsetAll(_manualElementsss[a], offVal);
-			
+
 			float tempArea;
 			std::vector<std::vector<AVector>> outputPolys2 = ClipperWrapper::ClipElementsWithContainer(outputPolys1, _manualContainer[0], tempArea);
 			//if (!UtilityFunctions::IsClockwise(_manualElementsss[a][b])) { tempArea = -tempArea; }
@@ -1942,7 +1977,7 @@ void StuffWorker::CalculateMetrics()
 			// AREA2B
 			//for (unsigned int b = 0; b < outputPolys2.size(); b++)
 			//{ area2b += cvWRap.GetAreaOriented(outputPolys2[b]); }
-			
+
 		}
 		//std::cout << "area2 = " << area2 << ", area2b=" << area2b << ", ";
 		//std::cout << "b " << std::abs(area2 - area2b) << ", ";
@@ -1965,7 +2000,7 @@ void StuffWorker::CalculateMetrics()
 		//float area3b = 0;
 		//for (unsigned int b = 0; b < offsetElements3.size(); b++)
 		//{ area3b += cvWRap.GetAreaOriented(offsetElements3[b]); }
-		
+
 		// draw
 		if (saveSVGC)
 		{
@@ -1985,7 +2020,7 @@ void StuffWorker::CalculateMetrics()
 		std::vector<std::vector<AVector>> offsetElements4 = ClipperWrapper::ClipElementsWithContainer(offsetElements3_temp, offset_container, area4);
 
 		_negVals.push_back((offContainerArea - area4) / containerArea); // IS THIS CORRECT ? ratio of neg space using offset container. YES
-		
+
 
 		// draw
 		if (saveSVGD)
@@ -2007,7 +2042,7 @@ void StuffWorker::CalculateMetrics()
 	PathIO pIO;
 	pIO.SaveSDF2CSV(_offsetVals2, SystemParams::_output_folder + "dist_2.csv"); // for overlap metric
 	pIO.SaveSDF2CSV(_offsetVals3, SystemParams::_output_folder + "dist_3.csv"); // for overlap metric
-	pIO.SaveSDF2CSV(_negVals,     SystemParams::_output_folder + "dist_4.csv"); // for scp
+	pIO.SaveSDF2CSV(_negVals, SystemParams::_output_folder + "dist_4.csv"); // for scp
 
 }
 
@@ -2055,13 +2090,13 @@ void StuffWorker::CalculateMetrics3()
 void StuffWorker::CalculateMetrics2()
 {
 	// parameter
-	double maxOffVal  = 16;
+	double maxOffVal = 16;
 	double offValIter = 0.1;
 
 	bool saveOriSVG = false; // original elements without offset
 	bool saveOverlapSVG = false;  // overlap
-	bool saveEmptySVG   = false; // positive space only
-	bool saveSCPSVG    = false; // positive space clipped by offset container
+	bool saveEmptySVG = false; // positive space only
+	bool saveSCPSVG = false; // positive space clipped by offset container
 
 	std::vector<double> overlap_area_array;
 	std::vector<double> empty_area_array;
@@ -2101,7 +2136,7 @@ void StuffWorker::CalculateMetrics2()
 		{
 			/* clockwise = element
 			counterclockwise = hole */
-			
+
 			for (unsigned int b = a + 1; b < offset_elements.size(); b++)
 			{
 				float tempArea; // this does nothing
@@ -2179,7 +2214,7 @@ void StuffWorker::CalculateMetrics2()
 
 
 
-void StuffWorker:: AnalyzeFinishedPacking()
+void StuffWorker::AnalyzeFinishedPacking()
 {
 	// _manualElementsss && _manualElements
 	for (unsigned int a = 0; a < _numBigOnes; a++)
@@ -2255,71 +2290,71 @@ std::vector<std::vector<AVector>> _manualContainer;
 */
 void StuffWorker::CreateManualPacking()
 {
-//	// ---------- load regions ----------
-//	PathIO pathIO;
-//	VFRegion reg = pathIO.LoadRegions(SystemParams::_image_folder + SystemParams::_manual_art_name + ".path")[0];
-//	   
-//	// assignments
-//	_manualElements = reg.GetFocalBoundaries();
-//	//_manualElements = ClipperWrapper::OffsetAll( ClipperWrapper::OffsetAll( reg.GetFocalBoundaries(), preOffset), -preOffset); // the actual elements	
-//	_manualSkeletons = reg.GetFields();
-//	_manualContainer =  reg.GetBoundaries(); // target container
-//
-//	// ----
-//	// HERE
-//	// ----
-//	//CalculateMetrics();
-//
-//	/*
-//	std::stringstream ss5;
-//	ss5 << SystemParams::_save_folder << "SVG\\" << "result_" << frameCounter << ".svg";
-//	MySVGRenderer::SaveElementsAndSkins(ss5.str(), 
-//		                                _graphs, 
-//		                                _containerWorker->_focals, 
-//		                                _containerWorker->_offsetFocalBoundaries, 
-//		                                _containerWorker->_container_boundaries); //B
-//	*/
-//	/*std::vector<std::vector<AVector>> offsetShapes = ClipperWrapper::OffsetAll(_manualElements, 5.746f);
-//	std::stringstream ss5;
-//	ss5 << SystemParams::_save_folder << "SVG\\" << "offset.svg";
-//	MySVGRenderer::SaveShapesToSVG(ss5.str(), offsetShapes);*/
-//		
-//	// use this for skeletons
-//	//float offVal = 5.0f;
-//	//std::vector<std::vector<AVector>> temp1 = ClipperWrapper::RoundOffsettingPP(reg.GetBoundaries(), offVal);
-//	//_manualContainer = ClipperWrapper::RoundOffsettingPP(temp1, -offVal);
-//	//_manualContainer = temp1;
-//	// -------------------
-//
-//
-//	std::cout << "_manualSkeletons.size() " << _manualSkeletons.size() << "\n";
-//
-//	// prepare things
-//	std::vector<std::vector<AVector>> focals;
-//	ADistanceTransform* mDistTransform = new ADistanceTransform(_manualContainer, _containerWorker->_holes, focals, 2.0);
-//	for (int a = 0; a < _manualElements.size(); a++)
-//	{
-//		mDistTransform->AddGraph(_manualElements[a]);
-//	}
-//
-//	_manualGrid = new CollissionGrid();
-//	std::vector<std::vector<AVector>> offsetFocalBoundaries;
-//	_manualGrid->AnalyzeContainer(_manualContainer, _containerWorker->_holes, offsetFocalBoundaries);
-//
-//	// assign to c grid
-//	for (unsigned int a = 0; a < _manualElements.size(); a++)
-//	{
-//		// boundary
-//		for (unsigned int b = 0; b < _manualElements[a].size(); b++)
-//			{ _manualGrid->InsertAPoint(_manualElements[a][b].x, _manualElements[a][b].y, a, b); }
-//	}
-//
-//	float m_fill_ratio = 0;
-//	mDistTransform->_manualSkeletons = _manualSkeletons;
-//	mDistTransform->CalculateFill(_manualGrid, m_fill_ratio, 0, true);
-//	mDistTransform->CalculateSDF1(_manualGrid, 0, true);
-//
-//	delete mDistTransform;
+	//	// ---------- load regions ----------
+	//	PathIO pathIO;
+	//	VFRegion reg = pathIO.LoadRegions(SystemParams::_image_folder + SystemParams::_manual_art_name + ".path")[0];
+	//	   
+	//	// assignments
+	//	_manualElements = reg.GetFocalBoundaries();
+	//	//_manualElements = ClipperWrapper::OffsetAll( ClipperWrapper::OffsetAll( reg.GetFocalBoundaries(), preOffset), -preOffset); // the actual elements	
+	//	_manualSkeletons = reg.GetFields();
+	//	_manualContainer =  reg.GetBoundaries(); // target container
+	//
+	//	// ----
+	//	// HERE
+	//	// ----
+	//	//CalculateMetrics();
+	//
+	//	/*
+	//	std::stringstream ss5;
+	//	ss5 << SystemParams::_save_folder << "SVG\\" << "result_" << frameCounter << ".svg";
+	//	MySVGRenderer::SaveElementsAndSkins(ss5.str(), 
+	//		                                _graphs, 
+	//		                                _containerWorker->_focals, 
+	//		                                _containerWorker->_offsetFocalBoundaries, 
+	//		                                _containerWorker->_container_boundaries); //B
+	//	*/
+	//	/*std::vector<std::vector<AVector>> offsetShapes = ClipperWrapper::OffsetAll(_manualElements, 5.746f);
+	//	std::stringstream ss5;
+	//	ss5 << SystemParams::_save_folder << "SVG\\" << "offset.svg";
+	//	MySVGRenderer::SaveShapesToSVG(ss5.str(), offsetShapes);*/
+	//		
+	//	// use this for skeletons
+	//	//float offVal = 5.0f;
+	//	//std::vector<std::vector<AVector>> temp1 = ClipperWrapper::RoundOffsettingPP(reg.GetBoundaries(), offVal);
+	//	//_manualContainer = ClipperWrapper::RoundOffsettingPP(temp1, -offVal);
+	//	//_manualContainer = temp1;
+	//	// -------------------
+	//
+	//
+	//	std::cout << "_manualSkeletons.size() " << _manualSkeletons.size() << "\n";
+	//
+	//	// prepare things
+	//	std::vector<std::vector<AVector>> focals;
+	//	ADistanceTransform* mDistTransform = new ADistanceTransform(_manualContainer, _containerWorker->_holes, focals, 2.0);
+	//	for (int a = 0; a < _manualElements.size(); a++)
+	//	{
+	//		mDistTransform->AddGraph(_manualElements[a]);
+	//	}
+	//
+	//	_manualGrid = new CollissionGrid();
+	//	std::vector<std::vector<AVector>> offsetFocalBoundaries;
+	//	_manualGrid->AnalyzeContainer(_manualContainer, _containerWorker->_holes, offsetFocalBoundaries);
+	//
+	//	// assign to c grid
+	//	for (unsigned int a = 0; a < _manualElements.size(); a++)
+	//	{
+	//		// boundary
+	//		for (unsigned int b = 0; b < _manualElements[a].size(); b++)
+	//			{ _manualGrid->InsertAPoint(_manualElements[a][b].x, _manualElements[a][b].y, a, b); }
+	//	}
+	//
+	//	float m_fill_ratio = 0;
+	//	mDistTransform->_manualSkeletons = _manualSkeletons;
+	//	mDistTransform->CalculateFill(_manualGrid, m_fill_ratio, 0, true);
+	//	mDistTransform->CalculateSDF1(_manualGrid, 0, true);
+	//
+	//	delete mDistTransform;
 }
 
 /*void StuffWorker::CreateSquares()
@@ -2375,7 +2410,7 @@ void StuffWorker::CreateManualPacking()
 
 	//delete cGrid;
 	delete sqDistTransform;
-		 
+
 }*/
 
 AVector StuffWorker::GetPerlinVector(int x, int y)
@@ -2388,7 +2423,7 @@ AVector StuffWorker::GetPerlinVector(int x, int y)
 
 	//FastNoise myNoise3(3333); // Create a FastNoise object
 	//myNoise3.SetNoiseType(FastNoise::Perlin); // Set the desired noise type
-	
+
 	AVector noiseVector;
 	noiseVector.x = myNoise1.GetNoise(x, y);
 	noiseVector.y = myNoise2.GetNoise(x, y);
@@ -2410,18 +2445,18 @@ void StuffWorker::ComputePerlinMap(int t)
 
 	//FastNoise myNoise2(rand()); // Create a FastNoise object
 	//myNoise2.SetNoiseType(FastNoise::Perlin); // Set the desired noise type
-	
+
 	float scaleFactor = SystemParams::_noise_factor;
 	for (unsigned int a = 0; a < SystemParams::_upscaleFactor; a++)
 	{
 		//std::vector<AVector> pMap;
 		for (unsigned int b = 0; b < SystemParams::_upscaleFactor; b++)
 		{
-			
+
 
 			//AVector tangentVector = AVector(a, b).DirectionTo(AVector(250.0, 250)).Norm();
 			//AVector circleVector = AVector(-tangentVector.y, tangentVector.x);
-			
+
 			float val = myNoise1.GetNoise(a * scaleFactor, b * scaleFactor, t * scaleFactor);
 
 			AVector noiseVector = AVector(std::sin(2.0 * 3.14159 * val), std::cos(2.0 * 3.14159 * val));

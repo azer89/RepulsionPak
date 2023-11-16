@@ -23,7 +23,7 @@ NANOFLANNWrapper::~NANOFLANNWrapper()
 	for (int a = 0; a < _djikstraData.size(); a++)
 		{ numData += _djikstraData[a].size(); }
 	_pointCloud.pts.resize(numData);
-	
+
 	int iter = 0;
 	for (int a = 0; a < _djikstraData.size(); a++)
 	{
@@ -174,14 +174,16 @@ std::vector<int> NANOFLANNWrapper::GetClosestIndices(AVector pt, int num_query)
 std::vector<std::pair<int, int>> NANOFLANNWrapper::GetClosestPairIndices(AVector pt, int num_query)
 {
 	float query_pt[2] = { pt.x, pt.y };
-	std::vector<size_t> ret_index(    num_query);
-	std::vector<float>  out_dist_sqr( num_query);
+	std::vector<size_t> ret_index(num_query);
+	std::vector<float>  out_dist_sqr(num_query);
 
 	_pointKDTree->knnSearch(&query_pt[0], num_query, &ret_index[0], &out_dist_sqr[0]);
 	std::vector<std::pair<int, int>> retIndices;
 
 	for (int a = 0; a < num_query; a++)
-		{ retIndices.push_back(std::pair<int, int>(_pointCloud.pts[ret_index[a]].info1, _pointCloud.pts[ret_index[a]].info2)); }
+	{
+		retIndices.push_back(std::pair<int, int>(_pointCloud.pts[ret_index[a]].info1, _pointCloud.pts[ret_index[a]].info2));
+	}
 
 	return retIndices;
 }

@@ -71,7 +71,7 @@ void CollissionGrid::GetCellPosition(int& xPos, int& yPos, float x, float y)
 	if (xPos < 0) { xPos = 0; }
 	else if (xPos >= _numColumn) { xPos = _numColumn - 1; }
 
-	if (yPos < 0) { yPos = 0; }	
+	if (yPos < 0) { yPos = 0; }
 	else if (yPos >= _numColumn) { yPos = _numColumn - 1; }
 }
 
@@ -174,12 +174,12 @@ void CollissionGrid::PrecomputeGraphIndices_ThreadTask(int startIdx, int endIdx)
 		// stackoverflow.com/questions/42519867/efficiently-moving-contents-of-stdunordered-set-to-stdvector
 		_squares[iter]->_closestGraphIndices.clear();
 		// copy
-		_squares[iter]->_closestGraphIndices.insert(_squares[iter]->_closestGraphIndices.end(), 
-			                                        int_set.begin(), 
-			                                        int_set.end());
+		_squares[iter]->_closestGraphIndices.insert(_squares[iter]->_closestGraphIndices.end(),
+			int_set.begin(),
+			int_set.end());
 		// C++17
 		/*_squares[iter]->_closestGraphIndices.reserve(int_set.size());
-		for (auto it = int_set.begin(); it != int_set.end(); ) 
+		for (auto it = int_set.begin(); it != int_set.end(); )
 		{
 			_squares[iter]->_closestGraphIndices.push_back(std::move(int_set.extract(it++).value()));
 		}*/
@@ -241,7 +241,7 @@ void CollissionGrid::PrecomputeGraphIndices()
 void CollissionGrid::GetGraphIndices1B(float x, float y, std::vector<int>& closestGraphIndices)
 {
 	if (x < 0 || x > SystemParams::_upscaleFactor || y < 0 || y > SystemParams::_upscaleFactor) { return; }
-	
+
 	int xPos;
 	int yPos;
 	GetCellPosition(xPos, yPos, x, y);
@@ -249,12 +249,12 @@ void CollissionGrid::GetGraphIndices1B(float x, float y, std::vector<int>& close
 	int idx = (xPos * _numColumn) + yPos;
 
 	//if (_graphIndexArray[idx].size() > 0)
-	if(_squares[idx]->_closestGraphIndices.size() > 0)
+	if (_squares[idx]->_closestGraphIndices.size() > 0)
 	{
 		closestGraphIndices = _squares[idx]->_closestGraphIndices;
 		//closestGraphIndices = _graphIndexArray[idx];
 	}
-		
+
 }
 
 void CollissionGrid::GetGraphIndices2B(float x, float y, int parentGraphIndex, std::vector<int>& closestGraphIndices)
@@ -295,7 +295,7 @@ void CollissionGrid::GetGraphIndices1(float x, float y, std::vector<int>& closes
 
 	if (x < 0 || x > SystemParams::_upscaleFactor || y < 0 || y > SystemParams::_upscaleFactor) { return; }
 
-	
+
 	int xPos;
 	int yPos;
 	GetCellPosition(xPos, yPos, x, y);
@@ -558,7 +558,7 @@ std::vector<AnObject*> CollissionGrid::GetObjects(float x, float y)
 void CollissionGrid::MovePoints()
 {
 	std::vector<AnObject*> invalidObjects;
-	for (unsigned int a = 0; a < _squares.size(); a++) 
+	for (unsigned int a = 0; a < _squares.size(); a++)
 	{
 		for (int b = _squares[a]->_objects.size() - 1; b >= 0; b--) // should be signed
 		{
@@ -609,7 +609,7 @@ bool CollissionGrid::NearBoundary(float x, float y)
 	return (_squares[(xPos * _numColumn) + yPos]->_containerFlag == 0);
 }
 
-void CollissionGrid::AnalyzeContainer(const std::vector<std::vector<AVector>>& boundaries, const std::vector<std::vector<AVector>>&  holes, const std::vector<std::vector<AVector>>& offsetFocalBoundaries)
+void CollissionGrid::AnalyzeContainer(const std::vector<std::vector<AVector>>& boundaries, const std::vector<std::vector<AVector>>& holes, const std::vector<std::vector<AVector>>& offsetFocalBoundaries)
 {
 	//std::cout << "_maxLength " << _maxLength << "\n";
 
@@ -621,10 +621,10 @@ void CollissionGrid::AnalyzeContainer(const std::vector<std::vector<AVector>>& b
 		float d2 = UtilityFunctions::DistanceToClosedCurves(offsetFocalBoundaries, AVector(_squares[a]->_xCenter, _squares[a]->_yCenter));
 		float d3 = UtilityFunctions::DistanceToClosedCurves(holes, AVector(_squares[a]->_xCenter, _squares[a]->_yCenter));
 		if (d1 > _maxLength && d2 > _maxLength && d3 > _maxLength)
-		{ 
-			_squares[a]->_containerFlag = 1; 
+		{
+			_squares[a]->_containerFlag = 1;
 		}
-		
+
 
 		// 2 UNCOMMENT THIS FOR MULTIPLE BOUNDARIES
 		//float d1 = UtilityFunctions::DistanceToClosedCurves(boundaries, AVector(_squares[a]->_xCenter, _squares[a]->_yCenter));

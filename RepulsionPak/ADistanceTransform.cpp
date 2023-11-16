@@ -12,10 +12,10 @@
 
 
 ADistanceTransform::ADistanceTransform(//const std::vector<AGraph>& graphs, 
-	                                   const std::vector<std::vector<AVector>>& containers,
-									   const std::vector<std::vector<AVector>>& holes,
-									   const std::vector<std::vector<AVector>>& focals,
-									   float scale) //B
+	const std::vector<std::vector<AVector>>& containers,
+	const std::vector<std::vector<AVector>>& holes,
+	const std::vector<std::vector<AVector>>& focals,
+	float scale) //B
 {
 	//_avgSkinThickness = 0;
 	_maxDist = 0;
@@ -44,7 +44,9 @@ ADistanceTransform::ADistanceTransform(//const std::vector<AGraph>& graphs,
 	//std::vector<cv::Point2f> cvContainer = _cvWrapper.ConvertList<AVector, cv::Point2f>(containers[0]);//B
 	std::vector<std::vector<cv::Point2f>> cvHoles;
 	for (int a = 0; a < focals.size(); a++)
-		{ cvHoles.push_back(_cvWrapper.ConvertList<AVector, cv::Point2f>(focals[a])); }
+	{
+		cvHoles.push_back(_cvWrapper.ConvertList<AVector, cv::Point2f>(focals[a]));
+	}
 	for (int a = 0; a < holes.size(); a++)
 	{
 		cvHoles.push_back(_cvWrapper.ConvertList<AVector, cv::Point2f>(holes[a]));
@@ -88,28 +90,28 @@ ADistanceTransform::ADistanceTransform(//const std::vector<AGraph>& graphs,
 
 			// ===== MULTIPLE CONTAINERS =====
 			// 1 UNCOMMENT THIS FOR HOLES
-			
+
 			bool isInsideHole = false;
 			for (int a = 0; a < cvHoles.size(); a++)
 			{
 				float d2 = cv::pointPolygonTest(cvHoles[a], cv::Point2f(xActual, yActual), true);
-				if (d2 > 0){ isInsideHole = true; break; }
+				if (d2 > 0) { isInsideHole = true; break; }
 			}
 
-			if (d >= 0 && !isInsideHole)  
-			{ 
-				_container_size++; 
+			if (d >= 0 && !isInsideHole)
+			{
+				_container_size++;
 			}
 
 			_containerDistArray[xIter + yIter * _sz] = d; // _containerDistArray
-			 
+
 			if (isInsideHole) { _containerDistArray[xIter + yIter * _sz] = -1; } // _containerDistArray
 		}
 	}
 
 	//PathIO pathIO;
 	///=== pathIO.SaveSDF2CSV(thinningDistArray, SystemParams::_save_folder + "dist.csv");
-	
+
 
 	//_fill_img_template
 	_fill_img_template.CreateIntegerImage(_sz);
@@ -122,7 +124,9 @@ ADistanceTransform::ADistanceTransform(//const std::vector<AGraph>& graphs,
 
 			//if (_containerDistImage.at<float>(y, x) >= 0)  
 			if (_containerDistArray[x + y * _sz] >= 0)
-				{ _fill_img_template.SetIntegerPixel(x, y, 1); } // inside boundary
+			{
+				_fill_img_template.SetIntegerPixel(x, y, 1);
+			} // inside boundary
 			else { _fill_img_template.SetIntegerPixel(x, y, 0); }
 
 		}
@@ -215,7 +219,7 @@ ADistanceTransform::ADistanceTransform(//const std::vector<AGraph>& graphs,
 
 
 ADistanceTransform::~ADistanceTransform()
-{	
+{
 }
 
 
@@ -235,7 +239,7 @@ void ADistanceTransform::AddGraph(const AnElement& aGraph)
 {
 	_graphBoundaries.push_back(_cvWrapper.ConvertList<AVector, cv::Point2f>(aGraph._uniArt));
 	_voronoiColors.push_back(MyColor(rand() % 254 + 1, rand() % 254 + 1, rand() % 254 + 1));// voronoi
-		
+
 	CVImg img; // voronoi
 	img.CreateGrayscaleImage(_sz);  // voronoi
 	img.SetGrayscaleImageToBlack(); // voronoi
@@ -255,16 +259,18 @@ void ADistanceTransform::UpdateBoundaries(const std::vector<AnElement>& graphs)
 }
 
 // use this
-void ADistanceTransform::CalculateFill(CollissionGrid* cGrid, 
-	                                   float& fill_ratio, 
-									   int numIter, 
-									   bool saveImage)
+void ADistanceTransform::CalculateFill(CollissionGrid* cGrid,
+	float& fill_ratio,
+	int numIter,
+	bool saveImage)
 {
 	std::cout << "don't use CalculateFill\n";
 	CVImg fillImg;
 	fillImg._img = _fill_img_template._img.clone(); // need to be cloned
 	for (unsigned int a = 0; a < _graphBoundaries.size(); a++)
-		{ _cvWrapper.DrawFilledPolyInt(fillImg, _graphBoundaries[a], 0, _scale); } // scaled
+	{
+		_cvWrapper.DrawFilledPolyInt(fillImg, _graphBoundaries[a], 0, _scale);
+	} // scaled
 
 	int fill_counter = _container_size;
 	for (unsigned int x = 0; x < _sz; x++)
@@ -310,31 +316,31 @@ void ADistanceTransform::CalculateSDF2(const std::vector<AnElement>& graphs, Col
 
 			// if no closest graph and outside
 			if (graphIndices.size() == 0 && containerDistVal < 0)
-			{ 
+			{
 				overlapMask[xIter + yIter * _sz] = -1; // (Overlap Mask) outside container
-				continue; 
+				continue;
 			}
 
 			overlapMask[xIter + yIter * _sz] = 0; // (Overlap Mask) empty space
 
-			
+
 			////// exclude container
 			//float minDist = std::numeric_limits<float>::max();
 			////// include container
-			float minDist = containerDistVal; 
+			float minDist = containerDistVal;
 
 			bool isInside = false;
 			for (unsigned int a = 0; a < graphIndices.size(); a++)
 			{
 				int gIdx = graphIndices[a];
 				if (gIdx >= _graphBoundaries.size()) { continue; } // exclude filling elements
-				
+
 				//float d = -cv::pointPolygonTest(_graphBoundaries[gIdx], cv::Point2f(xActual, yActual), true);
 				float d = graphs[gIdx].DistToArts(AVector(xActual, yActual));
 
 				// // hack
 				if (graphs[gIdx].InsideArts(AVector(xActual, yActual))) /*{ d = -d; }*/ { d = -1; }
-				
+
 				if (d <= 0) // inside
 				{
 					overlapMask[xIter + yIter * _sz]++; // (Overlap Mask)
@@ -353,8 +359,8 @@ void ADistanceTransform::CalculateSDF2(const std::vector<AnElement>& graphs, Col
 			if (isInside && containerDistVal < 0)
 			{
 				overlapMask[xIter + yIter * _sz] = 2; // (Overlap Mask) inside an element and outside container
-			} 
-			
+			}
+
 			if (!isInside && containerDistVal < 0)
 			{
 				overlapMask[xIter + yIter * _sz] = -1;  // (Overlap Mask) outside element outside container
@@ -430,7 +436,7 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 	for (unsigned int xIter = 0; xIter < _sz; xIter++)
 	{
 		for (unsigned int yIter = 0; yIter < _sz; yIter++)
-		{			
+		{
 			float xActual = ((float)xIter) / _scale;
 			float yActual = ((float)yIter) / _scale;
 
@@ -444,16 +450,18 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 
 			// if no closest graph and outside
 			if (graphIndices.size() == 0 && containerDistVal < 0)
-				{ overlapMask[xIter + yIter * _sz] = -1;  continue;} // (Overlap Mask) outside container
+			{
+				overlapMask[xIter + yIter * _sz] = -1;  continue;
+			} // (Overlap Mask) outside container
 
 			overlapMask[xIter + yIter * _sz] = 0; // (Overlap Mask) 
 
 			////// exclude container
 			//float minDist = std::numeric_limits<float>::max(); 
 			////// include container
-			float minDist = containerDistVal; 
-			
-			
+			float minDist = containerDistVal;
+
+
 			bool isInside = false;
 			for (unsigned int a = 0; a < graphIndices.size(); a++)
 			{
@@ -468,21 +476,25 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 				{
 					minDist = 0; // SDF
 					overlapMask[xIter + yIter * _sz]++; // (Overlap Mask) 
-					isInside = true;					
+					isInside = true;
 				}
 
 				if (d < minDist) // outside
-					{ minDist = d; } // SDF
+				{
+					minDist = d;
+				} // SDF
 
 				if (isInside) { break; } // no point to continue
 			}
 
-			
+
 			if (isInside && containerDistVal < 0)
-				{ overlapMask[xIter + yIter * _sz] = 2;  } // (Overlap Mask) inside an element and outside container
-			
+			{
+				overlapMask[xIter + yIter * _sz] = 2;
+			} // (Overlap Mask) inside an element and outside container
+
 			/*else*/ if (!isInside && containerDistVal < 0)
-			{ 
+			{
 				overlapMask[xIter + yIter * _sz] = -1;  // (Overlap Mask) outside element outside container
 				minDist = 0; // (SDF)
 			}
@@ -490,13 +502,17 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 			//{
 			//	minDist = containerDistVal;
 			//}
-			
+
 			// no closest element AND inside container
 			else if (graphIndices.size() == 0 && containerDistVal > 0)
 				//{ minDist = 0; }
-				{ minDist = containerDistVal; }
+			{
+				minDist = containerDistVal;
+			}
 			else if (graphIndices.size() == 0 && containerDistVal < 0) // ?? BUG ???
-			    { minDist = -1; }
+			{
+				minDist = -1;
+			}
 
 			_distArray[idxxxx] = minDist;
 		}
@@ -518,7 +534,7 @@ void ADistanceTransform::CalculateSDF1(CollissionGrid* cGrid, int numIter, bool 
 	std::stringstream ss3;
 	ss3 << "thin_" << numIter;
 	thinningImage = SkeletonDistance(overlapMask, ss3.str());*/
-	
+
 
 	// create new elements !!!!
 	CalculatePeaks();
@@ -559,7 +575,7 @@ CVImg ADistanceTransform::SkeletonDraw(std::string imageName)
 			AVector pt2 = _manualSkeletons[a][b + 1] * _scale;
 			cv::line(thinningImage._img, cv::Point2f(pt1.x, pt1.y), cv::Point2f(pt2.x, pt2.y), 255, 1);
 		}
-		
+
 	}
 	thinningImage.SaveImage(SystemParams::_output_folder + "SDF\\" + imageName + ".png");
 	return thinningImage;
@@ -569,7 +585,9 @@ CVImg ADistanceTransform::VoronoiSkeleton(CollissionGrid* cGrid, int numIter)
 {
 	// reset
 	for (unsigned int a = 0; a < _graphBoundaries.size(); a++)
-		{ _voronoiBWImages[a].SetGrayscaleImageToBlack(); }
+	{
+		_voronoiBWImages[a].SetGrayscaleImageToBlack();
+	}
 
 	CVImg voronoiImage;
 	voronoiImage.CreateColorImage(_sz, _sz);
@@ -587,8 +605,8 @@ CVImg ADistanceTransform::VoronoiSkeleton(CollissionGrid* cGrid, int numIter)
 
 			// if outside
 			if (containerDistVal < 0)
-			{ 
-				voronoiImage.SetColorPixel(xIter, yIter, MyColor(0)); 
+			{
+				voronoiImage.SetColorPixel(xIter, yIter, MyColor(0));
 				continue;
 			}
 
@@ -607,19 +625,19 @@ CVImg ADistanceTransform::VoronoiSkeleton(CollissionGrid* cGrid, int numIter)
 				if (gIdx >= _graphBoundaries.size()) { continue; } // exclude filling elements
 
 				float d = -cv::pointPolygonTest(_graphBoundaries[gIdx], cv::Point2f(xActual, yActual), true);
-				
+
 				if (d <= 0) // inside
-				{ 
+				{
 					idx = gIdx;
 					voronoiImage.SetColorPixel(xIter, yIter, _voronoiColors[gIdx]);
-					break; 
+					break;
 				}
-				
+
 				if (d < minDist) // outside 
-				{ 
+				{
 					idx = gIdx;
 					voronoiImage.SetColorPixel(xIter, yIter, _voronoiColors[gIdx]);
-					minDist = d; 
+					minDist = d;
 				}
 			}
 			_voronoiBWImages[idx].SetGrayValue(xIter, yIter, 255);
@@ -648,12 +666,14 @@ CVImg ADistanceTransform::VoronoiSkeleton(CollissionGrid* cGrid, int numIter)
 	{
 		std::vector<cv::Point2f> cvContours = cvWrapper.ConvertList<AVector, cv::Point2f>(vooronoiContours[a]);
 		for (size_t b = 0; b < cvContours.size() - 1; b++)
-			{ cv::line(voronoiEdgeImage._img, cvContours[b], cvContours[b + 1], 255, lineWidth); }
+		{
+			cv::line(voronoiEdgeImage._img, cvContours[b], cvContours[b + 1], 255, lineWidth);
+		}
 		{ cv::line(voronoiEdgeImage._img, cvContours[cvContours.size() - 1], cvContours[0], 255, lineWidth); }
 		//cvWrapper.DrawPolyOnCVImage(voronoiEdgeImage._img, vooronoiContours[a], _voronoiColors[a], true, 1);
 	}
 	CVImg thinningImage = voronoiEdgeImage.ThinningFromGrayscale();
-	
+
 	// cleanup
 	for (int xIter = 0; xIter < _sz; xIter++)
 	{
@@ -664,17 +684,19 @@ CVImg ADistanceTransform::VoronoiSkeleton(CollissionGrid* cGrid, int numIter)
 
 			float d = UtilityFunctions::DistanceToClosedCurves(_containers, AVector(xActual, yActual));
 			if (thinningImage.GetGrayValue(xIter, yIter) > 0 && d < 1.0f)
-				{ thinningImage.SetGrayValue(xIter, yIter, 0); }
+			{
+				thinningImage.SetGrayValue(xIter, yIter, 0);
+			}
 		}
 	}
-	
+
 	std::stringstream ss1;
 	ss1 << "voronoi_skeleton_" << numIter;
-	thinningImage.SaveImage( SystemParams::_output_folder + "SDF\\" + ss1.str() + ".png" );
+	thinningImage.SaveImage(SystemParams::_output_folder + "SDF\\" + ss1.str() + ".png");
 
 	std::stringstream ss2;
 	ss2 << "voronoi_color" << numIter;
-	voronoiImage.SaveImage( SystemParams::_output_folder + "SDF\\" + ss2.str() + ".png" );
+	voronoiImage.SaveImage(SystemParams::_output_folder + "SDF\\" + ss2.str() + ".png");
 
 	//CVImg thinningImg;
 	return thinningImage;
@@ -726,8 +748,8 @@ CVImg ADistanceTransform::SkeletonDistance(std::vector<int> overlapMask, std::st
 	///////////
 	CVImg thinningImage = emptyImage.ThinningFromGrayscale();
 	//thinningImage.SaveImage( SystemParams::_save_folder + "SDF\\" + imageName + ".png" );
-	emptyImage.SaveImage( SystemParams::_output_folder + "SDF\\" + imageName + "_mask.png" );
-	
+	emptyImage.SaveImage(SystemParams::_output_folder + "SDF\\" + imageName + "_mask.png");
+
 	/*cv::Mat cloneImg = thinningImage._img.clone();
 	cloneImg.convertTo(cloneImg, CV_32FC1);
 	cv:imwrite(SystemParams::_save_folder + "SDF\\" + "CV_32FC1.png", cloneImg);
@@ -745,17 +767,17 @@ CVImg ADistanceTransform::SkeletonDistance(std::vector<int> overlapMask, std::st
 		{
 			int val = thinningImage.GetGrayValue(x, y);
 			if (val == 0)
-			{				
+			{
 				testImage.SetGrayValue(x, y, 255); // CellType::NO_GO
 			}
 			else
-			{				
+			{
 				testImage.SetGrayValue(x, y, 0); // CellType::UNVISITED
 			}
 		}
 	}
 
-	cv:imwrite(SystemParams::_output_folder + "SDF\\" + imageName + ".png", testImage._img);
+cv:imwrite(SystemParams::_output_folder + "SDF\\" + imageName + ".png", testImage._img);
 
 	return thinningImage;
 }
@@ -774,14 +796,14 @@ void ADistanceTransform::DebugOverlapMask(std::vector<int> overlapMask, CVImg th
 			{
 				drawing.at<cv::Vec3b>(y, x)[0] = 255;
 				drawing.at<cv::Vec3b>(y, x)[1] = 255;
-				drawing.at<cv::Vec3b>(y, x)[2] = 255; 
+				drawing.at<cv::Vec3b>(y, x)[2] = 255;
 			}
 			else if (val == 0) // empty space
 			{
 				//179,229,252
-				drawing.at<cv::Vec3b>(y, x)[0] = 252; 
-				drawing.at<cv::Vec3b>(y, x)[1] = 229; 
-				drawing.at<cv::Vec3b>(y, x)[2] = 179; 
+				drawing.at<cv::Vec3b>(y, x)[0] = 252;
+				drawing.at<cv::Vec3b>(y, x)[1] = 229;
+				drawing.at<cv::Vec3b>(y, x)[2] = 179;
 			}
 			else if (val == 1) // inside skin
 			{
@@ -793,8 +815,8 @@ void ADistanceTransform::DebugOverlapMask(std::vector<int> overlapMask, CVImg th
 			else if (val >= 2) // skin overlap or protrude outside container
 			{
 				// 255,82,82
-				drawing.at<cv::Vec3b>(y, x)[0] = 82; 
-				drawing.at<cv::Vec3b>(y, x)[1] = 82; 
+				drawing.at<cv::Vec3b>(y, x)[0] = 82;
+				drawing.at<cv::Vec3b>(y, x)[1] = 82;
 				drawing.at<cv::Vec3b>(y, x)[2] = 255;
 			}
 		}
@@ -814,7 +836,7 @@ void ADistanceTransform::DebugOverlapMask(std::vector<int> overlapMask, CVImg th
 		}
 	}
 
-	cv::imwrite( SystemParams::_output_folder + "SDF\\" + imageName + ".png" , drawing);
+	cv::imwrite(SystemParams::_output_folder + "SDF\\" + imageName + ".png", drawing);
 }
 
 void ADistanceTransform::DebugDistanceImage(std::string imageName)
@@ -872,13 +894,13 @@ void ADistanceTransform::DebugDistanceImage(std::string imageName)
 
 	// debug
 	//std::cout << "debug\n";
-	cv::imwrite( SystemParams::_output_folder + "SDF\\" + imageName + ".png" , drawing);
+	cv::imwrite(SystemParams::_output_folder + "SDF\\" + imageName + ".png", drawing);
 }
 
 
 void  ADistanceTransform::DebugDistanceImage(CVImg thinningImage, std::string imageName)
 {
-	/*double minVal = std::numeric_limits<float>::max(); 
+	/*double minVal = std::numeric_limits<float>::max();
 	double maxVal = std::numeric_limits<float>::min();
 	for (unsigned a = 0; a < _distArray.size(); a++)
 	{
@@ -887,8 +909,8 @@ void  ADistanceTransform::DebugDistanceImage(CVImg thinningImage, std::string im
 		if (d > maxVal) { maxVal = d; }
 	}
 	//cv::minMaxLoc(distImage, &minVal, &maxVal, 0, 0, cv::Mat());
-	
-	
+
+
 	minVal = abs(minVal); maxVal = abs(maxVal);*/
 	double minVal = 20;
 	double maxVal = 20;
@@ -928,8 +950,8 @@ void  ADistanceTransform::DebugDistanceImage(CVImg thinningImage, std::string im
 			}
 			else
 			{
-				drawing.at<cv::Vec3b>(j, i)[0] = 255; 
-				drawing.at<cv::Vec3b>(j, i)[1] = 255; 
+				drawing.at<cv::Vec3b>(j, i)[0] = 255;
+				drawing.at<cv::Vec3b>(j, i)[1] = 255;
 				drawing.at<cv::Vec3b>(j, i)[2] = 255;
 			}
 		}
@@ -951,12 +973,12 @@ void  ADistanceTransform::DebugDistanceImage(CVImg thinningImage, std::string im
 
 	// debug
 	//std::cout << "debug\n";
-	cv::imwrite( SystemParams::_output_folder + "SDF\\" + imageName + ".png", drawing);
+	cv::imwrite(SystemParams::_output_folder + "SDF\\" + imageName + ".png", drawing);
 }
 
 /*cv::Mat ADistanceTransform::CalculateDistanceTransform(const std::vector<AVector> boundary, cv::Mat& dImage)
 {
-	//cv::Mat dImage = cv::Mat::zeros(SystemParams::_upscaleFactor, SystemParams::_upscaleFactor, CV_32FC1); // should be zeros	
+	//cv::Mat dImage = cv::Mat::zeros(SystemParams::_upscaleFactor, SystemParams::_upscaleFactor, CV_32FC1); // should be zeros
 
 	// ---------- calculate grid ----------
 	for (int y = 0; y < dImage.rows; y++)
@@ -998,9 +1020,11 @@ void ADistanceTransform::CalculatePeaks()
 	}
 
 
-	std::stable_sort(distPeaks.begin(), distPeaks.end(), [](const std::pair<float, AVector> &x,
-			                                            const std::pair<float, AVector> &y)
-	{ return x.first > y.first; });
+	std::stable_sort(distPeaks.begin(), distPeaks.end(), [](const std::pair<float, AVector>& x,
+		const std::pair<float, AVector>& y)
+		{
+			return x.first > y.first;
+		});
 
 	AVector ptFirst = distPeaks[0].second;
 	{ _peaks.push_back(ptFirst); }
@@ -1028,15 +1052,15 @@ void ADistanceTransform::CalculatePeaks()
 		//	ptss.clear();
 		//	cg.GetClosestPoints(pt.x, pt.y, ptss);
 		//}
-		
+
 		ptss.clear();
 		cg.GetClosestPoints(pt.x, pt.y, ptss);
 
 		//if (_peaks.size() == 0) { _peaks.push_back(pt); }
 		//if (UtilityFunctions::DistanceToBunchOfPoints(_peaks, pt) > SystemParams::_peak_gap) { _peaks.push_back(pt); }
-		if (UtilityFunctions::DistanceToBunchOfPoints(ptss, pt) > SystemParams::_peak_gap) 
-		{ 
-			_peaks.push_back(pt); 
+		if (UtilityFunctions::DistanceToBunchOfPoints(ptss, pt) > SystemParams::_peak_gap)
+		{
+			_peaks.push_back(pt);
 			cg.InsertAPoint(pt.x, pt.y, -1, -1);
 		}
 	}
@@ -1046,7 +1070,7 @@ void ADistanceTransform::CalculatePeaks()
 }
 
 // soon to be deprecated
-/*void ADistanceTransform::CalculateDistanceTransform2(CollissionGrid* cGrid, 
+/*void ADistanceTransform::CalculateDistanceTransform2(CollissionGrid* cGrid,
 													 AVector& peakPos,
 													 float& maxDist,
 													 float& fill_percentage,
@@ -1078,10 +1102,10 @@ void ADistanceTransform::CalculatePeaks()
 				float d = -cv::pointPolygonTest(_graphBoundaries[graphIndices[a]], cv::Point2f(x, y), true);
 				if (d <= 0) // inside
 					{ minDist = 0; break; }
-				
+
 				if (d < minDist) // outside
 					{ minDist = d; }
-			} 
+			}
 
 			if (graphIndices.size() == 0) { minDist = _containerDistImage.at<float>(y, x); }
 
@@ -1114,7 +1138,7 @@ void ADistanceTransform::CalculatePeaks()
 	}
 	fill_percentage /= (float)_container_size;
 
-	
+
 
 	////////////////////
 	if (!SystemParams::_activate_attraction_force) { return; }
@@ -1151,5 +1175,5 @@ void ADistanceTransform::CalculatePeaks()
 		}
 	}
 
-	
+
 }*/

@@ -34,7 +34,7 @@ public:
 	// copy assignment
 	//AnElement& operator=(const AnElement& other);
 
-	float DistanceToBoundary(AVector pt) ;
+	float DistanceToBoundary(AVector pt);
 
 	// need to call RecalculateArts
 	bool InsideArts(AVector pt) const;
@@ -53,12 +53,12 @@ public:
 	// calculate the sum
 	// of velocities of the masses
 	void CalculateSumVelocity();
-	
+
 	// calculate std::vector<std::vector<ABary>> _baryCoords
 	void ComputeBarycentric();
 
 	void ComputeTesselateBarycentric();
-	
+
 	void TesselateArts();
 
 	//
@@ -81,7 +81,7 @@ public:
 	AVector FindClosestPtOnEdges(int idx, AVector pt);
 
 	//
-	void SelfIntersectionFlagging();	
+	void SelfIntersectionFlagging();
 
 	//
 	void SelfIntersectionRelax();
@@ -109,7 +109,7 @@ public:
 
 	//
 	void Scale(float scaleFactor);
-	
+
 	//
 	void ConvertMassMapToList();
 
@@ -127,10 +127,10 @@ public:
 	//void InitShrinking();
 
 	//
-	void Grow(float growth_scale_iter, std::vector<AnElement>& allGraphs,  float dt);
+	void Grow(float growth_scale_iter, std::vector<AnElement>& allGraphs, float dt);
 
 	//
-	void ComputeFoldingForces();	
+	void ComputeFoldingForces();
 
 	//
 	AVector FlipVertex(AVector l1, AVector l2, AVector pt);
@@ -160,7 +160,7 @@ public:
 	int GetUnsharedVertexIndex(AnIdxTriangle tri, AnIndexedLine edge);
 
 	//
-	bool TryToAddTriangleEdge(AnIndexedLine anEdge, int triIndex);	
+	bool TryToAddTriangleEdge(AnIndexedLine anEdge, int triIndex);
 
 	// triangle edges
 	int FindTriangleEdge(AnIndexedLine anEdge);
@@ -174,111 +174,111 @@ public:
 
 
 public:
-		// pad
-		//std::vector<AVector> _padPoints;
-		//std::vector<ABary>	_padBarys;
-		//std::vector<int>	_padTriIdxs;
+	// pad
+	//std::vector<AVector> _padPoints;
+	//std::vector<ABary>	_padBarys;
+	//std::vector<int>	_padTriIdxs;
 
-		// centroid
-		AVector _centroid; // center of mass
-		ABary	_centroidBary;
-		int		_centroidTriIdx;
+	// centroid
+	AVector _centroid; // center of mass
+	ABary	_centroidBary;
+	int		_centroidTriIdx;
 
-		// for orientation force
-		std::vector<AVector> _normFromCentroidArray;
-		float _angleVal;
-		std::vector<AVector> _rotateArray;
+	// for orientation force
+	std::vector<AVector> _normFromCentroidArray;
+	float _angleVal;
+	std::vector<AVector> _rotateArray;
 
-		// for shrinking
-		//int _shrinking_state;
-		//float _transition_time_counter;
-		//float _transition_time;
+	// for shrinking
+	//int _shrinking_state;
+	//float _transition_time_counter;
+	//float _transition_time;
 
-		std::vector<ArtTri> _artTris;
+	std::vector<ArtTri> _artTris;
 
-		//std::vector<int> _fColors; // foreground colors
-		//std::vector<int> _bColors; // background colors
+	//std::vector<int> _fColors; // foreground colors
+	//std::vector<int> _bColors; // background colors
 
-		std::vector<MyColor> _fColors; // foreground colors
-		std::vector<MyColor> _bColors; // background colors
+	std::vector<MyColor> _fColors; // foreground colors
+	std::vector<MyColor> _bColors; // background colors
 
-		// shape matching
-		bool _isMatched;
-		int _matchedVertexIdx;
-		AVector _matchedContainerPt;
+	// shape matching
+	bool _isMatched;
+	int _matchedVertexIdx;
+	AVector _matchedContainerPt;
 
-		// PAD visualization
-		AVector _matchedPoint;
-		int _triMatchedIdx;
-		ABary _matchedBary;
+	// PAD visualization
+	AVector _matchedPoint;
+	int _triMatchedIdx;
+	ABary _matchedBary;
 
-		bool _bigOne; // main elements, not small elements
+	bool _bigOne; // main elements, not small elements
 
-		bool _isRigid; //
+	bool _isRigid; //
 
-		//float _scale;
-		float _oriSkiOffset;
+	//float _scale;
+	float _oriSkiOffset;
 
-		float _currentArea;
-		float _oriArea;
-		float _scale;                         // scaling of the element
-		float _sumVelocity;                   // sum of the velocities of the masses
-		//float _maxEdgeLengthFactor;           // growth limit
-		bool  _isGrowing;                     // is currently growing ?
+	float _currentArea;
+	float _oriArea;
+	float _scale;                         // scaling of the element
+	float _sumVelocity;                   // sum of the velocities of the masses
+	//float _maxEdgeLengthFactor;           // growth limit
+	bool  _isGrowing;                     // is currently growing ?
 
-		int   _id;                            // index of this element
-		int   _ori_id;
+	int   _id;                            // index of this element
+	int   _ori_id;
 
-		std::vector<AMass>   _massList;       // list of the masses
+	std::vector<AMass>   _massList;       // list of the masses
 
-		int   _skinPointNum;  // number of boundary points
-		float _averageEdgeLength; // average of the length of the edges
-		float _oriAvgEdgeLength;  // original average of the edge length, for calculating stopping
-		//float _minEdgeLength;
+	int   _skinPointNum;  // number of boundary points
+	float _averageEdgeLength; // average of the length of the edges
+	float _oriAvgEdgeLength;  // original average of the edge length, for calculating stopping
+	//float _minEdgeLength;
 
-		std::vector<AnIndexedLine> _skinIdxEdges;  // indices of the boundary points	 
-		std::vector<AVector>       _skin;       // boundary points. temporary data, always updated every step
+	std::vector<AnIndexedLine> _skinIdxEdges;  // indices of the boundary points	 
+	std::vector<AVector>       _skin;       // boundary points. temporary data, always updated every step
 
-		// PAD and friends
-		PADCalculator _padCalc;
-		float _skin_length;
-		std::vector<bool> _rdpFlags_skin;
-		std::vector<AVector> _resampled_skin;
-		std::vector<AVector> _smooth_skin;
-
-
-		// embed vector graphics
-		std::vector<std::vector<AVector>> _uniuniArts;
-		std::vector<std::vector<int>>     _uniuniArts2Triangles;
-		std::vector<std::vector<ABary>>   _uniuniBaryCoords;
-
-		std::vector<AVector>              _uniArt;
-		std::vector<int>                  _uniArt2Triangles;
-		std::vector<ABary>                _uniBaryCoords;
-
-		std::vector<std::vector<AVector>> _tesselateArts;
-		std::vector<std::vector<int>>     _tesselateArts2Triangles; // mapping vector graphics to triangles
-		std::vector<std::vector<ABary>>   _tesselateBaryCoords;     // barycentric coordinates
+	// PAD and friends
+	PADCalculator _padCalc;
+	float _skin_length;
+	std::vector<bool> _rdpFlags_skin;
+	std::vector<AVector> _resampled_skin;
+	std::vector<AVector> _smooth_skin;
 
 
-		std::vector<std::vector<AVector>> _arts;           // vector graphics
-		std::vector<std::vector<int>>     _arts2Triangles; // mapping vector graphics to triangles
-		std::vector<std::vector<ABary>>   _baryCoords;     // barycentric coordinates
+	// embed vector graphics
+	std::vector<std::vector<AVector>> _uniuniArts;
+	std::vector<std::vector<int>>     _uniuniArts2Triangles;
+	std::vector<std::vector<ABary>>   _uniuniBaryCoords;
 
-		std::vector<AnIdxTriangle> _triangles; // triangulation
-		std::vector<AnIndexedLine> _triEdges;  // for edge forces
+	std::vector<AVector>              _uniArt;
+	std::vector<int>                  _uniArt2Triangles;
+	std::vector<ABary>                _uniBaryCoords;
 
-		std::vector<AnIndexedLine> _auxiliaryEdges;  // for edge forces
+	std::vector<std::vector<AVector>> _tesselateArts;
+	std::vector<std::vector<int>>     _tesselateArts2Triangles; // mapping vector graphics to triangles
+	std::vector<std::vector<ABary>>   _tesselateBaryCoords;     // barycentric coordinates
 
-		std::vector<AnIndexedLine> _negSpaceEdges;  // for edge forces
 
-		// mapping from _triEdges to _triangles
-		std::vector<std::vector<int>> _edgeToTri;
+	std::vector<std::vector<AVector>> _arts;           // vector graphics
+	std::vector<std::vector<int>>     _arts2Triangles; // mapping vector graphics to triangles
+	std::vector<std::vector<ABary>>   _baryCoords;     // barycentric coordinates
 
-		// for self-intersection relax
-		std::vector<int> _randommm_indices;
+	std::vector<AnIdxTriangle> _triangles; // triangulation
+	std::vector<AnIndexedLine> _triEdges;  // for edge forces
 
-		OpenCVWrapper _cvWrapper;
+	std::vector<AnIndexedLine> _auxiliaryEdges;  // for edge forces
+
+	std::vector<AnIndexedLine> _negSpaceEdges;  // for edge forces
+
+	// mapping from _triEdges to _triangles
+	std::vector<std::vector<int>> _edgeToTri;
+
+	// for self-intersection relax
+	std::vector<int> _randommm_indices;
+
+	OpenCVWrapper _cvWrapper;
 };
 
 #endif

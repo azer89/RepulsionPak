@@ -37,10 +37,10 @@ PathIO::~PathIO()
 
 /*
 file format:
-    [ori_index]
+	[ori_index]
 	[num_point]
 	[num_boundary_edge]
-	[num_art]	
+	[num_art]
 	x0 y0 x1 y1 x2 y2...								% mass pos
 	idx_0_0 idx_0_1 idx_1_0 idx_1_1 idx_2_0 idx_2_1...  % boundary_edges
 	idx_0_0 idx_0_1 idx_0_2 ...                         % triangles
@@ -101,9 +101,9 @@ void PathIO::SaveAGraph(AnElement aGraph, std::string filename)
 	// triangles
 	for (int a = 0; a < aGraph._triangles.size(); a++)
 	{
-		*f << aGraph._triangles[a].idx0 << " " 
-		   << aGraph._triangles[a].idx1 << " " 
-		   << aGraph._triangles[a].idx2;
+		*f << aGraph._triangles[a].idx0 << " "
+			<< aGraph._triangles[a].idx1 << " "
+			<< aGraph._triangles[a].idx2;
 		if (a < aGraph._triangles.size() - 1) { *f << " "; }
 	}
 
@@ -139,12 +139,12 @@ void PathIO::SaveAGraph(AnElement aGraph, std::string filename)
 	{
 		for (int b = 0; b < aGraph._baryCoords[a].size(); b++)
 		{
-			*f << std::setprecision(20) 
-			   << aGraph._baryCoords[a][b]._u << " " 
-			   << std::setprecision(20) 
-			   << aGraph._baryCoords[a][b]._v << " "
-			   << std::setprecision(20)
-			   << aGraph._baryCoords[a][b]._w;
+			*f << std::setprecision(20)
+				<< aGraph._baryCoords[a][b]._u << " "
+				<< std::setprecision(20)
+				<< aGraph._baryCoords[a][b]._v << " "
+				<< std::setprecision(20)
+				<< aGraph._baryCoords[a][b]._w;
 			if (b < aGraph._baryCoords[a].size() - 1) { *f << " "; }
 		}
 		if (a < aGraph._baryCoords.size() - 1) { *f << "\n"; }
@@ -707,7 +707,7 @@ void PathIO::SaveArtData(std::vector<ArtData> artDataArray, std::string filename
 	f->open(filename);
 
 	for (int i = 0; i < artDataArray.size(); i++)
-	{	
+	{
 		ArtData aData = artDataArray[i];
 
 		// ---------- [focal_element] ----------
@@ -747,7 +747,7 @@ void PathIO::SaveArtData(std::vector<ArtData> artDataArray, std::string filename
 		}
 
 		// stop if focal ornament
-		if (aData._isFocalElement) { continue;  }
+		if (aData._isFocalElement) { continue; }
 
 		/*
 		x0 y0 x1 y1 x2 y2... # vvsPt 1
@@ -803,7 +803,7 @@ void PathIO::SaveArtData(std::vector<ArtData> artDataArray, std::string filename
 			*f << "\n";
 		}
 
-		/*		
+		/*
 		v1 v2 v3 ... # vvNormDist 1
 		v1 v2 v3 ... # vvNormDist 2
 		v1 v2 v3 ... # vvNormDist 3
@@ -964,17 +964,17 @@ std::vector<ArtData> PathIO::LoadArtData(std::string filename)
 		}
 
 		// stop if focal ornament
-		if (focalOrnament) 
+		if (focalOrnament)
 		{
 			ArtData artData;
 			artData._isFocalElement = focalOrnament;
-			artData._regionNumber   = region_number;
-			artData._blobNumber     = blob_number;
+			artData._regionNumber = region_number;
+			artData._blobNumber = blob_number;
 			artData._ornamentNumber = ornament_number;
-			artData._boundaries     = boundaries;
+			artData._boundaries = boundaries;
 
 			artDataArray.push_back(artData);
-			continue; 
+			continue;
 		}
 
 		/*
@@ -1117,16 +1117,16 @@ std::vector<ArtData> PathIO::LoadArtData(std::string filename)
 
 		ArtData artData;
 		artData._isFocalElement = focalOrnament;
-		artData._regionNumber   = region_number;
-		artData._blobNumber     = blob_number;
+		artData._regionNumber = region_number;
+		artData._blobNumber = blob_number;
 		artData._ornamentNumber = ornament_number;
-		artData._boundaries     = boundaries;		// boundaries of ornaments
-		artData._vvsPt          = vvsPt;			// reference point at the streamline
-		artData._vvDir          = vvDir;			// L/R direction
-		artData._vvIdx          = vvIdx;			// L/R
-		artData._vvNormDist     = vvNormDist;		// normalized location at the streamline 0..1
-		artData._vvDist         = vvDist;			// original distance from ornament point to skeleton
-		artData._vvNewDist      = vvNewDist;		// actual   distance from ornament point to skeleton
+		artData._boundaries = boundaries;		// boundaries of ornaments
+		artData._vvsPt = vvsPt;			// reference point at the streamline
+		artData._vvDir = vvDir;			// L/R direction
+		artData._vvIdx = vvIdx;			// L/R
+		artData._vvNormDist = vvNormDist;		// normalized location at the streamline 0..1
+		artData._vvDist = vvDist;			// original distance from ornament point to skeleton
+		artData._vvNewDist = vvNewDist;		// actual   distance from ornament point to skeleton
 
 		artDataArray.push_back(artData);
 	}
@@ -1146,12 +1146,12 @@ std::vector<ArtData> PathIO::LoadArtData(std::string filename)
 */
 bool PathIO::DoesFileExist(std::string filename)
 {
-	if (FILE *file = fopen(filename.c_str(), "r")) 
+	if (FILE* file = fopen(filename.c_str(), "r"))
 	{
 		fclose(file);
 		return true;
 	}
-	else 
+	else
 	{
 		return false;
 	}
@@ -1192,7 +1192,7 @@ void PathIO::SaveSDF2CSV(std::vector<float> distArray, std::string filename)
 	{
 		//if (distArray[a] > 0)
 		//{
-			*f << std::setprecision(20) << distArray[a] << "\n";
+		*f << std::setprecision(20) << distArray[a] << "\n";
 		//}
 	}
 
@@ -1205,34 +1205,34 @@ void PathIO::SaveSDF2CSV(std::vector<float> distArray, std::string filename)
 ================================================================================
 */
 void PathIO::SaveInfo(std::string filename,
-					  float simulation_time,   // 1
-					  float fill_ratio,        // 2
-					  float fill_rms,          // 3
-					  float deformation_value, // 4
-					  float avg_skin_offset,   // 5
-					  int num_elements,        // 6
-					  int num_frame,           // 7
-					  int num_triangle_edge,   // 8
-					  int num_aux_edge,        // 9
-					  int num_points,          // 10
-					  int num_triangles,       // 11
-					  int seed)
+	float simulation_time,   // 1
+	float fill_ratio,        // 2
+	float fill_rms,          // 3
+	float deformation_value, // 4
+	float avg_skin_offset,   // 5
+	int num_elements,        // 6
+	int num_frame,           // 7
+	int num_triangle_edge,   // 8
+	int num_aux_edge,        // 9
+	int num_points,          // 10
+	int num_triangles,       // 11
+	int seed)
 {
 	std::ofstream* f = new std::ofstream();
 	f->open(filename);
 
-	*f << "simulation_time = "   << std::setprecision(20) << simulation_time << "\n";   // 1
-	*f << "fill_ratio = "        << std::setprecision(20) << fill_ratio << "\n";        // 2
-	*f << "fill_rms = "          << std::setprecision(20) << fill_rms << "\n";          // 3
+	*f << "simulation_time = " << std::setprecision(20) << simulation_time << "\n";   // 1
+	*f << "fill_ratio = " << std::setprecision(20) << fill_ratio << "\n";        // 2
+	*f << "fill_rms = " << std::setprecision(20) << fill_rms << "\n";          // 3
 	*f << "deformation_value = " << std::setprecision(20) << deformation_value << "\n"; // 4
-	*f << "avg_skin_offset = "   << std::setprecision(20) << avg_skin_offset << "\n";   // 5
+	*f << "avg_skin_offset = " << std::setprecision(20) << avg_skin_offset << "\n";   // 5
 
-	*f << "num_elements = "      << num_elements << "\n";      // 6
-	*f << "num_frame = "         << num_frame << "\n";         // 7
+	*f << "num_elements = " << num_elements << "\n";      // 6
+	*f << "num_frame = " << num_frame << "\n";         // 7
 	*f << "num_triangle_edge = " << num_triangle_edge << "\n"; // 8
-	*f << "num_aux_edge = "      << num_aux_edge << "\n";      // 9
-	*f << "num_points = "        << num_points << "\n";        // 10
-	*f << "num_triangles = "     << num_triangles << "\n";     // 11
+	*f << "num_aux_edge = " << num_aux_edge << "\n";      // 9
+	*f << "num_points = " << num_points << "\n";        // 10
+	*f << "num_triangles = " << num_triangles << "\n";     // 11
 
 	*f << "seed = " << std::setprecision(20) << seed << "\n";     // 12
 

@@ -10,43 +10,43 @@
 
 struct PADDescriptor
 {
-	/*	
+	/*
 	For matching:
-		> positive curvature only  
+		> positive curvature only
 		> arclength can be checked by left_lengths[max_level] + right_lengths[max_level]
 		> sharp corner has arclength 0.05 ~ 0.1
 	*/
 
-	public:
-		int _start_index;
+public:
+	int _start_index;
 
-		float _total_curvature;
-		float _total_length;
-		float _length_ratio; // length ratio to container length
+	float _total_curvature;
+	float _total_length;
+	float _length_ratio; // length ratio to container length
 
-		std::vector<int>   _left_indices;
-		std::vector<int>   _right_indices;
+	std::vector<int>   _left_indices;
+	std::vector<int>   _right_indices;
 
-		std::vector<float> _left_lengths;
-		std::vector<float> _right_lengths;
+	std::vector<float> _left_lengths;
+	std::vector<float> _right_lengths;
 
-		std::vector<float> _left_norms;
-		std::vector<float> _right_norms;
+	std::vector<float> _left_norms;
+	std::vector<float> _right_norms;
 
 public:
 	PADDescriptor()
 	{
 		_total_curvature = 0;
-		_total_length    = 0;
-		_length_ratio    = 0;
-		_start_index     = -1;
+		_total_length = 0;
+		_length_ratio = 0;
+		_start_index = -1;
 	}
 
 	// concat to a single vector
 	std::vector<float> GetDescriptor()
 	{
 		std::vector<float> desc;
-		desc.insert(desc.end(), _left_norms.begin(),  _left_norms.end());
+		desc.insert(desc.end(), _left_norms.begin(), _left_norms.end());
 		desc.insert(desc.end(), _right_norms.begin(), _right_norms.end());
 		return desc;
 	}
@@ -80,7 +80,7 @@ public:
 	}
 
 	void PostProcess()
-	{		
+	{
 		//// pad version
 		//float l_len = _left_lengths[SystemParams::_pad_level - 1];
 		//float r_len = _right_lengths[SystemParams::_pad_level - 1];
@@ -89,12 +89,12 @@ public:
 		{
 			float two_pow = std::pow(2.0, a);
 			// normalize left
-			_left_norms.push_back(_left_lengths[a] / (two_pow * l_len));			
+			_left_norms.push_back(_left_lengths[a] / (two_pow * l_len));
 			// normalize right
 			_right_norms.push_back(_right_lengths[a] / (two_pow * r_len));
 		}*/
 
-		
+
 		//muh version !!!
 		_total_length = 0;
 		for (unsigned int a = 0; a < SystemParams::_pad_level; a++)
@@ -152,10 +152,10 @@ public:
 		{
 			//std::cout << "left_index="   << _left_indices[a] << " "; 
 			//std::cout << "left_length="  << _left_lengths[a] << " "; 
-			std::cout << "left_norm="    << _left_norms[a] << " ";
+			std::cout << "left_norm=" << _left_norms[a] << " ";
 			//std::cout << "right_index="  << _right_indices[a] << " ";
 			//std::cout << "right_length=" << _right_lengths[a] << " ";
-			std::cout << "right_norm="   << _right_norms[a] << "\n";
+			std::cout << "right_norm=" << _right_norms[a] << "\n";
 		}
 		std::cout << "\n";
 	}
@@ -184,11 +184,11 @@ public:
 	void GetSecondDeriv(std::vector<float> inputCurve, std::vector<float>& ddCurve);
 
 	// input input output
-	void GetCurvature(std::vector<float>  dx, 
-		              std::vector<float>  dy, 
-					  std::vector<float>  ddx, 
-					  std::vector<float>  ddy,
-					  std::vector<float>& ks);
+	void GetCurvature(std::vector<float>  dx,
+		std::vector<float>  dy,
+		std::vector<float>  ddx,
+		std::vector<float>  ddy,
+		std::vector<float>& ks);
 
 	//void PADCalculator::FindClickedPoint(float x, float y);
 
@@ -197,7 +197,7 @@ public:
 
 	void CalculateBarycentric(std::vector<std::vector<AVector>> actualTriangles);
 	//void UpdateAShapeWithBary();
-	
+
 
 public:
 	int  _clickedIdx;
@@ -221,7 +221,7 @@ public:
 	float _max_curvature;
 	float _min_curvature;
 
-	
+
 };
 
 #endif

@@ -25,6 +25,10 @@ https://github.com/azer89/RepulsionPak/assets/790432/38493370-54f7-42a2-a776-a03
 
 </div>
 
+### Adobe MAX Presentation
+
+https://www.youtube.com/watch?v=oIRz9cuDbSc
+
 ### Source code
 
 Environment: Windows 10 x64 and Visual Studio 2017 (C++14)

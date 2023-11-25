@@ -2,13 +2,10 @@
 /* ---------- ShapeRadiusMatching V2  ---------- */
 
 #include "SystemParams.h"
-
 #include "ColorPalette.h"
-
-#include <sstream>
-
 #include "LuaScript.h"
 
+#include <sstream>
 
 std::string SystemParams::_lua_file = "..\\params.lua";
 

@@ -10,7 +10,6 @@ class Kruskal
 {
 public:
 	//static AGraph CalculateShortestPath(std::vector<AVector> points);
-
 	//static int FindAGraph(std::vector<AGraph> graphs, int massIndex);
 };
 

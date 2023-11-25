@@ -2,7 +2,6 @@
 /* ---------- RepulsionPak  ---------- */
 
 #include "UtilityFUnctions.h"
-
 #include "AVector.h"
 #include "ALine.h"
 #include "ARectangle.h"

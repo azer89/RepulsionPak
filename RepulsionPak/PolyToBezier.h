@@ -5,7 +5,6 @@
 #define __Poly_To_Bezier__
 
 // conversion from polygon to cubic bezier
-// I forget the actual source but I'll try to remember...
 
 #include "BezierSmoothing.h"
 #include "AQuad.h" // for bezier start/end points and also two control points

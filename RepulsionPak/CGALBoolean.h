@@ -2,9 +2,6 @@
 #ifndef __CGAL_Boolean__
 #define __CGAL_Boolean__
 
-#include "AVector.h"
-#include <vector>
-
 class CGALBoolean
 {
 public:

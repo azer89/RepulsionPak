@@ -1,21 +1,16 @@
 
-#ifndef AGRAPH_H
-#define AGRAPH_H
+#ifndef AN_ELEMENT_H
+#define AN_ELEMENT_H
 
 #include "AMass.h"
 #include "ABary.h"
 #include "AnIndexedLine.h"
 #include "AnIdxTriangle.h"
-#include "UtilityFunctions.h"
 #include "OpenCVWrapper.h"
 
 #include "PAD.h"
 
-#include <map>
 #include <vector>
-#include <algorithm>
-
-#include <limits>
 
 // bins
 //	first: which graph
@@ -123,7 +118,6 @@ public:
 
 	//
 	//void Grow2(float growth_scale_iter, std::vector<AGraph>& allGraphs, float dt);
-
 	//void InitShrinking();
 
 	//
@@ -247,7 +241,7 @@ public:
 	std::vector<AVector> _smooth_skin;
 
 
-	// embed vector graphics
+	// Embed vector graphics
 	std::vector<std::vector<AVector>> _uniuniArts;
 	std::vector<std::vector<int>>     _uniuniArts2Triangles;
 	std::vector<std::vector<ABary>>   _uniuniBaryCoords;

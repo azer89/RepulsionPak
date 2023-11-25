@@ -169,9 +169,6 @@ void Display::DrawPNGSnapshot(float time_delta)
 		//_sWorker.pt_on_line = UtilityFunctions::ClosestPtAtFiniteLine2(_sWorker.start_ln, _sWorker.end_ln, _sWorker.rand_pt);
 
 	}
-
-
-
 }
 
 void Display::CalculateSDF(float time_delta)

@@ -220,8 +220,6 @@ public:
 
 	float _max_curvature;
 	float _min_curvature;
-
-
 };
 
 #endif

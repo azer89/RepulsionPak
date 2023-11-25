@@ -1,7 +1,6 @@
 
 /* ---------- ShapeRadiusMatching V2  ---------- */
 
-#include "stdafx.h"
 #include "ImageThinning.h"
 
 void ImageThinning::ZhangSuenThinningIteration(cv::Mat& img, int iter)

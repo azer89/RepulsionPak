@@ -4,21 +4,13 @@
 #define MASS_H
 
 #include "AVector.h"
-
-#include "AngleConnector.h"
 #include "AnIdxTriangle.h"
 #include "AnIndexedLine.h"
-#include "UtilityFunctions.h"
-
-//#include "AGraph.h"
 
 #include "NANOFLANNWrapper.h"
-#include "QTObject.h"
-#include "Quadtree.h"
 #include "CollissionGrid.h"
 
 #include <vector>
-#include <algorithm>
 #include <unordered_map>
 
 struct AnElement;

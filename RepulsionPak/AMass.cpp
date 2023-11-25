@@ -3,9 +3,8 @@
 #include "AnElement.h"
 #include "AVector.h"
 #include "StuffWorker.h"
-
-#include "NANOFLANNWrapper.h"
 #include "SystemParams.h"
+
 #include "glew.h"
 #include "freeglut.h"
 

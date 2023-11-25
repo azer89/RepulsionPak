@@ -12,11 +12,8 @@ public:
 
 public:
 	static std::vector<MyColor> _palette_01;
-
 	static MyColor _back_color;
-
 	static void LoadPalette();
-
 	static MyColor AddColorString(std::string str);
 };
 

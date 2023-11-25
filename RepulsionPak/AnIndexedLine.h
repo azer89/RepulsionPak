@@ -11,28 +11,20 @@
 #ifndef ANINDEXEDLINE_H
 #define ANINDEXEDLINE_H
 
-#include "SystemParams.h"
-
 //namespace CVSystem
 //{
 struct AnIndexedLine
 {
 public:
 	int _index0; // start index
-
 	int _index1; // end index
-
 	//float _maxDist; // limiting the growth
-
 	bool  _canGrow;
-
 	float _angle;
 
 private:
 	float _scale;
-
 	float _dist;
-
 	float _oriDist;
 
 public:
@@ -41,7 +33,6 @@ public:
 	float GetScale() const { return _scale; }
 
 public:
-
 	// Constructor
 	AnIndexedLine(int index0, int index1)
 	{
@@ -55,7 +46,6 @@ public:
 		//this->_maxDist = this->_dist * SystemParams::_growth_scale;
 		this->_canGrow = true;
 	}
-
 
 	// Constructor
 	AnIndexedLine(int index0, int index1, float dist)
@@ -87,7 +77,6 @@ public:
 	{
 		_scale += growth_scale_iter * dt;
 		_dist = _oriDist * _scale;
-
 		//this->_dist *= (1.0f + (growth_scale_iter * dt)); // grow a bit
 		//this->_dist += growth_scale_iter * dt;
 	}

@@ -3,12 +3,9 @@
 
 #include "OpenCVWrapper.h"
 #include "AVector.h"
-//#include "ARectangle.h"
 #include "UtilityFunctions.h"
 #include "NANOFLANNWrapper.h"
-
 #include "ClipperWrapper.h"
-
 #include "SystemParams.h"
 
 #include <iostream>

@@ -5,10 +5,7 @@
 #include "CollissionGrid.h"
 #include "VFRegion.h"
 #include "AnElement.h"
-
-#include "nanoflann.hpp"
 #include "KDTreeVectorOfVectorsAdaptor.h"
-
 #include "OpenCVWrapper.h"
 
 typedef std::vector<std::vector<float> > my_vector_of_vectors_t;
@@ -66,18 +63,14 @@ public:
 
 public:
 
-	// debug
+	// Debug
 	int _debug_counter;
 	CVImg _debugImg;
 	OpenCVWrapper       _cvWrapper;
-
 	float _container_length; // 1
 
 	//std::vector<AVector> _score_debug;
-
-
 	PADCalculator      _padCalc;
-
 	std::vector<std::vector<std::vector<AVector>>> _focals;
 	std::vector<std::vector<AVector>> _offsetFocalBoundaries;
 
@@ -99,11 +92,10 @@ public:
 	// CSS smoothing
 	std::vector<AVector> _smooth_container;   // 1 // smooth container
 
-	// for KNN
+	// KNN
 	my_vector_of_vectors_t _descriptors;
 	my_vector_of_info_t _descriptor_info;
 	my_kd_tree_t* _mat_index;
-
 };
 
 #endif

@@ -1,11 +1,8 @@
 
 #include "AnElement.h"
 #include "ARectangle.h"
-
 #include "ColorPalette.h"
-
 #include "CGALTriangulation2.h"
-
 #include "StuffWorker.h"
 #include "CSSSmoothing.h"
 

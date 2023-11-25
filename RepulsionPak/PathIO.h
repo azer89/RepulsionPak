@@ -14,13 +14,10 @@ radhitya@uwaterloo.ca
 
 #include "ArtData.h"
 #include "VFRegion.h"
-//#include "ABlob.h"
-//#include "LRFunctions.h"
 #include "OpenCVWrapper.h"
 #include "AnElement.h"
 
 #include <vector>
-#include <cstring>
 
 class PathIO
 {

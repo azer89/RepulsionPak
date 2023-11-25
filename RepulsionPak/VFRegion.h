@@ -14,17 +14,13 @@ radhitya@uwaterloo.ca
 #include "APath.h"
 #include "UtilityFunctions.h"
 //#include "VecFieldDesigner.h"
-
 #include "ClipperWrapper.h"
-
 #include "AnIdxTriangle.h"
 #include "CGALTriangulation.h"
-
 #include "SelfIntersectionFixer.h"
+#include "MyColor.h"
 
 #include <vector>
-
-#include "MyColor.h"
 
 struct VFRegion
 {

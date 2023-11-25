@@ -3,7 +3,6 @@
 #include "ARectangle.h"
 #include "MySVGRenderer.h"
 #include "OpenCVWrapper.h"
-#include "ColorPalette.h"
 
 #include <Eigen/Dense>
 

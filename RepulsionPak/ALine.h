@@ -5,7 +5,6 @@
 #define ALINE_H
 
 #include "AVector.h"
-
 #include <limits>
 #include <cmath>
 

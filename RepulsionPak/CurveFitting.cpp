@@ -7,7 +7,6 @@
 *
 */
 
-#include "stdafx.h"
 #include "CurveFitting.h"
 #include "UtilityFunctions.h"
 

@@ -13,9 +13,7 @@
 
 #include "AVector.h"
 
-//namespace CVSystem
-//{
-	// Representation of quad with four vertices
+// Representation of quad with four vertices
 struct AQuad
 {
 public:
@@ -40,7 +38,6 @@ public:
 		this->p3 = p3;
 	}
 
-
 	// scaling
 	AQuad Resize(double val)
 	{
@@ -48,5 +45,4 @@ public:
 		return newQ;
 	}
 };
-//}
 #endif

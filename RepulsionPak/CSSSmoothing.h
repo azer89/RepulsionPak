@@ -15,9 +15,6 @@
 #include <vector>
 #include "AVector.h"
 #include "OpenCVWrapper.h"
- //#include "SystemParams.h"
-
-
 
  // split curves to x and y components
 template<typename T, typename V>

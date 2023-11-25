@@ -1,7 +1,6 @@
 /* ---------- ShapeRadiusMatching V2  ---------- */
 
 #include "NANOFLANNWrapper.h"
-#include "UtilityFunctions.h"
 #include "PointCloud.h"
 #include "AVector.h"
 #include "ALine.h"

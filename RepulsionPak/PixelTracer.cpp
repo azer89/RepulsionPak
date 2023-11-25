@@ -1,8 +1,6 @@
 
 #include "PixelTracer.h"
 
-
-
 PixelTracer::PixelTracer()
 {
 	_dirs.push_back(std::pair<int, int>(-1, -1)); // top left

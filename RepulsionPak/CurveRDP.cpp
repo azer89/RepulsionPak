@@ -8,9 +8,7 @@
 *
 */
 
-#include "stdafx.h"
 #include "CurveRDP.h"
-
 #include <limits>
 
 float CurveRDP::PerpendicularDistance(AVector p, AVector p1, AVector p2)

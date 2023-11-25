@@ -7,7 +7,6 @@
 #include "AVector.h"
 
 #include <vector>
-#include <limits>
 #include <cmath>
 
 /**
@@ -48,7 +47,6 @@ public:
 		this->isClosed = isClosed;
 	}
 
-	// don't delete :(
 	void FlipOrder()
 	{
 		std::reverse(points.begin(), points.end());

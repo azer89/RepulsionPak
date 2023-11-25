@@ -10,21 +10,16 @@ radhitya@uwaterloo.ca
 #define OPENCV_WRAPPER
 
 #include "opencv2/highgui/highgui.hpp"
-#include "opencv2/imgproc/imgproc.hpp"
 
 #include <unordered_map>
 
 #include "ImageThinning.h"
 #include "SystemParams.h"
 #include "AVector.h"
-
-// duuuh
 #include "ArtData.h"
 #include "VFRegion.h"
 #include "MyColor.h"
-
 #include "AnIndexedLine.h"
-//#include "ABlob.h"
 
 #define BGR_255 CV_8UC3
 

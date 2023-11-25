@@ -10,9 +10,7 @@ radhitya@uwaterloo.ca
 #define DISPLAY_H
 
 #include <string>
-#include <iostream>
 #include <memory>
-#include <vector>
 
 //include "Simulation.h"
 //#include "ShapeRadiusMatching.h"

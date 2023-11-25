@@ -4,8 +4,6 @@
 #include "PathIO.h"
 #include "CollissionGrid.h"
 
-#include "PixelTracer.h"
-
 ADistanceTransform::ADistanceTransform(
 	const std::vector<std::vector<AVector>>& containers,
 	const std::vector<std::vector<AVector>>& holes,
@@ -300,8 +298,6 @@ void ADistanceTransform::CalculateSDF2(const std::vector<AnElement>& graphs, Col
 		pathIO.SaveSDF2CSV(_distArray, SystemParams::_output_folder + "dist_all.csv");
 		pathIO.SaveSDF2CSV(_containerDistArray, SystemParams::_output_folder + "dist_mask.csv");
 	}
-
-
 
 	// create new elements !!!!
 	CalculatePeaks();

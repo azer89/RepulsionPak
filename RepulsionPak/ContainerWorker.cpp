@@ -5,7 +5,6 @@
 #include "UtilityFunctions.h"
 #include "PoissonGenerator.h"
 #include "PathIO.h"
-#include "CurveRDP.h"
 #include "CSSSmoothing.h"
 
 #include "glew.h"

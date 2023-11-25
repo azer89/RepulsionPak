@@ -3,9 +3,7 @@
 
 #include "MySVGRenderer.h"
 #include "SystemParams.h"
-
 #include "ClipperWrapper.h"
-
 #include "ColorPalette.h"
 
 #include "simple_svg.h" // external library

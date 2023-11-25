@@ -26,9 +26,7 @@ struct ABary
 {
 public:
 	float _u;
-
 	float _v;
-
 	float _w;
 
 	ABary()
@@ -50,7 +48,5 @@ public:
 		return (_u > 0 && _v > 0 && _w > 0);
 	}
 };
-
-
 
 #endif // ABARY_H

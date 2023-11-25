@@ -2,30 +2,23 @@
 #include "StuffWorker.h"
 
 #include "CGALTriangulation.h"
-//#include "PoissonGenerator.h"
 #include "Kruskal.h"
 #include "ARectangle.h"
 #include "AnElement.h"
-
 #include "MySVGRenderer.h"
 
 #include "glew.h"
 #include "freeglut.h"
+
 #include "ClipperWrapper.h"
-
 #include "ColorPalette.h"
-
 #include "CollissionGrid.h"
-
 #include "FastNoise.h"
 
-#include "PAD.h"
-
 #include <time.h> // time seed
-#include <stdlib.h>     /* srand, rand */
+#include <stdlib.h>	/* srand, rand */
 #include <time.h> 
 #include <random>
-
 #include <thread>
 
 // static stuff

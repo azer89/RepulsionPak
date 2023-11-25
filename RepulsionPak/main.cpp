@@ -1,22 +1,16 @@
 
 /* ---------- ShapeRadiusMatching V2  ---------- */
 
-
-#include "stdafx.h"
-
 #include <iostream>
 #include <time.h> // time seed
 #include <stdlib.h>     /* srand, rand */
-#include <time.h> 
+#include <time.h>
 
 //#include "ShapeRadiusMatching.h"
-
 #include "Display.h"
 #include "ColorPalette.h"
 #include "ClipperWrapper.h" 
 
-
-//int _tmain(int argc, _TCHAR* argv[])
 int main(int argc, char** argv)
 {
 	// only for maing the packing bad

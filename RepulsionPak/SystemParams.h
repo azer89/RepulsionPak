@@ -5,10 +5,6 @@
 #define __System_Params__
 
 #include <string>
-//#include <vector>
-
-//#include "AVector.h"
-//#include "OpenCVWrapper.h"
 
 class SystemParams
 {
@@ -21,16 +17,11 @@ public:
 
 public:
 	static std::string _lua_file;
-
 	static std::string _window_title;
-
 	static float _mouse_offset_x;
 	static float _mouse_offset_y;
-
-	// because square
 	static float _upscaleFactor;
 	static float _downscaleFactor;
-
 	static float _target_fill_ratio;
 
 	// LR functions
@@ -182,7 +173,6 @@ public:
 	static bool _should_rotate;
 	static int  _num_element_pos_limit;
 
-	// drrrr
 	//static std::vector<std::vector<AVector>> _perlinMap;
 	//static int _pad_step_int;
 	static bool _do_shape_matching;

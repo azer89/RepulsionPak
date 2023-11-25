@@ -5,7 +5,6 @@
 #include <thread>
 #include <unordered_set>
 
-
 CollissionGrid::CollissionGrid()
 {
 	_maxLength = SystemParams::_bin_square_size;

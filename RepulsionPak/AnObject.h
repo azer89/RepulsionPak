@@ -8,7 +8,6 @@ public:
 	float _y;
 	int   _info1;  // which grap
 	int   _info2;  // which mass
-
 	//float _nx; // normal
 	//float _ny; // normal
 

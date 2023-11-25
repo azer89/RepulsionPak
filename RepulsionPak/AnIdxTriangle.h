@@ -14,7 +14,6 @@
 #ifndef __A_Triangle_h__
 #define __A_Triangle_h__
 
-#include "AVector.h"
 //#include "TriangleType.h"
 
 //namespace CVSystem

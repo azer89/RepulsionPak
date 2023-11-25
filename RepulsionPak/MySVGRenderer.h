@@ -13,19 +13,13 @@ radhitya@uwaterloo.ca
 
 #include "AVector.h"
 #include "VFRegion.h"
-//#include "VFDRegionWrapper.h"
 #include "ArtData.h"
-//#include "ABlob.h"
-//#include "LRFunctions.h"
-
 #include "AnElement.h"
 #include "MyColor.h"
 
 #include <vector>
 
-
 typedef std::vector<MyColor> ArtColors;
-
 
 class MySVGRenderer
 {

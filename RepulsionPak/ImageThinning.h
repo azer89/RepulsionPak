@@ -19,7 +19,7 @@ radhitya@uwaterloo.ca
 class ImageThinning
 {
 public:
-	/* I'm not sure, but img should be CV_8UC1 */
+	/* img should be CV_8UC1 */
 
 	// proxy to zhangsuen thinning
 	static void ZhangSuenThinningIteration(cv::Mat& img, int iter);

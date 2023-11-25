@@ -1,5 +1,3 @@
-
-
 #ifndef __A_Square__
 #define __A_Square__
 

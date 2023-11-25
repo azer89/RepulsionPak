@@ -1,6 +1,5 @@
 
 #include "PAD.h"
-
 #include "UtilityFunctions.h"
 
 #include "glew.h"

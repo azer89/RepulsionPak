@@ -13,8 +13,7 @@ radhitya@uwaterloo.ca
 
 #include <limits>
 #include <cmath>
-#include <iostream> // for abs (?)
-
+#include <iostream>
 #include <vector>
 
 #include "SystemParams.h"

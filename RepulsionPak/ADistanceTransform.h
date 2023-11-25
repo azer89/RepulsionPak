@@ -33,16 +33,15 @@ public:
 	// use this
 	//void CalculateSDFWoSkin(CollissionGrid* cGrid, int numIter, bool saveImage = false);
 
-	// uhhhh...
+	// 
 	void CalculateFill(CollissionGrid* cGrid, float& fill_ratio, int numIter, bool saveImage = false);
 
-	// uhhhh...
+	// 
 	void CalculateSDF1(CollissionGrid* cGrid, int numIter, bool saveImage = false); // for manual packing
 	void CalculateSDF2(const std::vector<AnElement>& graphs, CollissionGrid* cGrid, int numIter, bool saveImage = false); // for graphs (_arts)
-
-
+	
 	void CalculatePeaks();
-	// soon to be deprecated
+	// Soon to be deprecated
 	/*void CalculateDistanceTransform2(CollissionGrid* cGrid,
 									 AVector& peakPos,
 									 float& maxDist,
@@ -60,7 +59,7 @@ public:
 	void DebugDistanceImage(std::string imageName);
 
 public:
-	// manaul thinning skeletons
+	// Manual thinning skeletons
 	std::vector<std::vector<AVector>> _manualSkeletons;
 
 	std::vector<AVector> _peaks;
@@ -74,7 +73,6 @@ private:
 	int _sz;
 
 	OpenCVWrapper _cvWrapper;
-
 	std::vector<float> _containerDistArray;
 	std::vector<float> _distArray;
 	//cv::Mat _containerDistImage;
@@ -84,7 +82,6 @@ private:
 
 	//std::vector<AVector> _distImagez; // initialize once
 	std::vector<std::vector<cv::Point2f>> _graphBoundaries; // initialize once, updated every step
-
 	std::vector<MyColor> _voronoiColors; // for voronoi skeletons
 	std::vector<CVImg>   _voronoiBWImages; // for voronoi skeletons
 	std::vector<std::vector<AVector>> _containers;  // for voronoi skeletons

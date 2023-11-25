@@ -14,15 +14,8 @@ radhitya@uwaterloo.ca
 #include "AVector.h"
 #include "AnIdxTriangle.h"
 #include "CGALTriangulation.h"
-#include "UtilityFunctions.h"
 #include "SelfIntersectionFixer.h"
 #include "CurveRDP.h"
-//#include "OpenCVWrapper.h"
-
-// creating hull
-#include "SystemParams.h"
-//#include "LRFunctions.h"
-#include "ClipperWrapper.h"
 
 #include <vector>
 #include <limits>

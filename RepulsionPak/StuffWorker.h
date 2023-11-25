@@ -6,9 +6,6 @@
 
 #include "AVector.h"
 #include "VFRegion.h"
-#include "PathIO.h"
-#include "UtilityFunctions.h"
-#include "SystemParams.h"
 
 #include "AnElement.h"
 
@@ -18,9 +15,6 @@
 #include "CollissionGrid.h"
 #include "OpenCVWrapper.h"
 #include "RigidRegistration.h"
-//#include "NANOFLANNWrapper.h"
-//#include "Quadtree.h"
-//#include "QTObject.h"
 
 // read directory
 #include "dirent.h"
@@ -31,8 +25,6 @@
 
 #include "ATimerStat.h"
 #include "ThreadPool.h"
-//#include <atomic>
-//#include <mutex>
 
 // bins
 //	first: which graph
@@ -119,8 +111,6 @@ public:
 public:
 
 	//int _num_vertex;
-
-
 	//float _man_neg_ratio;
 
 	//AVector start_ln;
@@ -150,7 +140,6 @@ public:
 	static CollissionGrid* _cGrid;
 
 	/*PADCalculator      _padCalc; // boundary
-
 	std::vector<std::vector<std::vector<AVector>>> _focals;   // container
 	std::vector<std::vector<AVector>> _offsetFocalBoundaries; // container
 

@@ -3,10 +3,8 @@ RepulsionPak is a method to fill a container shape with deformable elements, cre
 ### Publications
 
 * [**RepulsionPak: Deformation-Driven Element Packing with Repulsion Forces** (Graphics Interface 2018)](https://graphicsinterface.org/proceedings/gi2018/gi2018-3/)
-
 * [**Improved Deformation-Driven Element Packing with RepulsionPak** (IEEE TVCG 2019)](https://doi.org/10.1109/TVCG.2019.2950235)
-
-* [**UW Dissertation**](https://uwspace.uwaterloo.ca/handle/10012/16536)
+* [**UWwaterloo Dissertation**](https://uwspace.uwaterloo.ca/handle/10012/16536)
 
 ### Result Examples
 <div align="center">

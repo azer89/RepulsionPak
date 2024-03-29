@@ -6,7 +6,7 @@ RepulsionPak is a method to fill a container shape with deformable elements, cre
 * [**Improved Deformation-Driven Element Packing with RepulsionPak** (IEEE TVCG 2019)](https://doi.org/10.1109/TVCG.2019.2950235)
 * [**UWwaterloo Dissertation**](https://uwspace.uwaterloo.ca/handle/10012/16536)
 
-### Result Examples
+### Gallery
 <div align="center">
 <img width="900" alt="image" src="https://github.com/azer89/RepulsionPak/assets/790432/80caaf92-4c1b-410b-9fd5-1dcbef9c1f88">
 <img width="500" alt="image" src="https://github.com/azer89/RepulsionPak/assets/790432/b6d3cdfa-4566-4afe-8464-5bcce61aa119">
